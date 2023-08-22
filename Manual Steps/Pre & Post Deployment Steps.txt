@@ -1,0 +1,17 @@
+MANUAL STEPS --> Release R25 Celerity
+
+1. Permissions on the field
+
+Account_Commission_Template__c.Wholesaler__c
+Account_Commission_Template__c.Cyber_Default__c
+Account_Commission_Template__c.MPL_Default__c
+TriggerSettings__c.BypassAccountProductTrigger__c
+Policy__c.Is_Signature_Pack_Uploaded__c
+Opportunity.LastSource__c
+
+2. Approval Process changes on Celerity
+
+3. Account Account_Commission_Template__c object permission assignment
+
+4. Update Page Layout with new fields.
+
