@@ -1,0 +1,171 @@
+<!--
+  @File Name          : generateElementLwc.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 4/3/2020, 10:50:57 AM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/30/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>  
+    <!--Generate quote Fields for compare item-->
+        <template if:true={isPicklist}>
+            <lightning-combobox 
+                name={fieldId} 
+                label="" 
+                variant="label-hidden"
+                readonly={readOnly} 
+                value={fieldValue} 
+                options={options}
+                onchange={handleChangeInput} 
+                style="height: 31px;"
+                class="label-hidden"></lightning-combobox>
+        </template> 
+        <template if:true={isNumber}>
+            <lightning-input 
+            type="number" 
+            name={fieldId} 
+            variant="label-hidden" 
+            step="0.001"
+            value={fieldValue} 
+            readonly={readOnly}
+            onchange={handleChangeInput}
+            style="height: 31px;"
+            min={min}
+            max={max}
+            message-when-range-overflow='Factor Value out of Range'
+            message-when-range-underflow='Factor Value out of Range'></lightning-input>
+        </template>
+        
+        <template if:true={isRange}>
+            <lightning-input 
+            type="number" 
+            name={fieldId} 
+            variant="label-hidden" 
+            value={fieldValue} 
+            readonly={readOnly}
+            onchange={handleChangeInput}
+            style="height: 31px;"
+            min={min}
+            max={max}
+            message-when-range-overflow='Value out of Range'
+            message-when-range-underflow='Value out of Range'></lightning-input>
+        </template>
+
+        <template if:false={isEndorsement}>
+            <template if:true={isText}>
+                <lightning-input 
+                name={fieldId} 
+                variant="label-hidden" 
+                value={fieldValue}
+                readonly={readOnly} 
+                style="height: 31px;"
+                onchange={handleChangeInput}
+                placeholder="Enter a value..."></lightning-input>
+            </template>
+        </template>
+
+        <template if:true={isEndorsement}>
+            <template if:true={isText}>
+                <lightning-textarea 
+                name={fieldId} 
+                variant="label-hidden" 
+                value={fieldValue}
+                readonly={readOnly} 
+                onchange={handleChangeInput}
+                placeholder="Enter a value..."></lightning-textarea>
+            </template>
+        </template>
+    
+        <template if:true={isRadioButton}>    
+            <lightning-radio-group
+                name={fieldId}
+                label="" 
+                variant="label-hidden" 
+                options={options}
+                value={fieldValue} 
+                type="radio"
+                readonly={readOnly}
+                style="height: 31px;"
+                onchange={handleChangeInput}></lightning-radio-group>                     
+        </template>
+        <template if:false={isaqueous}>
+        <template if:true={isCurrency}>
+            <lightning-input 
+                type="number"
+                formatter="currency" step="0.01"
+                name={fieldId} 
+                label=''
+                variant="label-hidden" 
+                value={fieldValue} 
+                readonly={readOnly}
+                style="height: 31px;"
+                onchange={handleChangeInput}></lightning-input>
+        </template>
+        </template>
+        <template if:true={isaqueous}>
+            <template if:true={isCurrency}>
+                <lightning-input 
+                    type="number"
+                    formatter="currency"
+                    name={fieldId} 
+                    label=''
+                    variant="label-hidden" 
+                    value={fieldValue} 
+                    readonly={readOnly}
+                    style="height: 31px;"
+                    onchange={handleChangeInput}></lightning-input>
+            </template>
+        </template>
+        <template if:true={isPercent}>
+            <lightning-input 
+                type="number"  
+                formatter="percent-fixed" step="0.01" 
+                name={fieldId} 
+                label=''
+                variant="label-hidden" 
+                value={fieldValue} 
+                readonly={readOnly}
+                style="height: 31px;"
+                onchange={handleChangeInput}></lightning-input>
+        </template>
+        <template if:true={isInteger}>
+            <lightning-input 
+                type="number" 
+                max="999999999999999999"
+                name={fieldId} 
+                label=''
+                variant="label-hidden" 
+                value={fieldValue} 
+                readonly={readOnly}
+                style="height: 31px;"
+                onchange={handleChangeInput}></lightning-input>
+        </template> 
+        <template if:false={isaqueous}>
+            <template if:true={isLookup}>            
+                <div class="slds-form-element__control">
+                    <c-look-up-lwc obj-name={objName} value-id={fieldValue} field-name={fieldName}
+                                readonly="true" >
+                    </c-look-up-lwc>
+                </div>
+            </template>
+        </template>
+        <template if:true={isDate}>
+            <lightning-input 
+                name={fieldId} 
+                variant="label-hidden" 
+                type="date" 
+                value={fieldValue} 
+                readonly={readOnly}
+                onchange={handleChangeInput} 
+                date-style="short">
+            </lightning-input>
+        </template>
+        <template if:true={isHyperlink}>
+            <lightning-formatted-rich-text style='margin-left: 10px; pointer-events: auto' value={fieldValue}> </lightning-formatted-rich-text>
+        </template>
+
+    <!--End Generate quote Fields for compare item-->
+</template>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rule_Type__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>For rule type Key Value Query which is used to apply rules to 2 fields in just one rule:
+1. Field API Name must include 2 fields separated by semi-colon.
+2. The first of these 2 fields must be of type &apos;Text&apos;.
+3. The selected operator and field type applies to only second field.
+4. The first field will use equals operator and the second field will use the operator selected.</inlineHelpText>
+    <label>Rule Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Field Query</fullName>
+                <default>false</default>
+                <label>Field Query</label>
+            </value>
+            <value>
+                <fullName>Key Value Query</fullName>
+                <default>false</default>
+                <label>Key Value Query</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

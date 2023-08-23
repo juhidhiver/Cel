@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Policy_Info</fullName>
+    <columns>NAME</columns>
+    <columns>Component__c</columns>
+    <columns>Main_Section__c</columns>
+    <columns>Sub_Section__c</columns>
+    <columns>Source_Field_API__c</columns>
+    <columns>Source_Field_Label__c</columns>
+    <columns>Source_Object__c</columns>
+    <columns>Criteria__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Component__c</field>
+        <operation>equals</operation>
+        <value>Policy Info</value>
+    </filters>
+    <label>Policy Info</label>
+</ListView>

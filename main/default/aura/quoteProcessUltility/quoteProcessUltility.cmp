@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForAllPageTypes,lightning:actionOverride,force:lightningQuickActionWithoutHeader">
+    <lightning:utilityBarAPI aura:id="utilitybar" />
+    <c:optionWorkSubmissionLwc onhidebar = "{! c.minimizeUtility }" onopenmodal="{!c.setPanelHeight}" onclosemodal="{!c.close}"/>
+</aura:component>

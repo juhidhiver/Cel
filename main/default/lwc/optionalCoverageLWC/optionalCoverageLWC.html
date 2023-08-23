@@ -1,0 +1,128 @@
+<template>
+    <div class="slds-size_1-of-1">
+        <template for:each={optionalCoverages.listCoverageLineItems} for:item='item'>
+            <c-generate-output-element-premium-calculator-optional-lwc coverage-line-item={item} key={item.Id} 
+            product-name={productName} optional-coverage-name = {optionalCoverages.optionalCoverageName} onoptionalclivaluechange = {handleOptionalCLIValueChange}>
+            </c-generate-output-element-premium-calculator-optional-lwc>
+        </template>
+    </div>
+    <div class="slds-size_1-of-1">
+        <template if:true={optionalCoverages.hasRatingModifier}>
+            <!--lightning-layout-item size='6' padding="horizontal-small"-->
+            <template if:true={isPicklist}>
+                <div class="slds-size_1-of-1">
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                        <div class="slds-size_2-of-12"></div>
+                        <div class="slds-form_horizontal slds-size_10-of-12">
+                            <lightning-input type="number" name="input1" value={cLRFAjdustment} label={cLRFAjdustmentLabel} step="0.001" disabled></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-1">
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                        <div class="slds-size_2-of-12"></div>
+                        <div class="slds-form_horizontal slds-size_10-of-12">
+                            <lightning-combobox 
+                                name={ratingModifier.Id} 
+                                label={fieldName} 
+                                readonly={readOnly} 
+                                value={ratingModifier.Rating_Modifier_Value__c} 
+                                options={options}
+                                onchange={handleChangeInput} 
+                                style="height: 31px;"
+                                class="input-border">
+                            </lightning-combobox>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-1">
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                        <div class="slds-size_2-of-12"></div>
+                        <div class="slds-text-body_small slds-size_6-of-12">
+                            <lightning-formatted-text value={selectedRateLabel} ></lightning-formatted-text>
+                        </div>
+                        <div class="slds-size_2-of-12">
+                            <!--lightning-button label={range} title="Non-primary action" onclick={handleClick} ></lightning-button-->
+                            <lightning-input type="text" name="input1" value={range} variant="label-hidden" disabled></lightning-input>
+                        </div>
+                        <div class="slds-size_2-of-12">
+                            <lightning-input class="factorCmp" type="number" name="input1" value={factorValue} variant="label-hidden"  max={rangeUpper} min={rangeLower} step="0.001" onchange={handleChangeFactorValue}></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <!--div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                    <div class="slds-form_horizontal slds-size_8-of-12 input-border">
+                        <lightning-combobox 
+                            name={ratingModifier.Id} 
+                            label={fieldName} 
+                            readonly={readOnly} 
+                            value={ratingModifier.Rating_Modifier_Value__c} 
+                            options={options}
+                            onchange={handleChangeInput} 
+                            style="height: 31px;"
+                            class="input-border">
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-size_2-of-12" style="padding: 1px;">
+                        <lightning-input type="text" name="input1" value={range} variant="label-hidden" disabled></lightning-input>
+                    </div>
+                    <div class="slds-size_2-of-12">
+                        <lightning-input class="factorCmp" type="number" name="input1" value={factorValue} variant="label-hidden" max={rangeUpper} min={rangeLower} step="0.001" onchange={handleChangeFactorValue}></lightning-input>
+                    </div>
+                </div-->
+                <div class="slds-size_1-of-1">
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                        <div class="slds-size_2-of-12"></div>
+                        <div class="slds-form_horizontal slds-size_10-of-12">
+                            <lightning-input type="number" name="input1" value={optionalLoading} label={optionalFactorLabel} step="0.001" disabled></lightning-input>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={isUndefined}>
+                <div class="slds-size_1-of-1">
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                        <div class="slds-size_2-of-12"></div>
+                        <div class="slds-form_horizontal slds-size_10-of-12">
+                            <lightning-input type="number" name="input1" value={cLRFAjdustment} label={cLRFAjdustmentLabel} step="0.001" disabled></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-1">
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                        <div class="slds-size_2-of-12"></div>
+                        <div class="slds-text-body_small slds-size_6-of-12">
+                            <lightning-formatted-text value={fieldName} ></lightning-formatted-text>
+                        </div>
+                        <div class="slds-size_2-of-12">
+                            <!--lightning-button label={range} title="Non-primary action" onclick={handleClick} ></lightning-button-->
+                            <lightning-input type="text" name="input1" value={range} variant="label-hidden" disabled></lightning-input>
+                        </div>
+                        <div class="slds-size_2-of-12">
+                            <lightning-input class="factorCmp" type="number" name="input1" value={factorValue} variant="label-hidden"  max={rangeUpper} min={rangeLower} step="0.001" onchange={handleChangeFactorValue}></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-1">
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                        <!--template if:true={isDOExecCoverage}-->
+                            <div class="slds-size_2-of-12"></div>
+                            <div class="slds-form_horizontal slds-size_10-of-12">
+                                <lightning-input type="number" name="input1" value={optionalLoading} label={optionalFactorLabel} step="0.001" disabled></lightning-input>
+                            </div>
+                        <!--/template-->
+                    </div>
+                </div>
+            </template>
+            <!--/lightning-layout-item-->
+        </template>
+        <template if:false={optionalCoverages.hasRatingModifier}>
+            <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                <div class="slds-size_2-of-12"></div>
+                <div class="slds-form_horizontal slds-size_10-of-12">
+                    <lightning-input type="number" name={productName} value={factorValue} label={optionalFactorLabel} step="0.001" disabled></lightning-input>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

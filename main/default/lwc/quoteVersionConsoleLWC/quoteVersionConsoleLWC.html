@@ -1,0 +1,53 @@
+<template>
+    
+    <div class="c-container">
+        <div if:true={isLoading} class="demo-only">
+            <div class="slds-spinner_container" style="z-index: 120 !important">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </div>
+        <div if:false={isLoading} class="demo-only">
+        <lightning-layout>
+            <lightning-layout-item padding="around-small">
+                <c-quote-version-console-detail-lwc quote-process-submission-id={quoteProcessSubmissionId} is-primary-quote="true"
+                    quote-compare-items={mainColumnWrappers} main-title-wrappers={mainTitleWrappers}
+                    onnavigatetab = {handleNavigateTab}></c-quote-version-console-detail-lwc>
+                <!--c-quote-comparison-response-lwc quote-process-submission-id={quoteProcessSubmissionId} is-primary-quote="true"
+                    quote-compare-items={mainColumnWrappers} main-title-wrappers={mainTitleWrappers} onactive={tabselect}
+                    quote-names={quoteNames} quote-ids={quoteIds} onnavigatetab = {handleNavigateTab}></c-quote-comparison-response-lwc-->
+            </lightning-layout-item>          
+        </lightning-layout>
+        <!--lightning-tabset active-tab-value="">
+            <lightning-tab label="Primary Quotes" title="Primary Quotes" value="true" onactive={tabselect}>
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item padding="around-small">
+                        <c-quote-version-console-detail-lwc quote-process-submission-id={quoteProcessSubmissionId} is-primary-quote="true"
+                            quote-compare-items={mainColumnWrappers} main-title-wrappers={mainTitleWrappers} onactive={tabselect}
+                            onnavigatetab = {handleNavigateTab}></c-quote-version-console-detail-lwc>
+                        <c-quote-comparison-response-lwc quote-process-submission-id={quoteProcessSubmissionId} is-primary-quote="true"
+                            quote-compare-items={mainColumnWrappers} main-title-wrappers={mainTitleWrappers} onactive={tabselect}
+                            quote-names={quoteNames} quote-ids={quoteIds} onnavigatetab = {handleNavigateTab}></c-quote-comparison-response-lwc>
+                    </lightning-layout-item>          
+                </lightning-layout>
+            </lightning-tab>
+            <lightning-tab label="Excess Quotes" title="Excess Quotes" value="false" onactive={tabselect}>
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item padding="around-small">
+                        <c-quote-version-console-detail-lwc quote-process-submission-id={quoteProcessSubmissionId} is-primary-quote="false"
+                            quote-compare-items={mainColumnWrappers} main-title-wrappers={mainTitleWrappers} onactive={tabselect}
+                            onnavigatetab = {handleNavigateTab}></c-quote-version-console-detail-lwc>
+                        <c-quote-comparison-response-lwc quote-process-submission-id={quoteProcessSubmissionId} is-primary-quote="false"
+                            quote-compare-items={mainColumnWrappers} main-title-wrappers={mainTitleWrappers} onactive={tabselect}
+                            quote-names={quoteNames} quote-ids={quoteIds} onnavigatetab = {handleNavigateTab}></c-quote-comparison-response-lwc>
+                    </lightning-layout-item>          
+                </lightning-layout>
+            </lightning-tab>
+        </lightning-tabset-->
+        </div>
+    </div>
+    
+</template>

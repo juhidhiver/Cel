@@ -1,0 +1,119 @@
+<template>
+    <div class="slds-box slds-box_small" style="border:2px solid lightgray;">
+        <h2 style="width: 42px;margin-top:-23px;margin-left:5px;background-color : white;font-size:1.0em;"><b>Search</b></h2>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-5">
+                <label class="slds-form-element__label" for="form-element-01">Broker</label>
+                <template if:true={brokertypefilter}>
+                <c-look-up-lwc obj-name="Account"  value-id={SelectedBroker} onvalueselect={handleBrokerSelect}  icon-name="standard:account"
+                    label-name='Broker' is-custom='true' filter={brokertypefilter}>
+                </c-look-up-lwc>
+                </template>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-5">
+                <label class="slds-form-element__label" for="form-element-01">Insured</label>
+                <template if:true={recordtypefilter}>
+                  <c-look-up-lwc obj-name="Account" value-id={SelectedInsured}  onvalueselect={handleInsuredSelect} icon-name="standard:account"
+                    label-name='Insured Account'  is-custom='true' filter={recordtypefilter}>
+                 </c-look-up-lwc>
+              </template>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-5">
+                <template if:true={statusPickList}>
+                    <lightning-combobox name="Status" label="Status" value={statusValue}
+                        options={statusPickList} onchange={handleStatusChange}>
+                    </lightning-combobox>
+                </template>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-5">
+            <template if:true={monthPicklist}>
+                <lightning-combobox name="Month" label="Month" value={monthValue}
+                    options={monthPicklist} onchange={handleMonthChange}>
+                </lightning-combobox>
+            </template>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-5">
+                <template if:true={yearPicklist}>
+                    <lightning-combobox name="Year" label="Year" value={yearValue}
+                        options={yearPicklist} onchange={handleYearChange}>
+                    </lightning-combobox>
+                </template>
+            </div>
+            <div class="slds-m-top_medium slds-size--1-of-1 slds-medium-size--1-of-1"></div>
+        </div>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-6">
+                <lightning-input type="checkbox" label="Renewal Warning" checked={renewalWarning} onchange={handleRenewalWarning}  name="input1"></lightning-input>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-6" style="padding-left: 4%;">
+                <lightning-input type="checkbox" label="Large Claim Amounts" checked={islargeClaim} onchange={handleLargeClaimAmount} name="input1"></lightning-input>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-6" style="padding-left: 7.5%;">
+                <lightning-input type="checkbox" label="No Recipients" name="input1" checked={isNoRecepient} onchange={handleNoRecepients}></lightning-input>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--2-of-6" style="padding-left: 10.8%;">
+                <lightning-input type="checkbox" label="No Documents Required" name="input1" checked={isDocRequired} onchange={handleNoDocumentsRequired}></lightning-input>
+            </div>                    
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-6 ">                
+                <lightning-button variant="brand" label="Search" title="Primary action" onclick={handleSearch} class="slds-m-left_x-small slds-float_right"></lightning-button>
+                <lightning-button variant="brand" label="Clear Filters" onclick={handleClearfilter} class="slds-m-left_x-small slds-float_right"></lightning-button>
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-6">
+                <lightning-input type="checkbox" label="Payment Warnings" name="input1" checked={isPaymentWarning} onchange={handlePaymentWarning}></lightning-input>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-6" style="padding-left: 4%;">
+                <lightning-input type="checkbox" label="Has Claims" name="input1" checked={isHasClaim} onchange={handleHasClaims}></lightning-input>
+            </div>   
+            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--2-of-6" style="padding-left: 7.5%;">
+                <lightning-input type="checkbox" label="Broker Not Appointed" class="BrokerWarning" name="input1" checked={isBRokerWarning} onchange={handleBrokerNotAppointed}></lightning-input>
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap slds-gutters" style="margin-top:25px">
+            <div style="margin-left:3%;width:21%;border:2px solid lightgray; height: 60px;" class="slds-box">
+                <h2 style="width: 180px;margin-top:-25px;margin-left:5px;background-color : white;font-size:1.0em;text-align:center;"><b>Total Policies for {monthName}</b></h2>
+                    <div style="text-align:center;margin-top:7px;margin-bottom:10px;font-size:20px;color:green">
+                         <b>{totalRenewalsRecords}</b>
+                    </div>
+                    <div style="text-align:center;margin-top:20px;"></div>
+
+            </div>
+            <div style="margin-left:10px;width:2%"></div>
+            <div style="margin-left:10px;width:21%;border:2px solid lightgray; height: 60px;" class="slds-box">
+                <h2 style="width: 160px;margin-top:-25px;margin-left:5px;background-color : white;font-size:1.0em;text-align:center;"><b>Total Renewal Estimate</b></h2>
+                <div style="text-align:center;margin-top:7px;margin-bottom:10px;font-size:20px;color:green">
+                    <b> {policyPremium} </b>
+               </div>
+               <div style="text-align:center;margin-top:20px;"></div>
+            </div>
+            
+            <div style="margin-left:10px;width:2%"></div>
+            <div style="margin-left:10px;width:21%;border:2px solid lightgray; height: 60px;" class="slds-box">
+                <h2 style="width: 165px;margin-top:-25px;margin-left:5px;background-color : white;font-size:1.0em;text-align:center;"><b>Renewals Ready To Send</b></h2>
+                <div style="text-align:center;margin-top:7px;margin-bottom:10px;font-size:20px;color:green">
+                    <b>  {numOfReadyToSend} </b>
+               </div>
+               <div style="text-align:center;margin-top:20px;"></div>
+            </div>
+            <div style="margin-left:10px;width:2%"></div>
+            <div style="margin-left:10px;width:21%;border:2px solid lightgray; height: 60px;" class="slds-box">
+                <h2 style="width: 200px;margin-top:-25px;margin-left:5px;background-color : white;font-size:1.0em;text-align:center;"><b>60 day notice Auto Send Date</b></h2>
+                <div style="text-align:center;margin-top:7px;margin-bottom:10px;font-size:20px;color:red">
+                    <b>  {sixtyDaysNotice} </b>
+                </div>
+            </div>           
+        </div>  
+    </div>
+
+    <div  style="margin-bottom:10px;height:40px" class="slds-grid slds-wrap slds-gutters slds-m-top_medium">
+        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-2">
+           <h2 style="font-size:1.0em;margin-top:8px;"><b>Upcoming Renewal List</b></h2>
+        </div>
+        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-2">
+          <lightning-button variant="success" label="Ready to Send" title="Primary action" onclick={handelStatusChange} class="slds-float_right"></lightning-button>
+          <lightning-button  style="margin-left:10px !important;margin-right: 8px !important;" variant="destructive" label="Suppressed" title="Primary action" onclick={handelStatusChange} class="slds-float_right"></lightning-button>      
+        </div>
+  </div>
+  
+</template>

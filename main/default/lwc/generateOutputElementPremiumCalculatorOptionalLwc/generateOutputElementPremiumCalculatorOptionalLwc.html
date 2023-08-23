@@ -1,0 +1,96 @@
+<!--
+  @description       : 
+  @author            : Maeran Shaikh
+  @group             : 
+  @last modified on  : 02-22-2022
+  @last modified by  : Maeran Shaikh
+-->
+<template>
+    
+    <template if:true={isPicklist}>
+        <div class="slds-grid slds-wrap slds-col slds-size_12-of-12">
+            <div class="slds-size_2-of-12"></div>
+            <div class="slds-form_horizontal slds-size_10-of-12">
+                <lightning-combobox 
+                    name={coverageLineItem.Id} 
+                    variant = "label-inline"
+                    label={coverageLineItem.Limits_Deductibles__r.Name}
+                    value={coverageLineItem.Option_Value_Default__c} 
+                    options={options}
+                    onchange={handleChangeInput} 
+                    style="height: 31px;">
+                </lightning-combobox>
+            </div>
+        </div>
+    </template>
+    <template if:true={isRange}>
+        <div class="slds-grid slds-wrap slds-col slds-size_12-of-12">
+            <template if:true={isOptional}>
+                <div class="slds-size_2-of-12"></div>
+                <div class="slds-form_horizontal slds-size_10-of-12">
+                    <lightning-input 
+                        type="number"
+                        name={coverageLineItem.Id} 
+                        label={coverageLineItem.Limits_Deductibles__r.Name} 
+                        formatter="currency" step="0.01"
+                        value={coverageLineItem.Option_Value_Default__c} 
+                        onchange={handleChangeInput} 
+                        style="height: 31px;">
+                    </lightning-input>
+                </div>
+            </template>
+            <template if:false={isOptional}>
+                <lightning-input 
+                    type="number"
+                    name={coverageLineItem.Id} 
+                    label={coverageLineItem.Limits_Deductibles__r.Name} 
+                    formatter="currency" step="0.01"
+                    value={coverageLineItem.Option_Value_Default__c} 
+                    onchange={handleChangeInput} 
+                    style="height: 31px;">
+                </lightning-input>
+            </template>
+        </div>
+    </template>
+    <!--Remove spaces from fid CLIs range-->
+    <template if:true={isRangeWoo}>
+        <div class="slds-grid slds-wrap slds-col slds-size_12-of-12">
+
+                <lightning-input 
+                    type="number"
+                    name={coverageLineItem.Id} 
+                    label={coverageLineItem.Limits_Deductibles__r.Name} 
+                    formatter="currency" step="0.01"
+                    value={coverageLineItem.Option_Value_Default__c} 
+                    onchange={handleChangeInput} 
+                    style="height: 31px;">
+                </lightning-input>
+            </div>
+
+    </template>
+    <template if:true={isText}>
+        <div class="slds-grid slds-wrap slds-col slds-size_12-of-12">
+            <lightning-input 
+                type="text"
+                name={coverageLineItem.Id} 
+                label={coverageLineItem.Limits_Deductibles__r.Name} 
+                value={coverageLineItem.Option_Value_Default__c} 
+                onchange={handleChangeInput} 
+                style="height: 31px;">
+            </lightning-input>
+        </div>
+    </template>
+    <template if:true={isCurrency}>
+        <div class="slds-grid slds-wrap slds-col slds-size_12-of-12">
+            <lightning-input 
+                type="number"
+                name={coverageLineItem.Id} 
+                label={coverageLineItem.Limits_Deductibles__r.Name} 
+                formatter="currency" step="0.01"
+                value={coverageLineItem.Option_Value_Default__c} 
+                onchange={handleChangeInput} 
+                style="height: 31px;">
+            </lightning-input>
+        </div>
+    </template>
+</template>

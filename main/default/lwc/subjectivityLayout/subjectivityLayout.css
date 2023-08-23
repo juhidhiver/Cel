@@ -1,0 +1,9 @@
+lightning-button-icon, div.inline{
+    display: inline;
+}
+.buttonContainer{
+    display: flex;
+}
+.buttonContainer lightning-input{
+    flex: 1;
+}

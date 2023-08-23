@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Factors_by_Quote</fullName>
+    <columns>NAME</columns>
+    <columns>Quote__c</columns>
+    <columns>Rating_Modifier__c</columns>
+    <columns>Factor_Value__c</columns>
+    <columns>Factor_Min__c</columns>
+    <columns>Factor_Max__c</columns>
+    <columns>Factor_Default_Value__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Quote__c</field>
+        <operation>equals</operation>
+        <value>Tims Full Test MPL Quote</value>
+    </filters>
+    <label>Factors by Quote</label>
+</ListView>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Documents_Required__c</fullName>
+    <externalId>false</externalId>
+    <label>Documents Required</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Accountants Proposal Form</fullName>
+                <default>false</default>
+                <label>Accountants Proposal Form</label>
+            </value>
+            <value>
+                <fullName>Accountants Renewal Declaration Form</fullName>
+                <default>false</default>
+                <label>Accountants Renewal Declaration Form</label>
+            </value>
+            <value>
+                <fullName>Accountants Tax Scheme Questionnaire</fullName>
+                <default>false</default>
+                <label>Accountants Tax Scheme Questionnaire</label>
+            </value>
+            <value>
+                <fullName>A copy of the underlying insurers renewal terms and the primary policy renewal proposal/submission</fullName>
+                <default>false</default>
+                <label>A copy of the underlying insurers renewal terms and the primary policy renewal proposal/submission</label>
+            </value>
+            <value>
+                <fullName>Architects &amp; Engineers Proposal Form</fullName>
+                <default>false</default>
+                <label>Architects &amp; Engineers Proposal Form</label>
+            </value>
+            <value>
+                <fullName>Construction Cladding Questionnaire</fullName>
+                <default>false</default>
+                <label>Construction Cladding Questionnaire</label>
+            </value>
+            <value>
+                <fullName>Construction Professionals Renewal Declaration Form</fullName>
+                <default>false</default>
+                <label>Construction Professionals Renewal Declaration Form</label>
+            </value>
+            <value>
+                <fullName>Construction Risk Management Questionnaire</fullName>
+                <default>false</default>
+                <label>Construction Risk Management Questionnaire</label>
+            </value>
+            <value>
+                <fullName>Design &amp; Construction Proposal Form</fullName>
+                <default>false</default>
+                <label>Design &amp; Construction Proposal Form</label>
+            </value>
+            <value>
+                <fullName>Insurance Brokers Proposal Form</fullName>
+                <default>false</default>
+                <label>Insurance Brokers Proposal Form</label>
+            </value>
+            <value>
+                <fullName>IT Professionals Proposal Form</fullName>
+                <default>false</default>
+                <label>IT Professionals Proposal Form</label>
+            </value>
+            <value>
+                <fullName>Media, Marketing &amp; Communications Professions Proposal Form</fullName>
+                <default>false</default>
+                <label>Media, Marketing &amp; Communications Professions Proposal Form</label>
+            </value>
+            <value>
+                <fullName>Miscellaneous Proposal Form</fullName>
+                <default>false</default>
+                <label>Miscellaneous Proposal Form</label>
+            </value>
+            <value>
+                <fullName>No Claims Declaration</fullName>
+                <default>false</default>
+                <label>No Claims Declaration</label>
+            </value>
+            <value>
+                <fullName>Property Professionals Proposal Form</fullName>
+                <default>false</default>
+                <label>Property Professionals Proposal Form</label>
+            </value>
+            <value>
+                <fullName>Property Professionals Renewal Declaration Form</fullName>
+                <default>false</default>
+                <label>Property Professionals Renewal Declaration Form</label>
+            </value>
+            <value>
+                <fullName>Property Professionals Surveying &amp; Valuing Questionnaire</fullName>
+                <default>false</default>
+                <label>Property Professionals Surveying &amp; Valuing Questionnaire</label>
+            </value>
+            <value>
+                <fullName>Renewal Declaration Form</fullName>
+                <default>false</default>
+                <label>Renewal Declaration Form</label>
+            </value>
+            <value>
+                <fullName>Risk Management Questionnaire</fullName>
+                <default>false</default>
+                <label>Risk Management Questionnaire</label>
+            </value>
+            <value>
+                <fullName>Short Proposal Form</fullName>
+                <default>false</default>
+                <label>Short Proposal Form</label>
+            </value>
+            <value>
+                <fullName>Accountants Proposal Form &amp; a Tax Scheme Questionnaire</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Accountants Proposal Form &amp; a Tax Scheme Questionnaire</label>
+            </value>
+            <value>
+                <fullName>Architects &amp; Engineers Proposal Form &amp; a Cladding Questionnaire</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Architects &amp; Engineers Proposal Form &amp; a Cladding Questionnaire</label>
+            </value>
+            <value>
+                <fullName>Design &amp; Construction Proposal Form &amp; a Cladding Questionnaire</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Design &amp; Construction Proposal Form &amp; a Cladding Questionnaire</label>
+            </value>
+            <value>
+                <fullName>Property Professionals Proposal Form &amp; Surveying &amp; Valuing Questionnaire</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Property Professionals Proposal Form &amp; Surveying &amp; Valuing Questionnaire</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

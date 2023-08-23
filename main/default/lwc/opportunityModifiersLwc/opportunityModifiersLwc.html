@@ -1,0 +1,9 @@
+<template>
+    <template for:each={listTabs} for:item="tab">
+        <lightning-tabset key={tab}>
+            <lightning-tab label={tab}>
+                <c-opportunity-modifiers-tab-lwc opportunity-id={quoteProcessSubmissionId} product-name={tab}></c-opportunity-modifiers-tab-lwc>
+            </lightning-tab>
+        </lightning-tabset>
+    </template>
+</template>

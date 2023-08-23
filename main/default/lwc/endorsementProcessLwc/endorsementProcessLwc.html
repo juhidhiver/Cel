@@ -1,0 +1,15 @@
+<template>
+        <c-path-assistant-lwc 
+                object-api-name="Endorsement_Process__c" 
+                record-id={validRecordId} 
+                picklist-field="Status__c" 
+                closed-ok="Endorsement Documents" 
+                closed-ko="Endorsement Documents"
+                last-step-label="Endorsement Documents" 
+                hide-update-button="true"
+                onchangerefresh={handleChangeRefresh}>
+        </c-path-assistant-lwc>
+        <template if:true={isPolicyStatus}>
+                <c-policy-info-detail-lwc endorsement-process-record-id = {recordId}></c-policy-info-detail-lwc>
+        </template>
+</template>

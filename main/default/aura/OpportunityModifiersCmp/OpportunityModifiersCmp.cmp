@@ -1,0 +1,17 @@
+<aura:component controller="OpportunityModifiersCmpController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+	<!-- Attribute -->
+	<aura:attribute name="prodNameList" type="List"/>
+
+	<!-- Handler -->
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	
+	<lightning:tabset aura:id="caseTabId">
+        <aura:if isTrue="{!not(empty(v.prodNameList))}">
+            <aura:iteration items="{!v.prodNameList}" var="prodName">
+                <lightning:tab label="{!prodName}" id="{!prodName}">
+                	<c:OpportunityModifiersTabCmp productName="{!prodName}" opportunityId="{!v.recordId}" aura:id="tabRaterId"/>
+	            </lightning:tab>
+	        </aura:iteration>
+	    </aura:if>
+	</lightning:tabset>
+</aura:component>

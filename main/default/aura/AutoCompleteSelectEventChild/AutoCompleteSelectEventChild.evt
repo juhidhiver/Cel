@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="this event will pass the selected topic into parent component" >
+	<aura:attribute name="recordByEvent" type="sObject"/>
+</aura:event>

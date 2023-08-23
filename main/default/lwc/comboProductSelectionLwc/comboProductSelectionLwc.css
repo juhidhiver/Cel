@@ -1,0 +1,76 @@
+.edit-button{
+  /* padding-left:-10px; */
+    position: relative;
+    bottom: 5px;
+}
+
+.label-1{
+	/* padding-left:-10px; */
+	height: 45px;
+  }
+
+.check-1{
+	/* padding-left:-10px; */
+	 padding-top: 0px; 
+  }
+.notes-text {
+	--sds-c-textarea-sizing-min-height: 100px;
+ }
+ .layout-1 {
+	justify-content: space-around;
+ }
+ .mre-button {
+	/* --sds-c-button-text-color: #0d0e12; */
+	--sds-c-button-sizing-border: 2px;
+	font-weight: bold;
+	padding-bottom:3px;
+ }
+
+ .success-icon {
+	--sds-c-button-color-background	: #12be0c; 
+	--sds-c-button-color-foreground: #12be0c;
+	
+ }
+
+ .stop-icon {
+	--sds-c-button-color-background	: #b91307; 
+	
+ }
+ /* .input-check-1{
+	fill:blue;
+  } */
+  .slds-modal__content {
+	overflow: initial;	
+ }
+
+ .div-1{
+	border: lightgrey;
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 5px;
+ }
+
+ .custom-loading-text {
+    transform: rotate(-90deg);
+    position: absolute;
+    top: -1.5rem;
+    left: -4.5rem;
+    white-space: nowrap;
+    color: #001639;
+    font-weight: bold;
+    font-size: 13;
+}
+
+.bound-disabled {
+  cursor: not-allowed !important;
+}
+.bound-disabled div{
+  pointer-events: none;
+}
+/* .c-spinner .slds-assistive-text {
+    clip: unset !important;
+    transform: rotate(-90deg);
+    height: unset !important;
+    width: unset !important;
+    font-size: x-large;
+} */

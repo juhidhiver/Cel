@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>Quote__c</columns>
+    <columns>Rating_Modifier__c</columns>
+    <columns>NAME</columns>
+    <columns>Factor_Default_Value__c</columns>
+    <columns>Factor_Max__c</columns>
+    <columns>Factor_Min__c</columns>
+    <columns>Factor_Value__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Rating_Modifier__c</field>
+        <operation>equals</operation>
+        <value>Use of written training and procedural manuals</value>
+    </filters>
+    <label>All</label>
+</ListView>

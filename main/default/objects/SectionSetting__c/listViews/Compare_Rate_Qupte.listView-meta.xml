@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Compare_Rate_Qupte</fullName>
+    <booleanFilter>1 OR 2</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Product__c</columns>
+    <columns>Order__c</columns>
+    <columns>Component__c</columns>
+    <columns>Main_Section__c</columns>
+    <columns>Sub_Section__c</columns>
+    <columns>Source_Field_API__c</columns>
+    <columns>Source_Field_Label__c</columns>
+    <columns>Source_Object__c</columns>
+    <columns>Criteria__c</columns>
+    <columns>Type_Of_Section__c</columns>
+    <columns>Format__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Component__c</field>
+        <operation>contains</operation>
+        <value>Compare Quotes</value>
+    </filters>
+    <filters>
+        <field>Component__c</field>
+        <operation>contains</operation>
+        <value>Rate Quotes</value>
+    </filters>
+    <label>Compare &amp; Rate Quote</label>
+</ListView>

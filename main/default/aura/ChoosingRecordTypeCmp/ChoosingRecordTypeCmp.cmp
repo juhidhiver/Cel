@@ -1,0 +1,28 @@
+<aura:component controller="ChoosingRecordTypeCmpController" implements="flexipage:availableForAllPageTypes,force:appHostable" access="global">
+    <aura:attribute name="recordTypeMap" type="Map"/>
+    <aura:attribute name="selectedRecordTypeId" type="String"/>
+	<aura:attribute name="objName" type="String"  default="Account"/>
+	<aura:attribute name="count" type="Integer" />
+    <aura:registerEvent name="appEvent" type="c:DeleteConfirmationEvent"/>
+  
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+	<!-- -->
+	<lightning:overlayLibrary aura:id="overlayLib"/>
+
+	<aura:if isTrue="{!v.count!=0}">
+		<div class="slds-align_absolute-center">
+			<div class="slds-m-around--xx-large">
+				<h3 class="slds-section-title--divider">Select Record Type</h3>
+				<br/>
+				 <div class="slds-form--stacked slds-p-around--medium slds-m-bottom--x-small"> 
+					<lightning:radioGroup name="radioGroup" options="{!v.recordTypeMap}" value="{!v.selectedRecordTypeId}" type="radio"/>
+				</div>
+				<br/>
+					
+				<lightning:button variant="brand" name="cancel" label="Cancel" onclick="{!c.handleCancel}"/>
+				<lightning:button variant="brand" label="Next" onclick="{!c.handleCreateRecord}" />  
+  			</div>
+        
+		</div>
+    </aura:if>   
+</aura:component>

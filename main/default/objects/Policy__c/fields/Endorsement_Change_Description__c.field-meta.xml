@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Endorsement_Change_Description__c</fullName>
+    <externalId>false</externalId>
+    <label>Endorsement Change Description</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Broaden Cover - Increased Limit(s)</fullName>
+                <default>false</default>
+                <label>Broaden Cover - Increased Limit(s)</label>
+            </value>
+            <value>
+                <fullName>Broaden Cover - Coverage(s) added</fullName>
+                <default>false</default>
+                <label>Broaden Cover - Coverage(s) added</label>
+            </value>
+            <value>
+                <fullName>Policy Duration Change - Extension of Policy</fullName>
+                <default>false</default>
+                <label>Policy Duration Change - Extension of Policy</label>
+            </value>
+            <value>
+                <fullName>Policy Duration Change - Shortening of Policy</fullName>
+                <default>false</default>
+                <label>Policy Duration Change - Shortening of Policy</label>
+            </value>
+            <value>
+                <fullName>Restrict Cover - Decreased Limit(s)</fullName>
+                <default>false</default>
+                <label>Restrict Cover - Decreased Limit(s)</label>
+            </value>
+            <value>
+                <fullName>Restrict Cover - Coverage(s) removed</fullName>
+                <default>false</default>
+                <label>Restrict Cover - Coverage(s) removed</label>
+            </value>
+            <value>
+                <fullName>Administrative - Change of Insured(s) Name</fullName>
+                <default>false</default>
+                <label>Administrative - Change of Insured(s) Name</label>
+            </value>
+            <value>
+                <fullName>Administrative - Update Insured Address</fullName>
+                <default>false</default>
+                <label>Administrative - Update Insured Address</label>
+            </value>
+            <value>
+                <fullName>Administrative - Change of Broker</fullName>
+                <default>false</default>
+                <label>Administrative - Change of Broker</label>
+            </value>
+            <value>
+                <fullName>Cancellation</fullName>
+                <default>false</default>
+                <label>Cancellation</label>
+            </value>
+            <value>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+                <label>Reinstatement</label>
+            </value>
+            <value>
+                <fullName>Extended Reporting Period (ERP)</fullName>
+                <default>false</default>
+                <label>Extended Reporting Period (ERP)</label>
+            </value>
+            <value>
+                <fullName>Coverage Cancel and Replace</fullName>
+                <default>false</default>
+                <label>Coverage Cancel and Replace</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

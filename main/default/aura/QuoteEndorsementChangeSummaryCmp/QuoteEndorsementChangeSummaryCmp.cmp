@@ -1,0 +1,29 @@
+<aura:component controller="QuoteEndorsementChangeSummaryCtrl" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <!--<ltng:require styles="{!$Resource.popupCSS}" />-->
+    
+    <aura:attribute name="listData" type="QuoteEndorsementChangeSummary__c[]" />
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="isShowSpinner" type="Boolean" default="true" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:if isTrue="{!v.isShowSpinner}">
+        <lightning:spinner variant="brand" aura:id="spinner" class="slds-show" alternativeText="Please wait..."/>
+		<div style="text-align: center; margin-top: 70px; color: #005fb2; font-weight: bold;"> Please wait... </div>
+		<aura:set attribute="else">
+            
+            <aura:if isTrue="{!not(empty(v.listData))}">
+                
+            	<lightning:datatable
+                    keyField="compareQuoteId"
+                    data="{!v.listData}"
+                    columns="{!v.columns}"
+                    hideCheckboxColumn="true"/>
+                
+                <aura:set attribute="else">
+                    <div>No records!</div>
+                </aura:set>
+                
+            </aura:if>
+        </aura:set>
+    </aura:if>
+</aura:component>

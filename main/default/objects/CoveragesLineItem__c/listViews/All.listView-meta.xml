@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Coverage_Type__c</columns>
+    <columns>Coverage__c</columns>
+    <columns>Sub_Coverage__c</columns>
+    <columns>Limits_Deductibles__c</columns>
+    <columns>Coverage_Product__c</columns>
+    <columns>CoverageLineItemType__c</columns>
+    <columns>Type__c</columns>
+    <columns>Page_Section__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

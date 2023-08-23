@@ -1,0 +1,188 @@
+<template>
+    <!--Option New Quote Process-->
+    <div class="slds-theme_default">
+        <header class="slds-modal__header slds-p-around_medium">
+            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">What do you want to work on?</h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium">
+            <!--RadioGroup-->
+            <lightning-radio-group name="radioGroup" options={options} value={valueChecked} onchange={handlepicked}
+                type="radio">
+            </lightning-radio-group>
+
+            <lightning-button style="padding: 0% 1% 1% 1%;" class="slds-float_right" variant="brand-outline"
+                label="Next" onclick={handleClickNext}></lightning-button>
+        </div>
+    </div>
+    <!--End Option New Quote Process-->
+
+    <!--Popup Show Existing Submission-->
+    <div class="slds-theme_default">
+        <template if:true={openmodel}>
+            <div class="demo-only" style="height: 640px;">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" size="medium" variant="inverse">
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-02" style="text-align: left;"
+                                class="slds-text-heading_medium slds-hyphenate">Submission</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <!--ComboBox-->
+                            <div class="slds-col slds-size_1-of-1 slds-grid" style="padding-bottom: 1%">
+                                <table>
+                                    <tbody style="vertical-align: bottom;">
+                                        <tr>
+                                            <td class="slds-size_2-of-12">
+                                                <lightning-combobox name="progress" value="subSearch"
+                                                    placeholder="Search Submission" options={optionscombobox}
+                                                    onchange={handleChange}></lightning-combobox>
+                                            </td>
+                                            <td class="slds-size_6-of-12">
+                                                <div style="padding-left: 2%">
+                                                    <template if:true={isAccount}>
+                                                        <lightning-record-edit-form object-api-name="Opportunity">
+                                                            <lightning-input-field variant="label-hidden"
+                                                                onchange={onchangeAccount} field-name="AccountId">
+                                                            </lightning-input-field>
+                                                        </lightning-record-edit-form>
+                                                    </template>
+                                                    <template if:false={isAccount}>
+                                                        <lightning-input type="search" variant="label-hidden"
+                                                            onchange={handleKeyChange}>
+
+                                                        </lightning-input>
+                                                    </template>
+                                                </div>
+                                            </td>
+
+                                            <!--<p>Selected value is: {value}</p>-->
+                                            <!--End ComboBox-->
+                                            <!--Search-->
+                                            <td class="slds-size_4-of-12">
+                                                <div></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- </div>
+                        </div> -->
+                            </div>
+                            <!--End Search-->
+                            <div style="height: 150px">
+                                <template if:true={oppsList}>
+                                    <!-- Datatable -->
+                                    <lightning-datatable class="mytable" columns={columns} data={oppsList}
+                                        key-field="Id" onloadmore={lazyLoad} show-row-number-column="true"
+                                        enable-infinite-loading={isloaddata} hide-checkbox-column
+                                        sorted-by={sortBy} sorted-direction={sortDirection} onsort={handlerSort}
+                                        onrowaction={handleRowAction}>
+                                    </lightning-datatable>
+                                </template>
+                            </div>
+                            <!-- Datatable -->
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label="Cancel" class="slds-align--absolute-center" variant="brand-outline"
+                                onclick={closeModal}></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </div>
+    <!--End Popup Show Existing Submission-->
+
+    <!--Popup Show Existing Policy Submission-->
+    <div class="slds-theme_default">
+        <template if:true={openmodal}>
+            <div class="demo-only" style="height: 640px;">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" size="medium" variant="inverse">
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-03" style="text-align: left;"
+                                class="slds-text-heading_medium slds-hyphenate">Policies</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <!--ComboBox-->
+                            <div class="slds-col slds-size_1-of-1 slds-grid" style="padding-bottom: 1%">
+                                <table>
+                                    <tbody style="vertical-align: bottom;">
+                                        <tr>
+                                            <td class="slds-size_2-of-12">
+                                                <lightning-combobox name="progress" value="policySearch"
+                                                    placeholder="Search Policies" options={optionscomboboxPolicy}
+                                                    onchange={handleChangePolicy}></lightning-combobox>
+                                            </td>
+                                            <td class="slds-size_6-of-12">
+                                                <div style="padding-left: 2%">
+                                                    <!--<template if:true={isAccount}>
+                                          <lightning-record-edit-form object-api-name="Opportunity">
+                                              <lightning-input-field
+                                                      variant="label-hidden"
+                                                      onchange = {onchangeAccount}
+                                                      field-name= "AccountId"></lightning-input-field>
+                                          </lightning-record-edit-form>
+                                      </template>-->
+                                                    <!--<template if:false={isAccount}>-->
+                                                    <lightning-input type="search" variant="label-hidden"
+                                                        onchange={handleKeyChangepolicy}>
+                                                    </lightning-input>
+                                                    <!--</template>-->
+                                                </div>
+                                            </td>
+
+                                            <!--<p>Selected value is: {value}</p>-->
+                                            <!--End ComboBox-->
+                                            <!--Search-->
+                                            <td class="slds-size_4-of-12">
+                                                <div></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- </div>
+                      </div> -->
+                            </div>
+                            <!--End Search-->
+                            <div style="height: 500px">
+                                <template if:true={polList}>
+                                    <!-- Datatable -->
+                                    <lightning-datatable columns={columnsPol} data={polList} key-field="Id"
+                                        hide-checkbox-column>
+                                    </lightning-datatable>
+                                </template>
+                            </div>
+                            <!-- Datatable -->
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label="Cancel" class="slds-align--absolute-center" variant="brand-outline"
+                                onclick={closeModal}></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </div>
+    <!--End Popup Show Existing Policy Submission-->
+    <template if:true={recordTypeSelector}>
+        <c-opportunity-init-to-uwwb-lwc record-type-id={recordTypeId} onultilitybarclose={closeChooseRecordTypeModal}></c-opportunity-init-to-uwwb-lwc>
+      </template>
+</template>

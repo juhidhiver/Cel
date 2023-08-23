@@ -1,0 +1,38 @@
+<aura:component controller="CreateOpportunityCmpController"
+	 implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" > 
+
+    <aura:attribute name="availableRecordTypes" type="List" />
+    <aura:attribute name="recordTypeId" type="String" default=""/>
+    <aura:attribute name="loading" type="Boolean"/>
+    <aura:attribute name="retrievedTypes" type="Boolean"/>
+
+	<aura:attribute name="accountId" type="String" default=""/>
+	<aura:attribute name="productId" type="String" default=""/>
+
+	<aura:attribute name="accountRecord" type="Object"/>
+	<aura:attribute name="productRecord" type="Object"/>
+	<aura:attribute name="defaultvalue" type="String"/>
+
+    <aura:attribute name="recordLoadError" type="String"/>
+	
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<aura:if isTrue="{!v.retrievedTypes}">
+		                 <aura:iteration items="{!v.availableRecordTypes}" var="type" indexVar="key">
+                            <span class="slds-radio">
+                                <input id="{!'radio-'+type.value}" value="{!type.value}" name="options" type="radio" onchange="{!c.optionSelected}"/>
+                                <label class="slds-radio__label" for="{!'radio-'+type.value}">
+                                    <span class="slds-radio_faux"></span>
+                                    <span class="slds-form-element__label"><b>{!type.name}</b></span><br></br>
+                                    <div class="slds-p-left_xx-large">
+                                    <span class="slds-form-element__label"><b>{!type.value}</b></span><br></br>
+                                    </div>
+                                </label>
+                            </span>
+                            <br></br> 
+                        </aura:iteration>
+				
+		
+    </aura:if>
+
+</aura:component>

@@ -1,0 +1,18 @@
+<aura:component controller="NIPRController" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+   
+    <aura:attribute name="fein" type="Object" /> 
+    <aura:attribute name="data1" type="String" /> 
+    <aura:attribute name="accountRecord" type="Account"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="true"/>
+    <aura:registerEvent name="reloadAfterRateQuote" type="c:reload_app_evt"/>
+    
+    <force:recordData aura:id="recordLoader" recordId="{!v.recordId}"
+          targetFields ="{!v.accountRecord}" fields="FEIN__c" recordUpdated="{!c.handleRecordUpdated}" />
+
+    <div>Result : {!v.data1}</div>
+    
+    <aura:if isTrue="{!v.showSpinner }">
+    	<lightning:spinner variant="brand" aura:id="spinner" class="slds-show" alternativeText="Please wait...">
+    	</lightning:spinner>
+    </aura:if>
+</aura:component>

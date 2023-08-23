@@ -1,0 +1,119 @@
+<!--
+  @description       : 
+  @author            : Maeran Shaikh
+  @group             : 
+  @last modified on  : 03-07-2022
+  @last modified by  : Maeran Shaikh
+-->
+<template>
+    <template if:true={isPicklist}>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            <div class="slds-form_horizontal slds-size_8-of-12 input-border">
+                <lightning-combobox 
+                    name={ratingModifier.Id} 
+                    label={fieldName} 
+                    readonly={readOnly} 
+                    value={ratingModifier.Rating_Modifier_Value__c} 
+                    options={options}
+                    onchange={handleChangeInput} 
+                    style="height: 31px;"
+                    class="input-border">
+                </lightning-combobox>
+            </div>
+            <div class="slds-size_2-of-12" style="padding: 1px;">
+                <!--lightning-button label={range} title="Non-primary action" onclick={handleClick} ></lightning-button-->
+                <lightning-input type="text" name="input1" value={range} variant="label-hidden" disabled></lightning-input>
+            </div>
+            <div class="slds-size_2-of-12">
+                <lightning-input class="factorCmp" type="number" name="input1" value={factorValue} variant="label-hidden" max={rangeUpper} min={rangeLower} step="0.001" onchange={handleChangeFactorValue}></lightning-input>
+            </div>
+        </div>
+    </template>
+    <template if:true={isText}>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            <div class="slds-form_horizontal slds-size_8-of-12">
+                <lightning-input 
+                    type="text"
+                    name={ratingModifier.Id} 
+                    label={fieldName} 
+                    readonly={readOnly} 
+                    value={ratingModifier.Rating_Modifier_Value__c} 
+                    onchange={handleChangeInput} 
+                    style="height: 31px;"
+                    read-only>
+                </lightning-input>
+            </div>
+            <div class="slds-size_2-of-12">
+                <!--lightning-button label={range} title="Non-primary action" onclick={handleClick} ></lightning-button-->
+                <lightning-input type="text" name="input1" value={range} variant="label-hidden" disabled></lightning-input>
+            </div>
+            <div class="slds-size_2-of-12">
+                <lightning-input class="factorCmp" type="number" name="input1" value={factorValue} variant="label-hidden"  max={rangeUpper} min={rangeLower} step="0.001" onchange={handleChangeFactorValue}></lightning-input>
+            </div>
+        </div>
+    </template>
+    <template if:true={isPercent}>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            <div class="slds-form_horizontal slds-size_8-of-12">
+                <lightning-input 
+                    type="number"
+                    name={ratingModifier.Id} 
+                    label={fieldName} 
+                    readonly={readOnly} 
+                    formatter="percent-fixed" step="0.01"
+                    value={ratingModifier.Rating_Modifier_Value__c} 
+                    onchange={handleChangeInput} 
+                    style="height: 31px;"
+                    class="input-border">
+                </lightning-input>
+            </div>
+            <div class="slds-size_2-of-12">
+                <!--lightning-button label={range} title="Non-primary action" onclick={handleClick} ></lightning-button-->
+                <lightning-input type="text" name="input1" value={range} variant="label-hidden" disabled></lightning-input>
+            </div>
+            <div class="slds-size_2-of-12">
+                <lightning-input class="factorCmp" type="number" name="input1" value={factorValue} variant="label-hidden"  max={rangeUpper} min={rangeLower} step="0.001" onchange={handleChangeFactorValue}></lightning-input>
+            </div>
+        </div>
+    </template>
+    <template if:true={isRicktext}>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-bottom_small">
+            <div class="slds-size_12-of-12">
+                <label class="slds-form-element__label" >{fieldName}</label>
+                <lightning-input-rich-text 
+                    name={ratingModifier.Id} 
+                    readonly={readOnly} 
+                    value={ratingModifier.Rating_Modifier_Value__c} 
+                    onchange={handleChangeInput} 
+                    style="padding-left:186px"
+                    >
+                </lightning-input-rich-text>
+            </div>
+            
+        </div>
+    </template>
+    <template if:true={isUndefined}>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            <!--div class="slds-form_horizontal slds-size_6-of-12">
+                <lightning-formatted-text value={fieldName} ></lightning-formatted-text>
+            </div-->
+            <div class="slds-size_1-of-12"></div>
+            <div class="slds-text-body_small slds-size_3-of-12">
+                <lightning-formatted-text value={fieldName} ></lightning-formatted-text>
+            </div>
+            <div class="slds-size_1-of-12">
+                <!--lightning-button label={range} title="Non-primary action" onclick={handleClick} ></lightning-button-->
+                <lightning-input type="text" name="input1" value={range} variant="label-hidden" disabled></lightning-input>
+            </div>
+            <div class="slds-size_1-of-12">
+                <lightning-input class="factorCmp" type="number" name="input1" value={factorValue} variant="label-hidden"  max={rangeUpper} min={rangeLower} step="0.001" onchange={handleChangeFactorValue}></lightning-input>
+            </div>
+            <template if:true={isDOExecCoverage}>
+                <div class="slds-size_1-of-12"></div>
+                <div class="slds-form_horizontal slds-size_5-of-12">
+                    <lightning-input type="number" name="input1" value={optionalLoading} label="Loading for additional Executive Limit" step="0.001"></lightning-input>
+                </div>
+            </template>
+        </div>
+    </template>
+</template>

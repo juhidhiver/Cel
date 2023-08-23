@@ -1,0 +1,109 @@
+<template>
+    <template if:true={item.isComponent}>
+        <lightning-accordion-section name={item.mainSectionTitle} label={item.mainSectionTitle} class="mainSection" key={itemParentField}>
+            <template for:each={item.subSectionChilds} for:item="itemSub">
+                <div key={item} class="slds-box">
+                    <lightning-layout-item key={itemSub} alignment-bump="right" flexibility="no-flex" size="12"
+                        padding="horizontal-small" class="clearpaddingtop">
+                        <c-related-list-lwc title={itemSub.subSectionChildTitle} record-id={recordId}
+                            object-api-name={item.sourceObject} 
+                            listfields={itemSub.subSectionChildFields}
+                            selected-account-id={selectedAccountId} 
+                            record-info-defined={recordInfoDefined} record-info={recordInfo}
+                            child-record-type-id={childRecordTypeId}>
+                        </c-related-list-lwc>
+                    </lightning-layout-item>
+                </div>
+            </template>
+        </lightning-accordion-section>
+    </template>
+
+    <template if:false={item.isComponent}>
+        <template if:true={disableFirstTab}>
+            <lightning-accordion-section name={item.mainSectionTitle} label={item.mainSectionTitle} class="mainSection" key={itemParentField}>
+                <lightning-layout key={item} vertical-align="top" multiple-rows="true">
+                    <template for:each={item.mainSectionFields} for:item="itemParentField">
+                        <lightning-layout-item key={itemParentField.id} alignment-bump="right" 
+                                                flexibility="no-flex" size="12" small-device-size="6" 
+                                                medium-device-size="6" padding="horizontal-small"
+                                                large-device-size="6" class="clearpaddingtop">
+                            <c-generate-element-lwc data-something={itemParentField.sourceFieldApi} key={itemParentField}
+                                onhandlelookupchildselection={handleLookUpChildSelection} is-aqueous={isAqueous}
+                                object-name={itemParentField.sourceObject} object-lookup-to={itemParentField.sourceObject}
+                                field-name={itemParentField.sourceFieldApi} format={itemParentField.format}
+                                field-value={itemParentField.value} label={itemParentField.sourceFieldLabel}
+                                is-change-on-account={isChangeOnAccount} read-only="true"
+                                create-record={createRecord} required={itemParentField.required} record-type-id="" filter="RecordType.Name = 'Business'">
+                            </c-generate-element-lwc>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout><br />
+                <template for:each={item.subSectionChilds} for:item="itemSub">
+                    <lightning-accordion-section name={itemSub.subSectionChildTitle} label={itemSub.subSectionChildTitle} class="mainSection" key={itemParentField}>
+                        <lightning-layout key={item} vertical-align="top" multiple-rows="true">
+                            <template for:each={itemSub.subSectionChildFields} for:item="itemParentField">
+                                    <lightning-layout-item key={itemParentField.id} alignment-bump="right" 
+                                                            flexibility="no-flex" size="12" 
+                                                            small-device-size="6" medium-device-size="6" 
+                                                            padding="horizontal-small" large-device-size="6" 
+                                                            class="clearpaddingtop">
+                                        <c-generate-element-lwc key={itemParentField} object-name={itemParentField.sourceObject}
+                                                                object-lookup-to={itemParentField.objectName} is-aqueous={isAqueous}
+                                                                field-name={itemParentField.sourceFieldApi} format={itemParentField.format}
+                                                                field-value={itemParentField.value} label={itemParentField.sourceFieldLabel}
+                                                                is-change-on-account={isChangeOnAccount} read-only="true" 
+                                                                required={itemParentField.required}
+                                                                create-record={createRecord} record-type-id="">
+                                        </c-generate-element-lwc>
+                                    </lightning-layout-item>
+                            </template>
+                        </lightning-layout>
+                </lightning-accordion-section>
+                </template>
+            </lightning-accordion-section>
+        </template>
+        <template if:false={disableFirstTab}>
+            <lightning-accordion-section name={item.mainSectionTitle} label={item.mainSectionTitle} class="mainSection" key={itemParentField}>
+                <lightning-layout key={item} vertical-align="top" multiple-rows="true">
+                    <template for:each={item.mainSectionFields} for:item="itemParentField">
+                        <lightning-layout-item key={itemParentField.id} alignment-bump="right" 
+                                                flexibility="no-flex" size="12" small-device-size="6" 
+                                                medium-device-size="6" padding="horizontal-small"
+                                                large-device-size="6" class="clearpaddingtop">
+                            <c-generate-element-lwc data-something={itemParentField.sourceFieldApi} key={itemParentField}
+                                onhandlelookupchildselection={handleLookUpChildSelection} is-aqueous={isAqueous}
+                                object-name={itemParentField.sourceObject} object-lookup-to={itemParentField.sourceObject}
+                                field-name={itemParentField.sourceFieldApi} format={itemParentField.format}
+                                field-value={itemParentField.value} label={itemParentField.sourceFieldLabel}
+                                is-change-on-account={isChangeOnAccount} read-only={itemParentField.readOnly} 
+                                create-record={createRecord} required={itemParentField.required} record-type-id="" filter="RecordType.Name = 'Business'">
+                            </c-generate-element-lwc>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout><br />
+                <template for:each={item.subSectionChilds} for:item="itemSub">
+                    <lightning-accordion-section name={itemSub.subSectionChildTitle} label={itemSub.subSectionChildTitle} class="mainSection" key={itemParentField}>
+                        <lightning-layout key={item} vertical-align="top" multiple-rows="true">
+                            <template for:each={itemSub.subSectionChildFields} for:item="itemParentField">
+                                    <lightning-layout-item key={itemParentField.id} alignment-bump="right" 
+                                                            flexibility="no-flex" size="12" 
+                                                            small-device-size="6" medium-device-size="6" 
+                                                            padding="horizontal-small" large-device-size="6" 
+                                                            class="clearpaddingtop">
+                                        <c-generate-element-lwc key={itemParentField} object-name={itemParentField.sourceObject}
+                                                                object-lookup-to={itemParentField.objectName} is-aqueous={isAqueous}
+                                                                field-name={itemParentField.sourceFieldApi} format={itemParentField.format}
+                                                                field-value={itemParentField.value} label={itemParentField.sourceFieldLabel}
+                                                                is-change-on-account={isChangeOnAccount} read-only={itemParentField.readOnly} 
+                                                                required={itemParentField.required}
+                                                                create-record={createRecord} record-type-id="">
+                                        </c-generate-element-lwc>
+                                    </lightning-layout-item>
+                            </template>
+                        </lightning-layout>
+                </lightning-accordion-section>
+                </template>
+            </lightning-accordion-section>
+        </template>        
+    </template>
+</template>

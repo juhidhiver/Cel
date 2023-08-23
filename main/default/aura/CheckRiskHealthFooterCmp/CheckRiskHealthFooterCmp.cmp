@@ -1,0 +1,9 @@
+<aura:component controller="OpportunityModifiersCmpController">
+    <lightning:overlayLibrary aura:id="overlayLib" />
+    <aura:attribute name="oppId" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <lightning:button variant="base" class="slds-float_left" label="Back to Analysis" title="Back to Analysis"
+        onclick="{!c.closeModal}" />
+    <lightning:button variant="base" class="slds-float_right" label="Proceed to Quotes >" title="Proceed to Quotes"
+        onclick="{!c.proceedToQuote}" />
+</aura:component>

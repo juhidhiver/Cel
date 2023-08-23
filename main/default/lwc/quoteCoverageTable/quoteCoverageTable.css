@@ -1,0 +1,20 @@
+:host{
+
+}
+
+.maxAggInput{
+    padding-left: 0.25rem;
+  }
+
+.maxAggInput div{
+    padding-left: 0% !important;
+  }
+
+  .label1{
+    margin-top: -1rem;
+    float: right;
+  }
+
+.slds-form_horizontal .slds-form-element .slds-form-element__control{
+  padding-left:  0% !important;
+}

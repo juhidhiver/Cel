@@ -1,0 +1,12 @@
+<aura:component access="global">
+    <aura:attribute name="rowId" type="Id"/>
+    <aura:registerEvent name="appEvent" type="c:DeleteConfirmationEvent"/>
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <div class="slds-align_absolute-center">
+        <lightning:button name="cancel" label="Cancel" onclick="{!c.handleCancel}"/>
+    	<lightning:button name="ok" label="OK" variant="brand" onclick="{!c.handleOK}"/>
+    </div>
+    
+</aura:component>

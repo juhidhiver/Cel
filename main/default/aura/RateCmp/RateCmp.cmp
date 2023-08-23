@@ -1,0 +1,10 @@
+<aura:component controller="RateController" 
+                implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global">
+   
+    <aura:attribute name="showSpinner" type="Boolean" default="true"/>
+	<aura:handler name="init" action="{!c.init}" value="{!this}" /> 
+    
+    <lightning:spinner variant="brand" aura:id="spinner" class="slds-show" alternativeText="Please wait...">
+    </lightning:spinner>
+    <div style="text-align: center; margin-top: 70px; color: #005fb2; font-weight: bold;"> Quote is rating, please wait... </div>
+</aura:component>

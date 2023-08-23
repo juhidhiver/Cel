@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Subjectivity_Name__c</columns>
+    <columns>Applicable_Products__c</columns>
+    <columns>Layer__c</columns>
+    <columns>Product__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Subjectivity_Template__c.Aqueous_Subjectivity_Template</value>
+    </filters>
+    <filters>
+        <field>Product__c</field>
+        <operation>equals</operation>
+        <value>Celerity</value>
+    </filters>
+    <label>All</label>
+</ListView>

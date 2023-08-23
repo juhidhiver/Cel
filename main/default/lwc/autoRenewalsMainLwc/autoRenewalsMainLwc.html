@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Renewals" icon-name="action:change_record_type">
+        <p class="slds-p-horizontal_medium slds-p-top_small">
+            <template if:false={showRenewalDetailPage}>
+                <template if:true={isRecordTypePresent}>
+                    <!--- Auto Renewal Search Component Call-->
+                    <c-auto-renewals-search-lwc get-app-name={currentApp} renewal-record-type={recordtypeId} searching-filter-values={SearchingFilterValues} selected-rows-for-status-change={selectedRowsforStatusChange} ongetsearchingvalues={handelSearchingValues} onsectionsettingshandle={handleSectionSettings} onfilteredrenewalsrecords={handlefilteredRecords} onloadingspinner={handleSpinnerLoad} ></c-auto-renewals-search-lwc>
+                </template>
+            </template>
+            
+            <template if:false={showRenewalDetailPage}>
+                <!--- Auto Renewal Records List Component Call-->
+                <template if:true={isLoading}>
+                    Commented temporary
+                    <div class="slds-p-around_x-large">
+                        <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+                    </div>
+                </template>
+                <c-auto-renewals-list-lwc lst-renewals={renewalRecords} is-renewals-empty={isRenewalsDataEmpty} onshowrenewaldetailpage={handleShowRenewalDetailPage} ongetselecterows={handelSelectedRowsfromChild}></c-auto-renewals-list-lwc>
+            </template>
+            
+            <template if:true={showRenewalDetailPage}>
+                <!--- Auto Renewal Detail Page Component Call-->
+                <c-auto-renewals-detail-lwc renewal-record-clicked={renewalRecordClicked} searching-filter-values={SearchingFilterValues} section-settings={sectionsettings} ongetsearchingvalues={handelSearchingValues} onshowrenewalmainpage={handleShowRenewalMainPage}></c-auto-renewals-detail-lwc>
+            </template>
+        </p>
+    </lightning-card>
+</template>

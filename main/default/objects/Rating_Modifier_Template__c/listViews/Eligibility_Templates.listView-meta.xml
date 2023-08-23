@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Eligibility_Templates</fullName>
+    <columns>NAME</columns>
+    <columns>Modifier_Product__c</columns>
+    <columns>Modifier_Format__c</columns>
+    <columns>Picklist_Values__c</columns>
+    <columns>Eligibility_Weighting_Factor__c</columns>
+    <columns>Page_Section__c</columns>
+    <columns>Sub_Section__c</columns>
+    <columns>Sort_Order__c</columns>
+    <columns>Display_Format__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Page_Section__c</field>
+        <operation>contains</operation>
+        <value>Eligibility</value>
+    </filters>
+    <label>Eligibility Templates</label>
+</ListView>

@@ -1,0 +1,81 @@
+<!--
+  @description       : to update broker licese info on policy
+  @author            : Jai
+  @group             : 
+  @last modified on  : 12-22-2021
+  @last modified by  : Jai
+-->
+<template>
+    <template if:true={isPolicy}>
+        <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                title="Close" onclick={handleCancel}>
+                <lightning-icon icon-name="utility:close" size="medium">
+                </lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading-05" class="slds-text-heading_medium slds-hyphenate"> Update Broker Details </h2>
+        </header>    
+    </template>
+    <div class="slds-grid" >
+        <div class="slds-col" style="margin-right:100px;margin-left:50px;margin-block:20px;">
+            <lightning-input type="checkbox" label="Agency broker license" name="agencyLicense" onchange={handelAgencyBrokerLicense} checked={isAgencyLicnseSelected} ></lightning-input>
+        </div>
+
+        <div class="slds-col" style="margin-block:20px;">
+            <lightning-input type="checkbox" label="Individual broker license" name="brokerLicense" onchange={handelIndividualBrokerLicense} checked={isBrokerLicnseSelected} ></lightning-input>
+        </div>
+    </div>
+    <!-- Agency licese table-->
+    <template if:true={isAgencyLicnseSelected}>
+        <template if:true={isAgencyDataAvailable}> 
+            <div >
+                <lightning-datatable
+                        key-field="id"
+                        data={agencyLicesesData}
+                        columns={columns}
+                        onrowselection={handleAgencySelection}
+                        max-row-selection="1">
+                        
+                </lightning-datatable>
+            </div> 
+        </template>
+        <template if:false={isAgencyDataAvailable}> 
+            <div style="text-align:center;color:red">
+                No data Available to show
+            </div>
+        </template>
+    </template>
+
+    <!-- Broker licese table-->
+    <template if:true={isBrokerLicnseSelected}>
+        <template if:true={isBrokerDataAvailable}> 
+        <div >
+            <lightning-datatable
+                    key-field="id"
+                    data={brokerLicesesData}
+                    columns={columns}
+                    onrowselection={handleBrokerSelection}
+                    max-row-selection="1">
+            </lightning-datatable>
+        </div> 
+        </template>
+        <template if:false={isBrokerDataAvailable}> 
+            <div style="text-align:center;color:red">
+                No data Available to show
+            </div>
+        </template>
+    </template>
+    <br/><br/><br/>
+    <template if:true={isPolicy}>
+        <footer class="slds-modal__footer">
+            <lightning-button variant="neutral" label="Cancel" title="Cancel"
+                onclick={handleCancel}>
+            </lightning-button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <lightning-button variant="brand" label="Submit" title="Bind" disabled={disableSubmit} onclick={handleSubmit}>
+            </lightning-button>
+        </footer>
+    </template>    
+    
+</template>

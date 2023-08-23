@@ -1,0 +1,12 @@
+<template>
+    <template if:true={value}>
+        <div class="slds-grid" style="background:#C23934; border-radius:0.2rem; padding:0.35rem; padding-left:0.5rem; padding-right:0.5rem; height:100%">
+            <div class="slds-col slds-align_absolute-center">
+                <lightning-icon class="icon-fill_white" icon-name="utility:error" size="xx-small" style="padding-right:5px;"></lightning-icon>
+            </div>
+            <div class="slds-col">
+                <p style="color:white; padding-left:0.5rem;">{value}</p>
+            </div>
+        </div>
+    </template>
+</template>

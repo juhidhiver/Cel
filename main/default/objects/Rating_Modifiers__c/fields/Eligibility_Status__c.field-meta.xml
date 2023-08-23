@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Eligibility_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Eligibility Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Proceed</fullName>
+                <color>#33CC00</color>
+                <default>false</default>
+                <label>Proceed</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution</fullName>
+                <color>#F3D904</color>
+                <default>false</default>
+                <label>Proceed with Caution</label>
+            </value>
+            <value>
+                <fullName>Stop!Decline!</fullName>
+                <color>#FF0000</color>
+                <default>false</default>
+                <label>Stop!Decline!</label>
+            </value>
+            <value>
+                <fullName>No Information</fullName>
+                <default>false</default>
+                <label>No Information</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution (consider restrictive terms, including but limited to matching/increasing retention to the largest paid loss)</fullName>
+                <default>false</default>
+                <label>Proceed with Caution (consider restrictive terms, including but limited to matching/increasing retention to the largest paid loss)</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution (sub limit only)</fullName>
+                <default>false</default>
+                <label>Proceed with Caution (sub limit only)</label>
+            </value>
+            <value>
+                <fullName>STOP! Higher Hazard (Unless fewer than 50 employees)</fullName>
+                <default>false</default>
+                <label>STOP! Higher Hazard (Unless fewer than 50 employees)</label>
+            </value>
+            <value>
+                <fullName>STOP! Higher Hazard (unless Highly Compensated Separate Retention Endorsement is added)</fullName>
+                <default>false</default>
+                <label>STOP! Higher Hazard (unless Highly Compensated Separate Retention Endorsement is added)</label>
+            </value>
+            <value>
+                <fullName>STOP! Higher Hazard (unless D&amp;O revenue threshold is met)</fullName>
+                <default>false</default>
+                <label>STOP! Higher Hazard (unless D&amp;O revenue threshold is met)</label>
+            </value>
+            <value>
+                <fullName>STOP! Higher Hazard (seasonal, low wage,retail industries, etc.)</fullName>
+                <default>false</default>
+                <label>STOP! Higher Hazard (seasonal, low wage,retail industries, etc.)</label>
+            </value>
+            <value>
+                <fullName>STOP! Higher Hazard (Unless less than 100 employees)</fullName>
+                <default>false</default>
+                <label>STOP! Higher Hazard (Unless less than 100 employees)</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution and consider adding a Family Exclusion</fullName>
+                <default>false</default>
+                <label>Proceed with Caution and consider adding a Family Exclusion</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution and consider Major Shareholder Exclusion</fullName>
+                <default>false</default>
+                <label>Proceed with Caution and consider Major Shareholder Exclusion</label>
+            </value>
+            <value>
+                <fullName>Proceed with Caution with sub-limit</fullName>
+                <default>false</default>
+                <label>Proceed with Caution with sub-limit</label>
+            </value>
+            <value>
+                <fullName>qualified or not all locations are audited</fullName>
+                <default>false</default>
+                <label>qualified or not all locations are audited</label>
+            </value>
+            <value>
+                <fullName>Prohibited Class</fullName>
+                <default>false</default>
+                <label>Prohibited Class</label>
+            </value>
+            <value>
+                <fullName>Munich Referral</fullName>
+                <default>false</default>
+                <label>Munich Referral</label>
+            </value>
+            <value>
+                <fullName>STOP! Higher Hazard</fullName>
+                <default>false</default>
+                <label>STOP! Higher Hazard</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

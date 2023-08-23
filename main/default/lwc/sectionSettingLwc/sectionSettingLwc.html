@@ -1,0 +1,218 @@
+<template>
+    <!--RT and Component Section -->
+    <lightning-card>
+        <div class="cities">
+        <div class="slds-grid slds-wrap">
+    
+            <div class="slds-col slds-size_2-of-12">
+                <lightning-combobox  name="rtCombo"  label="Record Type" value= "rtValue" placeholder="Search Record Type"  options={rtOptions} onchange={handleRTChange}></lightning-combobox>
+            </div> 
+            <!-- <div class="slds-col slds-size_2-of-12">
+                <div style="padding-left: 10px; padding-right: 10px;">
+                    <c-multi-pick-list-lwc label="Products" 
+                        options={msOptions}  
+                        showclearbutton='true' 
+                        showfilterinput='true' 
+                        showrefreshbutton='true' 
+                        onitemselected={handleOnItemSelected}>
+                    </c-multi-pick-list-lwc>
+                </div>
+                
+            </div> -->
+            <div class="slds-col slds-size_2-of-12">
+                <lightning-combobox  name="componentCombo"  label="Component" value= "componentValue" placeholder="Search Component"  options={componentOptions} onchange={handleComponentChange}></lightning-combobox>
+            </div>
+            
+            <div class="slds-col slds-size_4-of-12" style="padding-top: 5px;">
+                <div class="slds-p-around_medium lgc-bg">
+                    <lightning-button-icon icon-name="utility:edit" alternative-text="Edit" class="slds-m-left_xx-small" title="Edit" onclick={handleComponentEvent}>
+                        </lightning-button-icon>
+                    <lightning-button-icon icon-name="utility:add" alternative-text="New" class="slds-m-left_xx-small" title="New" onclick={handleComponentEvent} >
+                        </lightning-button-icon>
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Delete" class="slds-m-left_xx-small" title="Delete" onclick={handleComponentEvent} >
+                        </lightning-button-icon>
+                </div>  
+            </div>
+        
+            <div class="slds-col slds-no-flex slds-grid slds-grid_vertical-align-center horizontal actionsContainer">
+                <lightning-button label="New Field" class="slds-button" variant="brand-outline" onclick={openCreateFieldModal} disabled={isDisableButton}></lightning-button>
+                <lightning-button label="Structure" class="slds-button" variant="brand-outline" onclick={handleViewStruture}></lightning-button>
+            </div> 
+        
+        </div>
+
+        <!--Main and Sub Section -->
+        <template if:true = {openMainAndSubSection} >
+            <div class="slds-grid slds-gutters" >
+                <div class="slds-col">
+                    <c-section-setting-item-lwc name="Main Section" section-items={mainOptions} rt={rtValue} component={componentValue}
+                        main-name={mainValue} onchangekey={handleSectionChange} onrefreshchange={handleRefreshChange} >
+                    </c-section-setting-item-lwc>      
+                </div>
+                <div class="slds-col">          
+                    <c-section-setting-item-lwc name="Sub Section" section-items={subOptions} rt={rtValue} component={componentValue} 
+                        main-name={mainValue} sub-name={subValue} onchangekey={handleSectionChange} onrefreshchange={handleRefreshChange}>
+                    </c-section-setting-item-lwc>     
+                </div>
+            </div>
+        </template>
+    
+        <!-- End Main and Sub Section -->
+    </div>
+    </lightning-card>
+     
+     <template if:true = {fieldItems} >
+             <lightning-datatable data={fieldItems} columns={columns} key-field="Id" onsave={handleRowSave}
+                                  hide-checkbox-column="true" onrowaction={handleRowAction} draft-values={draftValues}>
+             </lightning-datatable>
+     </template>
+   
+     <!-- Create/Edit Component modal start -->
+     <template if:true={isEditComponent}>
+         <div class="slds-card slds-p-around_medium" style="height: 640px;width: 700px">
+             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                 <div class="slds-modal__container">
+                     <header class="slds-modal__header">
+                         <lightning-button-icon icon-name="utility:close" class="slds-float_right" onclick={closeComponentModal} alternative-text="close"></lightning-button-icon>
+                         <h2 class="slds-modal__title slds-hyphenate">{componentHeader}</h2>
+                     </header>
+                     <div class="slds-modal__content slds-p-around_medium" >
+                         <div class="slds-grid">
+                            <div class="slds-col slds-p-around_medium">
+                             <lightning-input type="text" label="Component Name" onchange={handleComponentInputChange} value={componentValue_}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-p-around_medium">
+                             <!-- required-options={requiredOptions
+                                onchange={handleChange} -->
+                                <lightning-dual-listbox id="selectProducts"
+                                    name="Select Products"
+                                    label="Select Products"
+                                    source-label="Available Products"
+                                    selected-label="Selected Products"                                    
+                                    value={productOptions}
+                                    ></lightning-dual-listbox>
+                            </div>
+                         </div>
+                        
+                     </div>
+                     <footer class="slds-modal__footer">
+                         <lightning-button variant="neutral" label="Close" title="Close" onclick={closeComponentModal}
+                             class="slds-m-left_x-small"></lightning-button>
+                         <lightning-button variant="brand" label="Save" title={componentHeader} onclick={saveComponentModal}
+                             class="slds-m-left_x-small"></lightning-button>
+                     </footer>
+                 </div>
+             </section>
+         </div>
+         <div if:true={isEditComponent} class="slds-backdrop slds-backdrop_open"></div>
+     </template>
+     <!-- Create/Edit Component modal End -->
+     
+     <!-- Create Field modal start -->
+     <template if:true={isCreateField}>
+        <lightning-record-edit-form object-api-name="SectionSetting__c" onsuccess={handleCreateFieldSuccess} onsubmit={handleCreateFieldSubmitSuccess}>
+            <lightning-messages></lightning-messages>
+             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                     aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                 <div class="slds-modal__container">
+                 <header class="slds-modal__header">
+                     <lightning-button-icon icon-name="utility:close" class="slds-float_right" onclick={closeCreateFieldModal} alternative-text="close"></lightning-button-icon>
+                     <h2 class="slds-modal__title slds-hyphenate">New Field</h2>
+                 </header>
+                 <div class="slds-modal__content slds-p-around_medium" >
+                     <lightning-input-field required field-name="Source_Field_API__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Source_Field_Label__c" ></lightning-input-field>
+                     <lightning-input-field required field-name="Source_Object__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Order__c" ></lightning-input-field>
+                     <lightning-input-field required field-name="Format__c" ></lightning-input-field>
+                     <lightning-input-field field-name="DisplayType__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Lookup_To__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Criteria__c" ></lightning-input-field>
+                      
+                 </div>
+                 <footer class="slds-modal__footer">
+                     <lightning-button variant="neutral" label="Close" title="Close" onclick={closeCreateFieldModal} class="slds-m-left_x-small"></lightning-button>
+                     <lightning-button variant="brand" label="Save" title="Save" type="submit" class="slds-m-left_x-small" name="create"></lightning-button>
+                 </footer>
+             </div>
+         </section>
+         
+         <div if:true={isCreateField} class="slds-backdrop slds-backdrop_open"></div>
+         </lightning-record-edit-form>
+     </template>
+     <!-- Create Field modal End -->
+ 
+     <!-- View Structure start -->
+     <template if:true={isViewStructure}>
+         <c-section-setting-view-structure-lwc record-type-name={rtValue} component-name={componentValue} oncloseviewstructure={closeViewStructureModal}></c-section-setting-view-structure-lwc>
+     </template>
+     <!-- View Structure end -->
+ 
+     <!-- Edit Field modal start -->
+     <template if:true={isEditField}>
+         <div class="slds-card slds-p-around_medium">
+            <lightning-record-edit-form record-id={fieldId} object-api-name="SectionSetting__c" id="recordForm"
+                                            onsubmit ={handleSubmit} onsuccess={handleEditFieldSuccess}>
+                <lightning-messages></lightning-messages>
+
+             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                                        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                 <div class="slds-modal__container">
+                     <header class="slds-modal__header">
+                         <lightning-button-icon icon-name="utility:close" class="slds-float_right" onclick={closeEditFieldModal} alternative-text="close"></lightning-button-icon>
+                         <h2 class="slds-text-heading_medium slds-hyphenate">Edit Field</h2>
+                     </header>
+                     <div class="slds-modal__content slds-p-around_medium" >                                 
+                        <div class="slds-grid">
+                            <div class="slds-col slds-p-around_small slds-size_1-of-2">
+                                <!-- Your lightning-input-field components here -->
+                                <lightning-output-field field-name="Name"></lightning-output-field>
+                                <lightning-output-field field-name="Record_Type__c"></lightning-output-field>
+                                <lightning-input-field field-name="Main_Section__c"></lightning-input-field>
+                                <lightning-input-field field-name="Sub_Section__c"></lightning-input-field>
+                                <lightning-input-field field-name="Component__c"></lightning-input-field>
+                                <lightning-input-field field-name="Order__c"></lightning-input-field>
+                                <lightning-input-field field-name="Criteria__c"></lightning-input-field>
+                                <lightning-input-field field-name="Custom_Field_Type__c"></lightning-input-field>
+                                
+                            </div>
+                            <div class="slds-col slds-p-around_small slds-size_1-of-2">
+                                <lightning-output-field field-name="Product__c"></lightning-output-field>
+                                <lightning-input-field field-name="Active__c"></lightning-input-field>
+                                <lightning-input-field field-name="Source_Object__c" required></lightning-input-field>
+                                <lightning-input-field field-name="Source_Field_API__c" required></lightning-input-field>
+                                <lightning-input-field field-name="Source_Field_Label__c"></lightning-input-field>
+                                <lightning-input-field field-name="Format__c" required></lightning-input-field>
+                                <lightning-input-field field-name="Lookup_To__c"></lightning-input-field>
+                                <lightning-input-field field-name="DisplayType__c"></lightning-input-field>
+                                <lightning-output-field field-name="Type_Of_Section__c"></lightning-output-field>
+                                
+                            </div>
+                         </div>
+                     </div>
+                     <footer class="slds-modal__footer">                        
+                        <lightning-button class="slds-m-left_x-small" variant="brand" type="submit" name="update" label="Save"></lightning-button>                        
+                        <lightning-button class="slds-m-left_x-small" variant="neutral" name="cancel" label="Cancel" onclick={closeEditFieldModal}></lightning-button>             
+                    </footer>
+                 </div>
+             </section>
+             <div if:true={isEditField} class="slds-backdrop slds-backdrop_open"></div>
+            </lightning-record-edit-form>
+         </div>
+     </template>
+ 
+     <template if:true={isDialogVisible}>
+         <c-confirmation-dialog-lwc title='Confirmation Title'
+             message={confirmMessage}
+             confirm-label='Yes'
+             cancel-label='Cancel'
+             visible={isDialogVisible}
+             original-message={originalMessage}
+             name="confirmModal"
+             onclick={handleDeleteField}>
+         </c-confirmation-dialog-lwc>
+     </template>
+    
+     <!-- Edit Field modal End -->
+ </template>

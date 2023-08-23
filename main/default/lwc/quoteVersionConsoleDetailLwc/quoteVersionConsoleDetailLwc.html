@@ -1,0 +1,83 @@
+<template>
+    <div class="slds-theme_default">
+        <template if:true={isLoading}>
+            <div class="slds-spinner_container" style="height:6rem">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </div>
+        
+    <!--div class="header slds-card_boundary rateContainer" data-id="rateContainer">
+        <lightning-card variant="narrow" icon-name="standard:calibration"> 
+            <h1 slot="title">Quote Version Console</h1>
+            <div slot="actions">
+                <lightning-button-group>
+                    <div data-id="scrollButton">
+                        <lightning-button title="Scroll to Top" icon-name="utility:arrowup" onclick={scrollUp}></lightning-button>
+                    </div>                    
+                    <template if:true={isAqueousProduct}>
+                        <lightning-button label="Generate Document" onclick={handleOpenDocument}></lightning-button>
+                        <lightning-button label="View Document" onclick={handleViewDocument}></lightning-button>
+                    </template>
+                    <lightning-button label="New Primary Quote" value="Primary" icon-name="utility:add" onclick={handleAddNewQuote}
+                        disabled={isPrimaryDisableButton}></lightning-button>
+                    <lightning-button label="New Excess Quote" value="Excess" icon-name="utility:add" onclick={handleAddNewQuote}
+                        disabled={isExcessDisableButton}></lightning-button>
+                </lightning-button-group>
+            </div>
+        </lightning-card>
+    </div-->
+    
+    <template if:true={showDetails}>
+        <c-quote-version-console-detail-item-lwc data-id={quoteCompareItemZero.quoteId} key={quoteCompareItemZero.quoteId}
+            oneditquote={handleEditQuote} compare-item={quoteCompareItemZero} quote-id={quoteCompareItemZero.quoteId}
+            quote-name={quoteCompareItemZero.quoteName} quote-status={quoteCompareItemZero.quoteStatus}
+            oneditquotename={handleEditQuoteName} onclonequote={handleCloneQuote} ondeletequote={handleDeleteQuote} list-main-sections = {listMainSections}
+            onupdatequote={handleUpdateQuote} submission-obj={submissionObj} active-sections = {activeSections}
+            onrefreshquote={handleRefreshQuote} is-aqueous-product={isAqueousProduct} is-primary-quote={isPrimaryQuote}
+            quote-process-submission-id={quoteProcessSubmissionId} prev-quote-values={quoteCompareItemZero}
+            onrefreshquotedetail={handleRefreshQuoteDetail} onquotecreation={handleQuoteCreation}
+            is-primary-disable-button={isPrimaryDisableButton} is-excess-disable-button={isExcessDisableButton}
+            is-referred-quote-locked={isReferredQuoteLocked} oncheckreferredquotelocking={handleReferredQuoteLocking}>
+        </c-quote-version-console-detail-item-lwc>
+    </template>
+        
+    <!--template for:each={compareItem.quoteFields} for:item='item'>
+        <div key={item.index}>
+            <c-generate-output-element-lwc format={item.format} field-value={item.value}
+            field-id={item.fieldId} options={item.options}
+            oneditfield={handleChangeInput} obj-name={item.sourceFieldAPI}
+            field-name={item.fieldName}>
+            </c-generate-output-element-lwc>
+        </div>
+    </template-->  
+    <template if:true={showBinderDialog}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="width: 100%;">
+                <header class="slds-modal__header">
+                    Master Binders
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <lightning-datatable key-field="Id" data={bindersList} columns={binderColumns}
+                        onrowselection={handleRowSelection} max-row-selection="1">        
+                    </lightning-datatable>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="base" class="slds-float_left" label="Cancel"
+                        title="Cancel" onclick={closeBinderModal}></lightning-button>
+                    <div class="slds-float_right">                                
+                        <lightning-button label="Proceed to Quote" 
+                            onclick={createQuote} ></lightning-button>
+                    </div>
+                </footer>        
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

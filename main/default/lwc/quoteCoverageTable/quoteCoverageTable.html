@@ -1,0 +1,49 @@
+<!--
+  @description       : 
+  @author            : Vinayesh
+  @group             : 
+  @last modified on  : 03-04-2022
+  @last modified by  : Maeran Shaikh
+-->
+<template>
+    <div if:true={isLoading} class="demo-only">
+        <div class="slds-spinner_container" style="z-index: 120 !important;">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-size_12-of-12">
+            <lightning-datatable key-field="Id" data={data} columns={columns}
+                min-column-width="100" hide-checkbox-column>
+            </lightning-datatable>
+            <div class="slds-p-top_small">
+                <lightning-input type="number" step="1" name="totalPremiumBefore" value={totalPremiumBeforeDiscount} formatter="currency" label="Total Before discount for shared agg." read-only></lightning-input>
+                <lightning-combobox 
+                    name="isAggSharedOptions" 
+                    variant = "label-inline"
+                    label="Is aggregate limit to be shared?" 
+                    value={isAggShared} 
+                    options={isAggSharedOptions}
+                    onchange={handleisAggSharedOptionChange} 
+                    style="height: 31px;"
+                    disabled={disableShared}
+                    >
+                </lightning-combobox>
+            </div>
+            <div>
+                <lightning-input label = {combineMaxAggLiabilityLabel}
+                variant="label-inline" type="number" step="1" name="maxAggLimitOfLiability" value={maxAggLiabilityLimit} 
+                formatter="currency"  onchange={handleMaxAggLimitChange}  onblur = {handlemaxAggLimitFocusChange}></lightning-input>
+                <label class="slds-form-element__label label1" >{maxLiabilityLabel}</label>
+            </div>
+        </br>
+            <div>
+                <lightning-input type="number" step="1" name="totalPremiumAfter" value={totalPremiumAfterDiscount} formatter="currency" label="Total After discount for shared agg." read-only></lightning-input>
+            </div>
+        </div>
+    </div>
+</template>

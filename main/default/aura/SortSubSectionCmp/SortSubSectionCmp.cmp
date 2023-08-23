@@ -1,0 +1,12 @@
+<aura:component controller="SortSubSectionCmpController"  implements="flexipage:availableForAllPageTypes,force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,force:lightningQuickActionWithoutHeader" access="global">
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="Object" default="[]"/>
+    <!--<aura:handler name="change" value="{!v.id}" action="{!c.reloadData}"/>-->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+   
+    <lightning:datatable aura:id="dtTable" columns="{!v.columns}" data="{!v.data}" keyField="Id"
+							 hideCheckboxColumn="true" errors="{!v.errors}" draftValues="{!v.draftValues}"
+                             onsave="{!c.handleSaveEdition}" />
+</aura:component>

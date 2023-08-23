@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product__c</fullName>
+    <externalId>false</externalId>
+    <label>Product</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cyber</fullName>
+                <default>false</default>
+                <label>Cyber</label>
+            </value>
+            <value>
+                <fullName>Cyber Standalone</fullName>
+                <default>false</default>
+                <label>Cyber Standalone</label>
+            </value>
+            <value>
+                <fullName>MPL Standalone</fullName>
+                <default>false</default>
+                <label>MPL Standalone</label>
+            </value>
+            <value>
+                <fullName>Private Company Combo</fullName>
+                <default>false</default>
+                <label>Private Company Combo</label>
+            </value>
+            <value>
+                <fullName>Professional Indemnity</fullName>
+                <default>false</default>
+                <label>Professional Indemnity</label>
+            </value>
+            <value>
+                <fullName>Crime</fullName>
+                <default>false</default>
+                <label>Crime</label>
+            </value>
+            <value>
+                <fullName>D&amp;O</fullName>
+                <default>false</default>
+                <label>D&amp;O</label>
+            </value>
+            <value>
+                <fullName>EPL</fullName>
+                <default>false</default>
+                <label>EPL</label>
+            </value>
+            <value>
+                <fullName>Fiduciary</fullName>
+                <default>false</default>
+                <label>Fiduciary</label>
+            </value>
+            <value>
+                <fullName>MPL</fullName>
+                <default>false</default>
+                <label>MPL</label>
+            </value>
+            <value>
+                <fullName>Aqueous</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Aqueous</label>
+            </value>
+            <value>
+                <fullName>Cel1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cel1</label>
+            </value>
+            <value>
+                <fullName>D&amp;O Standalone</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>D&amp;O Standalone</label>
+            </value>
+            <value>
+                <fullName>New Test</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>New Test</label>
+            </value>
+            <value>
+                <fullName>Test</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Test</label>
+            </value>
+            <value>
+                <fullName>Test Product 00</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Test Product 00</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

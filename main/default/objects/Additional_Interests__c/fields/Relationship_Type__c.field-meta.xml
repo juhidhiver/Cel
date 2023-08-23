@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Relationship_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Relationship Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Additional Insured</fullName>
+                <default>false</default>
+                <label>Additional Insured</label>
+            </value>
+            <value>
+                <fullName>Lienholder</fullName>
+                <default>false</default>
+                <label>Lienholder</label>
+            </value>
+            <value>
+                <fullName>Mortgagee</fullName>
+                <default>false</default>
+                <label>Mortgagee</label>
+            </value>
+            <value>
+                <fullName>Loss Payee</fullName>
+                <default>false</default>
+                <label>Loss Payee</label>
+            </value>
+            <value>
+                <fullName>Additional Interest</fullName>
+                <default>false</default>
+                <label>Additional Interest</label>
+            </value>
+            <value>
+                <fullName>Loss Payee and Additional Insured</fullName>
+                <default>false</default>
+                <label>Loss Payee and Additional Insured</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Trust, LLC or LLP</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Trust, LLC or LLP</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

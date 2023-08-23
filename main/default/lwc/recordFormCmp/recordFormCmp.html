@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-card">
+        <lightning-record-edit-form  record-id = {recordId}
+                                     object-api-name={objectname}>
+            <!--Fields Render -->
+            <div class="slds-grid" style="padding: 2% 2% 2% 2%">
+                <template for:each={fields} for:item='field'>
+                        <lightning-input-field key={field}
+                                               onchange = {handleChangeSomething}
+                                               class="slds-size--1-of-2 slds-col"
+                                               field-name= {field}>
+                        </lightning-input-field>
+                </template>
+                            <lightning-button   type="submit"
+                                                label="Save">
+                </lightning-button>
+            </div>
+            <!--End Fields Render -->
+        </lightning-record-edit-form>
+    </div>
+</template>

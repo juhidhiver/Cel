@@ -1,0 +1,7 @@
+.THIS .slds-modal__container { 
+    width : 60% !important; 
+    max-width : 80% !important; 
+}
+.THIS.slds-spinner_container {
+	position: initial !important;
+}

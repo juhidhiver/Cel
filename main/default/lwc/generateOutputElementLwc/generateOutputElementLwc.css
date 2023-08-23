@@ -1,0 +1,14 @@
+/* .THIS .lightning-input .lightning-datepicker .div .lightning-button-icon .button{
+    display :inline-block !important;
+}
+.slds-button{
+    display :inline-block !important;
+} */
+
+/* lightning-button{
+    display :block !important;
+} */
+
+.slds-button_icon-bare .slds-button--icon-bare {
+    display: block !important;
+}

@@ -1,0 +1,62 @@
+h3 {
+    padding: .5rem;
+    background: rgb(243, 242, 242) !important;
+    cursor: pointer;
+    color: currentColor;
+}
+.slds-accordion .slds-form-element__label{
+    display: none;
+}
+
+.txtnum{
+    font-weight: 700;
+    font-size: 21px;
+    margin-right: 20px;
+}
+.clsVisible {
+    visibility: visible;
+}
+.clsVisible *{
+    visibility: visible;
+}
+
+.clsHidden {
+    visibility: hidden;
+}
+.clsHidden *{
+    visibility: hidden;
+}
+.clsHidden .slds-accordion {
+    height: 20px;
+}
+.radio{
+    padding-top: 0.3rem;
+}
+.radio .slds-form-element__label{
+    display: inline !important;
+}
+.subSection{
+    /* padding: .5rem; */
+    background: rgb(243, 242, 242);
+    margin: 15px 0;
+}
+.subSection .slds-col{
+    padding: .5rem !important;
+}
+
+.mainSection .slds-wrap .slds-col{
+    padding: 5px;
+}
+.mainSection .slds-accordion__content {
+    margin: 10px;
+}
+.inline{
+    display: inline-block !important;
+    padding: .5rem;
+}
+.THIS .slds-accordion__summary-heading .slds-accordion__summary-content{
+    font-weight: bold !important;
+}
+.slds-accordion__summary-action {
+    font-weight: bold !important;
+}

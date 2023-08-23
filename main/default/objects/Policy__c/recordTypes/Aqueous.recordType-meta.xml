@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aqueous</fullName>
+    <active>true</active>
+    <label>Aqueous</label>
+    <picklistValues>
+        <picklist>Binding_License_Owner__c</picklist>
+        <values>
+            <fullName>Agency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Producer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Cancellation_Reason__c</picklist>
+        <values>
+            <fullName>Alternate Product Purchased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completion of Operation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cover no longer required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cover overlapped with pre-existing cover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance Company Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insured Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merger or Acquisition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Payment of premium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Known</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other %28administrative reason%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor service %2F complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Unsuitable %2F Misunderstood</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product cancelled by Underwriter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product cancelled within cooling off period</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product too expensive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sanctions%2FOFAC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Underwriting Reasons</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Endorsement_Change_Description__c</picklist>
+        <values>
+            <fullName>Administrative - Change of Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Administrative - Change of Insured%28s%29 Name</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Administrative - Update Insured Address</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broaden Cover - Coverage%28s%29 added</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broaden Cover - Increased Limit%28s%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancellation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coverage Cancel and Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extended Reporting Period %28ERP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Policy Duration Change - Extension of Policy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Policy Duration Change - Shortening of Policy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstatement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Restrict Cover - Coverage%28s%29 removed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Restrict Cover - Decreased Limit%28s%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Invoice_Status__c</picklist>
+        <values>
+            <fullName>Processed in EPIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SOA Not Generated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent to RAC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Layer__c</picklist>
+        <values>
+            <fullName>Excess</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Primary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>NIPR_Results__c</picklist>
+        <values>
+            <fullName>Fail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pass</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Policy_Status__c</picklist>
+        <values>
+            <fullName>Bound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Name__c</picklist>
+        <values>
+            <fullName>Crime</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cyber</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cyber Standalone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>D_O</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EPL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fiduciary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MPL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MPL Standalone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Indemnity</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

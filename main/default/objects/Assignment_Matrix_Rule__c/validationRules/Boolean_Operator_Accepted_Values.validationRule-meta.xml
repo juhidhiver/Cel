@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Boolean_Operator_Accepted_Values</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL(Field_Type__c, &apos;Boolean&apos;) &amp;&amp; (LOWER(Value__c) &lt;&gt;  &apos;true&apos;)  &amp;&amp;  (LOWER(Value__c) &lt;&gt;  &apos;false&apos;)</errorConditionFormula>
+    <errorMessage>Value must be either &apos;true&apos; or &apos;false&apos;</errorMessage>
+</ValidationRule>

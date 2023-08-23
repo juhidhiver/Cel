@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aqueous</fullName>
+    <active>true</active>
+    <label>Aqueous</label>
+    <picklistValues>
+        <picklist>Paid_Status__c</picklist>
+        <values>
+            <fullName>No Payment Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Paid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Query</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Quote_Type__c</picklist>
+        <values>
+            <fullName>Correction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coverage Amendment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coverage Cancel and Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flat Cancellation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flat Cancellation %28Ab - Initio%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Full Amendment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insured Account Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Midterm Cancellation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Policy Duration Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstatement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renewal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

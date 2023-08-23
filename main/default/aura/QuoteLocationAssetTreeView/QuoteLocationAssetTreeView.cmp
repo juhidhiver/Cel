@@ -1,0 +1,189 @@
+<aura:component controller="QuoteLocationAssetTreeViewController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+
+	<aura:attribute name="title" type="String" default="Quote Locations"/>
+	<aura:attribute name="columnHeaders" type="String[]"/>
+	<aura:attribute name="iconName" type="String"/>
+	<aura:attribute name="listSize" type="Integer" default="0"/>
+	<aura:attribute name="listLocationAsset" type="QuoteLocationAssetTreeViewController.LocationAssetWrapper[]"/>
+	<aura:attribute name="accountId" type="String"/>
+	<aura:attribute name="productId" type="String"/>
+	<aura:attribute name="opportunityId" type="String"/>
+	<aura:attribute name="assetRecordTypeId" type="String"/>
+
+	<aura:attribute name="deleteRecord" type="String"/>
+	<aura:attribute name="quoteLocationId" type="String"/>
+	<aura:attribute name="simpleRecord" type="SObject"/>
+	<aura:attribute name="record" type="SObject"/>
+	<aura:attribute name="error" type="String"/>
+
+	<aura:attribute name="isAddLocation" type="Boolean"  default="false"/>
+	<aura:attribute name="isOpenConfirmDelele" type="Boolean"  default="false"/>
+	
+    <!-- action -->
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler name="addLocationEvent" event="c:addLocationEvent" action="{!c.handleAddLocationEvent}"/>
+	        
+	<force:recordData aura:id="recordHandler"
+			          recordId="{!v.deleteRecord}"
+			          layoutType="FULL"
+			          targetFields="{!v.simpleRecord}"
+			          targetError="{!v.error}" />
+
+	<force:recordData aura:id="editQuoteLocation"
+	        recordId="{!v.quoteLocationId}"
+	        layoutType="FULL"
+	        targetRecord="{!v.record}"
+	        targetFields="{!v.simpleRecord}"
+	        targetError="{!v.error}"
+	        recordUpdated="{!c.handleAfterEditQuoteLocation}"/>			          
+
+	<div class="container">
+		<lightning:card class="slds-card_boundary forceRelatedListCardDesktop ">
+			<aura:set attribute="title">
+				<header class="slds-media slds-media_center slds-has-flexi-truncate">
+					<div class="slds-media__figure">
+						<lightning:icon iconName="{!v.iconName}" size="small"/>
+					</div>
+					<div class="slds-media__body">
+						<h2 class="slds-card__header-title">
+							<a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="{!v.title}">
+								<span>{!v.title} ({!v.listSize})</span>
+							</a>
+						</h2>
+					</div>
+				</header>
+			</aura:set>
+
+			<aura:set attribute="actions">
+				<lightning:button label="New" onclick="{!c.addNewLocation}"/>
+			</aura:set>
+			
+			<aura:set attribute="footer">
+				<aura:if isTrue="{!v.listSize > 0}">
+					<a class="slds-card__footer-action" href="{!'/lightning/r/' + v.recordId + '/related/Quote_Locations__r/view'}">View All
+					  <span class="slds-assistive-text">Quote Locations</span>
+					</a>
+				</aura:if>
+			</aura:set>
+			
+			<!-- <div class="slds-card__body slds-card__body_inner"> -->
+				<aura:if isTrue="{!v.listSize > 0}">
+					<table class="slds-table slds-table_cell-buffer slds-table_bordered">
+						<thead>
+							<tr class="slds-text-title_caps">
+				    			<aura:iteration items="{!v.columnHeaders}" var="columnHeader">
+					    			<th class="slds-text-title_caps slds-cell-wrap" scope="col">
+								        <div class="slds-truncate" title="{!columnHeader}">{!columnHeader}</div>
+							      	</th>
+						      	</aura:iteration>
+				    		</tr>
+						</thead>
+
+						<tbody>
+							<aura:iteration items="{!v.listLocationAsset}" var="location" indexVar="locationIndex">
+								<tr class="slds-hint-parent" >
+									<td>
+										<div class="slds-truncate" title="{!location.quoteLocation.Name}">
+											<a href="{!'/' + location.quoteLocation.Id}" tabindex="-1">{!location.quoteLocation.Name}</a>
+										</div>
+									</td>
+
+									<td>
+										<ui:outputCheckbox aura:id="output" value="{!location.quoteLocation.Primary_Location__c}"/>
+									</td>
+
+									<td>
+										<div class="slds-truncate" title="{!location.quoteLocation.Usage_Type__c}">
+											{!location.quoteLocation.Usage_Type__c}
+										</div>
+								  	</td>
+
+									<td>
+										<div class="slds-truncate" title="{!location.quoteLocation.Locations__r.Name}">
+											<a href="{!'/' + location.quoteLocation.Locations__c}" tabindex="-1">{!location.quoteLocation.Locations__r.Name}</a>
+										</div>
+									</td>
+
+								  	<td>
+										<div class="slds-truncate" title="{!location.quoteLocation.Locations__r.Address__c}">
+											{!location.quoteLocation.Locations__r.Address__c}
+										</div>
+								  	</td>
+								  	
+								  	<td>
+										<div class="slds-truncate" title="{!location.quoteLocation.Locations__r.City__c}">
+											{!location.quoteLocation.Locations__r.City__c}
+										</div>
+								  	</td>
+
+								  	<td>
+										<div class="slds-truncate" title="{!location.quoteLocation.Locations__r.State_Province__c}">
+											{!location.quoteLocation.Locations__r.State_Province__c}
+										</div>
+								  	</td>
+
+								  	<td>
+										<div class="slds-truncate" title="{!location.quoteLocation.Locations__r.Postal_Code__c}">
+											{!location.quoteLocation.Locations__r.Postal_Code__c}
+										</div>
+								  	</td>
+
+								  	<td>
+										<div class="slds-truncate" title="{!location.quoteLocation.Locations__r.Country__c}">
+											{!location.quoteLocation.Locations__r.Country__c}
+										</div>
+								  	</td>
+
+									<td style="text-align: right">
+										<lightning:buttonMenu 
+											aura:id="menu" 
+											onselect="{! c.handleSelect }" 
+											alternativeText="Show menu"
+		                                    iconSize="x-small"
+		                                    variant="border-filled" 
+		                                    menuAlignment="right"
+		                                    name="{!location.quoteLocation.Id}">
+		                                    	<lightning:menuItem value="Edit_Location" label="Edit" />
+		                                      	<lightning:menuItem value="Delete_Location" label="Delete" />
+			                    		</lightning:buttonMenu>
+									</td>
+								</tr>
+							</aura:iteration>
+						</tbody>
+					</table>
+
+				</aura:if>
+			<!-- </div> -->
+		</lightning:card>
+	</div>
+
+	<aura:if isTrue="{!v.isAddLocation}">
+		<c:AddLocationCmp parentId="{!v.recordId}" objAPIName="Quote_Location__c" parentAPIName="Quote__c" locationAPIName="Locations__c"/>
+	</aura:if>
+
+	<aura:if isTrue="{!v.isOpenConfirmDelele}">
+	  	<div role="dialog" tabindex="-1" aria-labelledby="header99" class="slds-modal slds-fade-in-open ">
+	        <div class="slds-modal__container">
+	          	<div class="slds-modal__header">
+		            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.cancelDelete}" >
+		                <lightning:icon iconName="utility:close" alternativeText="Close" size="small" class="dialog-icon"/>
+		                <span class="slds-assistive-text">Close</span>
+		            </button>
+	            	<h2 id="header99" class="slds-text-heading--medium">Delete Quote Location</h2>
+	          	</div>
+
+	          	<div class="slds-modal__content slds-p-around_medium" style="text-align: center;" id="modal-content-id-1">
+	            	<p>Are you sure you want to delete this Quote Location?</p>
+	          	</div>
+
+	          	<div class="slds-modal__footer">
+	            	<button class="slds-button slds-button--neutral" onclick="{!c.cancelDelete}">Cancel</button>
+	            	<button class="slds-button slds-button_brand" onclick="{!c.confirmDelete}">Confirm</button>
+	          	</div>
+	          
+	        </div>
+	  	</div>
+  		<div class="slds-backdrop slds-backdrop--open"></div>
+    </aura:if>
+
+</aura:component>

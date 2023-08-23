@@ -1,0 +1,132 @@
+<template>
+  <template if:false={loaded}>
+    <div class="loadingSpinner slds-align_absolute-center">
+      <lightning-spinner
+        alternative-text="Loading"
+        size="medium"
+      ></lightning-spinner>
+    </div>
+    <div
+      class="slds-align_absolute-center"
+      style="text-align: center; margin-top: 70px; color: #005fb2; font-weight: bold;"
+    >
+      Initializing form, please wait...
+    </div>
+  </template>
+
+  <template if:true={loaded}>
+    <div class="modal-header slds-modal__header">
+      <h2 id="header99" class="title slds-text-heading--medium">New Quote</h2>
+    </div>
+
+    <template if:true={saving}>
+      <div class="savingSpinner slds-align_absolute-center">
+        <lightning-spinner
+          alternative-text="Loading"
+          size="medium"
+        ></lightning-spinner>
+      </div>
+    </template>
+
+    <lightning-record-edit-form
+      object-api-name="Quote"
+      onsuccess={handleSuccess}
+    >
+      <lightning-messages> </lightning-messages>
+      <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_2-of-3">
+          <lightning-input-field
+            field-name="QuoteNumber"
+          ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+          <template if:true={oppObj}>
+            <lightning-input-field
+              field-name="Effective_Date__c"
+              value={oppObj.Effective_Date__c}
+            ></lightning-input-field>
+          </template>
+        </div>
+        <div class="slds-col slds-size_2-of-3">
+          <template if:true={oppObj}>
+            <lightning-input-field
+              field-name="Name"
+              value={oppObj.Name}
+            ></lightning-input-field>
+          </template>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+          <template if:true={oppObj}>
+            <lightning-input-field
+              field-name="ExpirationDate"
+              value={oppObj.Expiration_Date__c}
+            ></lightning-input-field>
+          </template>
+        </div>
+
+        <div class="slds-col slds-size_2-of-3">
+          <lightning-input-field
+            field-name="OpportunityId"
+            value={recordId}
+            disabled
+          ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+          <!-- <lightning-input-field
+            field-name="CloseDate__c"
+            value={closeDate}
+          ></lightning-input-field> -->
+          <template if:true={oppObj}>
+            <lightning-input-field
+              field-name="CloseDate__c"
+              value={oppObj.CloseDate}
+            ></lightning-input-field>
+          </template>
+        </div>
+        <div class="slds-col slds-size_2-of-3">
+          <template if:true={oppObj}>
+            <lightning-input-field
+              field-name="AccountId"
+              value={oppObj.AccountId}
+            ></lightning-input-field>
+          </template>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+          <lightning-input-field
+            field-name="Status"
+            value="In Progress"
+          ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_2-of-3">
+          <template if:true={oppObj}>
+            <lightning-input-field
+              field-name="Product_Name__c"
+              value={oppObj.Product_Name__c}
+            ></lightning-input-field>
+          </template>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+          &nbsp;
+        </div>
+        <lightning-input-field field-name="Quote_Type__c" class="slds-hide" value = {quoteType}></lightning-input-field>
+        <lightning-input-field field-name="Policy__c" class="slds-hide" value ={oppObj.Policy__c}></lightning-input-field>
+      </div>  
+      <footer class="slds-modal__footer">
+        <lightning-button
+          class="slds-button"
+          onclick={handleClose}
+          label="Cancel"
+          variant="brand"
+        >
+        </lightning-button>
+        <lightning-button
+          class="slds-button"
+          type="submit"
+          label="Save"
+          variant="brand"
+        >
+        </lightning-button>
+      </footer>
+    </lightning-record-edit-form>
+  </template>
+</template>

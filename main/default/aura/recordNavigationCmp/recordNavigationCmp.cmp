@@ -1,0 +1,9 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global"
+                controller="recordNavigationCmpCtrl"
+                >
+	
+    <!--Events section-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:navigation aura:id="navService"/>
+    
+</aura:component>

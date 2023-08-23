@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Policy_Wording__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Policy_Wording_Link__c),&quot;&quot;,HYPERLINK(Policy_Wording_Link__c , &apos;Policy Wording Document&apos;))</formula>
+    <label>Policy Wording</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

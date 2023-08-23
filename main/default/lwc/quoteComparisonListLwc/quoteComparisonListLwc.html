@@ -1,0 +1,127 @@
+<!--
+  @File Name          : testQuoteCompareListLwc.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 5/5/2020, 3:49:28 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/18/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+    <div class="slds-theme_default">
+        <template if:true={isLoading}>
+            <div class="slds-spinner_container" style="height:6rem">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </div>
+    <div class="header slds-card_boundary position-sticky">
+        <lightning-card 
+                variant="narrow"
+                icon-name="standard:job_profile">
+            <h1 slot="title">Coverages And Factors</h1>
+            <div slot="actions">
+                <lightning-button-group>
+                    <lightning-button label="New Quote" icon-name="utility:add" onclick={handleAddNewQuote}></lightning-button>
+                    <!-- <lightning-button-icon icon-name="utility:redo" size="large" alternative-text="Redo" variant="border-filled"></lightning-button-icon>
+                    <lightning-button-icon icon-name="utility:filterList" size="large" alternative-text="Filter List" variant="border-filled"></lightning-button-icon>
+                    <lightning-button-icon icon-name="utility:download" size="large" alternative-text="Download" variant="border-filled"></lightning-button-icon> -->
+
+                    <lightning-button-menu
+                            icon-name="utility:settings"
+                            size="large"
+                            alternative-text="Settings"
+                            variant="bare">
+                        <lightning-menu-item label="Font" value="font"></lightning-menu-item>
+                        <lightning-menu-item label="Size" value="size"></lightning-menu-item>
+                        <lightning-menu-item label="Format" value="format"></lightning-menu-item>
+                    </lightning-button-menu>
+                </lightning-button-group>
+            </div>
+        </lightning-card>
+    </div>
+    <div class="c-container">
+        <div style="float: left;width: 27%;position: relative;z-index: 93;">
+            <lightning-layout class='slds-card_boundary' horizontal-align="spread">
+                <lightning-layout-item key={item} padding="around-small">
+                    <lightning-card variant="Narrow" title="" footer="Card Footer">
+                        <div class="slds-p-horizontal_small">
+                            <div class="slds-table_edit_container slds-is-relative">
+                                <table aria-multiselectable="true"
+                                       class="slds-table slds-table_edit slds-table_fixed-layout slds-table_resizable-cols tblCustom"
+                                       role="grid" data-id="value-parent1">
+                                    <thead data-id="value-container1">
+                                        <tr>
+                                            <td data-id="value-child1">&nbsp;Values</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-id="value-child1" class="value-height">&nbsp;</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- <tr>
+                                            <td >&nbsp;</td>
+                                        </tr> -->
+                                        <!-- <lightning-accordion 
+                                        allow-multiple-sections-open
+                                        >
+                                            <template for:each={quoteCompareWrapper.parents} for:item="item">
+                                                <lightning-accordion-section 
+                                                key={item.id} 
+                                                name={item.title} 
+                                                label={item.title}
+                                                >
+                                                <template for:each={item.childs} for:item="item1">
+                                                    <tr key={item1.id}>
+                                                        <td class="title-name" title={item1.title}>{item1.title}</td>
+                                                    </tr>
+                                                </template>
+                                                </lightning-accordion-section>
+                                            </template>
+                                        </lightning-accordion> -->
+                                        <template for:each={quoteCompareWrapper.parents} for:item="item">
+                                            <tr class='titleValue' if:true={item.display} key={item.id}>
+                                                <td class="title-name" title={item.title}>{item.title}</td>
+                                            </tr>
+                                            <template for:each={item.childs} for:item="item1">
+                                                <tr key={item1.id}>
+                                                    <td class="title-name" title={item1.title}>{item1.title}</td>
+                                                </tr>
+                                            </template>
+                                        </template>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </lightning-card>
+                </lightning-layout-item></lightning-layout>
+        </div>
+        <div data-id="parentCompareItem" style="float: right;width: 73%;" class="slds-scrollable_x" onscroll={handleScroll}>
+            <lightning-layout >
+                <!-- <template for:each={listWrapper} for:item='wrapper' for:index="index"> -->
+                <template for:each={quoteCompareItems} for:item='item' for:index="index">    
+                    <lightning-layout-item data-id="compareItem"  class='slds-card_boundary' key={item.quoteId} padding="around-small" size="4">
+                        <lightning-card variant="Narrow" title="" footer="Card Footer">
+                            <div class="slds-p-horizontal_small">
+                                <c-quote-compare-item-lwc data-id={item.quoteId} compare-item={item} oneditquote={handleEditQuote} quote-index={index} quote-id={item.quoteId}
+                                                          quote-name={item.quoteName} quote-status={item.quoteStatus} 
+                                                          quote-rating-status={item.quoteRatingStatus} ondeletequote={handleDeleteQuote}
+                                                          onclonequote={handleCloneQuote} onrefreshquote={handleRefreshQuote}
+                                                          onselectversion={handleSelectVersion} process-record-id={processRecordId}></c-quote-compare-item-lwc>
+                            </div>
+                            <!-- quote-rating-wrapper={item} -->
+                        </lightning-card>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,32 @@
+<!--
+  @description       : 
+  @author            : Maeran Shaikh
+  @group             : 
+  @last modified on  : 07-18-2021
+  @last modified by  : Maeran Shaikh
+  Modifications Log 
+  Ver   Date         Author          Modification
+  1.0   07-18-2021   Maeran Shaikh   Initial Version
+-->
+<template>
+    <lightning-card title="Product Selection">
+
+        <div>
+            <lightning-layout multiple-rows>
+                <template if:false={prodList}>
+                        
+                </template>
+                <template if:true={prodList}>
+                    <div class="cards-list">
+                        <template for:each={prodList} for:item="prod">
+                            <lightning-layout-item size="3" padding="around-small" key={prod.id} >
+                                <c-product-selection-tiles each-prod={prod}></c-product-selection-tiles>
+                            </lightning-layout-item>
+                        </template>
+                       <!-- <c-celerity-submission-home-page padding="around-small"></c-celerity-submission-home-page>-->
+                    </div>
+                </template>
+            </lightning-layout>
+        </div>
+    </lightning-card>
+</template>

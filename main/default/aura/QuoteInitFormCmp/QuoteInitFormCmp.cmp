@@ -1,0 +1,86 @@
+<aura:component controller="QuoteInitFormCmpController" implements="force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasRecordId" access="global"  >
+	<aura:attribute name="isProcessing" type="Boolean" default="false" />	
+	<aura:attribute name="showSpinner" type="Boolean" default="true" />
+  	<aura:handler event="force:navigateToSObject" action="{!c.navigate}"/>   
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	
+	<aura:if isTrue="{!v.showSpinner}">
+		<lightning:spinner variant="brand" aura:id="spinner" class="slds-show" alternativeText="Please wait..." />
+    	<div style="text-align: center; margin-top: 70px; color: #005fb2; font-weight: bold;"> Initializing form, please wait... </div>
+		
+		<aura:set attribute="else">
+            <lightning:recordEditForm onload="{!c.handleLoad}" onsuccess="{!c.handleSuccess}" onsubmit="{!c.handleSubmit}" onerror="{!c.handleError}" objectApiName="Quote">
+				<section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+					<div class="slds-modal__container">
+						<header class="slds-modal__header">
+						<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Quote</h2>
+						</header>
+						<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+							<lightning:messages />
+							<aura:if isTrue="{! v.isProcessing }">
+								<div class="slds-p-around--medium slds-is-relative" style="height:6rem">
+									<div class="slds-spinner_container">
+									<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+										<span class="slds-assistive-text">Processing</span>
+										<div class="slds-spinner__dot-a"></div>
+										<div class="slds-spinner__dot-b"></div>
+									</div>
+									</div>
+								</div>
+							</aura:if>
+
+							<div class="slds-grid slds-wrap">
+								<div class="slds-col slds-size_2-of-3">
+									<lightning:inputField fieldName="QuoteNumber" disabled="true"/>	
+								</div>
+								<div class="slds-col slds-size_1-of-3">
+									<lightning:inputField fieldName="Effective_Date__c" aura:id="qEffDate"/>
+								</div>
+						
+								<div class="slds-col slds-size_2-of-3">
+									<lightning:inputField fieldName="Name" aura:id="qName"/>
+								</div>
+								<div class="slds-col slds-size_1-of-3">
+									<lightning:inputField fieldName="ExpirationDate" aura:id="qExpDate"/>		
+								</div>
+						
+								<div class="slds-col slds-size_2-of-3">
+									<lightning:inputField fieldName="OpportunityId" aura:id="opptId" disabled="true"/>
+								</div>
+								<div class="slds-col slds-size_1-of-3">
+									<lightning:inputField fieldName="CloseDate__c" aura:id="qCloseDate"/>
+								</div>
+						
+								<div class="slds-col slds-size_2-of-3">
+									<lightning:inputField fieldName="AccountId" aura:id="qAccount"/>
+								</div>
+								<div class="slds-col slds-size_1-of-3">
+									<lightning:inputField fieldName="Status" aura:id="qStatus"/>
+								</div>
+								<div class="slds-col slds-size_2-of-3">
+									<lightning:inputField fieldName="Product_Name__c" aura:id="qProduct"/>
+								</div>
+								<div class="slds-col slds-size_1-of-3">
+									&nbsp;
+								</div>
+
+								<!--div class="slds-col slds-size_1-of-1">
+									<lightning:inputField fieldName="Coverage_Product_Options__c" aura:id="qCoverageProduct"/>
+								</div-->
+								<lightning:inputField fieldName="Quote_Type__c" aura:id="qType" class="slds-hide"/>
+								<lightning:inputField fieldName="Policy__c" aura:id="qPolicy" class="slds-hide"/>
+
+
+							</div>
+						</div>
+						<footer class="slds-modal__footer">
+							<lightning:button variant="brand" type="button" label="Cancel" title="Cancel" onclick="{!c.cancelAction}"/> 
+							<lightning:button  variant="brand" type="submit" name="save" label="Save" />
+						</footer>			
+					</div>
+				</section>
+			</lightning:recordEditForm>
+        </aura:set>
+    </aura:if>
+	
+</aura:component>

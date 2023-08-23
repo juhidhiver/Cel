@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Relationship_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Relationship Type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Broker</fullName>
+                <default>true</default>
+                <label>Broker</label>
+            </value>
+            <value>
+                <fullName>Sub-Producer</fullName>
+                <default>false</default>
+                <label>Sub-Producer</label>
+            </value>
+            <value>
+                <fullName>Additional Interest</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Additional Interest</label>
+            </value>
+            <value>
+                <fullName>Insured</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Insured</label>
+            </value>
+            <value>
+                <fullName>Reinsured</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Reinsured</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,8 @@
+<aura:component controller="AutoCompleteController" 
+			    implements="force:lightningQuickActionWithoutHeader,force:hasRecordId"> 
+    <aura:handler name="init" action="{!c.init}" value="{!this}" /> 
+    <aura:attribute name="recordId" type="String" /> 
+    <lightning:spinner variant="brand" aura:id="spinner" class="slds-show" alternativeText="Please wait...">
+    </lightning:spinner>
+    <div style="text-align: center; margin-top: 70px; color: #005fb2; font-weight: bold;"> Update is working, please wait... </div>
+</aura:component>

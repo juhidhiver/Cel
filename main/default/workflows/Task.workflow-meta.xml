@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_Alert_for_Clear_Sanction</fullName>
+        <ccEmails>juhi.dhiver@innovisk.global</ccEmails>
+        <description>Email Alert for Clear Sanction</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Celerity_Email_Folder/Request_Sanction_Clearance_for_Celerity</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_to_AQPI_Level_1_Users_for_clear_sanction_search</fullName>
+        <description>Email to AQPI Level 1 Users for clear sanction search</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>AQ_Clear_Sanctions_Request</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>AQ_email_templates/Request_Sanction_Clearance</template>
+    </alerts>
+    <rules>
+        <fullName>Clear sanction search email</fullName>
+        <actions>
+            <name>Email_to_AQPI_Level_1_Users_for_clear_sanction_search</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Task.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>AQ Clear Sanction Request</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quote_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Quote Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Business</fullName>
+                <default>false</default>
+                <label>New Business</label>
+            </value>
+            <value>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+                <label>Reinstatement</label>
+            </value>
+            <value>
+                <fullName>Midterm Cancellation</fullName>
+                <default>false</default>
+                <label>Midterm Cancellation</label>
+            </value>
+            <value>
+                <fullName>Flat Cancellation</fullName>
+                <default>false</default>
+                <label>Flat Cancellation</label>
+            </value>
+            <value>
+                <fullName>Renewal</fullName>
+                <default>false</default>
+                <label>Renewal</label>
+            </value>
+            <value>
+                <fullName>Full Amendment</fullName>
+                <default>false</default>
+                <label>Full Amendment</label>
+            </value>
+            <value>
+                <fullName>Coverage Amendment</fullName>
+                <default>false</default>
+                <label>Coverage Amendment</label>
+            </value>
+            <value>
+                <fullName>Insured Account Update</fullName>
+                <default>false</default>
+                <label>Insured Account Update</label>
+            </value>
+            <value>
+                <fullName>Flat Cancellation (Ab - Initio)</fullName>
+                <default>false</default>
+                <label>Flat Cancellation (Ab - Initio)</label>
+            </value>
+            <value>
+                <fullName>Correction</fullName>
+                <default>false</default>
+                <label>Correction</label>
+            </value>
+            <value>
+                <fullName>Coverage Cancel and Replace</fullName>
+                <default>false</default>
+                <label>Coverage Cancel and Replace</label>
+            </value>
+            <value>
+                <fullName>Policy Duration Change</fullName>
+                <default>false</default>
+                <label>Policy Duration Change</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

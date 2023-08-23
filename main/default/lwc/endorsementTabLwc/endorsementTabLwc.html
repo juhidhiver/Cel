@@ -1,0 +1,370 @@
+<template>
+    <!--Search -->
+    <template if:false={isEditing}>
+        <template if:false={boundDisabled}>
+        <div>
+            <div onkeyup={handleSearchNameKeyUp}>
+                <lightning-input name="enter-search" placeholder="Search for Endorsements" type="search"
+                    onchange={handleSearchNameChanged}></lightning-input>
+            </div>
+            <!--<template if:false={isAqueous}>
+                <lightning-combobox data-id='categoryCmb'
+                    name="progress"
+                    placeholder="Or Select a Category"
+                    options={endorsementCategoryOption}
+                    onchange={handleChangeComboBox} ></lightning-combobox>-->
+            <template if:false={hideEndorsementTagDropdown}>
+                <lightning-combobox data-id='categoryCmb' name="progress" placeholder="Or Select a Category"
+                    options={endorsementCategoryOption} onchange={handleChangeComboBox}></lightning-combobox>
+                <p>Selected Categories:</p>
+                <template for:each={categoryValues} for:item='item'>
+                    <lightning-pill key={item} name={item} label={item} onremove={handleRemoveSearchOption}>
+                    </lightning-pill>
+                </template>
+            </template>
+            <!-- <lightning-button class="slds-float_right" variant="brand" label="Search" onclick={handleSearchButtonClicked}></lightning-button> -->
+        </div>
+        <br />
+        <br />
+        <div if:true={isResultedCoverage} class="slds-align_absolute-center">
+            <lightning-button variant="success" title='Add' label='Add' disabled={nonEditable} onclick={addRecord}>
+            </lightning-button>
+        </div>
+        <template if:false={isAqueous}>
+            <lightning-accordion allow-multiple-sections-open="true" active-section-name=" Item(s) Displayed">
+                <lightning-accordion-section name=" Item(s) Displayed" label=" Item(s) Displayed">
+
+                    <p>{resultedEndorsement.length} Item(s) Displayed</p>
+
+
+                    <template if:true={isResultedCoverage}>
+                        <!--
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Endorsement Name">Endorsement Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Endorsement Category">Endorsement Category</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={resultedEndorsement} for:item='item'>
+                        <tr key={item.Id} class="slds-hint-parent">
+                            <td>
+                                <button name={item.Id} class="slds-button slds-button_icon slds-button_icon-border-filled" onclick={handleSelectCoverage}>
+                                    <svg class="slds-button__icon" style="color:blue" aria-hidden="true">
+                                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#add"></use>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td data-label="Endorsement Name">
+                                <div class="slds-truncate">{item.Name}</div>
+                            </td>
+                            <td data-label="Endorsement Category">
+                                <div class="slds-truncate">{item.Endorsement_Categories__c}</div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table> 
+            -->
+                        <div>
+                            <lightning-datatable data={resultedEndorsement} columns={columns} key-field="Id"
+                                sorted-by={sortBy} sorted-direction={sortDirection} onsort={handleSortdata}>
+                            </lightning-datatable>
+                        </div>
+                    </template>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </template>
+
+        <template if:true={isAqueous}>
+            <p>{resultedEndorsement.length} Item(s) Displayed</p>
+            <template if:true={isResultedCoverage}>
+                <div>
+                    <lightning-datatable data={resultedEndorsement} columns={columns} key-field="Id" sorted-by={sortBy}
+                        sorted-direction={sortDirection} onsort={handleSortdata}>
+                    </lightning-datatable>
+                </div>
+            </template>
+        </template>
+
+        <br />
+        <div if:true={isResultedCoverage} class="slds-align_absolute-center">
+            <lightning-button variant="success" title='Add' label='Add' disabled={nonEditable} onclick={addRecord}>
+            </lightning-button>
+        </div>
+    </template>
+    </template>
+
+    <br>
+    <!--Update Coverage Line Item-->
+    <!-- <template if:true={isSelectedCoverage}> -->
+    <template if:true={isEditing}>
+        <div class="slds-clearfix slds-scrollable" style="border: 1px solid; padding-left:5px;">
+            <div style='background: rgb(243, 242, 242);'>{selectingCoverage}</div>
+            <!-- New data table-->
+            <div>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col" style="width:2rem;">
+                            </th>
+                            <template for:each={tableColumns} for:item='column'>
+                                <th key={column.label} class="" scope="col">
+                                    <div class="slds-truncate" title={column.label}>{column.label}</div>
+                                </th>
+                            </template>
+                            <template if:true={isSchedule}>
+                                <th style='width:10px'>
+                                    <div class="slds-truncate" title={Delete}>Delete</div>
+                                </th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rowData2} for:item='item'>
+                            <tr key={item.id} class="slds-hint-parent">
+                                <td role="gridcell" class="slds-cell-edit slds-cell-error">
+                                    <span class="slds-row-number slds-text-body--small slds-text-color--weak"></span>
+                                </td>
+                                <template if:true={isAqueous}>
+                                    <template for:each={item.data} for:item='data'>
+                                        <td key={data.id}>
+                                            <!-- <div>
+                                                <lightning-input variant="label-hidden" name={data.id} value={data.value} onchange={handleOnChangeEditValue2}></lightning-input>                                            
+                                            </div> -->
+                                            <c-generate-output-element-lwc format={data.format} field-id={data.id}
+                                                field-value={data.value} options={data.options}
+                                                oneditfield={handleOnChangeEditValue2} min={data.min} max={data.max}
+                                                isaqueous={isAqueous}>
+                                            </c-generate-output-element-lwc>
+                                        </td>
+                                    </template>
+                                </template>
+                                <template if:false={isAqueous}>
+                                    <template for:each={item.data} for:item='data'>
+                                        <td key={data.id}>
+                                            <!-- <div>
+                                                <lightning-input variant="label-hidden" name={data.id} value={data.value} onchange={handleOnChangeEditValue2}></lightning-input>                                            
+                                            </div> -->
+                                            <c-generate-output-element-lwc format={data.format} field-id={data.id}
+                                                field-value={data.value} options={data.options}
+                                                oneditfield={handleOnChangeEditValue2} min={data.min} max={data.max} read-only={boundDisabled}
+                                                is-endorsement=true>
+                                            </c-generate-output-element-lwc>
+                                        </td>
+                                    </template>
+                                </template>
+
+                                <template if:true={isSchedule}>
+                                    <td key={item.id} style='width:10px'>
+                                        <lightning-button-icon icon-name="utility:delete" variant="container"
+                                            title="Delete" name={item.id} onclick={handleDeleteRow} disabled={nonEditable}>
+                                        </lightning-button-icon>
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+
+                    </tbody>
+                </table>
+                <br><br>
+                <lightning-button class="slds-float_right" variant="brand" label="Cancel" title="Cancel"
+                    onclick={handleCancelEdit}></lightning-button>
+                <template if:false={boundDisabled}>
+                    <lightning-button class="slds-float_right slds-m-right_x-small" variant="brand" label="Save"
+                        title="Save" name="save" onclick={saveTableData} disabled={nonEditable}></lightning-button>
+                    <template if:true={isSchedule}>
+                        <lightning-button class="slds-float_right slds-m-right_x-small" variant="brand" label="New Row"
+                            name="newRow" onclick={handleAddNewRow2} disabled={nonEditable}></lightning-button>
+                    </template>
+                </template>
+            </div>
+        </div>
+
+
+    </template>
+
+
+    <template if:false={isEditing}>
+        <br>
+        <template if:false={isAqueous}>
+
+
+            <lightning-accordion allow-multiple-sections-open="true" active-section-name="Selected Endorsements">
+                <lightning-accordion-section name="Selected Endorsements" label="Selected Endorsements">
+                    <div>
+                        <!-- <b>Selected Endorsements</b> -->
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered 
+                slds-table--fixed-layout">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col" style="width: 14%;">
+                                        <div class="slds-truncate slds-align_absolute-center">Form #</div>
+                                    </th>
+                                    <th scope="col" style="width: 30%;">
+                                        <div class="slds-truncate slds-align_absolute-center">Endorsement</div>
+                                    </th>
+                                    <th scope="col" style="width: 55%;">
+                                        <div class="slds-truncate slds-align_absolute-center">Note</div>
+                                    </th>
+                                    <th scope="col" style="width: 18%;">
+                                        <div class="slds-truncate slds-align_absolute-center">Effective Date</div>
+                                    </th>
+                                    <th scope="col" style="width: 10%;">
+                                        <div class="slds-truncate slds-align_absolute-center">Rating</div>
+                                    </th>
+                                    <th scope="col" style="width: 18%;">
+                                        <template if:false={boundDisabled}>
+                                            <div class="slds-truncate slds-align_absolute-center">Edit/Delete</div>
+                                        </template>
+                                        <template if:true={boundDisabled}>
+                                            <div class="slds-truncate slds-align_absolute-center">View</div>
+                                        </template>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={selectedEndorsements} for:item='item' for:index="indx">
+                                    <tr key={item.Id} class="slds-hint-parent">
+                                        <td data-label="Endorsement Name">
+                                            <div class="slds-truncate">{item.formNumber}</div>
+                                        </td>
+                                        <td data-label="Endorsement Name">
+                                            <div class="slds-truncate">
+                                                <a href={item.documentUrl} title={item.name}
+                                                    target="_blank">{item.name}</a>
+                                            </div>
+                                        </td>
+                                        <td data-label="Note">
+                                            <div class="slds-truncate">
+                                                <lightning-textarea data-id={indx} variant="label-hidden" name="note"
+                                                    type="text" value={item.note} onchange={handleRowChange} disabled={boundDisabled}>
+                                                </lightning-textarea>
+                                            </div>
+                                        </td>
+                                        <td data-label="Effective Date">
+                                            <div class="slds-truncate">
+                                                <div class="slds-truncate">{item.effectiveDate}</div>
+                                            </div>
+                                        </td>
+                                        <td data-label="Rating">
+                                            <div class="slds-truncate slds-align_absolute-center">
+                                                <lightning-input variant="label-hidden" type="checkbox"
+                                                    checked={item.rating} disabled></lightning-input>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <template if:false={boundDisabled}>
+                                                <template if:true={item.limitsDeductibles}>
+                                                    <lightning-button-icon data-id={indx} icon-name="utility:edit"
+                                                        variant="container" title="Edit" name={item.id}
+                                                        onclick={handleEditEndorsementCLI}>
+                                                    </lightning-button-icon>
+                                                </template>
+                                                <template if:true={item.isDeleteTable}>
+                                                    <lightning-button-icon data-id={indx} icon-name="utility:delete"
+                                                        variant="container" title="Delete" name={item.cli}
+                                                        onclick={handleDeleteEndorsementCLI}>
+                                                    </lightning-button-icon>
+                                                </template>
+                                            </template>
+                                            <template if:true={boundDisabled}>
+                                                <div class="slds-truncate slds-align_absolute-center">
+                                                    <lightning-button-icon data-id={indx} icon-name="utility:preview"
+                                                        variant="container" title="View" name={item.id}
+                                                        onclick={handleEditEndorsementCLI}>
+                                                    </lightning-button-icon>
+                                                </div>
+                                            </template>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </template>
+        <template if:true={isAqueous}>
+            <div><b>Selected Endorsements</b>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered 
+                slds-table--fixed-layout">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col" style="width: 20%;">
+                                <div class="slds-truncate slds-align_absolute-center">Endorsement Reference</div>
+                            </th>
+                            <th scope="col" style="width: 35%;">
+                                <div class="slds-truncate slds-align_absolute-center">Endorsement</div>
+                            </th>
+                            <!-- <th scope="col" style="width: 20%;">
+                                <div class="slds-truncate slds-align_absolute-center">Note</div>
+                            </th>
+                             <th scope="col" style="width: 20%;">
+                                <div class="slds-truncate slds-align_absolute-center">Effective Date</div>
+                            </th>
+                            <th scope="col" style="width: 10%;">
+                                <div class="slds-truncate slds-align_absolute-center">Rating</div>
+                            </th> -->
+                            <th scope="col" style="width: 15%;">
+                                <div class="slds-truncate slds-align_absolute-center">Edit/Delete</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={selectedEndorsements} for:item='item' for:index="indx">
+                            <tr key={item.Id} class="slds-hint-parent">
+                                <td data-label="Endorsement Name">
+                                    <div class="slds-truncate">{item.formNumber}</div>
+                                </td>
+                                <td data-label="Endorsement Name">
+                                    <div class="slds-truncate">
+                                        <a href={item.documentUrl} title={item.name} target="_blank">{item.name}</a>
+                                    </div>
+                                </td>
+                                <!-- <td data-label="Note">
+                                    <div class="slds-truncate">
+                                        <lightning-input data-id={indx} variant="label-hidden" name="note" type="text"
+                                            value={item.note} onchange={handleRowChange}></lightning-input>
+                                    </div>
+                                </td>
+                                 <td data-label="Effective Date">
+                                    <div class="slds-truncate">
+                                        <div class="slds-truncate">{item.effectiveDate}</div>
+                                    </div>
+                                </td>
+                                <td data-label="Rating">
+                                    <div class="slds-truncate slds-align_absolute-center">
+                                        <lightning-input variant="label-hidden" type="checkbox" checked={item.rating}
+                                            disabled></lightning-input>
+                                    </div>
+                                </td> -->
+                                <td>
+                                    <template if:true={item.limitsDeductibles}>
+                                        <lightning-button-icon data-id={indx} icon-name="utility:edit"
+                                            variant="container" title="Edit" name={item.id}
+                                            onclick={handleEditEndorsementCLI}>
+                                        </lightning-button-icon>
+                                    </template>
+                                    <template if:true={item.isDeleteTable}>
+                                        <lightning-button-icon data-id={indx} icon-name="utility:delete"
+                                            variant="container" title="Delete" name={item.cli} disabled={nonEditable}
+                                            onclick={handleDeleteEndorsementCLI}>
+                                        </lightning-button-icon>
+                                    </template>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+    </template>
+</template>

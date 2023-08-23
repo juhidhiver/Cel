@@ -1,0 +1,10 @@
+<template>
+    <li  key={childStep.value} class={childStep.classText} role="presentation">
+        <a aria-selected="false" class="slds-path__link" href="javascript:void(0);" role="option" tabindex="-1" >
+            <span class="slds-path__stage">
+                 <lightning-icon disabled icon-name="utility:check" size="xx-small"  variant="inverse"></lightning-icon>
+             </span>
+             <span class="slds-path__title">{childStep.label}</span>
+        </a>
+    </li>
+</template>

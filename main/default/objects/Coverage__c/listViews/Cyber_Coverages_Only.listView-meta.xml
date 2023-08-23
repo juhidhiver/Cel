@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cyber_Coverages_Only</fullName>
+    <columns>Form_Number__c</columns>
+    <columns>NAME</columns>
+    <columns>Sort_Order__c</columns>
+    <columns>Page_Section__c</columns>
+    <columns>Coverage_Code__c</columns>
+    <columns>Coverage_Product__c</columns>
+    <columns>Coverage_Type__c</columns>
+    <columns>Rating__c</columns>
+    <columns>RecordTypeName__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Coverage_Product__c</field>
+        <operation>equals</operation>
+        <value>Cyber</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Coverage__c.Main_Coverage</value>
+    </filters>
+    <label>Cyber Coverages Only</label>
+</ListView>

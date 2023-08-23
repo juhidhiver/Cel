@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quote_Process_Compact_Layout</fullName>
+    <fields>Account__c</fields>
+    <fields>Submission__c</fields>
+    <fields>Status__c</fields>
+    <fields>Submission_Product__c</fields>
+    <fields>Submission_Stage__c</fields>
+    <fields>Submission_Status__c</fields>
+    <fields>Agency__c</fields>
+    <label>Quote Process Compact Layout</label>
+</CompactLayout>

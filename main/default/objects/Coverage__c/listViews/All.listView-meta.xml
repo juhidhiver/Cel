@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>Form_Number__c</columns>
+    <columns>NAME</columns>
+    <columns>Sort_Order__c</columns>
+    <columns>Coverage_Code__c</columns>
+    <columns>Additional_Requirements__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>Coverage_Type__c</columns>
+    <columns>Endorsement_Categories__c</columns>
+    <columns>Product__c</columns>
+    <columns>Page_Section__c</columns>
+    <columns>Coverage_Product__c</columns>
+    <columns>Coverage_or_Sub__c</columns>
+    <columns>Rating__c</columns>
+    <columns>Coverage_Product_Combo__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Coverage_Product__c</field>
+        <operation>equals</operation>
+        <value>Private Company Combo</value>
+    </filters>
+    <filters>
+        <field>Apply_to_Quote__c</field>
+        <operation>notEqual</operation>
+        <value>Excess</value>
+    </filters>
+    <label>All</label>
+</ListView>

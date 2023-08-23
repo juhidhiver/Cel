@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+	OR(AND(CoverageLineItemType__c =&quot;Main Coverage&quot;,ISPICKVAL(Coverage__r.Coverage_Type__c, &quot;Endorsement&quot;)),
+		    AND(CoverageLineItemType__c =&quot;Sub Coverage&quot;,ISPICKVAL(Sub_Coverage__r.Coverage_Type__c, &quot;Endorsement&quot;)))
+	,&quot;Endorsement Coverage&quot;,
+	      IF(AND(
+	  	        CONTAINS(CoverageLineItemType__c,&quot;Option&quot;), 
+	  		    ISPICKVAL(Limits_Deductibles__r.Limit_Deductible_Type__c, &quot;Endorsement&quot;)) , &quot;Endorsement Option&quot;,&quot;Standard&quot;
+        )
+    )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

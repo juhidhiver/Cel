@@ -1,0 +1,88 @@
+<template>
+    <div class="slds-theme_default">
+        <template if:true={isLoading}>
+            <div class="slds-spinner_container" style="height:6rem">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </div>
+    <div class="container-fluid">   
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered 
+            slds-table--fixed-layout"> 
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col" style="width: 25%;">
+                            <div class="slds-truncate slds-align_absolute-center">Layer</div>
+                        </th>
+                        <th scope="col" style="width: 25%;">
+                            <div class="slds-truncate slds-align_absolute-center">Insurer</div>
+                        </th>
+                        <th scope="col" style="width: 25%;">
+                            <div class="slds-truncate slds-align_absolute-center">Insurer Policy Number</div>
+                        </th>
+                        <th scope="col" style="width: 25%;">
+                            <div class="slds-truncate slds-align_absolute-center">Insurer Layer Limit</div>
+                        </th>
+                        <th scope="col" style="width: 15%;">
+                            <div class="slds-truncate slds-align_absolute-center">Delete</div>
+                        </th>
+                    </tr>
+                </thead>   
+                <tbody>      
+                    <template for:each={rowList} for:item="item" for:index="indx">
+                        <tr key={item.Id}>
+                            <td data-label="Layer">
+                                <div class="slds-truncate">
+                                    <div class="slds-truncate slds-align_absolute-center">{item.Layer__c}</div>
+                                </div>
+                            </td>
+                            <td data-label="Insurer">
+                                <div class="slds-truncate">
+                                    <lightning-input data-id={indx}  variant="label-hidden" name="Insurer" type="text" value={item.Insurer__c} onchange={handleInsurerChange}></lightning-input>
+                                </div>
+                            </td> 
+                             <td data-label="Insurer Policy Number">
+                                <div class="slds-truncate">
+                                    <lightning-input data-id={indx}  variant="label-hidden" name="insurerPolicyNumber" type="text" value={item.Insurer_Policy_Number__c} onchange={handlePolicyNumberChange}></lightning-input>
+                                </div>
+                            </td> 
+                            <td data-label="Insurer Layer Limit">
+                                <div class="slds-truncate">
+                                    <lightning-input data-id={indx}  variant="label-hidden" name="insurerLayerLimit" type="number" formatter="currency" value={item.Insurer_Layer_Limit__c} onchange={handleInsurerLayerLimit}></lightning-input>
+                                </div>
+                            </td>
+                            <td>
+                             <lightning-button-icon data-id={indx}  icon-name="utility:delete" disabled={item.deleteDisable} alternative-text="Delete"  variant="container" title="Delete" name= "delete" onclick={removeRow}></lightning-button-icon>
+                            </td>
+                     </tr>
+                        </template>
+                </tbody>
+            </table>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered 
+            slds-table--fixed-layout">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col" style="width: 75%;">
+                        <div class="slds-truncate">Total Underlying Layer</div>
+                    </th>
+                    <th scope="col" style="width: 25%;">
+                        <lightning-input variant="label-hidden" name="total" type="number" disabled="true" value={totalUnderlying}></lightning-input>
+                    </th>
+                    <th scope="col" style="width: 15%;">
+                       
+                    </th>
+                </tr>
+            </thead>
+            </table>
+            <div class="slds-align_absolute-center slds-p-top_small">                
+                <lightning-button name="add" label="+ Add a Layer" onclick={handleAddLayer} disabled={nonEditable} ></lightning-button>
+                <lightning-button name="save" label="Save" onclick={handleSaveLayer} disabled={nonEditable}></lightning-button>
+            </div>
+    </div>
+
+</template>

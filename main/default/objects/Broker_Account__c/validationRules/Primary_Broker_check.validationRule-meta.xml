@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Broker_check</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND( IsPrimaryBroker__c  = TRUE,
+Opportunity__r.Primary_Broker_count__c = 1)</errorConditionFormula>
+    <errorMessage>Primary broker exists for this Opportunity. To change or add a new Primary Broker, please uncheck the Primary Broker checkbox on the existing Broker</errorMessage>
+</ValidationRule>

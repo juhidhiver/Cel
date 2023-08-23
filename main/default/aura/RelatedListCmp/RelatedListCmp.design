@@ -1,0 +1,6 @@
+<design:component label="Celerity RelatedList">
+    <design:attribute name="objectType" label="Object API Name" />
+    <design:attribute name="objectLabel" label="Object Name" />
+    <design:attribute name="customColumnsInput" label="API Columns field name"/>
+    <design:attribute name="orderBy" label="Order By"/>
+</design:component>

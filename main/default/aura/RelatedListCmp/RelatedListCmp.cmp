@@ -1,0 +1,88 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:hasRecordId" 
+				controller="RelatedListCmpController" description="Celerity RelatedList" access="global">
+    <aura:attribute name="objectType" type="String" default="Opportunity"/>
+	<aura:attribute name="objectLabel" type="String" default="Opportunities"/>
+
+    <aura:attribute name="parentFieldName" type="String"/> 
+	<aura:attribute name="relationshipName" type="String"/>
+
+    <aura:attribute name="orderBy" type="String" default="Name"/>
+
+    <aura:attribute name="columns" type="List"/>
+	<aura:attribute name="customColumnsInput" type="String" required="true" default="Id, Name"/>
+	<aura:attribute name="objectPermission" type="Object"/>
+    <aura:attribute name="data" type="sObject[]" access="global"/>
+	<aura:attribute name="allData" type="sObject[]" access="global"/>
+
+	<!-- lightning data service attributes -->
+	<aura:attribute name="recordError" type="String"/>
+	<aura:attribute name="delRecordId" type="String"/>
+    
+    <aura:attribute name="addRecordError" type="String"/>
+	<aura:attribute name="addRecordId" type="String"/>
+	
+    <!-- handlers -->
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:DeleteConfirmationEvent" action="{!c.handleDeleteEvent}"/>
+    <aura:handler event="c:NewRecordConfirmationEvent" action="{!c.handleNewEvent}"/>
+    <aura:handler event="force:showToast" action="{!c.doInit}"/>
+    <aura:handler name="pageChangedEvt" event="c:PageChangedEvent" action="{!c.handlePageChanged}"/>
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <force:recordData aura:id="objRecordDel" recordId="{!v.delRecordId}" 
+                      fields="Id" targetError="{!v.recordError}" 
+                      recordUpdated="{!c.handleRecordUpdated}" />
+    
+    <force:recordData aura:id="objRecordAdd" recordId="{!v.addRecordId}" 
+                      fields="Id" targetError="{!v.addRecordError}" 
+                      recordUpdated="{!c.handleNewRecordUpdated}" />
+
+	<article class="slds-card slds-card_boundary forceRelatedListCardDesktop" aria-describedby="header">
+    <lightning:card iconName="standard:solution" variant="Narrow" >
+        <aura:set attribute="title">
+			<a class="slds-card__header-link baseCard__header-title-container" onclick="{! c.gotoRelatedList }">
+			<span class="slds-card__header-title slds-truncate slds-m-right--xx-small" title="{!v.objectLabel}" > {!v.objectLabel} ({!v.total})</span> 
+			</a>
+		</aura:set>
+		<aura:set attribute="actions">
+            <aura:if isTrue="{!not(empty(v.data))}" >
+                <lightning:button label="New" onclick="{!c.newAction}" disabled="{!!v.objectPermission.isCreatable}"/>
+            </aura:if>
+        </aura:set>
+        <div class="slds-m-around_small">
+            <aura:if isTrue="{!not(empty(v.allData))}" >
+                <lightning:layout multipleRows="true" horizontalAlign="center">
+                	<lightning:layoutItem padding="around-small" size="12">
+                    	<lightning:datatable data="{! v.data }" 
+                                             columns="{! v.columns }" 
+                                             keyField="id" 
+                                             hideCheckboxColumn="true" 
+                                             onrowaction="{! c.handleRowAction }"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small" flexibility="auto">
+                        <c:PaginationCmp allData="{!v.allData}"/> 
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </aura:if>
+
+            <aura:if isTrue="{!empty(v.allData)}" >
+                <p>No data to display</p>
+            </aura:if>
+        </div>
+    </lightning:card>
+	</article>
+	<lightning:messages /> 
+        <aura:if isTrue="{! !empty(v.recordError)}">
+            <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                <span class="slds-assistive-text">error</span>
+                <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                </span>
+                <div class="slds-notify__content">
+                <h2 class="slds-text-heading_small slds-theme_error">{!v.recordError}</h2>
+                </div>
+            </div>
+            </div>
+        </aura:if>
+</aura:component>

@@ -1,0 +1,50 @@
+<template>
+    <div>
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <div class="slds-combobox_container">
+                        <div id="box" class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-has-focus" aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none"></div>
+                            <label class="slds-form-element__label" for="text-input-id-1">{lblSearch}</label>
+                            <template if:true={isValue}>
+                                <div class="slds-p-top_none">
+                                    <lightning-input label="Search Address" type="search" id="input" disabled={disableAddress}
+                                        onchange={handleOnChange} onremove={handleOnBlur}  value={test11} class={inputClass}
+                                        variant="label-hidden" autocomplete="off" placeholder="Search...">
+                                    </lightning-input>
+                                </div>
+                            </template>
+                            <template if:false={isValue}>
+                                    <div id="lookup-pill" class="slds-pill-container">
+                                    <lightning-pill class="pillSize" label="Address" name={valueObj} onremove={handleRemovePill} href={href}>
+                                        <lightning-icon icon-name="custom:custom85" alternative-text="acc" ></lightning-icon>
+                                    </lightning-pill>
+                                </div>
+                            </template>
+                            
+            
+                                   
+                                
+                            </div>
+                        <template if:true={predictions}>
+                        <div if:true={displaydiv} id="listbox-id-1" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid result-position" role="listbox">
+                            
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                               
+                                <template for:each={predictions} for:item="prediction">
+                                    <li key={prediction.place_id} onclick={getCityDetails} data-placeid={prediction.place_id} role="presentation">
+                                        <span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+                                            <lightning-icon icon-name="standard:address" class="slds-icon slds-icon--small slds-icon-text-default" size="small"></lightning-icon>
+                                            <span class="slds-truncate">{prediction.description}</span>
+                                        </span>
+                                    </li>
+                                
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+</template>

@@ -1,0 +1,238 @@
+<aura:component
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  access="global">
+
+  <lightning:notificationsLibrary aura:id="notifLib" />
+  <!--Picklist Field Attribute-->
+  <aura:attribute name="picklistField" type="object" />
+  <aura:attribute name="processStep" type="List" default="['Insured Info', 'Submission Info', 'Underwriting Analysis', 'Compare &amp; Rate Quotes']" />
+  <aura:attribute name="currentStep" type="Integer" default="0" />
+  <aura:attribute name="backTitle" type="String" default="Left" />
+  <aura:attribute name="nextTitle" type="String" default="Right" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  <!--Force Record Data to update picklist value-->
+  <!-- <force:recordData aura:id="record" layoutType="FULL" recordId="{!v.recordId}" targetFields="{!v.picklistField}"
+    mode="EDIT" />
+  <div dir="ltr">
+    <lightning:picklistPath aura:id="picklistPath" recordId="{!v.recordId}" variant="linear"
+      picklistFieldApiName="Quote_Process__c" onselect="{!c.handleSelect}">
+    </lightning:picklistPath>
+  </div>
+  <h3>Hello world 8</h3> -->
+  <!---->
+  
+  <lightning:card>
+    <!-- <aura:set attribute="title"> -->
+      <!-- <div class="slds-inline_icon_text slds-grid slds-m-bottom_large">
+        <div  class="slds-m-right_small">
+          <lightning:icon  iconName="standard:sales_path" size="medium" />
+        </div>
+        <div class="slds-media__body">
+          <div class="entityNameTitle slds-line-height-reset">Quote Process</div>
+          <b>New York Tech Film,Inc.</b>
+        </div>
+        5 Quote . Updated 13 minutes ago
+        <lightning:buttonIcon iconName="utility:down"/>
+        <lightning:buttonIcon iconName="utility:settings"/>
+        <lightning:buttonIcon iconName="utility:table" />
+        <lightning:buttonIcon iconName="utility:edit" />
+        <lightning:buttonIcon iconName="utility:refresh" />
+        <lightning:buttonIcon iconName="utility:filterList" /> -->
+        <article class="slds-card">
+          <div class="slds-page-header">
+            <div class="slds-page-header__row">
+              <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                  <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-opportunity">
+                      <lightning:icon  iconName="standard:sales_path"/>
+                    </span>
+                  </div>
+                  <div class="slds-media__body">
+                    <div class="slds-page-header__name">
+                      <div class="slds-page-header__name-title">
+                        <h1>
+                          <span>Quote Process</span>
+                          <span class="slds-page-header__title slds-truncate" title="Recently Viewed">New York Tech Film,Inc.</span>
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="slds-page-header__col-actions">
+                <div class="slds-page-header__controls">
+                  <div class="slds-page-header__control">
+                    <ul class="slds-button-group-list">
+                      <li>
+                        <button class="slds-button slds-button_neutral">New</button>
+                      </li>
+                      <li>
+                        <!-- <div class="slds-dropdown-trigger slds-dropdown-trigger_click"> -->
+                          <lightning:buttonMenu alternativeText="Show menu" class="slds-button_last">
+                            <lightning:menuItem label="Menu Item One" value="item1" />
+                            <lightning:menuItem label="Menu Item Two" value="item2" />
+                            <lightning:menuItem label="Menu Item Three" value="item3" />
+                          </lightning:buttonMenu>
+                        <!-- </div> -->
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-page-header__row">
+              <div class="slds-page-header__col-meta">
+                <p class="slds-page-header__meta-text">5 Quote • Updated 13 minutes ago</p>
+              </div>
+              <div class="slds-page-header__col-controls">
+                <div class="slds-page-header__controls">
+                  <div class="slds-page-header__control">
+                    <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                      <lightning:buttonIcon iconName="utility:settings"/>
+                    </div>
+                  </div>
+                  <div class="slds-page-header__control">
+                    <lightning:buttonIcon iconName="utility:table" />
+                  </div>
+                  <div class="slds-page-header__control">
+                    <lightning:buttonIcon iconName="utility:edit" />
+                  </div>
+                  <div class="slds-page-header__control">
+                    <lightning:buttonIcon iconName="utility:refresh" />
+                  </div>
+                  <div class="slds-page-header__control">
+                    <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                      <lightning:buttonIcon iconName="utility:chart"/>
+                    </div>
+                  </div>
+                  <div class="slds-page-header__control">
+                    <lightning:buttonIcon iconName="utility:filterList" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      <!-- </div> -->
+    <!-- </aura:set> -->
+    <!-- <aura:set attribute="actions">
+      <lightning:buttonGroup>
+        <lightning:button label="New"/>
+        <lightning:buttonMenu alternativeText="Show menu" class="slds-button_last">
+          <lightning:menuItem label="Menu Item One" value="item1" />
+          <lightning:menuItem label="Menu Item Two" value="item2" />
+          <lightning:menuItem label="Menu Item Three" value="item3" />
+        </lightning:buttonMenu>
+      </lightning:buttonGroup>      
+    </aura:set> -->
+
+    <aura:set attribute="footer">
+      <div class="slds-clearfix">
+        <aura:if isTrue="{!v.currentStep != 0}">
+          <lightning:button class="slds-float_left" label="{!v.backTitle}" iconName="utility:chevronleft"
+            onclick="{!c.handleBack}" />
+        </aura:if>
+        <aura:if isTrue="{!v.currentStep != (v.processStep.length-1)}">
+          <lightning:button class="slds-float_right" label="{!v.nextTitle}" iconName="utility:chevronright"
+            iconPosition="right" onclick="{!c.handleNext}" />
+        </aura:if>
+      </div>
+    </aura:set>
+
+    <article class="slds-card">
+      <div class="slds-card__body slds-card__body_inner">
+        <div class="slds-path">
+          <div class="slds-grid slds-path__track">
+            <div class="slds-grid slds-path__scroller-container">
+              <div class="slds-path__scroller" role="application">
+                <div class="slds-path__scroller_inner">
+                  <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                    <!-- <li class="slds-path__item slds-is-current slds-is-active" role="presentation">
+                          <a aria-selected="true" class="slds-path__link" href="javascript:void(0);" id="path-1" role="option" tabindex="0">
+                            <span class="slds-path__stage">
+                              <lightning:icon iconName="utility:check" variant="inverse" size="xx-small"></lightning:icon>
+                              <span class="slds-assistive-text">Current Stage:</span>
+                            </span>
+                            <span class="slds-path__title">Contacted</span>
+                          </a>
+                        </li>
+                        <li class="slds-path__item slds-is-complete" role="presentation">
+                          <a aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path-2" role="option" tabindex="-1">
+                            <span class="slds-path__stage">
+                          
+                              <lightning:icon iconName="utility:check" variant="inverse" size="xx-small"></lightning:icon>
+                            </span>
+                            <span class="slds-path__title">Open</span>
+                          </a>
+                        </li>
+                        <li class="slds-path__item slds-is-incomplete slds-is-active" role="presentation">
+                          <a aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path-3" role="option" tabindex="-1">
+                            <span class="slds-path__stage">
+                              <lightning:icon iconName="utility:check" variant="inverse" size="xx-small"></lightning:icon>
+                            </span>
+                            <span class="slds-path__title">Unqualified</span>
+                          </a>
+                        </li>
+                        <li class="slds-path__item slds-is-incomplete" role="presentation" onclick="{!c.selectProcess}">
+                          <a aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path-4" role="option" tabindex="-1">
+                            <span class="slds-path__stage">
+                              <lightning:icon iconName="utility:check" variant="inverse" size="xx-small"></lightning:icon>
+                            </span>
+                            <span class="slds-path__title">Nurturing</span>
+                          </a>
+                        </li>
+                        <li class="slds-path__item slds-is-incomplete" role="presentation">
+                          <a aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path-5" role="option" tabindex="-1">
+                            <span class="slds-path__stage">
+                              <lightning:icon iconName="utility:check" variant="inverse" size="xx-small"></lightning:icon>
+                            </span>
+                            <span class="slds-path__title">Closed</span>
+                          </a>
+                        </li> -->
+                    <aura:iteration items="{!v.processStep}" var="step" indexVar="index">
+                      <aura:if isTrue="{!index == 0}">
+                        <li class="slds-path__item slds-is-current slds-is-active" role="presentation">
+                          <a onclick="{!c.selectProcess}" aria-selected="false" class="slds-path__link"
+                            id="{!index}" role="option" tabindex="-1">
+                            <span class="slds-path__stage">
+                              <lightning:icon iconName="utility:check" variant="inverse" size="xx-small"></lightning:icon>
+                            </span>
+                            <span class="slds-path__title">{!step}</span>
+                          </a>
+                        </li>
+                        <aura:set attribute="else">
+                          <li class="slds-path__item slds-is-incomplete" role="presentation">
+                            <a onclick="{!c.selectProcess}" aria-selected="false" class="slds-path__link"
+                              id="{!index}" role="option" tabindex="-1">
+                              <span class="slds-path__stage">
+                                <lightning:icon iconName="utility:check" variant="inverse" size="xx-small">
+                                </lightning:icon>
+                              </span>
+                              <span class="slds-path__title">{!step}</span>
+                            </a>
+                          </li>
+                        </aura:set>
+                      </aura:if>
+  
+                    </aura:iteration>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <div aura:id="MainBody">
+      <aura:if isTrue="{!v.currentStep %2 == 0}">
+        <aura:set attribute="else">
+        </aura:set>
+      </aura:if>
+      
+    </div>
+  </lightning:card>
+
+</aura:component>

@@ -1,0 +1,95 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 12-23-2020
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   12-03-2020   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<template>
+    <div style='background: rgb(243, 242, 242);'>
+        <p style="font-size: 20px;">Pro/Con Analysis</p>
+    </div>
+    <div class="slds-grid slds-wrap" style='background: rgb(243, 242, 242);' > 
+        
+        
+        <div class="slds-size_3-of-7">
+            <lightning-combobox
+                label = 'Category'
+                placeholder="Select one or more categories"
+                options={ratingModifierCategories}
+                onchange={handleChange}
+                data-id="prosConsCmb" disabled={disableProsAndCons}></lightning-combobox>
+            <p>Selected Categories:</p>
+            <template for:each={categoryValues} for:item='item'>
+                <lightning-pill key={item} name={item} label={item} onremove={handleRemoveSearchOption}></lightning-pill>
+            </template>
+            <!-- <lightning-button class="slds-float_right" variant="brand" label="Search" onclick={handleSearchButtonClicked}></lightning-button> -->
+
+            <br><br>
+            <h3 style="color: blue; font-weight: bold;">Search Results</h3>
+            <!-- <table aria-multiselectable="true" class="slds-table slds-table_bordered slds-table_fixed-layout" role="grid">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <thclass="slds-text-align_right" scope="col" style="width:3.25rem">
+                            <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
+                            <div class="slds-th__action slds-th__action_form">
+                            <div class="slds-checkbox">
+                                <input type="checkbox" name="options" id="checkbox-unique-id-297" value="checkbox-unique-id-297" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
+                                <label class="slds-checkbox__label" for="checkbox-unique-id-297" id="check-select-all-label">
+                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-form-element__label slds-assistive-text">Select All</span>
+                                </label>
+                            </div>
+                            </div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Category">Category</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Analysis Factor">Analysis Factor</div>
+                        </th>
+                    </tr>
+                </thead>
+            </table> -->
+            <div style="height: 200px;">
+                <lightning-datatable
+                        key-field="Id"
+                        data={resultedRatingModifier}
+                        columns={searchColumns}
+                        onrowselection={getSelectedRatingModifier}> 
+                </lightning-datatable>
+            </div>
+            <lightning-button variant="success" class="slds-m-left_x-small" title='Add to Pros' label='Add to Pros' onclick={handleAddPros} disabled={disableProsAndCons}></lightning-button>
+            <lightning-button variant="destructive" class="slds-m-left_x-small" title='Add to Cons' label='Add to Cons' onclick={handleAddCons} disabled={disableProsAndCons}></lightning-button>    
+        </div>
+        
+        <div class="slds-size_1-of-7"></div>
+        <div style='background: rgb(243, 242, 242);' class="slds-size_3-of-7 test1">
+            <h3 style="color: blue; font-weight: bold;">Pros and Cons</h3>
+            <c-custom-dual-listbox-lwc left-values={prosRatingModifiers} right-values={consRatingModifiers} 
+                source-label="Pros" selected-label="Cons" disable-pros-and-cons={disableProsAndCons}
+                onchangevalue={handleChangeValueEvent} onclickitems={handleClickRatMods}></c-custom-dual-listbox-lwc>
+            <br/>
+            <h3 style="color: blue; font-weight: bold;">Custom Pros and Cons</h3>
+            <div class="slds-dueling-list slds-grid">                
+                <div class="slds-dueling-list__column" style='width: 15rem;'>
+                        <lightning-textarea name="pros" value={pros} label="Pros" onchange={handleProsandConsChange} disabled={disableProsAndCons}></lightning-textarea>                        
+                </div>
+                <div class="slds-dueling-list__column dividingSpace">
+                    <span class="slds-form-element__label" id="label-7" style='width: 2rem;'>                </span>
+                </div>
+                <div class="slds-dueling-list__column" style='width: 15rem;'>
+                        <lightning-textarea name="cons" value={cons} label="Cons" onchange={handleProsandConsChange} disabled={disableProsAndCons}></lightning-textarea>                    
+                </div>
+            </div>
+            
+            <br/>
+            <lightning-button class="slds-m-left_x-small" title='Remove' label='Remove' onclick={handleRemoveRatingModifier} disabled={disableProsAndCons}></lightning-button>
+            <lightning-button class="slds-m-left_x-small" title='Clear All' label='Clear All' onclick={handleClearRatingModifier} disabled={disableProsAndCons}></lightning-button>
+            <lightning-button variant="brand" class="slds-m-left_x-small" title='Save' label='Save' onclick={handleSaveRatingModifier} disabled={disableProsAndCons}></lightning-button>            
+        </div>        
+    </div>    
+</template>

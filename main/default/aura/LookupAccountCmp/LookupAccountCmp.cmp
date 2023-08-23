@@ -1,0 +1,10 @@
+<aura:component >
+    <!--<aura:attribute name="oppty" type="Opportunity" default="{ 'sobjectType': 'Opportunity'}"/>-->
+    <aura:attribute name="opptyId" type="String" default="0012500001D5eTwAAJ"/>
+    <div class="slds-box slds-theme_default">
+       <!-- Account : <force:inputField value="{!v.oppty.AccountId}"/> -->
+		Account : <force:inputField value="{!v.opptyId}"/>
+    </div>
+    
+
+</aura:component>

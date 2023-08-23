@@ -1,0 +1,113 @@
+<aura:component controller="BindQuoteController" 
+                implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <aura:attribute name="payPlans" type="List"/>
+    <aura:attribute name="payPlan" type="String"/>
+    <aura:attribute name="brokerName" type="String"/>
+    <aura:attribute name="record" type="Quote"/> 
+    <aura:attribute name="simpleRecord" type="Quote"/>
+    <aura:attribute name="recordError" type="String"/>
+    <aura:attribute name="opportunityRec" type="Opportunity"/>
+    <aura:attribute name="errorMessage" type="String"/>
+    <aura:attribute name="fieldsToQuery" type="string[]" default=""/>
+    
+    <!--US-35795!-->
+     <aura:attribute name="bindOptions" type="List" default="[
+    {'label' : 'Bound Pending', 'value': 'Bound Pending'},
+    {'label' : 'Bound', 'value' : 'Bound'}
+    ]"/>
+    <aura:attribute name="bindValue" type="String" default="" />
+    <aura:attribute name="showBindOptions" type="Boolean" default="false"/>
+	
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>   
+    <force:recordData aura:id="record"
+        layoutType="FULL"
+        recordId="{!v.recordId}"
+        targetError="{!v.recordError}"
+        targetRecord="{!v.record}"
+        targetFields ="{!v.simpleRecord}"
+        mode="VIEW"/>
+
+    
+    <div class="modal-header slds-modal__header">
+        <h2 id="header99" class="title slds-text-heading--medium">Bind Quote </h2>
+    </div>
+    <aura:if isTrue="{!v.simpleRecord.Status == 'Quoted' || v.simpleRecord.Status == 'Presented' || v.simpleRecord.Status == 'Bound Pending'}">
+        <div style="min-height: 250px">
+            <lightning:recordEditForm aura:id="recordViewForm"
+                recordId="{!v.recordId}"
+                objectApiName="Quote">
+                <table style="border-collapse: separate;">
+                    <tr>
+                        <td width="45%" class="slds-p-right_small slds-border_bottom">
+                            <lightning:outputField aura:id="AccountId" fieldName="AccountId" />
+                        </td>
+                        <td width="5%"></td>
+                        <td width="45%" class="slds-p-right_small slds-border_bottom">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">Broker Name</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{!v.brokerName}</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="slds-p-right_small slds-border_bottom">
+                            <lightning:outputField aura:id="EffectiveDate" fieldName="Effective_Date__c" />
+                        </td>
+                        <td></td>
+                        <td class="slds-p-right_small slds-border_bottom">
+                            <lightning:outputField aura:id="ExpirationDate" fieldName="ExpirationDate" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="slds-p-right_small slds-border_bottom">
+                            <lightning:outputField aura:id="Commission" fieldName="Commission__c"/>
+                        </td>
+                        <td></td>
+                        <td class="slds-p-right_small slds-border_bottom">
+                            <lightning:outputField aura:id="TotalPremium" fieldName="QuotePremium__c"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning:select aura:id="PayPlan" name="PayPlan" label="Pay Plan" value="{!v.payPlan}">
+                                <option value="">Pay Plan...</option>
+                                <aura:iteration items="{!v.payPlans}" var="item">
+                                    <option value="{!item}" selected="{! item == v.payPlan ? true : false }">{!item}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                               <tr>
+                                   <!-- Removed for US: 51213 -->
+                       <!-- <aura:if isTrue="{!v.showBindOptions == True}">
+                             <lightning:radioGroup name="radioGroupBound"
+                                                label=""
+                                                options="{!v.bindOptions}"
+                                                value="{!v.bindValue}"
+                                                type="radio"/>
+                        </aura:if>-->
+                    </tr>
+                </table>
+            </lightning:recordEditForm>
+        </div>
+
+        <div class="slds-modal__footer" style="box-shadow: none!important">
+            <lightning:button variant="Neutral" label="Back" title="Back" onclick="{! c.handleCancelClick }"/>
+            <lightning:button variant="Brand" label="Confirm" title="Confirm" onclick="{! c.handleConfirmClick }"/>
+        </div>
+
+        <aura:set attribute="else">
+            <div class="slds-modal__content slds-p-around_medium slds-p-top_xx-large" style="min-height: 250px;text-align: center">
+                The Quote Status must be Quoted or Presented to Bind Quote.
+            </div>
+            <div class="slds-modal__footer" style="box-shadow: none!important">
+                <lightning:button variant="Neutral" label="Close" title="Close" onclick="{! c.handleCancelClick }"/>
+            </div>
+        </aura:set>
+    </aura:if>
+    
+</aura:component>

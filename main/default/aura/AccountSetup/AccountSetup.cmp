@@ -1,0 +1,132 @@
+<aura:component controller="AccountSetupController" implements="force:appHostable,lightning:hasPageReference,flexipage:availableForRecordHome,lightning:hasPageReference,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes,lightning:isUrlAddressable,lightning:actionOverride,force:lightningQuickAction" access="global">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="recordTypeId" type="String"/>
+
+    <aura:attribute name="lstOfRecordType" type="String[]" />
+    <aura:attribute name="isOpen" type="boolean" default="false" />
+    <aura:attribute name="isCreateNew" type="boolean" default="false" />
+    <aura:attribute name="BillingCity" type="String" />
+    <aura:attribute name="BillingState" type="String" />
+    <aura:attribute name="BillingPostalCode" type="String" />
+    <aura:attribute name="BillingCountry" type="String" />
+
+    <aura:attribute name="DNBAccountName" type="String" />
+	
+    <aura:attribute name="DNBCurrentAssets" type="String" />
+    <aura:attribute name="DNBCurrentLiabilities" type="String" />
+    <aura:attribute name="DNBDBRatingClassification" type="String" />
+    <aura:attribute name="DNBDunsNumber" type="Integer" />
+    <aura:attribute name="DNBNAICCode" type="String" />
+    <aura:attribute name="DNBNetWorth" type="String" />
+    <aura:attribute name="DNBSICCode" type="String" />
+    <!-- Added on 3.02.21-->
+    <aura:attribute name="DNBSICDesc" type="String" />
+    <aura:attribute name="DNBTotalAssets" type="String" />
+    <aura:attribute name="DNBTotalLiabilities" type="Integer" />
+    <aura:attribute name="DNBTotalRevenues" type="String" />
+    <aura:attribute name="DNBWebsite" type="String" />
+    <!--new fields from 1.11.19 -->
+    <aura:attribute name="DNBTypeofPartnership" type="String" /> <!--Not required, ignore -->
+    <aura:attribute name="DNBLongTermDebt" type="Integer" />
+    <aura:attribute name="DNBRetainedEarnings" type="Integer" />
+    <aura:attribute name="DNBShareholderEquity" type="String" /> <!--Not required, ignore -->
+    <aura:attribute name="DNBNetIncome" type="Integer" />
+    <aura:attribute name="DNBDateEstablished" type="String" />
+    <aura:attribute name="DNBOwnership" type="String" />
+    <aura:attribute name="DNBEmployeeNumbers" type="Integer" />
+    <aura:attribute name="DNBReliabilityofEmployeeNumbers" type="String" />
+    <aura:attribute name="DNBNumberofEmployeescope" type="String" />
+    <aura:attribute name="DNBCurrencyIsoCode" type="String" />
+    <aura:attribute name="DNBCompositeCreditAppraisal" type="String" />
+    <aura:attribute name="DNBLastUpdate" type="String" />
+	
+    <aura:attribute name="DNBNoOfDirectors" type="Integer" />
+    <aura:attribute name="DNBRatingReason" type="Integer" />
+    <aura:attribute name="DNBCreditScore" type="String" />
+    <aura:attribute name="DNBYearStarted" type="String" /> 
+    
+    <aura:attribute name="inputValue" type="String" />
+    <aura:attribute name="address" type="Object" />     <!--this object value is set when the AutoComplete component's address object is populated -->
+    <aura:attribute name="countryCode" type="String"/>  <!--country code is passed from parent to child(AutoComplete) -->
+    <aura:attribute name="addressLine1" type="String"/>  <!--street line1 is passed from parent to child(AutoComplete) -->
+    <!--attribute where strike lookup address is set up after selection -->
+    <aura:attribute name="addressLocality" type="String"/>
+    <aura:attribute name="stateCode" type="String"/>
+    <aura:attribute name="postalCode" type="String"/>
+    <aura:attribute name="address2" type="Object" /> <!--Thsi is used to get the values stick on the strike look up -->
+    <aura:attribute name="errorMessage" type="List" default=""/>  <!-- Display Errors -->
+    <aura:handler name="oSelectedRecordEventParent" event="c:AutoCompleteSelectEventParent" action="{!c.handleComponentEvent}"/>
+    <aura:registerEvent name="oSelectedRecordEventParent" type="c:AutoCompleteSelectEventParent"/>
+
+
+    <aura:handler name="chooseAnAddressEvent" event="c:strike_evt" action="{!c.onChoosingAddress}"/>
+    <aura:handler name="removeAnAddressEvent" event="c:strike_evt" action="{!c.onRemovingAddress}"/>
+
+    <aura:attribute name="objInfo" type="account" default="{sobjectType : 'Account'}" />
+    
+    
+    <div class="slds-m-around--x-large">
+    </div>
+    <!-- Model Box Start -->
+    <aura:if isTrue="{!v.isOpen}">
+        <div role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open" aura:id="modalAccount">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeModal}">
+                        X<span class="slds-assistive-text">Cancel</span>
+                    </button>
+                    <h2 id="header43" class="slds-text-heading--medium">New Account</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <!-- Display Errors -->
+                    <aura:if isTrue="{!v.errorMessage.length >= 1 }">
+                        <div class="pageLevelErrors">
+                            <div class="desktop forcePageError">
+                                <div class="genericNotification">
+                                    <span class="genericError uiOutputText">Review the errors on this page.</span>
+                                </div>
+                                <div class="errorsList">
+                                        <aura:iteration items="{!v.errorMessage}" var="errorItem" indexVar="indx">
+                                                {!errorItem}
+                                        </aura:iteration>
+                                </div>
+                            </div>
+                        </div>
+                </aura:if>
+                    <!-- Display Errors End -->
+                    <div class="slds-grid slds-wrap">
+                        <!-- country picklist was here-->
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <!-- address line text was here -->
+                        <div class="slds-size--1-of-2 slds-large-size--1-of-2">
+                            <div class="slds-align--absolute-center">Country
+                                <span class="" style="color:red;">&nbsp;*</span>
+                            </div>
+
+                        </div>
+                        <div class="slds-size--1-of-2 slds-large-size--1-of-2">
+                            <ui:inputSelect required="true" aura:id="accCountryCode" class="slds-select"  change="{!c.onPicklistChange}"/>
+                        </div>
+                    </div><br />
+                    <div class="slds-col">
+                        <div class="slds-m-top_small">
+                            <c:AutoComplete aura:id="db-records" label="Account Name (D&amp;B Search)" address="{!v.address}" inputValue="{!v.inputValue}" countryCodeFromParent="{!v.countryCode}" />
+                        </div>
+                        <br /><br /><br /><br /><br />
+                        <div style="text-align: right;" class="slds-m-top_large">
+                            <lightning:button class="slds-button slds-button--neutral" onclick="{!c.closeModal}">Cancel</lightning:button>
+                            <lightning:button class="slds-button slds-button--brand" onclick="{!c.createRecord}">Next</lightning:button>
+                        </div> 
+                    </div>
+                    <div></div>
+                </div>
+                <div class="slds-modal__footer"></div>
+                <!-- old place for buttons-->
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </aura:if>
+    
+</aura:component>

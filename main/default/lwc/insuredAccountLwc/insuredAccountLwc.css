@@ -1,0 +1,20 @@
+.leftblock {
+    float: left;
+    width: 48%;
+    padding-top: 0px;
+    margin-top: 10px;
+}
+
+.rightblock {
+    float: right;
+    width: 48%;
+    padding-top: 0px;
+    margin-top: 10px;
+}
+
+.clearpaddingtop {
+    padding-top: 0px;
+}
+.slds-grid .slds-gutters_small {
+    display: grid !important;
+}

@@ -1,0 +1,13 @@
+<aura:component controller="OpportunityModifiersCmpController"
+	implements="flexipage:availableForAllPageTypes,force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,force:lightningQuickActionWithoutHeader"
+	access="global">
+	<!-- <aura:attribute name="eligibilityWrap" type="OpportunityRateCmpController1.EligibilityWrapper" /> -->
+	<aura:attribute name="oppId" type="String" />
+	<aura:attribute name="prodName" type="String" />
+	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+	<aura:attribute name="data" type="Object" />
+	<aura:attribute name="columns" type="List" />
+	<aura:attribute name="errors" type="Object" default="[]" />
+	<lightning:datatable class="slds-table_striped"  aura:id="ratingHealth" columns="{!v.columns}" data="{!v.data}" keyField="Id"
+	hideCheckboxColumn="true" errors="{!v.errors}"/>
+</aura:component>

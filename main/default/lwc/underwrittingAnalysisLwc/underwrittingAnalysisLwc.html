@@ -1,0 +1,22 @@
+<!--
+  @File Name          : underwrittingAnalysisLwc.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 11-25-2020
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    6/15/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+    <template for:each={listTabs} for:item="tab">
+        <lightning-tabset key={tab}>
+            <lightning-tab label={tab}>
+                <c-underwritting-analysis-tab-lwc product-name={tab} opportunity-id={quoteProcessSubmissionId} 
+                    onchangequoteprocessstatus={changeQuoteProcessStatus} onsendquotelayer={handleSendQuoteLayer}
+                    onquoteprocessstatuschange={handleQPStatusChange}></c-underwritting-analysis-tab-lwc>
+            </lightning-tab>
+        </lightning-tabset>
+    </template>
+</template>

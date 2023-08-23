@@ -1,0 +1,13 @@
+<div>
+Hi ,
+</div>
+<div>
+These are the following records that failed to update during execution of AutoRenewalsEmailBatch
+</div>
+<br>
+<br>
+<div>
+
+{table}
+
+</div>

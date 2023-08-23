@@ -1,0 +1,618 @@
+<!--
+  @File Name          : submissionInfoLwc.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : Vinayesh
+  @Last Modified On   : 09-22-2021
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/31/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+  <div class="slds-theme_default">
+    <template if:true={isLoadingInit}>
+      <div class="slds-spinner_container" style="height:6rem">
+        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+          <span class="slds-assistive-text">Loading</span>
+          <div class="slds-spinner__dot-a"></div>
+          <div class="slds-spinner__dot-b"></div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+      </div>
+    </template>
+  </div>
+  <lightning-card if:true={oppId}>
+    <template if:true={isAqueousPI}>
+      <c-custom-compact-lwc object-id={oppId} is-show-loss-detail={isShowLossDetail}
+        is-show-additional-insured={isShowAdditionalInsured} onlossdetail={openLossDetailModel}
+        onadditionalinsured={openSubmissionAdditionalInsuredModel} onclose={handleCompactAction}
+        ondecline={handleCompactAction} onundecline={handleUnDecline} disabled-decline={hideDeclineCloseBtn}
+        disabled-close={hideDeclineCloseBtn} record-id={recordId} is-aqueous={isAqueousPI}>
+      </c-custom-compact-lwc>
+    </template>
+    <!--
+    <lightning-record-edit-form object-api-name="Opportunity" record-id={oppId} onsuccess={handleSuccess}
+      onsubmit={handleSubmit}>-->
+    <template if:true={sectionList}>
+      <div class="mainTab">
+        <table style="width:100%; margin-top: 5px">
+          <tr>
+            <th class="align_left">
+               <!-- Added by Vinayesh -->
+               <template if:true={showClearance}>
+                <lightning-button class="slds-m-top_small" variant="brand" name="Previous" label="< PREVIOUS:Clearance"
+                onclick={handlePreviousButton}>
+              </lightning-button>
+              </template>
+              <template if:false={showClearance}>
+                <lightning-button class="slds-m-top_small" variant="brand" name="Previous" label="< PREVIOUS:Insured Info"
+                onclick={handlePreviousButton}>
+              </lightning-button>
+              </template>
+              
+            </th>
+            <th class="align_center">
+              <template if:true={isEditForm}>
+                <lightning-button class="slds-m-top_small" variant="brand" onclick={handleSave} name="handleSave"
+                  label="Save">
+                </lightning-button>
+                <!-- <lightning-icon icon-name="action:remove_relationship" onclick={openSubmissionLossDetailModel} size="xx-small" 
+                                title="Open Loss Detail Page" class="slds-m-around_small"></lightning-icon>  -->
+              </template>
+              <template if:false={isEditForm}>
+                <template if:true={isDeclined}>
+                  
+                  <lightning-button class="slds-m-top_small" variant="brand" onclick={handleSave} name="handleSave"
+                  label="Save">
+                  </lightning-button>
+              </template>
+            </template>
+            </th>
+            <th class="align_right">
+              <lightning-button class="slds-m-top_small" variant="brand" name="Next" label="NEXT:Underwriter Analysis >"
+                onclick={handleNextButton}>
+              </lightning-button>
+            </th>
+          </tr>
+        </table>
+        <div class="sectionTab">
+          <lightning-accordion active-section-name={mainActiveSections} allow-multiple-sections-open>
+            <lightning-record-edit-form object-api-name="Opportunity" record-id={oppId} onsuccess={handleSuccess}
+              onsubmit={handleSubmit}>
+              <template for:each={sectionList} for:item="section">
+                <lightning-accordion-section name={section.mainSectionTitle} label={section.mainSectionTitle}
+                  key={section.mainSectionTitle} class="mainSection">
+                  <div class="slds-grid slds-wrap">
+                    <lightning-layout horizontal-align="space" vertical-align="top" multiple-rows="true"
+                      style="width: 100%;">
+                      <template for:each={section.mainSectionFields} for:item="field">
+                        <lightning-layout-item key={field.sourceFieldApi} alignment-bump="right" flexibility="no-flex"
+                          size="12" small-device-size="6" medium-device-size="6" padding="horizontal-small"
+                          large-device-size="6" class="clearpaddingtop">
+                          <template if:false={isEditForm}>
+                            <div
+                              class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                              <div class="slds-form-element__control">
+                                <div class="slds-form-element__static" style="display: flex;">
+                                  <template if:false={field.isDeclinedStageField}>
+                                    <lightning-output-field field-name={field.sourceFieldApi}></lightning-output-field>
+                                  </template>
+                                  <template if:true={field.isDeclinedStageField}>
+                                    <lightning-input-field field-name={field.sourceFieldApi} required="false"></lightning-input-field>
+                                  </template>
+                                  <!-- <template if:true={field.isDeclinedStageField}>
+                                    <c-generate-element-lwc object-name={field.sourceObject} record-type-id={recordTypeId}
+                                    object-lookup-to={field.lookupTo} field-name={field.sourceFieldApi}
+                                    format={field.format} field-value={field.value} label={field.sourceFieldLabel} required={field.required}
+                                    read-only={field.readOnly}>
+                                  </c-generate-element-lwc>
+                                  </template> -->
+                               
+                                  <!-- <lightning-input-field field-name={field.sourceFieldApi}></lightning-input-field> -->
+                                  <!--<div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-3">
+                                      <span><label class="slds-form-element__label" for="form-element-01">{field.sourceFieldLabel}</label> 
+                                                                    </span>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                      <span><lightning-output-field field-name={field.sourceFieldApi} variant="label-hidden"></lightning-output-field></span>
+                                    </div>  
+                                  </div>-->
+                                  <template if:false={isClosedWonOrLost}>                                    
+                                    <lightning-button-icon icon-name="utility:edit" onclick={handleEditClick}
+                                      variant="container" alternative-text="Edit" title="Edit">
+                                    </lightning-button-icon>
+                                  </template>
+                                </div>
+                                <!-- <div class="slds-button slds-button_icon slds-button__icon_hint"> -->
+                                  <!-- <template if:false={isClosedWonOrLost}>                                    
+                                    <lightning-button-icon icon-name="utility:edit" onclick={handleEditClick}
+                                      variant="container" alternative-text="Edit" title="Edit">
+                                    </lightning-button-icon>
+                                  </template> -->
+                                <!-- </div> -->
+                              </div>
+                            </div>
+                          </template>
+                          <template if:true={isEditForm}>
+                              <template if:true={field.isDependencyPicklist}>
+                                <template if:true={field.required}>
+                                    <lightning-input-field field-name={field.sourceFieldApi} value={field.value}
+                                    onchange={handleChange} variant="label-stacked" required={field.required}
+                                    class="required-field">
+                                    </lightning-input-field>
+                                </template>
+                                <template if:false={field.required}>
+                                  <lightning-input-field field-name={field.sourceFieldApi} value={field.value}
+                                    onchange={handleChange} variant="label-stacked" required={field.required}
+                                    class="inputCmp">
+                                  </lightning-input-field>
+                                </template>
+                              </template>
+                            
+                              <template if:false={field.isDependencyPicklist}>
+                                <c-generate-element-lwc onhandlelookupchildselection={handleLookUpChildSelection}
+                                  object-name={field.sourceObject} record-type-id={recordTypeId}
+                                  object-lookup-to={field.lookupTo} field-name={field.sourceFieldApi}
+                                  format={field.format} field-value={field.value} label={field.sourceFieldLabel}
+                                  is-change-on-submission={isChangeOnSubmission} required={field.required}
+                                  read-only={field.readOnly}>
+                                </c-generate-element-lwc>
+                              </template>
+                          </template>
+                        </lightning-layout-item>
+                      </template>
+                    </lightning-layout>
+                  </div>
+                </lightning-accordion-section>
+              </template>
+            </lightning-record-edit-form>
+            <!--Broker Info-->
+            <div class="slds-box">
+              <c-related-list-lwc title={mainSectionBrokerTitle} object-api-name='Broker_Account__c'
+                disable-related-list={disableRelatedList} enable-broker-edit={enableBrokerEdit} enable-broker-delete={enableBrokerDelete} 
+                submission-type={submissionType} listfields={subSectionChildFields} child-record-type-id="" selected-account-id={oppId}
+                record-info-defined={recordInfoDefined} record-info={recordInfo} is-aqueous-p-i={isAqueousPI}>
+              </c-related-list-lwc>
+            </div>
+            <!--End Broker Info-->
+
+          </lightning-accordion>
+        </div>
+      </div>
+    </template>
+
+    <footer class="slds-modal__footer">
+      <table style="width:100%">
+        <tr>
+          <th class="align_left">
+             <!-- Added by Vinayesh -->
+             <template if:true={showClearance}>
+              <lightning-button class="slds-m-top_small" variant="brand" name="Previous" label="< PREVIOUS:Clearance"
+              onclick={handlePreviousButton}>
+            </lightning-button>
+            </template>
+            <template if:false={showClearance}>
+              <lightning-button class="slds-m-top_small" variant="brand" name="Previous" label="< PREVIOUS:Insured Info"
+              onclick={handlePreviousButton}>
+            </lightning-button>
+            </template>
+            
+          </th>
+          <th class="align_center">
+            <template if:true={isEditForm}>
+              <lightning-button class="slds-m-top_small" variant="brand" onclick={handleSave} name="handleSave"
+                label="Save">
+              </lightning-button>
+            </template>
+            <template if:false={isEditForm}>
+                <template if:true={isDeclined}>
+                  <lightning-button class="slds-m-top_small" variant="brand" onclick={handleSave} name="handleSave"
+                    label="Save">
+                  </lightning-button>
+              </template>
+            </template>
+          </th>
+          <th class="align_right">
+            <lightning-button class="slds-m-top_small" variant="brand" name="Next" label="NEXT:Underwriter Analysis >"
+              onclick={handleNextButton}>
+            </lightning-button>
+          </th>
+        </tr>
+      </table>
+    </footer>
+    <!--
+    </lightning-record-edit-form>-->
+    <template if:false={sectionList}>{error}</template>
+  </lightning-card>
+  <c-confirmation-dialog-lwc title='Confirmation' message='Do you want to save submission data?' confirm-label='Yes'
+    cancel-label='No' visible={isDialogVisible} original-message={originalMessage} name="confirmModal"
+    onclick={handleClick}>
+  </c-confirmation-dialog-lwc>
+  <!--Submission Additional Insured Detail-->
+  <template if:true={openAdditionalInsuredDetail}>
+    <div class="slds-card slds-p-around_medium" style="height: 640px;width: 700px">
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+        <div class="slds-modal__container">
+          <!-- Header -->
+          <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+              onclick={handleCancelSubmissionLossDetail}>
+              <lightning-icon icon-name="utility:close" size="medium" onclick={handleCancelSubmissionAdditionalInsured}>
+              </lightning-icon>
+              <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading-11" class="slds-text-heading_medium slds-hyphenate">Additional Insured Details</h2>
+          </header>
+          <!-- End Header -->
+          <!-- Body -->
+          <div class="slds-modal__content slds-p-around_medium " style="padding-bottom: 0px;" id="modal-content-id-11">
+            <c-list-lwc title="Additional Insured Details" object-api-name="Additional_Insured__c"
+              currenrecordid={oppId} oncreatenewone={handleOpenAdditionalInsuredCreateModal} onrowclick={handleRowClick}
+              listdata={insuredData} columns={insuredColumns} non-editable={nonEditable}
+              ondeleterowselected={handleDeleteRowAdditionalInsuredSelected} product={isAqueous}
+              onupdaterowselected={handleAdditionalInsuredUpdateRowSelected}>
+            </c-list-lwc>
+          </div>
+          <!-- End Body -->
+          <!-- Footer -->
+          <footer class="slds-modal__footer">
+            <lightning-button label="Return Quote Process" variant="neutral"
+              onclick={handleCancelSubmissionAdditionalInsured}></lightning-button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+          </footer>
+          <!-- End Footer -->
+        </div>
+        <template if:true={openModalCreateAdditionalInsuredDetail}>
+          <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open ">
+            <div class="slds-modal__container">
+              <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+                  onclick={handleCancel}>
+                  <lightning-icon icon-name="utility:close" size="medium">
+                  </lightning-icon>
+                  <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading_medium slds-hyphenate">Additional Insured Details</h2>
+              </header>
+
+              <div class="slds-modal__content slds-p-around_medium reason-content">
+                <div class="slds-theme_default">
+                  <div style="padding: 1% 1% 1% 1%;">
+                    <template if:true={isLoading}>
+                      <div class="slds-spinner_container">
+                        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                          <span class="slds-assistive-text">Loading</span>
+                          <div class="slds-spinner__dot-a"></div>
+                          <div class="slds-spinner__dot-b"></div>
+                        </div>
+                      </div>
+                    </template>
+                    <template if:true={modeEditAdditionalInsuredDetail}>
+                      <lightning-record-form record-id={selectedRowId} class="customLossDetailCss"
+                        object-api-name="Additional_Insured__c" layout-type="Full" columns="2" mode="edit"
+                        oncancel={handleCancel} onsubmit={handleSubmit} onsuccess={handleAdditionalInsuredEditSuccess}>
+                      </lightning-record-form>
+
+                    </template>
+                    <template if:true={modeCreatedAdditionalInsuredDetail}>
+                      <template if:true={saving}>
+                        <div class="savingSpinner slds-align_absolute-center">
+                          <lightning-spinner alternative-text="Loading" size="medium">
+                          </lightning-spinner>
+                        </div>
+                      </template>
+                      <lightning-record-edit-form object-api-name="Additional_Insured__c" layout-type="Full" columns="2"
+                        oncancel={handleCancel} onload={handleOnLoad}>
+                        <!--onsuccess={handleAdditionalDetailSuccess}-->
+                        <lightning-messages></lightning-messages>
+                        <div class="slds-grid slds-wrap">
+                          <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Submission__c" value={oppId} disabled="true">
+                            </lightning-input-field>
+                          </div>
+
+                          <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Name">
+                            </lightning-input-field>
+                          </div>
+
+                          <!-- Custom Look Up-->
+                          <br><br><br> <br>
+                          <div class="sslds-col slds-size_1-of-2 slds-p-right_small slds-m-bottom_medium look"
+                            style="width:16%">
+                            <label><abbr class="slds-required" title="required">* </abbr>Additional Account</label>
+                          </div>
+
+                          <div class="slds-col slds-size_1-of-2" style="width: 35%;">
+                            <c-look-up-lwc obj-name="Account" value-id={accountNewId} icon-name="standard:account"
+                              label-name='Additional Insurer' onvalueselect={handleSelectedRecord} is-required='true'
+                              filter={lookupFilter} record-type-id={accountRecordTypeId} is-custom='true'
+                              oncreateadditionalinsurer={handleCreateAccount} create-record='true'>
+                            </c-look-up-lwc>
+                          </div>
+                          <!-- Custom Look Up-->
+                          <br><br><br>
+                        </div>
+                      </lightning-record-edit-form>
+                      <div class="slds-col slds-size_1-of-2"></div>
+                      <div class="slds-align_absolute-center">
+                        <lightning-button class="slds-button" onclick={handleCancel} label="Cancel" variant="neutral">
+                        </lightning-button>
+                        <lightning-button class="slds-button" onclick={handleAdditionalDetailSuccess} label="Save"
+                          variant="brand">
+                        </lightning-button>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+  </template>
+
+  <template if:true={isShowCreateAccount}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+      aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium slds-border_left">
+      <div class="slds-modal__container" style="overflow-y:none; height: 600px; min-width: 70rem;">
+        <header class="slds-modal__header">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+            onclick={handleCancel}>
+            <lightning-icon icon-name="utility:close" size="medium">
+            </lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h2 class="slds-text-heading_medium slds-hyphenate">New Account: {accountRecordTypeName}</h2>
+        </header>
+        <div class="slds-modal__content">
+          <template if:true={isnewAccountLoading}>
+            <div class="slds-spinner_container">
+              <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+              </div>
+            </div>
+          </template>
+          <lightning-record-edit-form object-api-name="Account" layout-type="Full" columns="2" oncancel={handleCancel}
+            onsuccess={handleCreateAccountSuccess} record-type-id={accountRecordTypeId}>
+            <lightning-messages></lightning-messages>
+
+            <div class="slds-grid slds-wrap customMargin">
+              <div class="title-shade">Account Information</div><br><br>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="Name"></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="OwnerId"></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="RecordTypeId" disabled="true"></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="CurrencyIsoCode" disabled="true"></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="Phone"></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="Website"></lightning-input-field>
+              </div>
+
+
+              <br><br><br>
+              <div class="title-shade">Insured Details</div><br><br>
+              <div class="slds-col slds-size_1-of-2">
+                <c-google-maps-autocomplete-lwc onselectedaddress={handleSelectedAddress}>
+                </c-google-maps-autocomplete-lwc>
+                <lightning-input-address address-label="Billing Address" street-label="Street" city-label="City"
+                  country-label="Country" class="addressCmp" name={fieldName} province-label="Province"
+                  postal-code-label="PostalCode" street={address.street} city={address.city} country={address.country}
+                  province={address.province} postal-code={address.postalCode} field-level-help="Address is Mandatory"
+                  country-options={getCountryOptions} province-options={getProvinceOptions} onchange={handleChangeAddress}
+                  required="true"></lightning-input-address>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="Billing_County__c"></lightning-input-field>
+              </div>
+
+              <br><br><br>
+              <div class="title-shade">Operational Details</div><br><br>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="KYC_Status__c" disabled="true"></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="AQ_Sanction_Status__c" disabled="true"></lightning-input-field>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="Sanction_Date__c" disabled="true"></lightning-input-field>
+              </div>
+            </div>
+            <footer class="slds-modal__footer">
+              <div class="slds-align_absolute-left">
+                <lightning-button class="slds-button" onclick={handleCancel} label="Cancel" variant="neutral">
+                </lightning-button>
+                <lightning-button class="slds-button" type="submit" label="Save" variant="brand">
+                </lightning-button>
+              </div>
+            </footer>
+          </lightning-record-edit-form>
+        </div>
+
+      </div>
+    </section>
+  </template>
+
+  <!--Submission Loss Detail-->
+  <template if:true={openSubmissionLossDetail}>
+    <div class="slds-card slds-p-around_medium" style="height: 640px;width: 700px">
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+        <div class="slds-modal__container">
+          <!-- Header -->
+          <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+              onclick={handleCancelSubmissionLossDetail}>
+              <lightning-icon icon-name="utility:close" size="medium">
+              </lightning-icon>
+              <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Submission Loss Detail</h2>
+          </header>
+          <!-- End Header -->
+          <!-- Body -->
+          <div class="slds-modal__content slds-p-around_medium " style="padding-bottom: 0px;" id="modal-content-id-1">
+            <c-list-lwc title="Submission Loss Detail" object-api-name="Submission_Loss_Detail__c"
+              currenrecordid={oppId} oncreatenewone={handleOpenCreateModal} onrowclick={handleRowClick} listdata={data}
+              columns={columns} ondeleterowselected={handleDeleteRowSelected}
+              onupdaterowselected={handleUpdateRowSelected}>
+            </c-list-lwc>
+          </div>
+          <!-- End Body -->
+          <!-- Footer -->
+          <footer class="slds-modal__footer">
+            <lightning-button label="Return Quote Process" variant="neutral" onclick={handleCancelSubmissionLossDetail}>
+            </lightning-button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+          </footer>
+          <!-- End Footer -->
+        </div>
+        <template if:true={openModalCreateSubmissionLossDetail}>
+          <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+              <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+                  onclick={handleCancel}>
+                  <lightning-icon icon-name="utility:close" size="medium">
+                  </lightning-icon>
+                  <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading_medium slds-hyphenate">Submission Loss Detail</h2>
+              </header>
+
+              <div class="slds-modal__content slds-p-around_medium">
+                <div class="slds-theme_default">
+                  <div style="padding: 1% 1% 1% 1%;">
+                    <template if:true={isLoading}>
+                      <div class="slds-spinner_container">
+                        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                          <span class="slds-assistive-text">Loading</span>
+                          <div class="slds-spinner__dot-a"></div>
+                          <div class="slds-spinner__dot-b"></div>
+                        </div>
+                      </div>
+                    </template>
+                    <template if:true={modeEditSubmissionLossDetail}>
+                      <lightning-record-form record-id={selectedRowId} class="customLossDetailCss"
+                        object-api-name="Submission_Loss_Detail__c" layout-type="Full" columns="2" mode="edit"
+                        oncancel={handleCancel} onsubmit={handleSubmit} onsuccess={handleEditSuccess}>
+                      </lightning-record-form>
+
+                    </template>
+                    <template if:true={modeCreatedSubmissionLossDetail}>
+                      <template if:true={saving}>
+                        <div class="savingSpinner slds-align_absolute-center">
+                          <lightning-spinner alternative-text="Loading" size="medium">
+                          </lightning-spinner>
+                        </div>
+                      </template>
+                      <lightning-record-edit-form object-api-name="Submission_Loss_Detail__c" layout-type="Full"
+                        columns="2" oncancel={handleCancel} onload={handleOnLoad} onsuccess={handleAddSuccess}>
+                        <lightning-messages></lightning-messages>
+                        <div class="slds-grid slds-wrap">
+                          <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Name">
+                            </lightning-input-field>
+                          </div>
+                          <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Submission__c" value={oppId}>
+                            </lightning-input-field>
+                          </div>
+                          <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Loss_Amount__c">
+                            </lightning-input-field>
+                          </div>
+                          <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Number_of_Losses__c">
+                            </lightning-input-field>
+                          </div>
+                          <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Product__c">
+                            </lightning-input-field>
+                          </div>
+                          <!-- <div class="slds-col slds-size_1-of-2">
+                                                    <lightning-input-field field-name="Status__c">
+                                                    </lightning-input-field>
+                                                </div> -->
+                          <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Year__c"></lightning-input-field>
+                          </div>
+                          <div class="slds-col slds-size_1-of-2"></div>
+                          <div class="slds-align_absolute-center">
+                            <lightning-button class="slds-button" onclick={handleCancel} label="Cancel"
+                              variant="neutral">
+                            </lightning-button>
+                            <lightning-button class="slds-button" type="submit" label="Save" variant="brand">
+                            </lightning-button>
+                          </div>
+                        </div>
+                      </lightning-record-edit-form>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+  </template>
+  <template if:true={isCloseCompactAction}>
+    <lightning-card>
+      <div class="slds-container_small">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+          aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+          <div class="slds-modal__container">
+            <header class="slds-modal__header">
+              <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+                onclick={handleCloseOpportunityModal}>
+                <lightning-icon icon-name="utility:close" size="medium" variant="inverse">
+                </lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+              </button>
+              <h2 id="modal-heading-10" class="slds-text-heading_medium slds-hyphenate">{modalName} Submission</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium reason-content" id="modal-content-id-10">
+              <p>Do you want to {actionCompactType} this submission?</p>
+              <p>Please choose reason:</p>
+              <lightning-combobox name="progress" label="Closed Reason" value={closeReason} placeholder="-Select-"
+                options={ClosedReasonPicklistValues.data.values} onchange={handleChangeReason} required>
+              </lightning-combobox>
+              <template if:true={declineOtherTextDisplay}>
+                <lightning-textarea name="input1" label="Enter Reason for Decline" onchange={handleDeclineReason} value={declineOtherText} required={declineOtherTextDisplay}></lightning-textarea>
+              </template>
+            </div>
+            <footer class="slds-modal__footer">
+              <lightning-button variant="neutral" name="cancel" label='No' title='No'
+                onclick={handleCloseOpportunityModal}></lightning-button>
+              <lightning-button variant="brand" name="confirm" label='Yes' title='Yes'
+                onclick={handleConfirmCloseModal}></lightning-button>
+            </footer>
+          </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+      </div>
+    </lightning-card>
+  </template>
+</template>

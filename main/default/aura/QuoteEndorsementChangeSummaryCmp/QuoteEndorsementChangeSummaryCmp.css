@@ -1,0 +1,15 @@
+.THIS.slds-spinner_container {
+	position: initial !important;
+}
+.THIS .cls-padding-detail {
+    padding-left: 25px;
+}
+.THIS .cls-padding-section {
+    padding-left: 12px;
+}
+.THIS .cls-loading {
+    text-align: center;
+    margin-top: 70px;
+    color: #005fb2;
+    font-weight: bold;
+}

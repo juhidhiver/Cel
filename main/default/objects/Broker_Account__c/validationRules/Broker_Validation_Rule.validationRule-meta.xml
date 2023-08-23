@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Broker_Validation_Rule</fullName>
+    <active>false</active>
+    <description>Block adding new broker into opportunity when Opportunity&apos;s Stage does not equal &apos;New&apos;, &apos;Prospect&apos;, &apos;Qualified&apos;</description>
+    <errorConditionFormula>ISNEW()&amp;&amp;
+NOT(ISPICKVAL(Opportunity__r.StageName, &apos;New&apos;))&amp;&amp;
+NOT(ISPICKVAL(Opportunity__r.StageName, &apos;Prospect&apos;))&amp;&amp;
+NOT(ISPICKVAL(Opportunity__r.StageName, &apos;Qualified&apos;))</errorConditionFormula>
+    <errorMessage>This Opportunity is locked for adding new broker.</errorMessage>
+</ValidationRule>

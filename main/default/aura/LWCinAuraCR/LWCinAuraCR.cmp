@@ -1,0 +1,10 @@
+<aura:component controller='OpportunityModifiersCmpController' implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" > 
+    <aura:attribute name='submissionId' type='String'/>
+    <aura:attribute name='selectMasterBinder' type='Object'/>
+    <aura:attribute name="showLWC" type="Boolean" default="false"/>
+   	<aura:handler name="init" value="{! this }" action="{! c.doInit }" />
+    <aura:if isTrue = "{!v.showLWC}">
+    	<c:quoteComparisonMainLwc aura:id="childLwc" quoteProcessSubmissionId='{!v.recordId}' quoteLayer='Primary' selectedMasterBinder='{!v.selectMasterBinder}' quoteComingThroughEvent='false'></c:quoteComparisonMainLwc>  
+        <!--c:quoteVersionConsoleDetailLwc quoteProcessSubmissionId="{!v.recordId}" isPrimaryQuote="true"></c:quoteVersionConsoleDetailLwc-->
+    </aura:if>
+ </aura:component>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Modifier_Format__c</fullName>
+    <externalId>false</externalId>
+    <label>Modifier Format</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Picklist</fullName>
+                <default>false</default>
+                <label>Picklist</label>
+            </value>
+            <value>
+                <fullName>Number</fullName>
+                <default>false</default>
+                <label>Number</label>
+            </value>
+            <value>
+                <fullName>Currency</fullName>
+                <default>false</default>
+                <label>Currency</label>
+            </value>
+            <value>
+                <fullName>Percentage</fullName>
+                <default>false</default>
+                <label>Percentage</label>
+            </value>
+            <value>
+                <fullName>Integer</fullName>
+                <default>false</default>
+                <label>Integer</label>
+            </value>
+            <value>
+                <fullName>Text</fullName>
+                <default>false</default>
+                <label>Text</label>
+            </value>
+            <value>
+                <fullName>Radio Button</fullName>
+                <default>false</default>
+                <label>Radio Button</label>
+            </value>
+            <value>
+                <fullName>Date</fullName>
+                <default>false</default>
+                <label>Date</label>
+            </value>
+            <value>
+                <fullName>Text Area</fullName>
+                <default>false</default>
+                <label>Text Area</label>
+            </value>
+            <value>
+                <fullName>Rich Text Area</fullName>
+                <default>false</default>
+                <label>Rich Text Area</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

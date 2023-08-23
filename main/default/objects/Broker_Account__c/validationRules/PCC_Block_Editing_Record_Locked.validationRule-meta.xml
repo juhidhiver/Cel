@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PCC_Block_Editing_Record_Locked</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(OR(Opportunity__r.No_of_Quotes__c &gt; 0, ISPICKVAL( Opportunity__r.StageName, &apos;Closed Won&apos;), ISPICKVAL( Opportunity__r.StageName, &apos;Closed Lost&apos;), ISPICKVAL( Opportunity__r.StageName, &apos;Declined&apos;)), NOT(ISNEW()),  Opportunity__r.Product_Name__c = &apos;Private Company Combo&apos;, NOT(ISPICKVAL(Opportunity__r.Type, &apos;Full Amendment&apos;)),
+!Bypass_New_Broker_Validation__c )</errorConditionFormula>
+    <errorMessage>You cannot Edit Record on locked Submission.</errorMessage>
+</ValidationRule>

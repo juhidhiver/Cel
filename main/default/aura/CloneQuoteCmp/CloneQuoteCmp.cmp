@@ -1,0 +1,11 @@
+<aura:component controller="CloneQuoteHandler" 
+			    implements="force:lightningQuickActionWithoutHeader,force:hasRecordId"> 
+    <aura:attribute name="recordId" type="String" /> 
+    <aura:handler name="init" action="{!c.init}" value="{!this}" /> 
+    
+
+    <lightning:spinner variant="brand" aura:id="spinner" class="slds-show" alternativeText="Please wait...">
+    </lightning:spinner>
+    
+    <div style="text-align: center; margin-top: 70px; color: #005fb2; font-weight: bold;"> Quote is cloning, please wait... </div>
+</aura:component>

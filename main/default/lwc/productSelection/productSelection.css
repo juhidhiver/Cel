@@ -1,0 +1,20 @@
+.cards-list {
+
+    width: 100%;
+   display:flex;
+     justify-content: space-between; 
+     
+  /*  justify-content: center;
+    flex-wrap: wrap;*/
+    
+  }
+ 
+.slds-size_3-of-12, .slds-size--3-of-12 {
+  width: 20%;
+}
+/*.eqi-container div {
+  width: 50px;
+  height: 50px;
+  background: red;
+}
+*/

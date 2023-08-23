@@ -1,0 +1,161 @@
+<template>
+        <template if:true={isLoading}>
+            <div class="slds-spinner_container">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </template>
+        <section class="content">
+            <div if:true={data} class="columns">
+                <main class="main">
+                    <div style="height: 250px;" class="slds-scrollable_y">
+                        <c-list-lwc title="Free Form Endorsements" object-api-name="Free_Form_Endorsements__c" currenrecordid={quoteId}
+                            oncreatenewone={handleOpenCreateModal} onrowclick={handleRowClick} listdata={data}
+                            columns={columnsPI} ondeleterowselected={handleDeleteRowSelected} non-editable={nonEditable}
+                            onupdaterowselected={handleUpdateRowSelected} product={isPI} onrefresheventfromlist={refreshValueFromConfiguredSubModal}>
+                        </c-list-lwc>
+                    </div>
+    
+                </main>
+                <!--<div class="slds-align_absolute-center">
+                    <lightning-button class="slds-button slds-m-top_xx-small" label="View All"
+                        onclick={navigateToRelatedList}>
+                    </lightning-button>
+                    <lightning-button class="slds-button slds-m-top_xx-small" label="Edit All" onclick={showEditALl}>
+                    </lightning-button>
+                </div>!-->
+            </div>
+        </section>
+        <template if:true={openModalCreateFFEndorsement}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-001" aria-modal="true"
+                aria-describedby="modal-content-id-01" class="slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCancel}>
+                            <lightning-icon icon-name="utility:close" size="medium">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-001" class="slds-text-heading_medium slds-hyphenate">{title}</h2>
+                    </header>
+    
+                    <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-01">
+                        <div class="slds-theme_default">
+                            <div style="padding: 1% 1% 1% 1%;">
+                                <template if:true={isLoading}>
+                                    <div class="slds-spinner_container">
+                                        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                                            <span class="slds-assistive-text">Loading</span>
+                                            <div class="slds-spinner__dot-a"></div>
+                                            <div class="slds-spinner__dot-b"></div>
+                                        </div>
+                                    </div>
+                                </template>
+                               <template if:true={modeEditFFEndorsement}>
+                                    <!--<lightning-record-form record-id={selectedRowId} object-api-name="Free_Form_Endorsements__c"
+                                        layout-type="Full" columns="2" mode="edit" oncancel={handleCancel}
+                                        onsubmit={handleSubmit} onsuccess={handleEditSuccess}>
+                                    </lightning-record-form>!-->
+                                    <lightning-record-edit-form record-id={selectedRowId} object-api-name="Free_Form_Endorsements__c" layout-type="Full"
+                                        columns="2" oncancel={handleCancel} 
+                                        onsubmit={handleSubmit} onsuccess={handleEditSuccess}>
+                                        <lightning-messages> </lightning-messages>
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Name" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <template if:true={quoteId}>
+                                                    <lightning-input-field field-name="Quote__c" value={quoteId} required disabled>
+                                                    </lightning-input-field>
+                                                </template>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Endorsement_Name__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Form_Number__c" required disabled>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Coverage_Effective_Date__c" disabled>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-1">
+                                                <lightning-input-field field-name="Endorsement_Wording__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-align_absolute-center">
+                                                <lightning-button class="slds-button" onclick={handleCancel} label="Cancel"
+                                                    variant="neutral">
+                                                </lightning-button>
+                                                <lightning-button class="slds-button" type="submit" label="Save"
+                                                    variant="brand">
+                                                </lightning-button>
+                                            </div>
+                                        </div>
+                                    </lightning-record-edit-form>
+                                </template>
+                                <template if:true={modeCreatedFFEndorsement}>
+                                    <template if:true={saving}>
+                                        <div class="savingSpinner slds-align_absolute-center">
+                                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                                        </div>
+                                    </template>
+                                    <lightning-record-edit-form object-api-name="Free_Form_Endorsements__c" layout-type="Full"
+                                        columns="2" oncancel={handleCancel} onload={handleOnLoad}
+                                        onsuccess={handleAddSuccess}>
+                                        <lightning-messages> </lightning-messages>
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Name" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <template if:true={quoteId}>
+                                                    <lightning-input-field field-name="Quote__c" value={quoteId} required disabled>
+                                                    </lightning-input-field>
+                                                </template>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Endorsement_Name__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Form_Number__c" value={formNumber} required disabled>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Coverage_Effective_Date__c" value={covEffDate} disabled>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-1">
+                                                <lightning-input-field field-name="Endorsement_Wording__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-align_absolute-center">
+                                                <lightning-button class="slds-button" onclick={handleCancel} label="Cancel"
+                                                    variant="neutral">
+                                                </lightning-button>
+                                                <lightning-button class="slds-button" type="submit" label="Save"
+                                                    variant="brand">
+                                                </lightning-button>
+                                            </div>
+                                        </div>
+                                    </lightning-record-edit-form>
+                                </template>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </template>

@@ -1,0 +1,219 @@
+<template>
+
+    <div class="slds-card slds-p-around_medium" style="height: 640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={handleCancel}>
+                        <lightning-icon icon-name="utility:close" size="medium">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">D&B Account</h2>
+                </header>
+                <!-- End Header -->
+                <!-- Body -->
+                <div class="slds slds-card slds-grid slds-wrap">
+                    <!-- address line text was here -->
+                    <div class="slds-size--1-of-2 slds-large-size--1-of-2">
+                    </div>
+                    <div class="slds-size--1-of-2 slds-large-size--1-of-2">
+                        <lightning-combobox
+                                required
+                                name="countryCodeId"
+                                label="Country"
+                                value={value}
+                                placeholder="Country"
+                                options={options}
+                                onchange={handleChangeCountry} ></lightning-combobox>
+                       <!--  <lightning-record-edit-form object-api-name="Account">
+                            <lightning-input-field value="US" required name="countryCodeId"
+                                onchange={handleChangeCountry} field-name="Country_Code__c"></lightning-input-field>
+                        </lightning-record-edit-form> -->
+
+                    </div><br />
+                </div>
+                <div style="height: 300px" class="slds-modal__content slds-p-around_medium slds slds-scrollable_y"
+                    id="modal-content-id-1">
+
+                    <div class="slds-form-element">
+                        <template if:true={label}>
+                            <label class="slds-form-element__label" style="display:hidden;">{label}</label>
+                        </template>
+                        <template if:false={label}>
+                            <label class="slds-form-element__label" style="display:block;">{label}</label>
+                        </template>
+
+                        <div class="slds-form-element__control">
+                            <template if:true={results}>
+                                <div class="slds-combobox_container">
+                                    <div id="myDiv"
+                                        class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+                                        aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                                        <div class="slds-grid slds-gutters_x-small">
+                                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right slds-col slds-size_10-of-12"
+                                                role="none">
+                                                <input tabindex="0"
+                                                    class="slds-input slds-combobox__input slds-has-focus slds-combobox__input-value"
+                                                    id="" aria-autocomplete="list" aria-controls="listbox-id-11"
+                                                    disabled={isDisableInput} type="text" onkeyup={searchHandler}
+                                                    role="textbox" placeholder="Search..." value={inputValue} />
+                                                <template if:true={selectedOption}>
+                                                    <span
+                                                        class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                        <lightning-icon icon-name="utility:search" size="x-small">
+                                                        </lightning-icon>
+                                                    </span>
+                                                </template>
+                                                <template if:false={selectedOption}>
+                                                    <button
+                                                        class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                                                        title="Clear the text input" onclick={clearOption}>
+                                                        <lightning-icon icon-name="utility:clear" size="x-small">
+                                                        </lightning-icon>
+                                                    </button>
+                                                </template>
+                                            </div>
+                                            <div class="slds-col slds-size_2-of-12">
+                                                <lightning-button label="Search" variant="neutral" onclick={searchHandlerButton}></lightning-button>
+                                            </div>
+                                        </div>
+                                        <div style="height: 150px;overflow-y: auto;"
+                                            class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                            role="listbox">
+                                            <template if:true={results}>
+                                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                    <template for:each={results} for:item="oRecord">
+                                                        <li key={oRecord.primaryName} role="presentation"
+                                                            class="slds-listbox__item" data-value={oRecord.duns}
+                                                            onclick={selectRecord}>
+                                                            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                                role="option">
+                                                                <span
+                                                                    class="slds-media__figure slds-listbox__option-icon"></span>
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate"
+                                                                        title="All Opportunities">
+                                                                        <span>{oRecord.primaryName} <div
+                                                                                class="slds-text-color_destructive">
+                                                                                {oRecord.address.streetAddressLine1},
+                                                                                {oRecord.address.addressLocality},
+                                                                                {oRecord.address.addressRegion},
+                                                                                {oRecord.address.postalCode},
+                                                                                {oRecord.address.country} </div></span>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:false={results}>
+                                <div class="slds-combobox_container">
+                                    <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click "
+                                        aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                                        <div class="slds-grid slds-gutters_x-small">
+                                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right slds-col slds-size_10-of-12"
+                                                role="none">
+                                                <input tabindex="0" disabled={isDisableInput} type="text"
+                                                    class="slds-input slds-combobox__input slds-has-focus slds-combobox__input-value"
+                                                    aria-autocomplete="list" aria-controls="listbox-id-11"
+                                                    onkeyup={searchHandler} role="textbox" placeholder="Search..."
+                                                    value={inputValue} />
+                                                <template if:true={selectedOption}>
+                                                    <span
+                                                        class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                        <lightning-icon icon-name="utility:search" size="x-small">
+                                                        </lightning-icon>
+                                                    </span>
+                                                </template>
+                                                <template if:false={selectedOption}>
+                                                    <button
+                                                        class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                                                        title="Clear the text input" onclick={clearOption}>
+                                                        <lightning-icon icon-name="utility:clear" size="x-small">
+                                                        </lightning-icon>
+                                                    </button>
+                                                </template>
+                                            </div>
+                                            <div class="slds-col slds-size_2-of-12">
+                                                <lightning-button label="Search" variant="neutral" onclick={searchHandlerButton}></lightning-button>
+                                            </div>  
+                                        </div>
+                                        <div style="height: 100px;overflow-y: auto;"
+                                            class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                            role="listbox">
+                                            <template if:true={results}>
+                                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                    <template for:each={results} for:item="oRecord">
+                                                        <li key={oRecord.primaryName} role="presentation"
+                                                            class="slds-listbox__item" data-value={oRecord.duns}
+                                                            onclick={selectRecord}>
+                                                            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                                role="option">
+                                                                <span
+                                                                    class="slds-media__figure slds-listbox__option-icon"></span>
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate"
+                                                                        title="All Opportunities">
+                                                                        <span>{oRecord.primaryName} <div
+                                                                                class="slds-text-color_destructive">
+                                                                                {oRecord.address.streetAddressLine1},
+                                                                                {oRecord.address.addressLocality},
+                                                                                {oRecord.address.addressRegion},
+                                                                                {oRecord.address.postalCode},
+                                                                                {oRecord.address.country} </div></span>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    <div>
+                        <template if:true={isLoading}>
+                            <div role="status" class="slds-spinner slds-spinner_brand slds-spinner_medium">
+                                <span class="slds-assistive-text">Loading</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <!-- End Body -->
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;   
+                        <lightning-button label="Save" disabled={isDisableSave} variant="brand" onclick={handleNext}>
+                        </lightning-button>
+                           <!--MAry Test start-->
+                        <div class="spinner">
+                            <template if:true={isLoading}>
+                                 <lightning-spinner alternative-text="Loading" variant="brand" >
+                                 </lightning-spinner>
+                            </template>
+                        </div>
+                    <!--Mary Test stop-->
+                </footer>
+                <!-- End Footer -->
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+
+
+</template>

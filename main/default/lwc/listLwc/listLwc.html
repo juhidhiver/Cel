@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title={title} icon-name="custom:custom18">
+     
+        <template if:true={product}>
+            <template if:true={isAdditionlaInsured}>
+                <lightning-button label="New" slot="actions" onclick={handleClickOpenModalInsureContact} disabled={nonEditable}></lightning-button> 
+            </template>
+            <template if:true={isFreeFormEndo}>
+                <lightning-button label="New" slot="actions" onclick={handleClickOpenModalInsureContact} disabled={nonEditable}></lightning-button> 
+            </template>
+            <template if:true={isSubjectivity}>
+                <lightning-button label="New Free Form" slot="actions" onclick={handleClickOpenModalInsureContact} disabled={nonEditable}></lightning-button>
+                <lightning-button label="Add Subjectivity" slot="actions" onclick={showSubjectivityModal} disabled={nonEditable}></lightning-button>
+            </template>
+
+            <template if:true={subjectivitySearchComponent}>
+                <c-configured-subjectivity-modal 
+                quote-id={quoteId}
+                onclosemodal={closeSubjectivityModal}
+                onrefreshmodal={refreshevent}
+            ></c-configured-subjectivity-modal>
+            </template>
+            
+        </template> 
+
+        <template if:false={product}>
+            <lightning-button label="New" slot="actions" onclick={handleClickOpenModalInsureContact}></lightning-button> 
+
+            <template if:true={isSubjectivity}>
+             <lightning-button label="Add Subjectivity" slot="actions" onclick={showSubjectivityModal}></lightning-button>
+             </template>    
+            <template if:true={subjectivitySearchComponent}>
+                <c-configured-subjectivity-modal 
+                quote-id={quoteId}
+                onclosemodal={closeSubjectivityModal}
+                onrefreshmodal={refreshevent}
+            ></c-configured-subjectivity-modal>
+            </template>
+        </template> 
+        <lightning-datatable columns={columns} data={listdata}  key-field="Id" hide-checkbox-column onrowaction={handleRowAction}
+        default-sort-direction={defaultSortDirection} sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort}></lightning-datatable>  
+    </lightning-card>
+    <c-confirmation-dialog-lwc title='Confirmation'
+        message='Do you want to proceed?'
+        confirm-label='Yes'
+        cancel-label='No'
+        visible={isDialogVisible}
+        original-message={originalMessage}
+        name="confirmModal"
+        onclick={handleClick}>
+    </c-confirmation-dialog-lwc>
+</template>

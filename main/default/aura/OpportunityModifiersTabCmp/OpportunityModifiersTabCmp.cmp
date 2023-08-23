@@ -1,0 +1,190 @@
+<aura:component controller="OpportunityModifiersCmpController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+	<!-- Attribute -->
+	<aura:attribute name="productName" type="String"/>
+	<aura:attribute name="opportunityId" type="String"/>
+	<aura:attribute name="mainSectionWraps" type="Object[]"/>
+	<aura:attribute name="mainActiveSections" type="String[]"/>
+	<aura:attribute name="showSpinner" type="Boolean" default="false"/>
+	<aura:attribute name="errorMessage" type="String"/>
+
+	<!-- Handler -->
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<aura:registerEvent name="appEvent" type="c:reload_app_evt"/>
+	
+	<lightning:overlayLibrary aura:id="overlayLib"/>
+
+	<!-- Spinner -->
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner alternativeText="Loading..." size="large" />
+    </aura:if>
+
+	<aura:if isTrue="{!not(empty(v.mainSectionWraps))}">
+        <div class="mainTab">
+            <div class="slds-text-align_center">
+                <lightning:button variant="brand" label="Save" title="Save" onclick="{! c.saveRecord }" />
+                <lightning:button variant="brand" label="Check Risk Health" title="Check Risk Health" onclick="{! c.clickCheckRiskHealth}" />
+            </div>
+
+            <div class="sectionTab">
+                <lightning:accordion allowMultipleSectionsOpen="true" activeSectionName="{! v.mainActiveSections }">
+                    <aura:iteration items="{!v.mainSectionWraps}" var="mainSecWrap" indexVar="indexEli">
+                        <lightning:accordionSection name="{!mainSecWrap.name}" label="{!mainSecWrap.name}" class="mainSection">
+	                        <!-- Body Section -->
+	                        <aura:set attribute="body">
+	                            <div class="slds-grid slds-wrap">
+	                                <aura:iteration items="{!mainSecWrap.items}" var="obj" indexVar="indexRowEli">
+						                <div class="slds-size_1-of-2 slds-max-small-size_1-of-1">
+						                	<table>
+						                		<tr>
+						                			<td style="width:50%; text-align: right; padding: .5rem; vertical-align:top;">
+						                				<span>{!obj.item.Name}</span>
+						                			</td>
+						                			<td style="width:50%; padding: .5rem; vertical-align:top;">
+						                				<aura:if isTrue="{!obj.item.Format__c == 'Picklist'}">
+				                                            <lightning:select name="{!indexEli + '-' + indexRowEli}" label="{!obj.item.Name}" variant="label-hidden"
+				                                                            value="{!obj.item.Rating_Modifier_Value__c}" aura:id="{!indexEli + '-' + indexRowEli}"
+				                                                            >
+				                                                <aura:iteration items="{!obj.pickOptList}" var="pickOpt">
+				                                                    <option value="{!pickOpt.value}" text="{!pickOpt.label}" /> 
+				                                                </aura:iteration>
+				                                            </lightning:select>
+				                                        </aura:if>
+				                                        <aura:if isTrue="{!obj.item.Format__c == 'Radio Button'}">
+				                                            <div class="radio">      
+				                                                <lightning:radioGroup name="{!indexEli + '-' + indexRowEli}" aura:id="{!indexEli + '-' + indexRowEli}"
+				                                                                      label=""
+				                                                                      options="{!obj.pickOptList}"
+				                                                                      value="{!obj.item.Rating_Modifier_Value__c}"
+				                                                                      type="radio"/>                 
+				                                            </div>          
+				                                        </aura:if>
+
+				                                        <aura:if isTrue="{!obj.item.Format__c == 'Currency'}">
+				                                            <lightning:input type="number" name="{!indexEli + '-' + indexRowEli}" label="" value="{!obj.item.Rating_Modifier_Value__c}" aura:id="{!indexEli + '-' + indexRowEli}"/>
+				                                        </aura:if>
+				                                        <aura:if isTrue="{!obj.item.Format__c == 'Percentage'}">
+				                                            <lightning:input type="number" label="" format="decimal" aura:id="{!indexEli + '-' + indexRowEli}" value="{!obj.item.Rating_Modifier_Value__c}" step="0.001" 
+					                                            min="{!obj.item.Factor_Min__c}"
+					                                            max="{!obj.item.Factor_Max__c}"
+					                                            messageWhenRangeOverflow="{!'Please input number between ' + obj.strFactorMin + ' and ' + obj.strFactorMax}"
+					                                            messageWhenRangeUnderflow="{!'Please input number between ' + obj.strFactorMin + ' and ' + obj.strFactorMax}"/>
+				                                        </aura:if>
+
+				                                        <!-- If Modifier Format is Integer -->
+				                                        <aura:if isTrue="{!(obj.item.Format__c == 'Integer')}">
+				                                            <lightning:input type="number" name="{!indexEli + '-' + indexRowEli}" label="" aura:id="{!indexEli + '-' + indexRowEli}"
+				                                                            max="999999999999999999"
+				                                                            value="{!obj.item.Rating_Modifier_Value__c}" />
+				                                        </aura:if>
+
+				                                        <!-- If Modifier Format is Number -->
+				                                        <aura:if isTrue="{!(obj.item.Format__c == 'Number')}">
+				                                            <lightning:input type="number" name="{!indexEli + '-' + indexRowEli}" label="" aura:id="{!indexEli + '-' + indexRowEli}" value="{!obj.item.Rating_Modifier_Value__c}" formatter="decimal"/>
+				                                        </aura:if>
+
+				                                        <!-- If Modifier Format is Text -->
+				                                        <aura:if isTrue="{!(obj.item.Format__c == 'Text')}">
+				                                        	<lightning:input type="text" name="{!indexEli + '-' + indexRowEli}" label="" aura:id="{!indexEli + '-' + indexRowEli}" value="{!obj.item.Rating_Modifier_Value__c}" />
+				                                            <!-- <aura:if isTrue="{!not(empty(obj.ratingModfStr))}">
+				                                                {!obj.ratingModfStr}
+				                                                <aura:set attribute="else">&nbsp;</aura:set>
+				                                            </aura:if> -->
+				                                        </aura:if>
+						                			</td>
+						                		</tr>
+						                	</table>
+	                                	</div>
+	                                </aura:iteration>
+
+	                                <aura:iteration items="{!mainSecWrap.subSections}" var="subSecWrap" indexVar="indexSubEli">
+	                                    <div class="slds-size_12-of-12 slds-grid slds-wrap subSection">
+	                                        <div class="slds-col slds-size_8-of-12">
+	                                            {!subSecWrap.name}
+	                                        </div>
+	                                    </div>
+	                                    <aura:iteration items="{!subSecWrap.items}" var="subObj" indexVar="indexRowSubEli">
+							                <div class="slds-size_1-of-2 slds-max-small-size_1-of-1 ">
+	                                        	<table>
+							                		<tr>
+							                			<td class="align_center" style="width:50%; text-align: right; padding: .5rem; vertical-align:top;">
+		                                        			<span>{!subObj.item.Name}</span>
+		                                        		</td>
+		                                        		<td class="align_center" style="width:50%; padding: .5rem; vertical-align:top;">
+		                                        			<aura:if isTrue="{!subObj.item.Format__c == 'Picklist'}">
+					                                            <lightning:select name="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}" label="{!subObj.item.Name}" variant="label-hidden"
+					                                                            value="{!subObj.item.Rating_Modifier_Value__c}" aura:id="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}"
+					                                                            >
+					                                                <aura:iteration items="{!subObj.pickOptList}" var="pickOpt">
+					                                                    <option value="{!pickOpt.value}" text="{!pickOpt.label}" /> 
+					                                                </aura:iteration>
+					                                            </lightning:select>
+					                                        </aura:if>
+					                                        <aura:if isTrue="{!subObj.item.Format__c == 'Radio Button'}">
+					                                            <div class="radio">      
+					                                                <lightning:radioGroup name="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}" aura:id="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}"
+					                                                                      label=""
+					                                                                      options="{!subObj.pickOptList}"
+					                                                                      value="{!subObj.item.Rating_Modifier_Value__c}"
+					                                                                      type="radio"/>                 
+					                                            </div>          
+					                                        </aura:if>
+
+					                                        <aura:if isTrue="{!subObj.item.Format__c == 'Currency'}">
+					                                            <lightning:input type="number" name="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}" label="" value="{!subObj.item.Rating_Modifier_Value__c}" aura:id="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}"/>
+					                                        </aura:if>
+					                                        <aura:if isTrue="{!subObj.item.Format__c == 'Percentage'}">
+					                                            <lightning:input type="number" label="" format="decimal" aura:id="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}" value="{!subObj.item.Rating_Modifier_Value__c}" step="0.001" 
+						                                            min="{!subObj.item.Factor_Min__c}"
+						                                            max="{!subObj.item.Factor_Max__c}"
+						                                            messageWhenRangeOverflow="{!'Please input number between ' + subObj.strFactorMin + ' and ' + subObj.strFactorMax}"
+						                                            messageWhenRangeUnderflow="{!'Please input number between ' + subObj.strFactorMin + ' and ' + subObj.strFactorMax}"/>
+					                                        </aura:if>
+
+					                                        <!-- If Modifier Format is Integer -->
+					                                        <aura:if isTrue="{!(subObj.item.Format__c == 'Integer')}">
+					                                            <lightning:input type="number" name="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}" label="" aura:id="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}"
+					                                                            max="999999999999999999"
+					                                                            value="{!subObj.item.Rating_Modifier_Value__c}" />
+					                                        </aura:if>
+
+					                                        <!-- If Modifier Format is Number -->
+					                                        <aura:if isTrue="{!(subObj.item.Format__c == 'Number')}">
+					                                            <lightning:input type="number" name="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}" label="" aura:id="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}" value="{!subObj.item.Rating_Modifier_Value__c}" formatter="decimal"/>
+					                                        </aura:if>
+
+					                                        <!-- If Modifier Format is Text -->
+					                                        <aura:if isTrue="{!(subObj.item.Format__c == 'Text')}">
+					                                        	<lightning:input type="text" name="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}" label="" aura:id="{!indexEli + '-'+ indexSubEli +'-'+ indexRowSubEli}" value="{!subObj.item.Rating_Modifier_Value__c}" />
+					                                            <!-- <aura:if isTrue="{!not(empty(subObj.ratingModfStr))}">
+					                                                {!subObj.ratingModfStr}
+					                                                <aura:set attribute="else">&nbsp;</aura:set>
+					                                            </aura:if> -->
+					                                        </aura:if>
+		                                        		</td>
+													</tr>
+		                                        </table>
+		                                	</div>
+	                                	</aura:iteration>
+	                                </aura:iteration>
+	                            </div>
+	                        </aura:set>
+	                    </lightning:accordionSection>
+	                </aura:iteration>
+
+
+	            </lightning:accordion>
+	        </div>
+	        <div class="slds-text-align_center">
+                <lightning:button variant="brand" label="Save" title="Save" onclick="{! c.saveRecord }" />
+                <lightning:button variant="brand" label="Check Risk Health" title="Check Risk Health" onclick="{! c.clickCheckRiskHealth}" />
+            </div>
+
+	    </div>
+	    <!-- Show Error -->
+        <aura:set attribute="else">
+            <p>{!v.errorMessage}</p>
+        </aura:set>
+	</aura:if>
+
+</aura:component>

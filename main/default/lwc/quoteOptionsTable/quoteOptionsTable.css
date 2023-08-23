@@ -1,0 +1,154 @@
+.customWidth {
+    max-width: 80rem !important;
+    width: 80% !important;
+}
+
+.tableOverride {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.titleValue{
+    color: rgb(0, 112, 210);
+    font-weight: 700;
+}
+.rowTblValue td{
+    background: rgb(243, 242, 242);
+}
+table.tblCustom tr td {
+    border-right: 1px solid rgb(221, 219, 218);
+    padding: 0px;
+    height: 25px;
+}
+table.tblCustom tr:nth-child(even) {
+    background: white;
+}
+table.tblCustom tr:nth-child(odd) {
+    background: rgb(243, 242, 242);
+}
+table.tblCustom tr {
+    height: 32px;
+}
+table.tblCustom tr td:hover {
+    background-color: transparent;
+}
+.colorError{
+    color: red;
+}
+/* table.tblCustom {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-top: 1px solid grey;
+} */
+
+/* td, th {
+  margin: 0;
+  border: 1px solid grey;
+  white-space: nowrap;
+  border-top-width: 0px;
+} */
+
+div.divTbl {
+    width: 1254px;
+    overflow-x: scroll;
+    margin-left: 292px;
+    overflow-y: visible;
+    padding: 0;
+}
+.fixedHeader{
+    position: sticky;
+    z-index: 95;
+    width: 100%;
+    top: 575px;
+    background-color: white;
+  }
+.headcol {
+    position: absolute;
+    width: 292px;
+    left: 0;
+    top: auto;
+    border-top-width: 1px;
+    /*only relevant for first row*/
+    margin-top: -1px;
+    /*compensate for top border*/
+}
+.tdCol {
+    width: 292px;
+}
+.quoteName {
+    display: inline-block;
+    width: 100%; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+.reason-content{
+    overflow: initial !important;
+}
+/* --Added By Sarthak on 22nd June 2020  */
+.inactiveButton {
+   background-color:#C9C7C5 !important;
+}
+.disabled{
+    margin:0px;
+    opacity: 0.7;
+}
+.no-disabled{
+    margin:0px;
+    opacity: 1;
+}
+.bound-disabled {
+    cursor: not-allowed !important;
+}
+.bound-disabled div{
+    pointer-events: none;
+}
+.slds-float_right_1{
+    cursor: default !important;
+    pointer-events: auto !important;
+}
+.slds-float_right_1{
+    cursor: pointer !important;
+    pointer-events: unset;
+}
+
+.position-sticky{
+    position: fixed;
+    top: 14rem;
+    z-index: 90;
+    animation: SHW .5s;
+    animation-fill-mode: both
+}
+.sticky {
+    position: fixed;
+    top: 100px;
+    width: 100%;
+  }
+.background-table{
+    background: rgb(243, 242, 242);
+}
+@keyframes SHW {
+    from {
+        transform:scale(0.7);
+        opacity:0
+    }
+    to {
+        transform: scale(1);
+        opacity:1
+    }
+}
+.w-56{
+    width: 56% !important;
+}
+
+.customLabel{
+    color:rgb(62, 62, 60);
+    font-size: 0.75rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    margin-bottom: 0.125rem;
+    border-left: 0.2rem solid white;
+}
+
+.customClose{
+    top: -1.5rem !important;
+}

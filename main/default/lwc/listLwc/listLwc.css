@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.THIS .min-height {
+    display: inline-block;
+    min-height: 200px;
+}

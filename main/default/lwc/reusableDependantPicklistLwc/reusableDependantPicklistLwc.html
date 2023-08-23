@@ -1,0 +1,74 @@
+<!--
+  @description       : 
+  @author            : Maeran Shaikh
+  @group             : 
+  @last modified on  : 07-07-2021
+  @last modified by  : Maeran Shaikh
+  Modifications Log 
+  Ver   Date         Author          Modification
+  1.0   06-29-2021   Maeran Shaikh   Initial Version
+-->
+<template>
+
+
+
+    <template if:true={isError}>
+        <div>
+            <c-error-cmp value="Picklist issue"></c-error-cmp>
+        </div>
+    </template>
+    <template if:false={isError}>
+        <template if:false={isPccComponent}>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-var-p-horizontal_x-small slds-size--1-of-1">
+                    <div class="slds-form-element slds-hint-parent">
+                        <lightning-combobox label={controllingPicklistLabel} name="Controlling Picklist"
+                            options={optionValues.controlling} onchange={handleControllingChange} 
+                            value={selectedValues.controlling}>
+                        </lightning-combobox>
+                    </div>
+
+                </div>
+
+                <div class="slds-var-p-horizontal_x-small slds-size--1-of-1">
+                    <div class="slds-form-element slds-hint-parent">
+                        <div class="slds-form-element__control">
+                            <lightning-combobox label={dependentPicklistLabel} name="Dependent Picklist"
+                                options={optionValues.dependent} onchange={handleDependentChange}
+                                disabled={isDisabled} value={selectedValues.dependent}>
+                            </lightning-combobox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={isPccComponent}>
+            <div class="div-2 ">
+                <lightning-layout pull-to-boundary="medium" multiple-rows="true">
+                    <!-- <lightning-layout-item size="4" padding="horizontal-xx-small">
+                        <div>
+                            <p class="p-1">Industry</p>
+                        </div>
+                    </lightning-layout-item> -->
+                    <lightning-layout-item padding="horizontal-small" class="slds-size--1-of-1 slds-align-middle">
+                        <lightning-combobox variant="label-hidden" name="Controlling Picklist"
+                            options={optionValues.controlling} onchange={handleControllingChange} 
+                            value={selectedControllingValue} read-only={isReadOnly}>
+                        </lightning-combobox>
+                    </lightning-layout-item>
+
+                
+                    <lightning-layout-item padding="horizontal-small" class="slds-size--1-of-1 slds-align-middle slds-var-p-top_x-small">
+                        <lightning-combobox variant="label-hidden"  name="Dependent Picklist"
+                            options={optionValues.dependent} onchange={handleDependentChange}
+                            disabled={isDisabled} value={selectedDependentValue} read-only={isReadOnly}>
+                        </lightning-combobox>
+                    </lightning-layout-item>
+                    <!-- <lightning-layout-item size="2" padding="around-small">
+                        <lightning-badge label="Label"></lightning-badge>
+                    </lightning-layout-item> -->
+                </lightning-layout>
+            </div>
+        </template>
+    </template>
+</template>

@@ -1,0 +1,80 @@
+<aura:component controller="OpportunityInitFormCmpController" implements="lightning:actionOverride,flexipage:availableForRecordHome,force:lightningQuickAction,force:hasRecordId" access="global" >
+    <aura:attribute name="recordTypeList" type="List"/>
+    <aura:attribute name="recordTypeId" type="String" />
+    <aura:attribute name="accRecordId" type="String" />
+	<aura:attribute name="errorMessage" type="String" />
+    <aura:attribute name="showPopup" type="Boolean" default="true"/>
+	<aura:attribute name="refPage" type="Object"/>
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:navigation aura:id="navService"/>
+	<lightning:overlayLibrary aura:id="overlayLib"/>
+    <aura:if isTrue="{! v.showPopup == true}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Opportunity</h2>   
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning:messages />
+                        <aura:if isTrue="{! !empty(v.errorMessage)}">
+                            <div class="slds-notify_container slds-is-relative">
+                                <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                                    <span class="slds-assistive-text">error</span>
+                                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                                    </span>
+                                    <div class="slds-notify__content">
+                                    <h2 class="slds-text-heading_small slds-theme_error">{!v.errorMessage}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:if>
+
+                        <div class="slds-wrap slds-modal__content slds-p-around--small slds-scrollable_y">
+                            <h3 class="slds-section-title--divider">Select Record Type</h3>
+                            <div class="slds-form--stacked slds-p-around--medium slds-m-bottom--x-small">               
+                                <lightning:radioGroup type="radio" name="recordTypeList" options="{! v.recordTypeList }" value="{! v.recordTypeId }" />
+                            </div>
+                        </div>
+                        <aura:if isTrue="{! !empty(v.recordTypeId)}">
+						
+                        <lightning:recordEditForm aura:id="fieldSetForm" objectApiName="Opportunity" recordTypeId="{!v.recordTypeId}" class="slds-card__body_inner">                                
+                            <div class="slds-wrap slds-modal__content slds-p-around--small slds-scrollable_y">
+                                <h3 class="slds-section-title--divider">Select Account and Product</h3>
+                                <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                    <!--<lightning:inputField aura:id="AccountId" fieldName="AccountId" required="true" value="{!v.accRecordId}"/>-->
+									<c:CustomLookupCmp aura:id="AccountId" value="{!v.accRecordId}"
+										label="Account Name"
+										object="Account"
+										searchField="Name"
+										placeholder="Search Accounts..."
+										iconName="standard:account"
+										subtitleField="Industry"
+										order="Name"
+										limit="5"
+										loadingMessage="Loading..."
+										errorMessage="Invalid input"
+										allowNewRecords="true"
+										showRecentRecords="true"
+										required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                    <lightning:inputField aura:id="ProductName" fieldName="Product__c" required="true"/>
+                                </div>
+                                <!--div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                    <lightning:inputField aura:id="CoverageProduct" fieldName="Coverage_Product_Options__c"/>
+                                </div-->           
+                            </div>                            
+                        </lightning:recordEditForm>
+                    </aura:if>      
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button  variant="neutral" name="cancel" label="Cancel" onclick="{!c.closePopup}" />
+                    <lightning:button  variant="brand"  name="Next" label="Next" onclick="{!c.nextButtonClick}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>   
+ 
+</aura:component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Edit_When_Opportunity_Closed_Won</fullName>
+    <active>false</active>
+    <description>If Opportunity Stage = Closed Won, all Rating Modifiers should be Read Only.</description>
+    <errorConditionFormula>ISPICKVAL(Opportunity__r.StageName, &apos;Closed Won&apos;)</errorConditionFormula>
+    <errorMessage>Can&apos;t create or update Rating Modifier when Opportunity status is Closed Won</errorMessage>
+</ValidationRule>

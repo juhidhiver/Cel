@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Send_Email_notifying_the_Submission_Owner_Change</fullName>
+        <description>Send Email notifying the Submission Owner Change</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Send_Email_Submission_Owner_Change</template>
+    </alerts>
+    <rules>
+        <fullName>Send Email Submission Owner Change</fullName>
+        <actions>
+            <name>Send_Email_notifying_the_Submission_Owner_Change</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Creating a workflow rule to automate email notification when there is change in the owner of the submission - task 34205</description>
+        <formula>ISCHANGED(OwnerId)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

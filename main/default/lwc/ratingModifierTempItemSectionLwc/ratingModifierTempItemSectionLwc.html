@@ -1,0 +1,101 @@
+<template>
+    <div class="slds-box slds-grid slds-wrap">
+        <div class="slds-col slds-size_8-of-12">
+                <lightning-combobox  name="combo"  label={name} value= {valueKey} placeholder="Search Section"  options={sectionItems} onchange={handleOptionChange}></lightning-combobox>
+        </div>
+        <div class="slds-size_4-of-12"> 
+            <div class="slds-p-around_medium lgc-bg">   
+                <lightning-button-icon icon-name="utility:edit" alternative-text="Edit Section" class="slds-m-left_xx-small" title="Edit" onclick={handleMode}>
+                    </lightning-button-icon>
+                <lightning-button-icon icon-name="utility:add" alternative-text="New Section" class="slds-m-left_xx-small" title="New" onclick={handleMode} >
+                    </lightning-button-icon>
+                <!-- <lightning-button-icon icon-name="utility:delete" alternative-text="Delete Section" class="slds-m-left_xx-small" title="Delete" onclick={handleMode} >
+                    </lightning-button-icon> -->
+             </div>
+        </div>
+    </div>
+
+    <!--Edit Section-->
+    <template if:true={openEditmodel}>
+        <lightning-record-edit-form object-api-name="Rating_Modifier_Template__c" record-id={valueKey} onsuccess={handleEditSuccess} >
+         <lightning-messages></lightning-messages>
+        <!-- <div class="slds-card slds-p-around_medium" style="height: 300px; width: 300px">-->
+             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+ 
+                 <div class="slds-modal__container">
+                 <header class="slds-modal__header">
+                     <lightning-button-icon icon-name="utility:close" class="slds-float_right" onclick={closeModal} alternative-text="close"></lightning-button-icon>
+                     <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Edit Section</h2>
+                 </header>
+                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                     
+                         <template if:true={isMainSection}>
+                             <lightning-input-field field-name="Page_Section__c" value={mainName} ></lightning-input-field>
+                         </template>
+                         <template if:false={isMainSection}>
+                             <lightning-input-field field-name="Sub_Section__c" value={subName} ></lightning-input-field>
+                         </template>
+                             <lightning-input-field field-name="Sort_Order__c" value={order} ></lightning-input-field>
+                             <lightning-input-field field-name="Display_Format__c" value={displayformat} ></lightning-input-field>
+                             <lightning-input-field field-name="Modifier_Product__c" value={modifierProduct} ></lightning-input-field>
+                     
+                 </div>
+                 <footer class="slds-modal__footer">
+                     <lightning-button variant="neutral" label="Close" title="Close Edit Section" onclick={closeModal} class="slds-m-left_x-small"></lightning-button>
+                     <lightning-button variant="brand" label="Save" title="Save" type="submit" class="slds-m-left_x-small" name="update" disabled={isDisableButton}></lightning-button>
+                 </footer>
+             </div>
+         </section>
+         <!--</div>-->
+              <div if:true={openEditmodel} class="slds-backdrop slds-backdrop_open"></div>
+         </lightning-record-edit-form>
+     </template>
+    <!--End Edit Section-->
+
+    <!--New Section-->
+    <template if:true={openNewmodel}>
+        <lightning-record-edit-form object-api-name="Rating_Modifier_Template__c" onsuccess={handleNewSuccess} onsubmit={handleSubmit} >
+            <lightning-messages></lightning-messages>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+                     aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                 <div class="slds-modal__container">
+                     <header class="slds-modal__header">
+                         <lightning-button-icon icon-name="utility:close" class="slds-float_right" onclick={closeModal} alternative-text="close"></lightning-button-icon>
+                         <h2 class="slds-modal__title slds-hyphenate">New Section</h2>
+                     </header>
+                     <div class="slds-modal__content slds-p-around_medium" >
+                         <template if:true={isMainSection}>
+                             <lightning-input-field field-name="Page_Section__c" value={mainName} ></lightning-input-field>
+                         </template>
+                         <template if:false={isMainSection}>
+                             <lightning-input-field field-name="Sub_Section__c" value={subName} ></lightning-input-field>
+                         </template>
+                             <lightning-input-field field-name="Sort_Order__c" ></lightning-input-field>
+                             <lightning-input-field field-name="Display_Format__c" ></lightning-input-field>
+                             <lightning-input-field field-name="Modifier_Product__c"></lightning-input-field>
+                     </div>
+                     <footer class="slds-modal__footer">
+                         <lightning-button variant="neutral" label="Close" title="Close Edit Section" onclick={closeModal} class="slds-m-left_x-small"></lightning-button>
+                         <lightning-button variant="brand" label="Save" title="Save" type="submit" class="slds-m-left_x-small" name="update" disabled={isDisableButton}></lightning-button>
+                     </footer>
+                 </div>
+         </section>
+         <!-- </div> -->
+         <div if:true={openNewmodel} class="slds-backdrop slds-backdrop_open"></div>
+         </lightning-record-edit-form>
+     </template>
+ 
+     <template if:true={isDialogVisible}>
+         <c-confirmation-dialog-lwc title='Confirmation Title'
+             message={confirmMessage}
+             confirm-label='Yes'
+             cancel-label='Cancel'
+             visible={isDialogVisible}
+             original-message={originalMessage}
+             name="confirmModal"
+             onclick={handleDeleteSection}>
+         </c-confirmation-dialog-lwc>
+     </template>
+    <!--End New Section-->
+</template>

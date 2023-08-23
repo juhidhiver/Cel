@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Document Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SOA</fullName>
+                <default>false</default>
+                <label>SOA</label>
+            </value>
+            <value>
+                <fullName>Binder</fullName>
+                <default>false</default>
+                <label>Binder</label>
+            </value>
+            <value>
+                <fullName>PolicyForm</fullName>
+                <default>false</default>
+                <label>Policy Form</label>
+            </value>
+            <value>
+                <fullName>ChangeEndorsement</fullName>
+                <default>false</default>
+                <label>Change Endorsement</label>
+            </value>
+            <value>
+                <fullName>QuoteProposal</fullName>
+                <default>false</default>
+                <label>Quote Proposal</label>
+            </value>
+            <value>
+                <fullName>WorkSheet</fullName>
+                <default>false</default>
+                <label>WorkSheet</label>
+            </value>
+            <value>
+                <fullName>QuoteSchedulePrimary</fullName>
+                <default>false</default>
+                <label>Quote Schedule Primary</label>
+            </value>
+            <value>
+                <fullName>QuoteScheduleExcess</fullName>
+                <default>false</default>
+                <label>Quote Schedule Excess</label>
+            </value>
+            <value>
+                <fullName>PolicySchedulePrimary</fullName>
+                <default>false</default>
+                <label>Policy Schedule Primary</label>
+            </value>
+            <value>
+                <fullName>PolicyScheduleExcess</fullName>
+                <default>false</default>
+                <label>Policy Schedule Excess</label>
+            </value>
+            <value>
+                <fullName>QuoteSchedulePrimaryAmendment</fullName>
+                <default>false</default>
+                <label>Quote Schedule Primary Amendment</label>
+            </value>
+            <value>
+                <fullName>QuoteScheduleExcessAmendment</fullName>
+                <default>false</default>
+                <label>Quote Schedule Excess Amendment</label>
+            </value>
+            <value>
+                <fullName>ExcessPolicyAmendment</fullName>
+                <default>false</default>
+                <label>ExcessPolicyAmendment</label>
+            </value>
+            <value>
+                <fullName>PrimaryPolicyAmendment</fullName>
+                <default>false</default>
+                <label>PrimaryPolicyAmendment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Endorsement_Tags__c</fullName>
+    <externalId>false</externalId>
+    <label>Endorsement Tags</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Above Average (A)</fullName>
+                <default>false</default>
+                <label>Above Average (A)</label>
+            </value>
+            <value>
+                <fullName>Average (B)</fullName>
+                <default>false</default>
+                <label>Average (B)</label>
+            </value>
+            <value>
+                <fullName>Below Average (C)</fullName>
+                <default>false</default>
+                <label>Below Average (C)</label>
+            </value>
+            <value>
+                <fullName>Account Specific / Additional Endorsements</fullName>
+                <default>false</default>
+                <label>Account Specific / Additional Endorsements</label>
+            </value>
+            <value>
+                <fullName>Business Services - Accreditation &amp; Certification Services</fullName>
+                <default>false</default>
+                <label>Business Services - Accreditation &amp; Certification Services</label>
+            </value>
+            <value>
+                <fullName>Business Services - Administrators</fullName>
+                <default>false</default>
+                <label>Business Services - Administrators</label>
+            </value>
+            <value>
+                <fullName>Business Services - Advertising &amp; Marketing Agencies</fullName>
+                <default>false</default>
+                <label>Business Services - Advertising &amp; Marketing Agencies</label>
+            </value>
+            <value>
+                <fullName>Business Services - Alarm Monitors</fullName>
+                <default>false</default>
+                <label>Business Services - Alarm Monitors</label>
+            </value>
+            <value>
+                <fullName>Business Services - Auctioneer</fullName>
+                <default>false</default>
+                <label>Business Services - Auctioneer</label>
+            </value>
+            <value>
+                <fullName>Business Services - Audio/Video</fullName>
+                <default>false</default>
+                <label>Business Services - Audio/Video</label>
+            </value>
+            <value>
+                <fullName>Business Services - Billing Services</fullName>
+                <default>false</default>
+                <label>Business Services - Billing Services</label>
+            </value>
+            <value>
+                <fullName>Business Services - Bookkeeper &amp; Record Keeper</fullName>
+                <default>false</default>
+                <label>Business Services - Bookkeeper &amp; Record Keeper</label>
+            </value>
+            <value>
+                <fullName>Business Services - Business Training &amp; Seminars</fullName>
+                <default>false</default>
+                <label>Business Services - Business Training &amp; Seminars</label>
+            </value>
+            <value>
+                <fullName>Business Services - Court Reporting</fullName>
+                <default>false</default>
+                <label>Business Services - Court Reporting</label>
+            </value>
+            <value>
+                <fullName>Business Services - Direct Mail Advertising</fullName>
+                <default>false</default>
+                <label>Business Services - Direct Mail Advertising</label>
+            </value>
+            <value>
+                <fullName>Business Services - Dispute Resolution</fullName>
+                <default>false</default>
+                <label>Business Services - Dispute Resolution</label>
+            </value>
+            <value>
+                <fullName>Business Services - Employment Agencies</fullName>
+                <default>false</default>
+                <label>Business Services - Employment Agencies</label>
+            </value>
+            <value>
+                <fullName>Business Services - Energy &amp; Environmental Consulting</fullName>
+                <default>false</default>
+                <label>Business Services - Energy &amp; Environmental Consulting</label>
+            </value>
+            <value>
+                <fullName>Business Services - Event Planner</fullName>
+                <default>false</default>
+                <label>Business Services - Event Planner</label>
+            </value>
+            <value>
+                <fullName>Business Services - Executive Placement</fullName>
+                <default>false</default>
+                <label>Business Services - Executive Placement</label>
+            </value>
+            <value>
+                <fullName>Business Services - Funeral &amp; Crematories</fullName>
+                <default>false</default>
+                <label>Business Services - Funeral &amp; Crematories</label>
+            </value>
+            <value>
+                <fullName>Business Services - General Consulting</fullName>
+                <default>false</default>
+                <label>Business Services - General Consulting</label>
+            </value>
+            <value>
+                <fullName>Business Services - Interior &amp; Graphic Design</fullName>
+                <default>false</default>
+                <label>Business Services - Interior &amp; Graphic Design</label>
+            </value>
+            <value>
+                <fullName>Business Services - Literary Agents</fullName>
+                <default>false</default>
+                <label>Business Services - Literary Agents</label>
+            </value>
+            <value>
+                <fullName>Business Services - Management &amp; Business Consulting</fullName>
+                <default>false</default>
+                <label>Business Services - Management &amp; Business Consulting</label>
+            </value>
+            <value>
+                <fullName>Business Services - Membership Organizations</fullName>
+                <default>false</default>
+                <label>Business Services - Membership Organizations</label>
+            </value>
+            <value>
+                <fullName>Business Services - Modeling/Talent Agency</fullName>
+                <default>false</default>
+                <label>Business Services - Modeling/Talent Agency</label>
+            </value>
+            <value>
+                <fullName>Business Services - Notary Public</fullName>
+                <default>false</default>
+                <label>Business Services - Notary Public</label>
+            </value>
+            <value>
+                <fullName>Business Services - Office Management</fullName>
+                <default>false</default>
+                <label>Business Services - Office Management</label>
+            </value>
+            <value>
+                <fullName>Business Services - Pet Related Services</fullName>
+                <default>false</default>
+                <label>Business Services - Pet Related Services</label>
+            </value>
+            <value>
+                <fullName>Business Services - Photographic Studios</fullName>
+                <default>false</default>
+                <label>Business Services - Photographic Studios</label>
+            </value>
+            <value>
+                <fullName>Business Services - Printers</fullName>
+                <default>false</default>
+                <label>Business Services - Printers</label>
+            </value>
+            <value>
+                <fullName>Business Services - Process Server</fullName>
+                <default>false</default>
+                <label>Business Services - Process Server</label>
+            </value>
+            <value>
+                <fullName>Business Services - Tax Preparation (NON_CPA SERVICES)</fullName>
+                <default>false</default>
+                <label>Business Services - Tax Preparation (NON_CPA SERVICES)</label>
+            </value>
+            <value>
+                <fullName>Business Services - Telemarketing</fullName>
+                <default>false</default>
+                <label>Business Services - Telemarketing</label>
+            </value>
+            <value>
+                <fullName>Business Services - Translation &amp; Interpretation Services</fullName>
+                <default>false</default>
+                <label>Business Services - Translation &amp; Interpretation Services</label>
+            </value>
+            <value>
+                <fullName>Business Services - Trustees</fullName>
+                <default>false</default>
+                <label>Business Services - Trustees</label>
+            </value>
+            <value>
+                <fullName>Business Services - Yacht/Boat Broker</fullName>
+                <default>false</default>
+                <label>Business Services - Yacht/Boat Broker</label>
+            </value>
+            <value>
+                <fullName>Education - Exam Preparation and Tutoring</fullName>
+                <default>false</default>
+                <label>Education - Exam Preparation and Tutoring</label>
+            </value>
+            <value>
+                <fullName>Financial - Loan Servicing</fullName>
+                <default>false</default>
+                <label>Financial - Loan Servicing</label>
+            </value>
+            <value>
+                <fullName>Financial - Mortgage Broker</fullName>
+                <default>false</default>
+                <label>Financial - Mortgage Broker</label>
+            </value>
+            <value>
+                <fullName>Financial - Stock Transfer Agent</fullName>
+                <default>false</default>
+                <label>Financial - Stock Transfer Agent</label>
+            </value>
+            <value>
+                <fullName>Media - Diversified Media</fullName>
+                <default>false</default>
+                <label>Media - Diversified Media</label>
+            </value>
+            <value>
+                <fullName>Media - Media Agencies</fullName>
+                <default>false</default>
+                <label>Media - Media Agencies</label>
+            </value>
+            <value>
+                <fullName>Media - Public Relations</fullName>
+                <default>false</default>
+                <label>Media - Public Relations</label>
+            </value>
+            <value>
+                <fullName>Media - Publishing</fullName>
+                <default>false</default>
+                <label>Media - Publishing</label>
+            </value>
+            <value>
+                <fullName>Real Estate - Commercial Property Management</fullName>
+                <default>false</default>
+                <label>Real Estate - Commercial Property Management</label>
+            </value>
+            <value>
+                <fullName>Real Estate - Escrow Agent</fullName>
+                <default>false</default>
+                <label>Real Estate - Escrow Agent</label>
+            </value>
+            <value>
+                <fullName>Real Estate - Home Inspectors</fullName>
+                <default>false</default>
+                <label>Real Estate - Home Inspectors</label>
+            </value>
+            <value>
+                <fullName>Real Estate - Real Estate Agent</fullName>
+                <default>false</default>
+                <label>Real Estate - Real Estate Agent</label>
+            </value>
+            <value>
+                <fullName>Real Estate - Relocation Agent</fullName>
+                <default>false</default>
+                <label>Real Estate - Relocation Agent</label>
+            </value>
+            <value>
+                <fullName>Real Estate - Residential Appraisers</fullName>
+                <default>false</default>
+                <label>Real Estate - Residential Appraisers</label>
+            </value>
+            <value>
+                <fullName>Real Estate - Residential Property Management</fullName>
+                <default>false</default>
+                <label>Real Estate - Residential Property Management</label>
+            </value>
+            <value>
+                <fullName>Real Estate - Title Abstractor</fullName>
+                <default>false</default>
+                <label>Real Estate - Title Abstractor</label>
+            </value>
+            <value>
+                <fullName>Real Estate - Title Agent</fullName>
+                <default>false</default>
+                <label>Real Estate - Title Agent</label>
+            </value>
+            <value>
+                <fullName>Technology - Hardware: Design</fullName>
+                <default>false</default>
+                <label>Technology - Hardware: Design</label>
+            </value>
+            <value>
+                <fullName>Technology - Hardware: Resale (developed by others)</fullName>
+                <default>false</default>
+                <label>Technology - Hardware: Resale (developed by others)</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Business Process Outsourcing</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Business Process Outsourcing</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Cloud Service Provider</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Cloud Service Provider</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Data Center/Co-location</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Data Center/Co-location</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Domain Name Registrar</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Domain Name Registrar</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Internet Service Provider</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Internet Service Provider</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: IT Consulting</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: IT Consulting</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Managed Security</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Managed Security</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Search Engine Optimization</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Search Engine Optimization</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Shared/Gig Economy</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Shared/Gig Economy</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Telecommunications Services</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Telecommunications Services</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Website Design</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Website Design</label>
+            </value>
+            <value>
+                <fullName>Technology - Service Provider: Website Hosting</fullName>
+                <default>false</default>
+                <label>Technology - Service Provider: Website Hosting</label>
+            </value>
+            <value>
+                <fullName>Technology - Software: Custom Development</fullName>
+                <default>false</default>
+                <label>Technology - Software: Custom Development</label>
+            </value>
+            <value>
+                <fullName>Technology - Software: Installation, Integration &amp; Support</fullName>
+                <default>false</default>
+                <label>Technology - Software: Installation, Integration &amp; Support</label>
+            </value>
+            <value>
+                <fullName>Technology - Software: Mobile Application Development</fullName>
+                <default>false</default>
+                <label>Technology - Software: Mobile Application Development</label>
+            </value>
+            <value>
+                <fullName>Technology - Software: Pre-packaged Development</fullName>
+                <default>false</default>
+                <label>Technology - Software: Pre-packaged Development</label>
+            </value>
+            <value>
+                <fullName>Technology - Software: Resale (developed by others)</fullName>
+                <default>false</default>
+                <label>Technology - Software: Resale (developed by others)</label>
+            </value>
+            <value>
+                <fullName>Technology - Software: Software as a Service</fullName>
+                <default>false</default>
+                <label>Technology - Software: Software as a Service</label>
+            </value>
+            <value>
+                <fullName>Telecommunications - Service &amp; Repair</fullName>
+                <default>false</default>
+                <label>Telecommunications - Service &amp; Repair</label>
+            </value>
+            <value>
+                <fullName>Transportation - Freight Broker (no shipping)</fullName>
+                <default>false</default>
+                <label>Transportation - Freight Broker (no shipping)</label>
+            </value>
+            <value>
+                <fullName>Transportation - Travel Agencies/Tour Operators</fullName>
+                <default>false</default>
+                <label>Transportation - Travel Agencies/Tour Operators</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

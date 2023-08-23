@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cancellation_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Cancellation Reason</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Non-Payment</fullName>
+                <default>false</default>
+                <label>Non-Payment</label>
+            </value>
+            <value>
+                <fullName>Business Closed</fullName>
+                <default>false</default>
+                <label>Business Closed</label>
+            </value>
+            <value>
+                <fullName>Insured Request</fullName>
+                <default>false</default>
+                <label>Insured Request</label>
+            </value>
+            <value>
+                <fullName>Sanctions/OFAC</fullName>
+                <default>false</default>
+                <label>Sanctions/OFAC</label>
+            </value>
+            <value>
+                <fullName>Merger or Acquisition</fullName>
+                <default>false</default>
+                <label>Merger or Acquisition</label>
+            </value>
+            <value>
+                <fullName>Completion of Operation</fullName>
+                <default>false</default>
+                <label>Completion of Operation</label>
+            </value>
+            <value>
+                <fullName>Underwriting Reasons</fullName>
+                <default>false</default>
+                <label>Underwriting Reasons</label>
+            </value>
+            <value>
+                <fullName>Finance Company Request</fullName>
+                <default>false</default>
+                <label>Finance Company Request</label>
+            </value>
+            <value>
+                <fullName>Product Unsuitable / Misunderstood</fullName>
+                <default>false</default>
+                <label>Product Unsuitable / Misunderstood</label>
+            </value>
+            <value>
+                <fullName>Product too expensive</fullName>
+                <default>false</default>
+                <label>Product too expensive</label>
+            </value>
+            <value>
+                <fullName>Alternate Product Purchased</fullName>
+                <default>false</default>
+                <label>Alternate Product Purchased</label>
+            </value>
+            <value>
+                <fullName>Cover overlapped with pre-existing cover</fullName>
+                <default>false</default>
+                <label>Cover overlapped with pre-existing cover</label>
+            </value>
+            <value>
+                <fullName>Product cancelled within cooling off period</fullName>
+                <default>false</default>
+                <label>Product cancelled within cooling off period</label>
+            </value>
+            <value>
+                <fullName>Product cancelled by Underwriter</fullName>
+                <default>false</default>
+                <label>Product cancelled by Underwriter</label>
+            </value>
+            <value>
+                <fullName>Poor service / complaint</fullName>
+                <default>false</default>
+                <label>Poor service / complaint</label>
+            </value>
+            <value>
+                <fullName>Cover no longer required</fullName>
+                <default>false</default>
+                <label>Cover no longer required</label>
+            </value>
+            <value>
+                <fullName>Other (administrative reason)</fullName>
+                <default>false</default>
+                <label>Other (administrative reason)</label>
+            </value>
+            <value>
+                <fullName>Not Known</fullName>
+                <default>false</default>
+                <label>Not Known</label>
+            </value>
+            <value>
+                <fullName>Non Payment of premium</fullName>
+                <default>false</default>
+                <label>Non Payment of premium</label>
+            </value>
+            <value>
+                <fullName>Cancellation ab initio</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cancellation ab initio</label>
+            </value>
+            <value>
+                <fullName>Cancellation mid term</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cancellation mid term</label>
+            </value>
+            <value>
+                <fullName>Cancelled due to non-payment of premium</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cancelled due to non-payment of premium</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

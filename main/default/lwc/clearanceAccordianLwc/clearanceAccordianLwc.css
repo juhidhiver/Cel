@@ -1,0 +1,72 @@
+.card-2 {
+	--sds-c-card-radius-border: 10px;
+	--sds-c-card-shadow: 10px;
+	--sds-c-card-text-color: var(--lwc-colorTextDefault);
+    background-color: white;
+}
+
+.divTableBox {
+	background-color: white;
+	display: table;
+    width:100%;
+}
+
+.div-2 {
+	padding-right: var(--lwc-spacingXLarge);
+	overflow: visible;
+	object-fit: contain;
+	text-align: left;
+	--sds-c-badge-text-color: var(--lwc-colorTextError);
+	padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.comboBox {
+	padding-top: -10px;
+	margin-top: -15px;
+}
+
+.p-1 {
+	padding-right: var(--lwc-spacingSmall);
+}
+
+.badgeClass{
+    white-space: normal;
+}
+
+.mainSection{
+	--sds-c-accordion-heading-font-size:20px;
+}
+
+.badgeforprohibited{
+	--sds-c-badge-color-background:black;
+	color:white;
+	white-space: normal;
+}
+
+.badgeforMunich{
+	--sds-c-badge-color-background:#cc6600;
+	color:black;
+	white-space: normal;
+}
+
+.tooltipdiv{
+	width:auto;
+    height:auto;
+    padding:20px;
+    position:absolute;
+    left:45px;
+}
+
+.relative {
+	position: relative;
+	
+  } 
+.absolute{
+	position: absolute;
+	width:auto;
+}
+
+.toggle {
+    display: none;
+}

@@ -1,0 +1,110 @@
+<template>
+    <div class="slds-card">
+        <lightning-record-edit-form  record-id = {recordid}  object-api-name="Opportunity">
+            <!-- Icon Header -->
+            <div>
+                <div class="slds-grid">
+                    <div style="margin-right: 1%">
+                        <lightning-icon icon-name="standard:account" ></lightning-icon>
+                    </div>
+                    <div >
+                        <div>SUBMISSION INFOR</div>
+                        <div>Submission Name</div>
+                    </div>
+                </div>
+                <div>Submission Address </div>
+            </div>
+            <!-- End Icon Header -->
+            <!-- Submission Information Section -->
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title slds-theme_shade">
+                    <div class="slds-section__title-action">Submission Information</div>
+                </h3>
+                <div class="slds-section__content" >
+                    <!--Fields Render -->
+                    <div class="slds-form_horizontal slds-form slds-grid slds-wrap">
+
+                        <lightning-input  class="slds-size--1-of-2 slds-col" label="Company" >
+                        </lightning-input>
+
+                        <lightning-radio-group name="Primary or Excess"
+                                               label="Primary or Excess"
+                                               class="slds-size--1-of-2 slds-col"
+                                               options={options}
+                                               value={value}
+                                               type="button"></lightning-radio-group>
+                        <lightning-input-field onchange = {handleChangeSomething}
+                                               class="slds-size--1-of-2 slds-col"
+                                               field-name= "Innovisk_Entity_ID__c">
+
+                        </lightning-input-field>
+                        <lightning-input-field onchange = {handleChangeSomething}
+                                               class="slds-size--1-of-2 slds-col"
+                                               field-name= "OwnerId">
+                        </lightning-input-field>
+                        <lightning-input-field onchange = {handleChangeSomething}
+                                               class="slds-size--1-of-2 slds-col"
+                                               field-name= "Product__c">
+
+                        </lightning-input-field>
+                        <lightning-input-field onchange = {handleChangeSomething}
+                                               class="slds-size--1-of-2 slds-col"
+                                               field-name= "Amount">
+                        </lightning-input-field >
+                    </div>
+                    <!--End Fields Render -->
+                </div>
+            </div>
+            <!-- End Submission Information Section -->
+            <!-- Key Dates Section -->
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title slds-theme_shade">
+                    <div class="slds-section__title-action">Key Dates</div>
+                </h3>
+                <div class="slds-section__content" >
+                    <!--Fields Render -->
+                    <div class="slds-form_horizontal slds-form slds-grid slds-wrap">
+                        <lightning-input-field onchange = {handleChangeSomething}
+                                               class="slds-size--1-of-2 slds-col"
+                                               field-name= "Effective_Date__c">
+                        </lightning-input-field>
+                        <lightning-input-field onchange = {handleChangeSomething}
+                                               class="slds-size--1-of-2 slds-col"
+                                               field-name= "Expiration_Date__c">
+                        </lightning-input-field>
+                        <lightning-input-field onchange = {handleChangeSomething}
+                                               class="slds-size--1-of-2 slds-col"
+                                               field-name= "Received_Date__c">
+                        </lightning-input-field>
+                        <lightning-input-field onchange = {handleChangeSomething}
+                                               class="slds-size--1-of-2 slds-col"
+                                               field-name= "CloseDate">
+                        </lightning-input-field>
+
+                    </div>
+                    <!--End Fields Render -->
+                </div>
+            </div>
+            <!-- End Key Dates Section -->
+        </lightning-record-edit-form>
+    </div>
+    <!-- Buttons -->
+    <footer class="slds-modal__footer slds-grid">
+        <div class="slds-size_4-of-12 " style="text-align: left">
+            <lightning-button
+                    variant="neutral"
+                    label="Back Account Infor"
+                    onclick={handlePrevious} >
+            </lightning-button>
+        </div>
+        <div class="slds-size_4-of-12"></div>
+        <div class="slds-size_4-of-12" style="text-align: right">
+            <lightning-button
+                    variant="neutral"
+                    label="Next Underwriting Analysis"
+                    onclick={handleNext} >
+            </lightning-button>
+        </div>
+    </footer>
+    <!-- End Buttons -->
+</template>

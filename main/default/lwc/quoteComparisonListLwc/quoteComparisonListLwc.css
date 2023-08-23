@@ -1,0 +1,108 @@
+.titleValue{
+    color: rgb(0, 112, 210);
+    font-weight: 700;
+}
+.rowTblValue td{
+    background: rgb(243, 242, 242);
+}
+table.tblCustom tr td {
+    border-right: 1px solid rgb(221, 219, 218);
+    height: 32px;
+}
+.colorError{
+    color: red;
+}
+/* table.tblCustom {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-top: 1px solid grey;
+} */
+
+/* td, th {
+  margin: 0;
+  border: 1px solid grey;
+  white-space: nowrap;
+  border-top-width: 0px;
+} */
+
+div.divTbl {
+    width: 1254px;
+    overflow-x: scroll;
+    margin-left: 292px;
+    overflow-y: visible;
+    padding: 0;
+}
+
+.headcol {
+    position: absolute;
+    width: 292px;
+    left: 0;
+    top: auto;
+    border-top-width: 1px;
+    /*only relevant for first row*/
+    margin-top: -1px;
+    /*compensate for top border*/
+}
+.tdCol {
+    width: 292px;
+}
+
+.slds-p-around_small {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+}
+
+table.tblCustom tr:nth-child(even) {
+    background: white;
+}
+table.tblCustom tr:nth-child(odd) {
+    background: rgb(243, 242, 242);
+}
+table.tblCustom tr {
+    height: 32px;
+}
+table.tblCustom tr td:hover {
+    background-color: transparent;
+}
+
+.exampleHolder{
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.title-name {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+.position-sticky{
+    position: sticky;
+    z-index: 95;
+    width: 100%;
+    top: 11rem;
+    background-color: white;
+}
+.value-sticky{
+    position: fixed;
+    top: 14rem;
+    z-index: 96;
+    animation: SHW .5s;
+    animation-fill-mode: both
+  }
+  .value-height{
+    height: 4.67rem !important;
+    /* height: 71.5px ; */
+  }
+  @keyframes SHW {
+    from {
+        transform:scale(0.7);
+        opacity:0
+    }
+    to {
+        transform: scale(1);
+        opacity:1
+    }
+  }

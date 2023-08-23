@@ -1,0 +1,130 @@
+<!--
+  @description       : Check risk health for Aqueous
+  @author            : Prachi Vaity
+  created on         : 04-03-2021
+  @last modified on  : 06-03-2021
+  Modifications Log 
+  Ver   Date         Author           Modification
+  1.0   06-03-2021   Prachi Vaity   Initial Version
+-->
+<template>
+    <div class="slds-theme_default">
+        <template if:true={isLoading}>
+            <div class="slds-spinner_container" style="height:6rem">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </div>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+                    onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close" size="medium">
+                    </lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Risk Health</h2>
+            </header>
+            <template if:false={noWarnings}>
+                <template if:true={data}>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning-datatable class="tblCheckRiskHealth" key-field="id" data={data} columns={columns}
+                            hide-checkbox-column="true">
+
+                        </lightning-datatable>
+                    </div>
+                </template>
+            </template>
+
+            <template if:true={noWarnings}>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-01">
+                    <p>
+                        <lightning-icon icon-name="action:approval" alternative-text="No warnings" title="No warnings"
+                            size="xx-small"></lightning-icon> No warnings. You are good to proceed.
+                    </p>
+                </div>
+            </template>
+
+            <template if:true={showBinderDialog}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container" style="width: 100%;">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeMasterBinderModal}>
+                                <lightning-icon icon-name="utility:close"
+                                    alternative-text="close"
+                                    variant="inverse"
+                                    size="small" ></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 class="slds-text-heading_medium slds-hyphenate"> Master Binders </h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                            <lightning-datatable key-field="Id" data={bindersList} columns={binderColumns}
+                                onrowselection={handleRowSelection} max-row-selection="1">
+                            </lightning-datatable>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button variant="base" class="slds-float_left" label="Back to Risk Health"
+                                title="Back to Risk Health" onclick={closeBinderModal} disabled={disableProceedToQuote}>
+                            </lightning-button>
+                            <div class="slds-float_right">
+                                <lightning-button label="Proceed to Quote" value="Excess" onclick={createQuote}
+                                    disabled={disableProceedToQuote}></lightning-button>
+                            </div>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <template if:true={showWarningDialog}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container" style="width: 100%;">
+                        <header class="slds-modal__header">
+                            Warning
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <p>Please review the existing {newQuoteLayer} quote(s) in this Submission before creating a
+                                new one</p>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button variant="base" class="slds-float_left" label="Back to Risk Health"
+                                title="Back to Risk Health" onclick={closeWarningModal}
+                                disabled={disableProceedToQuote}>
+                            </lightning-button>
+                            <div class="slds-float_right">
+                                <lightning-button label="Continue" value="Continue" onclick={proceedToQuote}
+                                    disabled={disablePrimary}></lightning-button>
+                            </div>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <footer class="slds-modal__footer">
+                <lightning-button variant="base" class="slds-float_left" label="Back to Analysis"
+                    title="Back to Analysis" onclick={closeModal} disabled={disableBackToAnalysis}></lightning-button>
+                <!--<lightning-button variant="base" class="slds-float_right" label="Proceed to Quotes >" title="Proceed to Quotes" onclick={proceedToQuote}></lightning-button>                -->
+                <div class="slds-float_right">
+                    <lightning-button label="New Primary Quote" value="Primary" icon-name="utility:add"
+                        onclick={warningModal} disabled={disablePrimary}></lightning-button>
+                    &nbsp;&nbsp;
+                    <lightning-button label="New Excess Quote" value="Excess" icon-name="utility:add"
+                        onclick={warningModal} disabled={disableExcess}></lightning-button>
+                </div>
+            </footer>
+        </div>
+
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

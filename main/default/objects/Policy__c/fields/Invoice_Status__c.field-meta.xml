@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Invoice Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SOA Not Generated</fullName>
+                <default>false</default>
+                <label>SOA Not Generated</label>
+            </value>
+            <value>
+                <fullName>Sent to RAC</fullName>
+                <default>false</default>
+                <label>Sent to RAC</label>
+            </value>
+            <value>
+                <fullName>Processed in EPIC</fullName>
+                <default>false</default>
+                <label>Processed in EPIC</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,137 @@
+<!--
+  @File Name          : customCompactLWC.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 09-03-2020
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/25/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+  <div class="slds-page-header">
+    <div class="slds-page-header__row">
+      <div class="slds-page-header__col-title">
+        <div class="slds-media">
+          <div class="slds-media__figure">
+            <span class="slds-icon_container slds-icon-standard-opportunity">
+              <lightning-icon icon-name="standard:account" alternative-text="Submission Header"></lightning-icon>
+            </span>
+          </div>
+          <div class="slds-media__body">
+            <div class="slds-page-header__name">
+              <div class="slds-page-header__name-title">
+                <h1>
+                  <span>{compactTitle}</span>
+                  <span class="slds-page-header__title slds-truncate" title="New York Tech Firm, Inc.">{fieldTop}</span>
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slds-page-header__col-actions">
+        <div class="slds-page-header__controls">
+          <div class="slds-page-header__control">
+<!--            <lightning-icon icon-name="action:add_file" onclick={clickAddFile}-->
+<!--              size="xx-small" title="Submission for Notes and Files" class="slds-m-right_xxx-small"></lightning-icon>-->
+        
+           <template if:true={isCelerity}>
+             <template if:true={isShowLossDetail}>
+               <lightning-icon icon-name="action:remove_relationship" onclick={clickLossDetail}
+               size="xx-small" title="Open Loss Detail Page" class="slds-m-around_small"></lightning-icon>
+             </template>
+           </template>
+
+            <template if:true={isShowAdditionalInsured}>
+              <lightning-icon icon-name="action:edit_relationship" onclick={clickAdditionalInsuredDetail}
+              size="xx-small" title="Open Additional Insured Page" class="slds-m-around_small"></lightning-icon> 
+            </template>
+            <template if:true={showDeclineCloseButton}>
+              <ul class="slds-button-group-list">  
+                <li>
+                  <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                    <lightning-button disabled={disabledDecline} onclick={handleClick} name="decline" 
+                       label="Decline" title="Decline" class="slds-m-left_xx-small"></lightning-button>
+                  </div>
+                </li>  
+                <template if:false={isAqueous}>
+                  <li>
+                    <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                      <lightning-button disabled={disabledClose} onclick={handleClick} name="close"
+                      label="Close" title="Close" class="slds-m-left_xx-small"></lightning-button>
+                    </div>
+                  </li>
+                </template>
+                <li>
+                  <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                    <lightning-button disabled={disabledCopy} onclick={handleClickCopy} name="copy"
+                     label="Copy" title="Copy" class="slds-m-left_xx-small"></lightning-button>
+                  </div>
+                </li>
+              </ul>
+              <template if:true={isShowUndeclined}>
+                <lightning-button onclick={handleUnDecline} name="undecline"
+                       label="Un Decline" title="undecline" class="slds-m-left_xx-small"></lightning-button>
+              </template>
+            </template>   
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-page-header__row slds-page-header__row_gutters">
+      <div class="slds-page-header__col-details">
+        <lightning-record-view-form record-id={objectId} object-api-name={obj}>
+          <div class="slds-page-header__detail-row slds-box slds-theme_default">
+            <div class="slds-page-header__detail-block" key={field.fieldName} for:each={fieldListBelow}
+              for:item="field">
+              <div class="slds-text-title slds-truncate">{field.fieldName}</div>
+              <lightning-output-field variant="label-hidden" field-name={field.fieldNameAPI}>
+              </lightning-output-field>
+            </div>
+          </div>
+        </lightning-record-view-form>
+      </div>
+    </div>
+  </div>
+
+    <!--Clone Submission modal-->
+    <template if:true={isCloneSubmission}>
+      <lightning-card>
+          <div class="slds-container_small">
+              <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                  aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                  <div class="slds-modal__container">
+                     
+                          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                              title="Close">
+                              <lightning-icon icon-name="utility:close" size="medium" variant="inverse">
+                              </lightning-icon>
+                              <span class="slds-assistive-text">Close</span>
+                          </button>
+                    
+                      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-11"
+                          style="height: 150px;">
+
+                          <div if:true={isClone} style="text-align: center; margin-top: 25px; color: #005fb2; font-weight: bold;"> Copy in progress, please wait... </div>
+                          <div if:false={isClone} style="text-align: center; margin-top: 25px; color: #005fb2; font-weight: bold;"> Un Decline in progress, please wait... </div>
+                          <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand"
+                              style="margin-top: 30px;">
+                              <span class="slds-assistive-text">Loading</span>
+                              <div class="slds-spinner__dot-a"></div>
+                              <div class="slds-spinner__dot-b"></div>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+              <div class="slds-backdrop slds-backdrop_open"></div>
+          </div>
+      </lightning-card>
+  </template>
+
+
+</template>

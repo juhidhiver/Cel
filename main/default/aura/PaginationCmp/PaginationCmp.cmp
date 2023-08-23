@@ -1,0 +1,72 @@
+<aura:component>
+	<aura:attribute name="data" type="sObject[]" access="global" />
+    <aura:attribute name="allData" type="sObject[]" access="global" />
+    <aura:attribute name="columns" type="List" />
+    
+    <aura:attribute name="disablePrev" type="Boolean" default="true"/>
+    <aura:attribute name="disableNext" type="Boolean" default="true"/>
+    
+    <!-- Pagination -->
+    <!-- Current Page Number -->
+    <aura:attribute name="currentPage" type="integer" default="1" />
+    <!-- Current Page Number as a String -->
+    <aura:attribute name="currentPageStr" type="String" default="1" />
+    <!-- Maximum number of items per page -->
+    <aura:attribute name="itemsPerPage" type="integer" default="5"/>
+    <!-- Total number of pages to display -->
+    <aura:attribute name="totalPages" type="Integer" />
+    <!-- List of buttons to display -->
+    <aura:attribute name="pageList" type="List" />
+    
+    <!-- Pagination Options -->
+    <!-- Limit number for pagination size -->
+    <aura:attribute name="maxSize" type="integer" default="8"/>
+    <!-- Whether to keep current page in the middle of the visible ones.-->
+    <aura:attribute name="rotate" type="Boolean" default="true"/>
+    <!-- Displays ellipses when max-size is smaller than the number of pages-->
+    <aura:attribute name="forceEllipses" type="Boolean" default="true"/>
+    <!-- Whether to always display the first and last page numbers -->
+    <aura:attribute name="boundaryLinkNumbers" type="Boolean" default="true"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="pageChangedEvt" type="c:PageChangedEvent"/>
+    
+    <span>
+        <lightning:button label="First" 
+                          iconName="utility:left" 
+                          iconPosition="left" 
+                          onclick="{!c.onFirst}" 
+                          disabled="{! v.disablePrev}" />
+    	<lightning:button iconName="utility:chevronleft" 
+                          iconPosition="left"
+                          onclick="{!c.onPrev}" 
+                          disabled="{! v.disablePrev}" />
+    </span>
+    <span>
+        <aura:iteration items="{!v.pageList}" var="item">
+            <aura:if isTrue="{!(item == '...')}"> 
+                <span class="slds-p-horizontal_x-small">
+                    <lightning:formattedText value="{!item}" />
+                </span>
+                <aura:set attribute="else">
+                	<span class="slds-p-horizontal_x-small">
+                        <a onclick="{!c.onPage}" name="{!item}"
+                            class="{! (v.currentPageStr == item) ? 'selected' : ''}">{!item}</a>
+                    </span>
+                </aura:set>
+            </aura:if>
+        </aura:iteration>
+	</span>
+    <span>
+        <lightning:button iconName="utility:chevronright" 
+                          iconPosition="right" 
+                          disabled="{! v.disableNext}" 
+                          onclick="{!c.onNext}" />
+    	<lightning:button label="Last" 
+                          iconName="utility:right" 
+                          iconPosition="right" 
+                          disabled="{! v.disableNext}" 
+                          onclick="{!c.onLast}" />
+    </span>
+   
+</aura:component>

@@ -1,0 +1,13 @@
+<div>
+Hi ,
+</div>
+<div>
+These are the following records that failed to insert during execution of CustomRenewalRecordsCreationBatch
+</div>
+<br>
+<br>
+<div>
+
+{table}
+
+</div>

@@ -1,0 +1,197 @@
+<template>
+    <div class="slds-theme_default">
+        <template if:true={isLoading}>
+            <div class="slds-spinner_container" style="height:6rem">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </div>
+        
+    <div class="header slds-card_boundary rateContainer" data-id="rateContainer">
+        <lightning-card variant="narrow" icon-name="standard:calibration">
+            <h1 slot="title">Rate Quotes</h1>
+            <div slot="actions">
+                <lightning-button-group>
+                    <div data-id="scrollButton">
+                        <lightning-button title="Scroll to Top" icon-name="utility:arrowup" onclick={scrollUp}></lightning-button>
+                    </div>   
+                    <div data-id="scrollButtonLeft">
+                        <lightning-button title="Scroll to Left" icon-name="utility:chevronleft" onclick={scrollLeft}></lightning-button>
+                    </div>  
+                    <div data-id="scrollButtonRight">
+                        <lightning-button title="Scroll to Right" icon-name="utility:chevronright" onclick={scrollRight}></lightning-button>
+                    </div>                   
+                    <template if:true={isAqueousProduct}>
+                        <lightning-button label="Generate Document" onclick={handleOpenDocument}></lightning-button>
+                        <lightning-button label="View Document" onclick={handleViewDocument}></lightning-button>
+                    </template>
+                    <lightning-button label="New Primary Quote" value="Primary" icon-name="utility:add" onclick={handleAddNewQuote}
+                        disabled={isPrimaryDisableButton}></lightning-button>
+                    <lightning-button label="New Excess Quote" value="Excess" icon-name="utility:add" onclick={handleAddNewQuote}
+                        disabled={isExcessDisableButton}></lightning-button>
+
+                    <!-- <lightning-button-icon icon-name="utility:redo" size="large" alternative-text="Redo" variant="border-filled"></lightning-button-icon>
+                    <lightning-button-icon icon-name="utility:filterList" size="large" alternative-text="Filter List" variant="border-filled"></lightning-button-icon>
+                    <lightning-button-icon icon-name="utility:download" size="large" alternative-text="Download" variant="border-filled"></lightning-button-icon> -->
+
+                    <!-- <lightning-button-menu icon-name="utility:settings" size="large" alternative-text="Settings"
+                        variant="bare">
+                        <lightning-menu-item label="Font" value="font"></lightning-menu-item>
+                        <lightning-menu-item label="Size" value="size"></lightning-menu-item>
+                        <lightning-menu-item label="Format" value="format"></lightning-menu-item>
+                    </lightning-button-menu> -->
+                </lightning-button-group>
+            </div>
+        </lightning-card>
+    </div>
+    <template if:true={showBinderDialog}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="width: 100%;">
+                <header class="slds-modal__header">
+                    Master Binders
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <lightning-datatable key-field="Id" data={bindersList} columns={binderColumns}
+                        onrowselection={handleRowSelection} max-row-selection="1">        
+                    </lightning-datatable>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="base" class="slds-float_left" label="Cancel"
+                        title="Cancel" onclick={closeBinderModal}></lightning-button>
+                    <div class="slds-float_right">                                
+                        <lightning-button label="Proceed to Quote" 
+                            onclick={createQuote} ></lightning-button>
+                    </div>
+                </footer>        
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <div class="c-container">
+        <!-- <div> -->
+        <div style="float: left;width: 27%;position: relative;z-index: 93;">
+            <lightning-layout class='slds-card_boundary' horizontal-align="spread">
+                <lightning-layout-item key={item} padding="around-small">
+                    <lightning-card variant="Narrow" title="" footer="Card Footer">
+                        <div class="slds-p-horizontal_small">
+                            <div class="slds-table_edit_container slds-is-relative">
+                                <table aria-multiselectable="true"
+                                    class="slds-table slds-table_edit slds-table_fixed-layout slds-table_resizable-cols slds-table--header-fixed tblCustom"
+                                    role="grid" data-id="value-parent">
+
+                                    <thead data-id="value-container">
+                                        <tr>
+                                            <td data-id="value-child">&nbsp;Values</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-id="value-child" class="value-height">&nbsp;</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--
+                                <tr>
+                                        <td >&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>-->
+                                        <!-- <template if:true={mainTitleWrappers}>
+                                        <lightning-accordion 
+                                            allow-multiple-sections-open
+                                            >
+                                                <template for:each={mainTitleWrappers} for:item="mainTitleWrap">
+                                                    <lightning-accordion-section 
+                                                    key={mainTitleWrap.mainTitle} 
+                                                    name={mainTitleWrap.mainTitle} 
+                                                    label={mainTitleWrap.mainTitle}
+                                                    >
+                                                        <template for:each={mainTitleWrap.subtitles} for:item="subtitle">
+                                                            <tr key={subtitle}>
+                                                                <td class="title-name" style="width: 320px;">{subtitle}</td>
+                                                            </tr>
+                                                        </template>
+                                                    </lightning-accordion-section>
+                                                </template>
+                                            </lightning-accordion>
+                                    </template> -->
+                                        <!-- <template for:each={quoteCompareWrapper.parents} for:item="mainTitleWrap">
+                                        <tr key={mainTitleWrap.mainTitle}>
+                                            <td class="titleValue title-name" style="height: 30px;">{mainTitleWrap.mainTitle}</td>
+                                        </tr>
+                                        <template for:each={mainTitleWrap.subtitles} for:item="subtitle">
+                                            <tr key={subtitle}>
+                                                <td class="title-name">{subtitle}</td>
+                                            </tr>
+                                        </template>
+                                    </template> -->
+                                        <template for:each={quoteCompareWrapper.parents} for:item="item">
+                                            <tr class="titleValue" if:true={item.display} key={item.id}>
+                                                <td class="title-name" title={item.title}>{item.title}</td>
+                                            </tr>
+                                            <template for:each={item.childs} for:item="item1">
+                                                <tr key={item1.id}>
+                                                    <td class="title-name" title={item1.title}>{item1.title}</td>
+                                                </tr>
+                                            </template>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </lightning-card>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <div data-id="parentCompareItem" style="float: right;width: 73%; " class="slds-scrollable_x"
+            onscroll={handleScroll}>
+            <!-- <lightning-layout horizontal-align="spread"> -->
+            <lightning-layout >
+                <!-- <template for:each={mainColumnWrappers} for:item='mainColumnWrapper'>
+                    <lightning-layout-item class='slds-card_boundary' key={mainColumnWrapper} padding="around-small" size="4">
+                        <lightning-card  variant="Narrow" title="" footer="Card Footer">
+                            <div class="slds-p-horizontal_small">
+                                <c-quote-comparison-response-item  key = {mainColumnWrapper.mainItem.Name} oneditquote = {handleEditQuote}
+                                 main-column-wrapper={mainColumnWrapper} quote-id={mainColumnWrapper.mainItem.Id} quote-name={mainColumnWrapper.mainItem.Name}
+                                 oneditquotename={handleEditQuoteName}></c-quote-comparison-response-item>
+                            </div>
+                        </lightning-card>
+                    </lightning-layout-item>
+                </template> -->
+                <template for:each={quoteCompareItems} for:item='item'>
+                    <!-- <lightning-layout-item class='slds-card_boundary' key={mainColumnWrapper} padding="around-small" size="4"> -->
+                    <lightning-layout-item data-id="compareItem" class='slds-card_boundary w-38' key={item.quoteId}
+                        padding="around-small" size="4">
+                        <lightning-card variant="Narrow" title="" footer="Card Footer">
+                            <div class="slds-p-horizontal_small">
+                                <c-quote-comparison-response-item data-id={item.quoteId} key={item.quoteId}
+                                    oneditquote={handleEditQuote} compare-item={item} quote-id={item.quoteId}
+                                    quote-name={item.quoteName} quote-status={item.quoteStatus}
+                                    oneditquotename={handleEditQuoteName} onclonequote={handleCloneQuote}
+                                    quote-type={quoteType} ondeletequote={handleDeleteQuote}
+                                    onupdatequote={handleUpdateQuote} submission-obj={submissionObj}
+                                    onrefreshquote={handleRefreshQuote} is-aqueous-product={isAqueousProduct} is-primary-quote={isPrimaryQuote}
+                                    quote-process-submission-id={quoteProcessSubmissionId} prev-quote-values={item}>
+                                </c-quote-comparison-response-item>
+                                <!-- <c-quote-compare-item-lwc compare-item={item} oneditquote={handleEditQuote} quote-index={index} quote-id={item.quoteId}
+                                                     quote-name={item.quoteName} quote-status={item.quoteStatus}
+                                                     quote-rating-status={item.quoteRatingStatus} ondeletequote={handleDeleteQuote}
+                                                     onclonequote={handleCloneQuote} onrefreshquote={handleRefreshQuote}
+                                                     onselectversion={handleSelectVersion}></c-quote-compare-item-lwc> -->
+                            </div>
+                        </lightning-card>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </div>
+    </div>
+</template>

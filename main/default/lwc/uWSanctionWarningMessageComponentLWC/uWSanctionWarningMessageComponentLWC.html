@@ -1,0 +1,19 @@
+<template>
+    <template if:true={hasSanctionFail}>
+        <div class="slds-box slds-theme--warning">
+            <p>The sanction check has failed for the following account(s): </p>
+            <p>Insured Account:&nbsp;
+                <a data-id={responseData.insuredAccountId} href="javascript:void()" onclick={handleNavigation}>
+                    {responseData.insuredAccountName}
+                </a>
+            </p>
+            <p>Additional Account(s):&nbsp;
+            <template for:each={responseData.listAddistionalAccountData} for:item="item">
+                <a data-id={item.additionalAccountId} key={item.additionalAccountId} href="javascript:void()" onclick={handleNavigation}>
+                    {item.additionalAccountName}</a>&nbsp;,&nbsp; 
+                
+            </template>
+            </p>
+        </div>
+    </template>
+</template>

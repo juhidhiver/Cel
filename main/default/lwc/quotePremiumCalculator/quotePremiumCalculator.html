@@ -1,0 +1,237 @@
+<!--
+  @description       : 
+  @author            : Maeran Shaikh
+  @group             : 
+  @last modified on  : 03-07-2022
+  @last modified by  : Maeran Shaikh
+-->
+<template>
+    <div if:true={isLoading} class="demo-only">
+        <div class="slds-spinner_container" style="z-index: 120 !important;">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+    <div class={disableCal}>
+        <div class="slds-text-heading_small slds-size_12-of-12 slds-p-bottom_medium">Premium Calculator</div>
+        <div class="slds-form_horizontal slds-col slds-size_4-of-12">
+            <lightning-input type="number" name="input5" disabled value={totalPremium} label="Total Premium" ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_4-of-12">
+            <lightning-button variant="brand" label="Save and Rate" title="Primary action" onclick={handleSaveAndRate} class="slds-m-left_x-small"></lightning-button>
+        </div>
+        <div class="slds-col slds-size_12-of-12">
+            <ul class="slds-accordion">
+                <template if:true={isExcess}>
+                    <li class="slds-accordion__list-item" >
+                        <section class="slds-accordion__section slds-is-open slds-box">
+                            <div class={backgroundColorHeader}>
+                                <h2 class="slds-accordion__summary-heading">
+                                    <button name="Excess Limit & Attachmant" class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="Excess Limit & Attachmant" aria-expanded="true" title="Excess Limit & Attachmant" >
+                                        <div class="slds-size_1-of-1" id="Excess">
+                                            <span class="slds-accordion__summary-content">Excess Limit & Attachmant</span>
+                                        </div>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div class="slds-accordion__content" id="ExcessLimitAttachment">
+                                <lightning-layout multiple-rows="true" >
+                                    <lightning-layout-item size='6' padding="around-small">
+                                        <div class="slds-form_horizontal">
+                                            <lightning-input type="number" name="ExcessLimitAttachment" label="Underlying excess limit" value={underlyingExcessLimit} onchange={handleExcessLimitAttachmntChange}></lightning-input>
+                                        </div>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size='6' padding="around-small">
+                                        <div class="slds-form_horizontal">
+                                            <lightning-input type="number" name="ExcessLimitAttachment" label="Excess Attachment" value={underlyingExcessAttachment} class="slds-form_horizontal" onchange={handleExcessLimitAttachmntChange}></lightning-input>
+                                        </div>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </div>
+                        </section>
+                    </li>
+                </template>
+                <template for:each={ratingModifiers} for:item="item">
+                    <li class="slds-accordion__list-item" key={item.productName}>
+                        <section class="slds-accordion__section slds-is-open slds-box">
+                            <div class={item.backgroundColorHeader} >
+                                <!--div class={backgroundColorHeader}-->
+                               
+                                    <h2 class="slds-accordion__summary-heading header-enable-click" style="display:grid;"> <!--class:header-enable-click added by Jitendra on 06-Jan-2022 for enable click-->
+                                        <button name={item.productName} class="slds-button slds-button_reset slds-accordion__summary-action slds-c-button-spacing" aria-controls={item.productName} aria-expanded={item.isSectionHidden} title={item.productName} style="display:block;" id={item.productName}  onclick={handleAccordianClick}>
+                                            <div class="slds-grid slds-gutters slds-grid_align-spread" >
+                                                <div class="slds-col" >
+                                                    <span class="slds-accordion__summary-content" style="font-weight: bold;">{item.productName}</span>
+                                                </div>
+                                                <div class="slds-col">
+                                                    <span class="slds-accordion__summary-content">
+                                                        Indicative Premium - <lightning-formatted-number value={item.actualPremium}></lightning-formatted-number>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-col" >
+                                                    <span class="slds-accordion__summary-content"> 
+                                                        Overall Rating Factor - <lightning-formatted-number value={item.overallRatingModifier}></lightning-formatted-number>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-col">
+                                                    <span class="slds-accordion__summary-content">
+                                                        State Cap - {stateCap}
+                                                    </span>
+                                                </div>
+                                                <div class="slds-col" >
+                                                    <span class="slds-accordion__summary-content">
+                                                        Base Rate - <lightning-formatted-number value={item.baseRate}></lightning-formatted-number>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-col" >
+                                                    <span class="slds-accordion__summary-content">
+                                                        CLRF - <lightning-formatted-number value={item.cLRF}></lightning-formatted-number>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                
+                                <!--/div-->
+                            </div>
+                            <template if:false={item.isSectionHidden}>
+                                <!--
+                                <template if:false={item.requiredLimit}>
+                                    <h2 class="slds-p-bottom_medium">
+                                        <span style="font-weight: bold" class="slds-align_absolute-center slds-m-around_x-small">New Coverage has been added. Please Rate Quote</span>
+                                    </h2>
+                                </template>
+                                -->
+                               
+                                <div class="slds-accordion__content" id={item.productName} hidden={item.isSectionHidden}>
+                                    <lightning-layout multiple-rows="true" >
+                                        <lightning-layout-item size='6' padding="horizontal-small">
+                                            <div class="slds-form_horizontal">
+                                                <lightning-input type="number" name={item.productName} label="Required Limit" value={item.requiredLimit} max="10000000" min="0" onchange={handleLimitRetentionChange}></lightning-input>
+                                            </div>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size='6' padding="horizontal-small">
+                                            <div class="slds-form_horizontal">
+                                                <lightning-input type="number" name={item.productName} label="Policy Retention" value={item.policyRetention} max="750000" min="0" class="slds-form_horizontal" onchange={handleLimitRetentionChange}></lightning-input>
+                                            </div>
+                                        </lightning-layout-item>
+                                        <template for:each={item.listAdditionalCoverageLineItems} for:item='item1'>
+                                            <lightning-layout-item key={item1.Id} size='6' padding="horizontal-small">
+                                                <div class="slds-form_horizontal">
+                                                    <c-generate-output-element-premium-calculator-optional-lwc coverage-line-item={item1} key={item1.Id} 
+                                                    product-name={item.productName} onadditionalclivaluechange = {handleAdditionalCLIValueChange}>
+                                                    </c-generate-output-element-premium-calculator-optional-lwc>
+                                                    <!--lightning-input type="text" name={item.productName} label={item1.Limits_Deductibles__r.Name} value={item1.Option_Value_Default__c} class="slds-form_horizontal" onchange={handleLimitRetentionChange}></lightning-input-->
+                                                </div>
+                                            </lightning-layout-item>
+                                        </template>
+                                        <template if:true={item.isProductEPL}>
+                                            <lightning-layout-item size='3' padding="horizontal-small">
+                                                <div class="slds-form_horizontal">
+                                                    <lightning-input type="number" name={item.productName} label="Rateable Employees" value={rateableEmplyee} read-only></lightning-input>
+                                                </div>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item size='3' padding="horizontal-small">
+                                                <div class="slds-form_horizontal">
+                                                    <lightning-input type="number" name={item.productName} label="Full Time Employees" value={item.employeeDetails.fullTimeEmployee} read-only></lightning-input>
+                                                </div>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item size='3' padding="horizontal-small">
+                                                <div class="slds-form_horizontal">
+                                                    <lightning-input type="number" name={item.productName} label="Part Time Employees" value={item.employeeDetails.partTimeEmployee} read-only></lightning-input>
+                                                </div>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item size='3' padding="horizontal-small">
+                                                <div class="slds-form_horizontal">
+                                                    <lightning-input type="number" name={item.productName} label="Foreign Employees" value={item.employeeDetails.foreignEmployee} read-only></lightning-input>
+                                                </div>
+                                            </lightning-layout-item>
+                                        </template>
+                                        <template if:true={item.isProductDO}>
+                                            <lightning-layout-item size="6" padding="horizontal-small">
+                                                <div class="slds-form_horizontal">
+                                                    <lightning-input type="number" name={item.productName} label="Annual Revenue" value={annualRevenue} read-only></lightning-input>
+                                                </div>
+                                            </lightning-layout-item>
+                                        </template>
+                                        <template if:true={item.isProductFiduciary}>
+                                            <lightning-layout-item size="6" padding="horizontal-small">
+                                                <div class="slds-form_horizontal">
+                                                    <lightning-input type="number" name={item.productName} label="Plan Assets" value={planAssets} read-only></lightning-input>
+                                                </div>
+                                            </lightning-layout-item>
+                                        </template>
+                                        <template for:each={item.listRatingModifier} for:item='item1' for:index="index">
+                                            <lightning-layout-item key={item1.Id} size="6" padding="horizontal-small" multiple-rows>
+                                                <c-generate-output-element-premium-calculator-lwc rating-modifier-factor={item1} 
+                                                    rating-modifier={item1.Rating_Modifier__r} format={item1.Rating_Modifier__r.Format__c} factor-range-map={factorRangeMap}
+                                                    onfactorvaluechange={handleFactorValueChange} onfactoroptionchange={handleFactorOptionChange} product-name={item.productName} index={index}>
+                                                </c-generate-output-element-premium-calculator-lwc>
+                                            </lightning-layout-item>
+                                        </template>
+                                    </lightning-layout>
+                                    
+                                        <div class="slds-size_12-of-12 slds-p-top_medium slds-border_top">
+                                            <h2 class="slds-p-bottom_medium">
+                                                <span style="font-weight: bold">Optional Coverages:</span>
+
+                                            </h2>
+                                            <lightning-layout multiple-rows="true" >
+                                                
+                                                <template for:each={item.listOptionalCoverages} for:item='item2'>
+                                                    <lightning-layout-item key={item2.optionalCoverageName} size='6' padding="horizontal-small">
+                                                        <div class="slds-size_1-of-1" key={item2.optionalCoverageName}>
+                                                            <lightning-combobox 
+                                                                name={item.productName} 
+                                                                variant = "label-inline"
+                                                                label={item2.optionalCoverageName} 
+                                                                value={item2.strCoveraheRequired} 
+                                                                options={optionalCoverageOptions}
+                                                                onchange={handleOptionalCoverage} 
+                                                                style="height: 31px;">
+                                                            </lightning-combobox>
+                                                        </div>
+                                                        <div class="slds-size_1-of-1" key={item2.optionalCoverageName}>
+                                                            <template if:true={item2.isCoveraheRequired}>
+                                                                <c-optional-coverage-l-w-c optional-coverages = {item2} product-name={item.productName} rating-modifier-factor={item2.optionalRatingModifierFactor} 
+                                                                limitfactor = {item.limitfactor} factor-range-map={factorRangeMap} record-detail={item} list-limit-range={item.listLimitRange} 
+                                                                list-retention-mod={item.listRetentionMod} commission-adjustment-factor = {commissionAdjustmentFactor} 
+                                                                policy-period-adjustment-factor = {policyPeriodAdjustmentFactor} onoptionalfactorvaluechange={handleOptionalFactorValueChange} 
+                                                                onoptionalfactoroptionchange={handleOptionalFactorOptionChange}></c-optional-coverage-l-w-c>
+                                                            </template>
+                                                        </div>
+                                                    </lightning-layout-item>
+                                               
+                                            </template>
+                                            </lightning-layout>
+                                        </div>
+
+                                </div>
+                                
+                            </template>
+                        </section>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+    <!--lightning-accordion class="example-accordion" allow-multiple-sections-open active-section-name="D&O">
+        <template for:each={ratingModifiers} for:item="item">
+            <lightning-accordion-section name={item.productName} label={item.productName} key={item.productName}>
+                <lightning-layout multiple-rows="true">
+                    <template for:each={item.listRatingModifier} for:item='item1'>
+                        <lightning-layout-item key={item1.Id} size='6'>
+                            <c-generate-output-element-premium-calculator-lwc rating-modifier-factor={item1} 
+                                rating-modifier={item1.Rating_Modifier__r} format="Picklist">
+
+                            </c-generate-output-element-premium-calculator-lwc>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+            </lightning-accordion-section>
+        </template>
+    </lightning-accordion-->
+</template>

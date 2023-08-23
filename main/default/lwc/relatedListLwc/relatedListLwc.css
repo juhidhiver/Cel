@@ -1,0 +1,8 @@
+/*.slds-grid {
+    display: flow-root !important;
+}*/
+lightning-record-form input[placeholder="Search Accounts..."] {
+    pointer-events: none;
+    background-color: #dddd;
+    cursor: not-allowed;
+}

@@ -1,0 +1,47 @@
+<template>
+    <div class="slds-col slds-size_1-of-1" style="width:100% !important;">
+        <template if:true={showSpinner}>
+            <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+        </template>
+        <lightning-card>
+            <h3 slot="title">
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <p class="slds-p-left_small"><b>Pre Bind Quote Options</b></p>
+                </div>
+            </h3>
+        </lightning-card>
+        <!--lightning-layout multiple-rows="true">
+            <lightning-layout-item>
+                <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center; width: 95px;">
+                            </th>
+                            <th style="text-align:center; width: 205px;">
+                                Annual Premium
+                            </th>
+                            <th style="text-align:center; width: 80px;">
+                                Discretion
+                            </th>
+                            <th style="text-align:center; width: 140px;">
+                                Final Premium
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <lightning-datatable class="slds-table slds-table_bordered slds-table_col-bordered" key-field="Id"
+                    data={data} columns={quoteConsoleTableColumns} show-row-number-column
+                    onrowselection={handleRowSelection} max-row-selection="1">
+                </lightning-datatable>
+            </lightning-layout-item>
+        </lightning-layout-->
+    </div>
+    <div class="slds-grid slds-gutters slds-p-top_small">
+        <div class="slds-col slds-size_1-of-1">
+            <lightning-datatable class="slds-table slds-table_bordered slds-table_col-bordered" key-field="Id"
+                data={data} columns={quoteConsoleTableColumns} show-row-number-column
+                onrowselection={handleRowSelection} max-row-selection="1" min-column-width="100">
+            </lightning-datatable>
+        </div>
+    </div>
+</template>

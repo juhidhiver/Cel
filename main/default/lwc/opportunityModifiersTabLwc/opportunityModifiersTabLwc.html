@@ -1,0 +1,184 @@
+<!--
+  @File Name          : opportunityModifiersTabLwc.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 4/14/2020, 3:27:55 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    4/13/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+    <div class="mainTab">
+        <div class="slds-text-align_center">
+            <lightning-button variant="brand" label="Save" title="Save" onclick={saveRecord}></lightning-button>&nbsp;
+            <lightning-button variant="brand" label="Check Risk Health" title="Check Risk Health" onclick={clickCheckRiskHealth}></lightning-button>
+        </div>
+        <div class="sectionTab">
+            <lightning-accordion allow-multiple-sections-open="true" active-section-name={mainActiveSections}>
+                <template for:each={mainSectionWraps.mainSections} for:item="mainSecWrap">
+                    <lightning-accordion-section key={mainSecWrap} name={mainSecWrap.name} label={mainSecWrap.name} class="mainSection">
+                        <!-- Body Section -->
+                            <div class="slds-grid slds-wrap">
+                                <template for:each={mainSecWrap.items} for:item="obj">
+                                    <div key={obj} class="slds-size_1-of-2 slds-max-small-size_1-of-1 slds-p-around_xx-small">
+                                        <table>
+                                            <tr>
+                                                <td class="align_center" style="width:50%; text-align: right; padding: .5rem; vertical-align:top;">
+                                                    <span>{obj.item.Name}</span>
+                                                </td>
+                                                <td style="width:50%">
+                                                    <template if:true={obj.item.isPicklist}>
+                                                        <lightning-combobox label={obj.item.Name} variant="label-hidden" 
+                                                                        options={obj.pickOptList}
+                                                                        name={obj.item.Id}
+                                                                        value={obj.item.Rating_Modifier_Value__c}
+                                                                        onchange={handleChangeMain}>
+                                                        </lightning-combobox>
+                                                    </template>
+                                                    <template if:true={obj.item.isRadioButton}>
+                                                        <div class="radio">      
+                                                            <lightning-radio-group
+                                                                                    label=""
+                                                                                    name={obj.item.Id}
+                                                                                    options={obj.pickOptList}
+                                                                                    value={obj.item.Rating_Modifier_Value__c}
+                                                                                    type="radio"
+                                                                                    onchange={handleChangeMain}></lightning-radio-group>                 
+                                                        </div>          
+                                                    </template>
+
+                                                    <template if:true={obj.item.isCurrency}>
+                                                        <lightning-input type="number" name={obj.item.Id} 
+                                                            label="" value={obj.ratingModfCurrency} onchange={handleChangeMain}></lightning-input>
+                                                    </template>
+                                                    <template if:true={obj.item.isPercentage}>
+                                                        <lightning-input type="number" label="" format="decimal" 
+                                                            value={obj.ratingModfPercent} 
+                                                            step="0.001" 
+                                                            name={obj.item.Id}
+                                                            min={obj.item.Factor_Min__c}
+                                                            max={obj.item.Factor_Max__c}
+                                                            onchange={handleChangeMain}>
+                                                        </lightning-input>
+                                                    </template>
+
+                                                    <!-- If Modifier Format is Integer -->
+                                                    <template if:true={obj.item.isInteger}>
+                                                        <lightning-input type="number" name={obj.item.Id} label=""
+                                                                        max="999999999999999999"
+                                                                        value={obj.ratingModfInteger}
+                                                                        onchange={handleChangeMain}></lightning-input>
+                                                    </template>
+
+                                                    <!-- If Modifier Format is Number -->
+                                                    <template if:true={obj.item.isNumber}>
+                                                        <lightning-input type="number" name={obj.item.Id} label=""
+                                                                    value={obj.ratingModfNumber} formatter="decimal"
+                                                                    onchange={handleChangeMain}></lightning-input>
+                                                    </template>
+
+                                                    <!-- If Modifier Format is Text -->
+                                                    <template if:true={obj.item.isText}>
+                                                        <lightning-input type="text" name={obj.item.Id} label=""
+                                                                value={obj.ratingModfStr} onchange={handleChangeMain}></lightning-input>
+                                                    </template>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </template>
+
+                                <template for:each={mainSecWrap.subSections} for:item="subSecWrap">
+                                    <div key={subSecWrap} class="slds-size_12-of-12 slds-grid slds-wrap subSection">
+                                        <div class="slds-col slds-size_8-of-12">
+                                            {subSecWrap.name}
+                                        </div>
+                                    </div>
+                                    <template for:each={subSecWrap.items} for:item="subObj">
+                                        <div key={subObj} class="slds-size_1-of-2 slds-max-small-size_1-of-1 slds-p-around_xx-small">
+                                            <table>
+                                                <tr>
+                                                    <td class="align_center" style="width:50%; text-align: right; padding: .5rem; vertical-align:top;">
+                                                        <span>{subObj.item.Name}</span>
+                                                    </td>
+                                                    <td class="align_center" style="width:50%">
+                                                        <template if:true={subObj.item.isPicklist}>
+                                                            <lightning-combobox label={subObj.item.Name} variant="label-hidden"
+                                                                            value={subObj.item.Rating_Modifier_Value__c} 
+                                                                            options={subObj.pickOptList} aura:id="fieldId"
+                                                                            name={subObj.item.Id}
+                                                                            onchange={handleChangeChild}
+                                                                            >
+                                                            </lightning-combobox>
+                                                        </template>
+                                                        <template if:true={subObj.item.isRadioButton}>
+                                                            <div class="radio">      
+                                                                <lightning-radio-group  name={subObj.item.Id}
+                                                                                        label=""
+                                                                                        options={subObj.pickOptList}
+                                                                                        value={subObj.item.Rating_Modifier_Value__c}
+                                                                                        type="radio"
+                                                                                        onchange={handleChangeChild}></lightning-radio-group>                 
+                                                            </div>          
+                                                        </template>
+
+                                                        <template if:true={subObj.item.isCurrency}>
+                                                            <lightning-input type="number" name={subObj.item.Id} label="" 
+                                                                    value={subObj.ratingModfCurrency}
+                                                                    onchange={handleChangeChild}></lightning-input>
+                                                        </template>
+                                                        <tempalte if:true={subObj.item.isPercentage}>
+                                                            <lightning-input type="number" label="" format="decimal" 
+                                                                aura:id="fieldId" value={subObj.ratingModfPercent} step="0.001" 
+                                                                min={subObj.item.Factor_Min__c}
+                                                                max={subObj.item.Factor_Max__c}
+                                                                name={subObj.item.Id}
+                                                                onchange={handleChangeChild}></lightning-input>
+                                                        </tempalte>
+
+                                                        <!-- If Modifier Format is Integer -->
+                                                        <template if:true={subObj.item.isInteger}>
+                                                            <lightning-input type="number" name={subObj.item.Id} 
+                                                                            label="" aura:id="fieldId"
+                                                                            max="999999999999999999"
+                                                                            value={subObj.ratingModfInteger}
+                                                                            onchange={handleChangeChild}></lightning-input>
+                                                        </template>
+
+                                                        <!-- If Modifier Format is Number -->
+                                                        <template if:true={subObj.item.isNumber}>
+                                                            <lightning-input type="number" name={subObj.item.Id} label="" 
+                                                                aura:id="fieldId" value={subObj.ratingModfNumber} formatter="decimal"
+                                                                onchange={handleChangeChild}></lightning-input>
+                                                        </template>
+
+                                                        <!-- If Modifier Format is Text -->
+                                                        <template if:true={subObj.item.isText}>
+                                                            <lightning-input type="text" name={subObj.item.Id} 
+                                                                label="" aura:id="fieldId" value={subObj.ratingModfStr}
+                                                                onchange={handleChangeChild}></lightning-input>
+                                                        </template>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                    </lightning-accordion-section>
+                </template>
+
+            </lightning-accordion>
+        </div>
+        <div class="slds-text-align_center">
+            <lightning-button variant="brand" label="Save" title="Save" onclick={saveRecord}></lightning-button>&nbsp;
+            <lightning-button variant="brand" label="Check Risk Health" title="Check Risk Health" onclick={clickCheckRiskHealth}></lightning-button>
+        </div>
+
+    </div>
+    <!-- <template if:true={isOpenModal}>
+        <c-check-risk-health-lwc product-name={productName} opportunity-id={opportunityId}></c-check-risk-health-lwc>
+    </template> -->
+</template>

@@ -1,0 +1,15 @@
+.slds-textarea {
+min-height: 100px !important;    
+height: 100px !important;
+--slds-c-textarea-sizing-min-height : 100px;
+}
+
+.slds-form-element__legend  {
+ font-weight: 400 !important;
+}
+.slds-dueling-list__options{
+font-weight: 400 !important;
+}
+.slds-form-element__label{
+font-weight: 400 !important;
+}

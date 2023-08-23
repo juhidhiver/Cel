@@ -1,0 +1,142 @@
+<!--
+  @description       : 
+  @author            : Maeran Shaikh
+  @group             : 
+  @last modified on  : 10-22-2021
+  @last modified by  : Maeran Shaikh
+-->
+<template>
+    <template if:true={isPI}>
+            <template if:true={isOpen}>
+                <div class="slds-card slds-p-around_medium" style="height: 640px;width: 700px">
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                        <div class="slds-modal__container">
+                            <!-- Header -->
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                    title="Close" onclick={handleCancel}>
+                                    <lightning-icon icon-name="utility:close" size="medium">
+                                    </lightning-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> Endorsement and Subjectivity </h2>
+                            </header>
+                            <!-- End Header -->
+                            <!-- Body -->
+                            <div class="slds-modal__content slds-p-around_medium" style="padding-bottom: 0px;" id="modal-content-id-1">
+                                <lightning-tabset>
+                                    <!--template if:false={boundDisabled}-->
+                                        <lightning-tab label="Endorsements">
+                                            <c-endorsement-tab-lwc quote-id={quoteId} is-aqueous-product={isAqueousProduct}
+                                            onprogressvaluechange={hanldeProgressValueChange} is-aqueous={isPI} non-editable={makeEndorsementTabUnEditable}> 
+                                            </c-endorsement-tab-lwc>
+                                        </lightning-tab>
+                                    <!--/template-->
+                                    <template if:true={isAqueousProduct}>
+                                        <!--template if:false={boundDisabled}-->
+                                            <lightning-tab label="Free Form Endorsements">
+                                                <c-free-form-endorsement-tab-lwc quote-id={quoteId} is-aqueous-product={isAqueousProduct} non-editable={makeEndorsementTabUnEditable}
+                                                 is-aqueous={isPI}> 
+                                                </c-free-form-endorsement-tab-lwc>
+                                            </lightning-tab>
+                                        <!--/template-->
+                                    </template>
+                                    <template if:false={isAqueousProduct}>
+                                        <!--template if:false={boundDisabled}-->
+                                        
+                                            <lightning-tab label="Manuscript Endorsements">
+                                                <c-manuscript-endorsement-lwc-cel quote-id={quoteId} is-aqueous-product={isAqueousProduct} non-editable={makeEndorsementTabUnEditable}
+                                                 is-aqueous={isPI}> 
+                                                </c-manuscript-endorsement-lwc-cel>
+                                            </lightning-tab>
+                                        <!--/template-->
+                                    </template>
+                                    <lightning-tab label="Subjectivities">
+                                        <c-subjectivity-related-tab-lwc quote-name={quoteName} non-editable={makeEndorsementTabUnEditable} quote-id={quoteId}></c-subjectivity-related-tab-lwc>
+                                    </lightning-tab>
+                                    <template if:true={isExcess}>
+                                        <lightning-tab label="Insurer Layer">
+                                            <c-insurer-layer-limit quote-name={quoteName} non-editable={makeEndorsementTabUnEditable} quote-id={quoteId}></c-insurer-layer-limit>
+                                        </lightning-tab>
+                                    </template>
+                                </lightning-tabset>
+                            </div>
+                            <!-- End Body -->
+                            <!-- Footer -->
+                            <footer class="slds-modal__footer">
+                                <!--<template if:false={boundDisabled}>
+                                    <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+                                </template>-->
+                                <lightning-button label="Return Quote Process" variant="neutral" onclick={handleCancel}></lightning-button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </footer>
+                            <!-- End Footer -->
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </div>
+            </template>        
+    </template>
+    <template if:false={isPI}>
+        <template if:true={isOpen}>
+            <div class="slds-card slds-p-around_medium">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                    <div class="slds-modal__container containerDimensions">
+                        <!-- Header -->
+                        <header class="slds-modal__header">
+                            <h2 id="modal-heading-001" class="slds-text-heading_medium slds-hyphenate">Endorsement and Subjectivity </h2>
+                        </header>
+                        <!-- End Header -->
+                        <!-- Body -->
+                        <div class="slds-modal__content slds-p-around_medium contentDimensions" style="padding-bottom: 0px;" id="modal-content-id-01">
+                            <lightning-tabset>
+                                <!-- <template if:false={boundDisabled}> -->
+                                <lightning-tab label="Endorsements" onactive={handleTabActive}>
+                                    <!--c-endorsement-tab-lwc quote-id={quoteId} onprogressvaluechange={hanldeProgressValueChange} 
+                                    is-primary-quote={isPrimaryQuote} is-aqueous={isPI} is-aqueous-product={isAqueousProduct} bound-disabled={boundDisabled}></c-endorsement-tab-lwc-->
+                                    <c-endorsement-layout quote-id={quoteId}
+                                                          onprogressvaluechange={hanldeProgressValueChange} 
+                                                          is-primary-quote={isPrimaryQuote} 
+                                                          is-aqueous={isPI} 
+                                                          is-aqueous-product={isAqueousProduct} 
+                                                          bound-disabled={boundDisabled}>
+                                    </c-endorsement-layout>
+                                </lightning-tab>
+                                <!-- </template> -->
+
+                                                                    
+                                <lightning-tab label="Manuscript Endorsements" onactive={handleTabActive}>
+                                    <c-manuscript-endorsement-lwc-cel quote-id={quoteId} is-aqueous-product={isAqueousProduct} non-editable={makeEndorsementTabUnEditable}
+                                     is-aqueous={isPI}> 
+                                    </c-manuscript-endorsement-lwc-cel>
+                                </lightning-tab>
+
+                                
+                                <lightning-tab label="Subjectivities" onactive={handleTabActive}>
+                                    <!--c-subjectivity-related-tab-lwc quote-name={quoteName} quote-id={quoteId}></c-subjectivity-related-tab-lwc-->
+                                    <c-subjectivity-layout quote-name={quoteName} 
+                                                           quote-id={quoteId}>
+                                    </c-subjectivity-layout>
+                                </lightning-tab>
+                               
+                            </lightning-tabset>
+                        </div>
+                        <!-- End Body -->
+                        <!-- Footer -->
+                        <footer class="slds-modal__footer">
+                            <template if:false={hideSaveButton}>
+                                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+                            </template>
+                            <lightning-button label="Return Quote Process" variant="neutral" onclick={handleCancel}></lightning-button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        </footer>
+                        <!-- End Footer -->
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </template>
+    </template>
+</template>

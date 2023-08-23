@@ -1,0 +1,165 @@
+<!--
+  @description       : 
+  @author            : Vinayesh
+  @group             : 
+  @last modified on  : 09-25-2021
+  @last modified by  : Vinayesh
+  Modifications Log 
+  Ver   Date         Author     Modification
+  1.0   06-18-2021   Vinayesh   Initial Version
+-->
+<template>
+    <template if:true={showSpinner}>
+        <!-- <lightning-spinner class="c-spinner" alternative-text="Loading" variant="brand" size="medium"></lightning-spinner> -->
+        <div class="slds-spinner_container slds-is-relative">
+            
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+              
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+                <template if:true={isClearanceProcessing}>
+                    <div class="custom-loading-text">
+                        Please Wait while Clearance is Processing...
+                    </div>
+                </template>
+               
+            </div>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+
+    <!-- <div>
+        <button  class="slds-button slds-button_neutral" onclick={refresh} title="Reset">Developer Reset</button>
+    </div>  -->
+    <div class="slds-p-around_xx-small cmpContainer">
+            <template if:false={comboProducts}>
+                No record found.
+            </template>
+            <div class="div-1">
+            <template if:true={comboProducts}>
+            <lightning-layout horizontal-align = "center">
+                <template for:each={comboProducts} for:item="product" for:index="rindex">
+                    <div key={product.Name} class = "slds-size_1-of-8">
+                        <lightning-layout-item >
+                            <div class="slds-p-around_small slds-text-align_center">
+                                <div class="">
+                                    <div class="label-1 slds-text-align_center">
+                                        <template if:true={product.Status}>
+                                        <label class="slds-text-align_center" style="font-size: 17px;padding-bottom: 12px;padding-left:20px;padding-top:12px;padding-right:3px;" for="checkbox-unique-id-48"><b>{product.Name}</b></label>      
+                                        <!-- <lightning-icon class = "success-icon" icon-name="utility:success" alternative-text="Cleared" variant="success"
+                                                title="Cleared" size="xx-small"></lightning-icon> -->
+                                            <lightning-button-icon class="edit-button slds-p-bottom_medium slds-m-bottom_medium" data-index={rindex} icon-name="utility:edit"
+                                                tooltip="Edit Clearance" alternative-text="Edit Clearance"
+                                                onclick={handleEditClearanceButtonClick} size="small" variant="bare">
+                                            </lightning-button-icon>
+                                        
+                                        </template>
+                                        <template if:false={product.Status}>
+                                            <label class="slds-text-align_center" style="font-size: 17px;"><b>{product.Name}</b></label>
+                                        </template>
+                                    </div>
+                                    <div class="check-1">
+                                        <template if:true={product.Selected}>
+                                            <div class = "check-disabled">
+                                            <template if:true={product.DisableCheckBox}>
+                                                <!-- <label class="slds-checkbox-button slds-checkbox-button_is-checked slds-checkbox-button_is-disabled">
+                                                    <input type="checkbox" class="slds-assistive-text" value="example-unique-id-24" disabled="" checked="" />
+                                                    <span class="slds-icon_container slds-icon-utility-check" title="Description of icon when needed">
+                                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-success" aria-hidden="true">
+                                                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                                        </svg>
+                                                    </span>
+                                                    </label> -->
+                                                <lightning-input disabled={product.DisableCheckBox} type="checkbox-button" data-index={rindex} class="input-check-1"  data-name={product.Name} onchange={handleCheckboxChange} checked>
+                                                </lightning-input>
+                                            </template>
+                                            </div>
+                                            <template if:false={product.DisableCheckBox}>
+                                                <lightning-input type="checkbox-button" data-index={rindex} class="input-check-2"  data-name={product.Name} onchange={handleCheckboxChange} checked>
+                                                </lightning-input>
+                                            </template>
+                                            
+                                        </template>
+                                        <template if:false={product.Selected}>
+                                            <template if:true={product.DisableCheckBox}>
+                                                <lightning-input disabled={product.DisableCheckBox} type="checkbox-button" data-name={product.Name}
+                                                    data-index={rindex} onchange={handleCheckboxChange}
+                                                    class="input-check-2"></lightning-input>
+                                            </template>
+                                            <template if:false={product.DisableCheckBox}>
+                                                <lightning-input type="checkbox-button" data-index={rindex} data-name={product.Name} onchange={handleCheckboxChange}
+                                                    class="input-check-3"></lightning-input>
+                                            </template>
+                                        </template>
+                                    </div>
+                                    <div class="slds-m-top_xxx-small slds-form-element__control">
+                                        <template if:true={product.Status}>
+                                            <!-- <template if:true={product.ManualClearance}>
+                                                <lightning-badge label={product.Status} data-status = {product.Status}
+                                                  class=""></lightning-badge>
+                                            </template>
+                                            <template if:false={product.ManualClearance}>
+                                                <lightning-badge label={product.Status}
+                                                    class=""></lightning-badge>
+                                            </template> -->
+                                            <lightning-badge label={product.Status} data-status = {product.Status}
+                                                data-manual-clearance = {product.ManualClearance} class=""></lightning-badge>
+                                        </template>
+                                    </div>  
+                                    </div>
+                            </div>
+                        </lightning-layout-item>
+                    </div>
+                    </template>
+                </lightning-layout>
+                </template>
+                <div class="slds-text-align_center mre-button">
+                <!-- <template if:false={disableButton}>
+                    <lightning-button label="MRE Clearance" title="MRE Clearance" class = "" onclick={handleMreClearance} variant="brand"></lightning-button>
+                </template>
+                <template if:true={disableButton}>
+                    <lightning-button disabled label="MRE Clearance" title="MRE Clearance" class = "" onclick={handleMreClearance} variant="brand"></lightning-button>
+                </template> -->
+
+                <!-- Added to check API Call-->
+                <template if:false={disableButton}>
+                    <lightning-button label="MRE Clearance" title="MRE Clearance" class = "slds-var-p-left_small" onclick={handleMreClearance} variant="brand"></lightning-button>
+                </template>
+                <template if:true={disableButton}>
+                    <lightning-button disabled label="MRE Clearance" title="MRE Clearance" class="slds-var-p-left_small" onclick={handleMreClearance} variant="brand"></lightning-button>
+                </template>
+            </div>
+            </div>
+
+    </div>
+    <template if:true={isModalOpen}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select Clearance Status</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_small" id="modal-content-id-1">
+                    <lightning-combobox label="Select" value={productStatus} placeholder="Select" class="statusPicklist" onchange={handleStatusPicklistChange}
+                    options={statusOptions}></lightning-combobox>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <!-- <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button> -->
+                    <button class="slds-button slds-button_brand" onclick={closeModal} title="OK">OK</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template> 
+</template>

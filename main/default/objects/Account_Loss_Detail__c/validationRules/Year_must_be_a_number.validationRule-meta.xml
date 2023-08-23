@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Year_must_be_a_number</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+LEN(Year__c) &gt; 0,  
+NOT(ISNUMBER(Year__c))
+)</errorConditionFormula>
+    <errorMessage>Year must contain numbers only</errorMessage>
+</ValidationRule>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>QuoteId__c</columns>
+    <columns>ReferenceId__c</columns>
+    <columns>RegDefenceAndPenaltiesNP__c</columns>
+    <columns>RegDefenceAndPenaltiesQP__c</columns>
+    <columns>PCIFinesAndAssessmentNP__c</columns>
+    <columns>PCIFinesAndAssessmentQP__c</columns>
+    <columns>DataBreachLiabilityQP__c</columns>
+    <columns>DataBreachLiabilityNP__c</columns>
+    <columns>SocialEngineeringNP__c</columns>
+    <columns>SocialEngineeringQP__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Records</label>
+</ListView>

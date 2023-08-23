@@ -1,0 +1,119 @@
+<!--
+  @description       : 
+  @author            : Vinayesh
+  @group             : 
+  @last modified on  : 01-19-2022
+  @last modified by  : Vinayesh
+  Modifications Log 
+  Ver   Date         Author     Modification
+  1.0   06-18-2021   Vinayesh   Initial Version
+-->
+<template>
+    <template if:true={showSpinner}>
+      <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+    </template>
+        <!-- <template if:true = {oppId}>
+            <c-custom-compact-lwc object-id={oppId} is-show-loss-detail={isShowLossDetail} is-show-additional-insured={isShowAdditionalInsured}
+            onlossdetail={openLossDetailModel} onadditionalinsured={openSubmissionAdditionalInsuredModel} onclose={handleCompactAction} 
+            ondecline={handleCompactAction} onundecline={handleUnDecline} disabled-decline={hideDeclineCloseBtn} disabled-close={hideDeclineCloseBtn} record-id={recordId}>
+            </c-custom-compact-lwc>
+       </template> -->
+       <lightning-card>
+       <div class="mainTab">
+        <table style="width:100%; margin-top: 5px; display: flex;  justify-content: flex-end;">
+          <tr>
+            <th style="padding-right: 16px;">
+              <!-- <lightning-button class="slds-m-top_small" variant="brand" name="Previous"
+                label="< PREVIOUS:Insured Info" onclick={handlePreviousButton} icon-name="utility:chevronleft" icon-position="right">
+              </lightning-button> -->
+              <lightning-button class="slds-m-top_small" variant="brand" name="Previous"
+                label="< PREVIOUS:Submission Console" onclick={handlePreviousButton}>
+              </lightning-button>
+            </th>
+            <th style="padding-right: 16px;">
+              <template if:true={isEditForm}>
+                <lightning-button class="slds-m-top_small"  disabled = {boundDisabled} variant="brand" onclick={handleSaveButtonClick} name="handleSave"
+                  label="Save">
+                </lightning-button>
+                <!-- <lightning-icon icon-name="action:remove_relationship" onclick={openSubmissionLossDetailModel} size="xx-small" 
+                              title="Open Loss Detail Page" class="slds-m-around_small"></lightning-icon>  -->
+              </template>
+            </th>
+            <td style="padding-right: 16px;">
+              <lightning-button class="slds-m-top_small"  disabled = {boundDisabled} label="New Primary Quote" value="Primary" onclick ={handleQuoteCreation} icon-name="utility:add">
+              </lightning-button>
+                       <!-- onclick={proceedToQuote} disabled={isDisableButton}-->
+          </td>
+          <td style="padding-right: 10px;">
+              <lightning-button class="slds-m-top_small"  disabled = {boundDisabled} label="New Excess Quote" value="Excess" onclick ={handleQuoteCreation} icon-name="utility:add">
+              </lightning-button>
+                       <!-- onclick={proceedToQuote} disabled={isDisableButton}-->
+          </td>
+            <!-- <th style="padding-right: 10px;">
+              <lightning-button class="slds-m-top_small" variant="brand" name="Next"
+                label="NEXT:Underwriter Analysis >" onclick={handleNextButton}>
+              </lightning-button>
+            </th> -->
+          </tr>
+        </table>
+
+        
+
+  <!-- <c-combo-product-selection-lwc   onremoveproductname={handleRemoveProductName} onproductname={handelProductName}  onproductedit = {handleProductChange} product-id = {productId} opp-id = {oppId}>
+  </c-combo-product-selection-lwc> -->
+  <!-- <c-combo-product-selection-lwc onproductsselected = {handleProductsSelected} 
+     onremoveproductname={handleRemoveProductName} onproductname={handelProductName} 
+       onproductedit = {handleProductChange} product-id = {productId} opp-id = {oppId}>
+  </c-combo-product-selection-lwc> -->
+
+       <!-- <c-accordian-section-pcc-lwc product-id = {productId} opp-id = {oppId}>
+      </c-accordian-section-pcc-lwc> -->
+      <c-clearance-accordian-lwc opp-id = {oppId} bound-disabled = {boundDisabled}></c-clearance-accordian-lwc>
+
+        <!--
+        <lightning-record-edit-form object-api-name="Opportunity" record-id={oppId} onsuccess={handleSuccess}
+          onsubmit={handleSubmit}>-->
+          <footer class="slds-modal__footer">
+            <table style="width:100%; margin-top: 5px; display: flex;  justify-content: flex-end;">
+              <tr>
+                <th style="padding-right: 16px;">
+                  <lightning-button class="slds-m-top_small" variant="brand" name="Previous"
+                    label="< PREVIOUS:Submission Console" onclick={handlePreviousButton}>
+                  </lightning-button>
+                </th>
+                <th style="text-align: center;padding-right: 16px;">
+                  <template if:true={isEditForm}>
+                    <lightning-button class="slds-m-top_small"  disabled = {boundDisabled} variant="brand" onclick={handleSaveButtonClick} name="handleSave"
+                      label="Save">
+                    </lightning-button>
+                    <!-- <lightning-icon icon-name="action:remove_relationship" onclick={openSubmissionLossDetailModel} size="xx-small" 
+                                  title="Open Loss Detail Page" class="slds-m-around_small"></lightning-icon>  -->
+                  </template>
+                </th>
+                <td style="padding-right: 16px;">
+                  <lightning-button class="slds-m-top_small"  disabled = {boundDisabled}  label="New Primary Quote" value="Primary" onclick ={handleQuoteCreation} icon-name="utility:add">
+                  </lightning-button>
+                           <!-- onclick={proceedToQuote} disabled={isDisableButton}-->
+              </td>
+              <td style="padding-right: 10px;">
+                  <lightning-button class="slds-m-top_small" disabled = {boundDisabled} label="New Excess Quote" value="Excess" onclick ={handleQuoteCreation} icon-name="utility:add">
+                  </lightning-button>
+                           <!-- onclick={proceedToQuote} disabled={isDisableButton}-->
+              </td>
+                <!-- <th style="text-align: right;padding-right: 0px;">
+                  <lightning-button class="slds-m-top_small" variant="brand" name="Next"
+                    label="NEXT:Underwrite Analysis >" onclick={handleNextButton} >
+                  </lightning-button>
+                </th> -->
+              </tr>
+            </table>
+        </footer>  
+  </div> 
+</lightning-card>
+
+    <c-confirmation-dialog-lwc title='Confirmation' message='Do you want to save unsaved responses?' confirm-label='Yes'
+      cancel-label='No' visible={isDialogVisible} original-message={originalMessage} name="confirmModal"
+      onclick={handleClick}>
+    </c-confirmation-dialog-lwc>
+      
+</template>

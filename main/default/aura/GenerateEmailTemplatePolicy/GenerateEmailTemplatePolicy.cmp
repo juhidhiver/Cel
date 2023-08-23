@@ -1,0 +1,139 @@
+<aura:component controller="GenerateEmailTemplateHandlerPolicy" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId"> 
+    <aura:attribute name = "recordId" type="String" />
+    <aura:attribute name = "selTempl" type="String"/>
+    <aura:attribute name = "templDetail" type = "EmailTemplate" default="{}" />
+    <aura:attribute name = "templates" type = "EmailTemplate[]" default="[]"/>
+    <aura:attribute name = "emailList" type="String"/>
+    <aura:attribute name = "errorMsg" type = "String" />
+    <aura:attribute name = "isLoading" type="Boolean" />
+    <aura:attribute name = "isShowTemp" type="Boolean" default="false"/>
+    <aura:handler name = "init" value="{!this}" action= "{!c.init}"/>
+    <aura:attribute name="checkError" type="Boolean" default="FALSE"/>
+    <aura:attribute name="errorMessage" type="List" />
+    <aura:attribute name="hideError" type="Boolean" default="true"/>
+    
+    <!--Upload Attachment-->
+    <aura:attribute name="fileListAtt" type="List"/>
+    <aura:attribute name="attFiles" type="Object[]"/>
+    <aura:attribute name="fileName" type="String" default="No File Selected.." />
+    <!--Upload Attachment-->
+
+    <!--CC & BCC emails-->
+    <aura:attribute name = "ccEmailList" type = "String" />
+    <aura:attribute name = "bccEmailList" type = "String" />
+    <!--CC & BCC emails-->
+
+    <!--Get Documents-->
+    <aura:attribute name = "documentsFile" type = "Object" />
+    
+     <aura:attribute name = "templatesNames" type = "EmailTemplate[]" default="[]"/>
+
+    <!--Style-->
+    <aura:html tag="style">
+        .slds-modal__container{
+            height : auto;
+            width: 70%;
+            max-width: 70rem;
+        }
+        .modal-body{
+            height : 500px !important;
+            max-height: 500px !important;
+        }
+        .slds-modal__content {
+            height : 350px;
+        }
+    </aura:html>
+
+    <div class="modal-header slds-modal__header">
+        <h2 id="header99" class="title slds-text-heading--medium">Generate Email Template</h2>
+    </div>
+
+    <aura:if isTrue="{!v.checkError}">
+        <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                <span class="slds-assistive-text">error</span>
+                <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="{!error}">
+                </span>
+                <div class="slds-notify__content">
+                    <aura:iteration items="{!v.errorMessage}" var="error">
+                        <h2 class="slds-text-heading_small slds-theme_error">{!error}</h2>
+                    </aura:iteration>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+
+    <div class="slds-modal__content slds-p-around_medium slds-grid slds-grid_vertical" id="modal-content-id-1">
+        <div class="slds-col">
+            <lightning:select name="SelectTemplate" onchange="{!c.loadTemplate}" label="Select a Template:" aura:id="templateId" value="{!v.selTempl}">
+                <option value="">Email Template...</option>
+                <aura:iteration items="{!v.templates}" var="item">
+                    <option label="{!item.Name}" value="{!item.Id}"></option>
+                </aura:iteration>
+            </lightning:select>
+        </div><br/>    
+
+        <aura:if isTrue="{!v.isShowTemp}" >
+            <!--Upload Attachment-->
+            <lightning:input aura:id="fileId" onchange="{!c.handleFilesChange}" type="file" name="file"
+                                label="Upload Attachment" multiple="true" />
+            <div class="slds-text-body_small slds-text-color_error">{!v.fileName} &ensp;
+                 <a href=""  onclick="{! c.resetFile}">Reset File</a> 
+            </div> 
+            <br/>
+            <!--End Upload Attachment
+
+            <div class="slds-box slds-box-small slds-theme-shade slds-text-align-left">Email Message</div>
+            <br/>-->
+            <div class="slds-col">
+                <div class="slds-form-element slds-size--1-of-1">
+                <p>
+                    <lightning:input aura:id="validfield" type="Text"  label="SendTo:" value="{!v.emailList}" onchange="{!c.onChangeInput}"
+                    fieldLevelHelp="Please enter email addresses separated by semi-colons"/>
+                </p>    
+                </div>     
+            </div><br/>
+
+            <!--CC & BCC emails-->
+            <div class="slds-col">
+                <div class="slds-form-element slds-size--1-of-1">
+                    <ui:inputEmail class="slds-input" aura:id="ccemail" label="CC:"  value="{!v.ccEmailList}" />
+                </div>     
+            </div><br/>
+            <div class="slds-col">
+                <div class="slds-form-element slds-size--1-of-1">
+                    <ui:inputEmail class="slds-input" aura:id="bccemail" label="BCC:"  value="{!v.bccEmailList}" 
+                                        placeholder="abc@email.com"/>
+                </div>     
+            </div><br/>
+            <!--End CC & BCC emails-->
+
+            <div class="slds-col">
+                <div class="slds-form-element slds-size--1-of-1">
+                    <lightning:input aura:id="subjMatter" label="Subject:" type="Text" autocomplete="off" value="{!v.templDetail.Subject}" onchange="{!c.onChangeInput}" required="true"/>
+                </div>     
+            </div><br/>
+            <div class="slds-col">
+                <div class="slds-form-element slds-size--1-of-1">
+                    <label class="slds-form-element__label" for="input-02">Body:</label>
+                    <lightning:inputRichText value="{!v.templDetail.HtmlValue}" placeholder="Reinput email template"/>
+                </div>
+            </div>           
+            <!--lightning:formattedRichText value="{!v.templDetail.HtmlValue}" /-->
+        </aura:if>
+
+        <aura:if isTrue="{!v.isLoading}">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </aura:if>
+    </div>
+
+    <div class="slds-modal__footer" style="box-shadow: none!important">
+        <lightning:button variant="Neutral" label="Cancel" title="Cancel" onclick="{! c.closeDialog }"/>
+        <ui:button class="slds-button slds-button_brand" label="Send" buttonTitle="Send" disabled = "{!!v.isShowTemp}" press="{! c.sendEmailAction }"/>
+    </div>
+</aura:component>

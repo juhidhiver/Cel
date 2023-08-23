@@ -1,0 +1,121 @@
+.cards-list {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+ 
+  .card {
+      
+    margin: 15px auto;
+    width: 117px;
+    height: fit-content;
+    border-radius: 10px;
+  box-shadow: 1px 1px 10px 7px rgba(0,0,0,0.15), -1px -1px 10px 7px rgba(0,0,0,0.12);
+
+    transition: 0.4s;
+  }
+  
+  .card .card_image {
+    width: fit-content;
+    height: initial;
+    border-radius: 40px;
+ 
+  }
+  
+  .card .card_image img {
+    width: inherit;
+    height: inherit;
+    border-radius: 40px;
+    object-fit: fill;
+    cursor:pointer;
+  }
+  
+  .card .card_title {
+    text-align: center;
+    border-radius: 0px 0px 40px 40px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    padding-top: 35px;
+    margin-top: -80px;
+    height: 40px;
+    color:#50c5ff;
+  }
+  
+ /* .card:hover {
+    cursor: pointer!important;
+    transform: scale(0.9, 0.9);
+    box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.11), 
+      -2px -2px 20px 10px rgba(0,0,0,0.12);
+  }*/
+  .card:hover {
+    cursor: pointer!important;
+    transform: scale(0.9, 0.9);
+    box-shadow: 0.1px 0.1px 5px 3px rgba(0,0,0,0.11), 
+      -0.1px -0.1px 5px 3px rgba(0,0,0,0.12);
+  }
+  
+  .title-white {
+    font-size: 15px;
+    font-weight: bolder;
+    color:darkgray;
+  }
+  
+  .title-black {
+    color: black;
+  }
+.product_title:hover{
+cursor:pointer!important;
+}
+ 
+
+.slds-align_absolute-center, .slds-align--absolute-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+ margin: auto;
+ width: auto;
+}
+.slds-icon_large{
+  height: 7em;
+  width: 9em;
+  
+}
+.icon_padding{
+  padding:5px;
+  width: 100%;
+}
+/* Table style*/
+.slds-theme_default {
+  background-color: transparent;
+}
+
+.slds-modal__container {
+  width: 90%;
+  max-width: 90rem;
+}
+.slds-modal__container[c-optionWorkSubmissionLwc_optionWorkSubmissionLwc] {
+  width: 95%;
+  max-width: 90rem;
+}
+.mytable div:nth-of-type(2) {
+  width: 1000px !important;
+}
+.mytable div:nth-of-type(2) div:nth-of-type(1) {
+  overflow: auto !important;
+}
+.mytable div:nth-of-type(2) div:nth-of-type(1) div:nth-of-type(1) {
+  overflow: initial !important;
+}
+/* Table style end*/
+  
+  @media all and (max-width: 500px) {
+    .card-list {
+      /* On small screens, we are no longer using row direction but column */
+      flex-direction: column;
+    }
+  }

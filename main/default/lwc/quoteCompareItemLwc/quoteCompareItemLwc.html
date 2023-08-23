@@ -1,0 +1,492 @@
+<!--
+  @File Name          : quoteCompareItemLwc1Hang.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 5/6/2020, 3:06:50 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/18/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+
+    <div class={boundDisabled}>
+            <div if:true={isLoading} class="demo-only">
+                <div class="slds-spinner_container">
+                    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </div>
+        <!-- Header -->
+        <!-- Body -->
+        <div class="slds-table_edit_container slds-is-relative">
+            <table aria-multiselectable="true"
+                class="slds-table slds-table_edit slds-table_fixed-layout slds-table_resizable-cols tblCustom"
+                role="grid" data-id="compare-item-parent">
+                <thead data-id="compare-item">
+                    <tr class="rowTblValue">
+                        <td>
+                            <div data-id="compare-item-child" class="slds-grid slds-grid--vertical-align-center">
+                                <a href={quoteUrl} class="quoteName" title={quoteName}>{quoteName}</a>
+                                <!-- <template if:true={isQuotedStatus}>
+                                <button
+                                    class="slds-float_right slds-button slds-button_icon slds-button_icon-border-filled"
+                                    title="edit" onclick={handleEditQuote} style="margin:0px">
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg?#edit"></use>
+                                    </svg>
+                                </button>
+                                </template> -->
+                                <button
+                                    class="slds-float_right slds-button slds-button_icon slds-button_icon-border-filled"
+                                    title="clone" onclick={handleCloneQuote} style="margin:0px">
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg?#copy"></use>
+                                    </svg>
+                                </button>
+                                <!--Dropdown Menu-->
+                                <lightning-button-menu alternative-text="Show menu" variant="border-filled" menu-alignment="right" disabled={isLockedQuote}>
+                                    <lightning-menu-item label="Edit Quote" value="item1" onclick={handleShowEditQuote}></lightning-menu-item>
+                                    <lightning-menu-item label="Close Quote" value="item2" onclick={handleCloseButtonClickEvent}></lightning-menu-item>
+                                    <!-- <lightning-menu-item label="Quote Version Timeline" value="item3" onclick={openQuoteVersionTimeline}></lightning-menu-item> -->
+                                    <lightning-menu-item label="Quote Documents" onclick={handleGenerateDocument} value="item4"></lightning-menu-item>
+                                    <!-- <lightning-menu-item label="Endorsement Clone" value="item5" onclick={openEndorsementClone}></lightning-menu-item> -->
+                                </lightning-button-menu>
+      
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- check status to render icon -->
+                    <template if:false={condition}>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td style="width:55%" class="align_left">
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col slds-size_1-of-4">
+                                                    <lightning-button-icon icon-name="utility:error" variant="bare" size="large"
+                                                    alternative-text="Error"
+                                                    icon-class="slds-button_icon-error slds-m-vertical_xx-small">
+                                                    </lightning-button-icon>
+                                                </div>
+                                                <div class="slds-col slds-size_3-of-4">
+                                                    <div>Status</div>
+                                                    <div><b>{quoteStatus}</b></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="width:45%" class="align_right">
+                                                <lightning-icon icon-name="action:add_relationship" onclick={openEndorsementModel} size="xx-small" 
+                                                title="Open Endorsement and Subjectivity Page" class="slds-float_right" disabled={isLockedQuote}>
+                                                </lightning-icon>
+                                                <input type="image" src={finalizeQuoteIcon} title="Finalize Quote" style="width: 1.5rem;" onclick={handleFinalizeQuote} 
+                                                class="slds-float_right">
+                                            <template if:true={quoteClear2}>
+                                                <lightning-icon icon-name="doctype:word" onclick={handleViewDocument} size="small" title="View Document" class="slds-float_right">
+                                                </lightning-icon>
+                                                <lightning-icon icon-name="custom:custom77" onclick={onClickBindQuote} size="small" title="Bind Quote" class="slds-float_right">
+                                                </lightning-icon>
+                                            </template>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <lightning-icon variant="success" icon-name="utility:rating" class=" slds-icon-text-success txtBtnWhite slds-float_left rate"></lightning-icon>&nbsp;
+                               <!-- <lightning-button variant="success" label="Rate" icon-name="utility:rating" class="txtBtnWhite slds-float_left rate" ></lightning-button>&nbsp; -->
+                                <!-- <lightning-button variant="neutral" label="Submit" ></lightning-button>&nbsp; -->
+    
+                                <lightning-button-icon icon-name="utility:save" disabled={isDisabledButton} alternative-text="Save" class="slds-float_right slds-m-left_xx-small" title="Save"
+                                                       onclick={saveQuote} ></lightning-button-icon >
+                                <template if:true={isQuotedStatus}>
+                                <lightning-button-icon icon-name="utility:edit" disabled={isLockedQuote} alternative-text="Edit" class="slds-float_right slds-m-left_xx-small" title="Edit"
+                                    onclick={handleOpenConfirmEdit}></lightning-button-icon>
+                                </template>
+                                <lightning-button-icon disabled={disableReferralButton} icon-name="action:submit_for_approval"  alternative-text="Referral" class="slds-float_right slds-m-left_x-small" title="Referral"
+                                                       icon-class="slds-icon-text-success"   onclick={handleOpenCloseReferral} ></lightning-button-icon >
+                                <div class="slds-float_left">
+                                    <template if:true={quoteClear2}>
+                                        <lightning-button icon-name="custom:custom77" onclick={onClickBindQuote} size="small" title="Bind" class="slds-float_right bind slds-m-left_x-small" label="Bind" variant="destructive">
+                                        </lightning-button>
+                                    </template>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                    <template if:true={condition}>
+                        <tr>
+                            <td>
+                                <div data-id="compare-item-child" class="slds-col background-table">
+                                    <div class="align_left">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-12" style="margin-right: 5px;">
+                                                <lightning-icon variant="success" size="small" icon-name="utility:success" class=" slds-icon-text-success txtBtnWhite slds-float_left rate"></lightning-icon>&nbsp;
+                                            </div>
+                                            <div class="slds-col" style="overflow: hidden;width: 56%!important;">
+                                                <div style='display: inline-block'>
+                                                    <div>Status</div>
+                                                    <div><b>{quoteStatus}</b></div>
+                                                </div>
+                                                <div style='display: inline-block; margin-left: 10px'>
+                                                    <div>Rating Status</div>
+                                                    <div><b>{quoteRatingStatus}</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-size_4-of-12">
+                                                <div class="slds-float_right">
+                                                   
+                                                    <template if:true={isLockedQuote}> 
+                                                        <lightning-icon icon-name="action:update_status"  size="xx-small" title="Finalize Quote" class="slds-float_right inactiveButton">
+                                                        </lightning-icon>
+                                                        <lightning-icon icon-name="action:add_relationship"  size="xx-small"
+                                                                    title="Endorsements &amp; Subjectivities" class="slds-float_right inactiveButton" >
+                                                        </lightning-icon>
+                                                    </template>
+                                                    <template if:false={isLockedQuote}>
+                                                        <lightning-icon icon-name="action:update_status" onclick={handleFinalizeQuote} size="xx-small" title="Finalize Quote" class="slds-float_right">
+                                                        </lightning-icon>
+                                                        <lightning-icon icon-name="action:add_relationship" onclick={openEndorsementModel} size="xx-small"
+                                                                    title="Endorsements &amp; Subjectivities" class="slds-float_right" >
+                                                        </lightning-icon>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div data-id="compare-item-child">
+                                    <lightning-button variant="success" label="Rate" icon-name="utility:rating" class="txtBtnWhite slds-float_left rate" onclick={handleRateQuote} disabled={isLockedQuote}></lightning-button>&nbsp;
+                                    <!-- <lightning-button variant="neutral" label="Submit" ></lightning-button>&nbsp; -->
+                                    <lightning-button-icon icon-name="utility:save" disabled={isDisabledButton} alternative-text="Save" class="slds-float_right" title="Save"
+                                                        onclick={saveQuote} ></lightning-button-icon >
+                                    <template if:true={isQuotedStatus}>
+                                    <lightning-button-icon icon-name="utility:edit" disabled={isLockedQuote} alternative-text="Edit" class="slds-float_right" title="Edit" 
+                                        onclick={handleOpenConfirmEdit}></lightning-button-icon>
+                                    </template>
+                                    <lightning-button-icon disabled={disableReferralButton} icon-name="action:submit_for_approval"  alternative-text="Referral" class="slds-float_right" title="Referral"
+                                                        icon-class="slds-icon-text-success"   onclick={handleOpenCloseReferral} ></lightning-button-icon >
+                                    <div class="slds-float_left">
+                                        <template if:true={quoteClear2}>
+                                            <lightning-button icon-name="custom:custom77" onclick={onClickBindQuote} size="small" title="Bind" class="slds-float_right bind slds-m-left_x-small slds-p-left_xxx-small slds-p-right_xxx-small" label="Bind" variant="destructive">
+                                            </lightning-button>
+                                        </template>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td > 
+                                <lightning-record-view-form record-id={recordId} object-api-name="Quote" density="Compact">
+                                    <lightning-output-field field-name={fieldName} style="font-size: 17px;">
+                                    </lightning-output-field>
+                                </lightning-record-view-form>                            
+                            </td>
+                        </tr> -->
+                    </template>
+                </thead>
+
+                <tbody>
+                   
+                    <template for:each={compareItem.quoteFields} for:item="item">
+                        <tr key={item.index}>
+                            <template if:true={isQuotedStatus}>
+                                <td style="padding: 0;">
+                                    <c-generate-output-element-lwc  format={item.format} field-value={item.value} options={item.options} read-only=true></c-generate-output-element-lwc>
+                                </td>
+                            </template>
+                            <template if:false={isQuotedStatus}>
+                                <td>
+                                    <template if:true={item.isField}>
+                                        <!--GiangPhan 01/Jul/2020-->
+                                        <c-generate-output-element-lwc  
+                                            format={item.format} 
+                                            field-id={item.fieldId}
+                                            field-value={item.value} 
+                                            read-only={item.readOnly} 
+                                            options={item.options} 
+                                            oneditfield={handleChangeInput}
+                                            min={item.min}
+                                            max={item.max}>
+                                        </c-generate-output-element-lwc>
+                                    </template>
+                                    <template if:false={item.isField}>
+                                        <div style="min-height: 31px;"></div>
+                                    </template>
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+                <!-- <div if:true={isBoundStatus} class="slds-backdrop slds-backdrop_open"></div> -->
+            </table>
+        </div>
+    </div>
+    
+    <!-- Edit quote modal start -->
+    <template if:true={openModalEditQuote}>
+        <div class="slds-card slds-p-around_medium">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="editDialog slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCancel}>
+                            <lightning-icon icon-name="utility:close" size="medium">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Edit Quote</h2>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+                        <div class="slds-theme_default">
+                            <div if:true={isEditLoading} class="slds-align_absolute-center"
+                                style="text-align: center; color: #005fb2; font-weight: bold;">
+                                Initializing form, please wait...
+                            </div>
+                            <div style="padding: 1% 1% 1% 1%;" class="slds-hide1">
+                                <lightning-record-form class="editForm" record-id={quoteId} object-api-name="Quote" layout-type="Full"
+                                    columns="2" mode="view" oncancel={handleCancel} onsubmit={handleSubmit}
+                                    onsuccess={handleEditSuccess}>
+                                </lightning-record-form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+    <!-- Bind quote modal start -->
+    <template if:true={openModalBindQuote}>
+        
+        <!-- <div if:false={isBindLoading} class="demo-only"> -->
+            <div class="slds-card slds-p-around_medium">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true"
+                    aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+                    
+                                    
+                        <div class="slds-modal__container">
+                            <div if:true={isBindLoading} class="demo-only">
+                                <div class="slds-spinner_container">
+                                    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                                        <span class="slds-assistive-text">Loading</span>
+                                        <div class="slds-spinner__dot-a"></div>
+                                        <div class="slds-spinner__dot-b"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                    title="Close" onclick={handleCancelBind}>
+                                    <lightning-icon icon-name="utility:close" size="medium">
+                                    </lightning-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Bind Quote</h2>
+                            </header>
+
+                            <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-2" style="min-height:350px">
+                                <div class="slds-theme_default">
+                                    <div style="padding: 1% 1% 1% 1%;" class="slds-hide1">
+                                        <lightning-record-edit-form record-id={quoteId}
+                                            object-api-name="Quote" columns="2">
+                                            <lightning-messages></lightning-messages>
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning-output-field field-name="AccountId">
+                                                    </lightning-output-field>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning-output-field field-name="Broker__c">
+                                                    </lightning-output-field>
+                                                </div>
+                                            </div>    
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning-output-field field-name="Effective_Date__c">
+                                                    </lightning-output-field>
+                                                </div> 
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning-output-field field-name="ExpirationDate">
+                                                    </lightning-output-field>
+                                                </div> 
+                                            </div>   
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning-output-field field-name="Commission__c">
+                                                    </lightning-output-field>
+                                                </div> 
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning-output-field field-name="QuotePremium__c">
+                                                    </lightning-output-field>
+                                                </div> 
+                                            </div> 
+                                        
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col">
+                                                    <lightning-combobox
+                                                        name="progress"
+                                                        label="Pay plan"
+                                                        value={payPlanVal}
+                                                        placeholder="Pay plan..."
+                                                        options={payPlanOptions}
+                                                        onchange={handlePayPlanChange} >
+                                                    </lightning-combobox>
+                                                </div>
+                                            </div>   
+                                        </lightning-record-edit-form>                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <footer class="slds-modal__footer">
+                                <lightning-button variant="neutral" label="Cancel" title="Cancel" onclick={handleCancelBind} ></lightning-button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <lightning-button variant="brand" label="Bind" title="Bind" onclick={handleBindQuote} ></lightning-button>
+                            </footer>
+                        </div>
+                    
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        <!-- </div> -->
+    </template>
+    <!-- Edit quote modal end -->
+    <!--Confirm close modal start-->
+    <!-- <c-confirmation-dialog-lwc title='Confirmation' message='Do you want to close this quote?' confirm-label='Yes'
+        cancel-label='No' visible={isConfirmModalVisible} name="confirmModal"
+        onclick={handleCloseQuote}>
+    </c-confirmation-dialog-lwc> -->
+    <template if:true={isConfirmModalVisible}>
+        <lightning-card>
+            <div class="slds-container_small">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={handleCloseQuoteModal}>
+                                <lightning-icon icon-name="utility:close" size="medium" variant="inverse">
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-10" class="slds-text-heading_medium slds-hyphenate">Close Quote</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium reason-content" id="modal-content-id-10">
+                            <p>Do you want to close this quote?</p>
+                            <p>Please choose reason:</p>
+                            <lightning-combobox
+                            name="progress"
+                            label="Closed Reason"
+                            value={closeReason}
+                            placeholder="-Select-"
+                            options={ClosedReasonPicklistValues.data.values}
+                            onchange={handleChangeReason} 
+                            required></lightning-combobox>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button variant="neutral"
+                                              name="cancel"
+                                              label='No'
+                                              title='No'
+                                              onclick={handleCloseQuote} ></lightning-button>
+                            <lightning-button variant="brand"
+                                              name="confirm"
+                                              label='Yes'
+                                              title='Yes'
+                                              onclick={handleCloseQuote} ></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </lightning-card>
+    </template>
+    <!--Confirm close modal end-->
+
+    <!--Confirmation Edit-->
+    <c-confirmation-dialog-lwc title='Confirmation' message='Editing this Quote will change the Status back to In Progress. Do you wish to continue?' confirm-label='Confirm'
+        cancel-label='Cancel' visible={isConfirmEditModalVisible} name="confirmModal"
+        onclick={handlerConfirmEdit}>
+    </c-confirmation-dialog-lwc>
+    <!--End Confirmation Edit-->
+
+    <!--Confirm delete modal end-->
+    <template if:true={isEndorsementModelOpen}>
+        <c-endorsement-subjectivity-lwc quote-name={quoteName} quote-id={quoteId} quote-status={quoteStatus} is-open={isEndorsementModelOpen} oncloseendorsement={closeEndorsementModal} ></c-endorsement-subjectivity-lwc>
+    </template>
+    <template if:true={isTimelineModalOpen}>
+        <c-quote-version-timeline-lwc onselecversionevt = {handleOnselectVersionTimeLine} quote-name={quoteName} quote-id={quoteId} is-open={isTimelineModalOpen} oncloseversiontimeline={closeVersionTimeline} ></c-quote-version-timeline-lwc>
+    </template>
+    <template if:true={isEndorsementClone}>
+        <div class="slds-card slds-p-around_medium">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true"
+                aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCanelEndorse}>
+                            <lightning-icon icon-name="utility:close" size="medium">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Endorsement Clone</h2>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-3">
+                        <div class="slds-theme_default">
+                            <c-endorsement-tab-lwc-clone quote-id={quoteId}></c-endorsement-tab-lwc-clone>
+                        </div>
+                    </div>
+                        
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" title="Cancel" onclick={handleCanelEndorse} ></lightning-button>
+                        <lightning-button variant="brand" label="Bind" title="Bind" ></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+
+    <template if:true={isOpenReferralModel}>
+        <c-referral-approval-lwc onclosereferral = {handleOpenCloseReferral} quote-id = {quoteId}></c-referral-approval-lwc>
+    </template>
+
+    <!--Generate Document modal-->
+    <template if:true={isGenerateDocument}>
+        <lightning-card>
+            <div class="slds-container_small">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close">
+                                <lightning-icon icon-name="utility:close" size="medium" variant="inverse">
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 if:false={viewDocument} id="modal-heading-11" class="slds-text-heading_medium slds-hyphenate">Generate Quote Document</h2>
+                            <h2 if:true={viewDocument} id="modal-heading-12" class="slds-text-heading_medium slds-hyphenate">Document Downloading</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-11" style="height: 70px;">
+                            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand" style="margin-top: 30px;">
+                                <span class="slds-assistive-text">Loading</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </lightning-card>
+    </template>
+</template>

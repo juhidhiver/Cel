@@ -1,0 +1,17 @@
+/*.slds-modal__content {
+    max-width: 100rem !important;
+    width: 120% !important;
+}
+.slds-modal__header{
+    max-width: 100rem !important;
+    width: 113% !important;
+}*/
+.slds-modal__container{
+    max-width: 100rem !important;
+    width: 120% !important;
+    position: absolute !important;
+    float: left;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

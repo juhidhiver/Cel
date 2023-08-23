@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AQ Renewal Invite Email Template</name>
+    <style>none</style>
+    <subject>RENEWAL INVITE EMAIL TEMPLATE</subject>
+    <textOnly>Hello,
+A request to clear a potential sanction search Match has been requested by {!Sanction_Status__c.Review_Requested_By__c}.
+The details are: Account Name: {!Account.Name} Account Address: {!Account.BillingAddress} Link to the Account: [Link to salesforce Account]
+Link to Sanction Search Result: https://www.sanctionssearch.com/members/search/details/{!Sanction_Status__c.SearchId__c}
+Please review the account details against the sanction search result. Once reviewed please complete the review process with your decision on the account.
+Kind regards
+{!Sanction_Status__c.Review_Requested_By__c}
+www.aqueousuw.com
+Aqueous Underwriting is a trading name of Aqueous Management Limited which is an appointed representative of Davies MGA Services Limited, a company authorised and regulated by the Financial Conduct Authority under firm reference number 597301 to carry on insurance distribution activities. Aqueous Management Limited is registered in England and Wales. Company Number 09634781. Registered Address at 10th Floor, 5 Churchill Place, London, E14 5HU.
+Confidentiality Statement
+This email message, including any attachments(s), is intended only for the named receipient(s) and may contain confidential, proprietary or legally priviledged information. Unauthorised individuals or entities are not permitted access to this information. Any dissemination, distribution, disclosure, or copying of this information is unauthorised and strictly proibited. If you have received this message in error, please advise the sender by reply email, and delete this message and any attachments.
+Further information on Aqueous’ Privacy Policy can be found by visiting https://aqueousuw.com/</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

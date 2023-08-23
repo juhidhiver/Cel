@@ -1,0 +1,13 @@
+<template>
+<lightning-card>
+       <lightning-datatable data={claimsData} columns={columns} key-field="Id"
+                            show-row-number-column hide-checkbox-column>
+       </lightning-datatable>
+      
+       <template if:true={noClaimToDisplay}>
+        <div class="slds-text-heading_medium slds-align_absolute-center slds-m-top_medium fontColor">
+            No Claims To Display
+        </div>
+    </template>
+   </lightning-card>
+</template>

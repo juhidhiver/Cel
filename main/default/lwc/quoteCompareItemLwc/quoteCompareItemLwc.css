@@ -1,0 +1,114 @@
+.titleValue{
+    color: rgb(0, 112, 210);
+    font-weight: 700;
+}
+.rowTblValue td{
+    background: rgb(243, 242, 242);
+}
+table.tblCustom tr td {
+    border-right: 1px solid rgb(221, 219, 218);
+    padding: 0px;
+    height: 25px;
+}
+.colorError{
+    color: red;
+}
+/* table.tblCustom {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-top: 1px solid grey;
+} */
+
+/* td, th {
+  margin: 0;
+  border: 1px solid grey;
+  white-space: nowrap;
+  border-top-width: 0px;
+} */
+.inactiveButton {
+    background-color:#C9C7C5 !important;
+ }
+div.divTbl {
+    width: 1254px;
+    overflow-x: scroll;
+    margin-left: 292px;
+    overflow-y: visible;
+    padding: 0;
+}
+
+.headcol {
+    position: absolute;
+    width: 292px;
+    left: 0;
+    top: auto;
+    border-top-width: 1px;
+    /*only relevant for first row*/
+    margin-top: -1px;
+    /*compensate for top border*/
+}
+.tdCol {
+    width: 292px;
+}
+
+table.tblCustom tr:nth-child(even) {
+    background: white;
+}
+table.tblCustom tr:nth-child(odd) {
+    background: rgb(243, 242, 242);
+}
+
+table.tblCustom tr {
+    height: 32px;
+}
+table.tblCustom tr td:hover {
+    background-color: transparent;
+}
+.quoteName {
+    display: inline-block;
+    width: 90%; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+.align_left {
+    text-align: left;
+}
+.align_right {
+    text-align: right;
+}
+.disabled{
+    margin:0px;
+    opacity: 0.7;
+}
+.no-disabled{
+    margin:0px;
+    opacity: 1;
+}
+.reason-content{
+    overflow: initial !important;
+}
+.bound-disabled {
+    cursor: not-allowed !important;
+}
+.bound-disabled div{
+    pointer-events: none;
+}
+.position-sticky{
+    position: fixed;
+    top: 14rem;
+    z-index: 90;
+    animation: SHW .5s;
+    animation-fill-mode: both
+}
+.background-table{
+    background: rgb(243, 242, 242);
+}
+@keyframes SHW {
+    from {
+        transform:scale(0.7);
+        opacity:0
+    }
+    to {
+        transform: scale(1);
+        opacity:1
+    }
+}

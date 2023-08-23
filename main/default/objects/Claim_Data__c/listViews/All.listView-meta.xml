@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Policy__c</columns>
+    <columns>Claim_Reference__c</columns>
+    <columns>Claim_status__c</columns>
+    <columns>Claimant_Name__c</columns>
+    <columns>Fees_Paid__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

@@ -1,0 +1,24 @@
+.reason-content{
+    overflow: initial !important;
+}
+.custom-hyperlink{
+    padding-top: 0.56rem !important;
+    padding-right: 0.75rem !important;
+}
+.disabled{
+    margin:0px;
+    opacity: 0.7;
+}
+.no-disabled{
+    margin:0px;
+    opacity: 1;
+}
+.bound-disabled {
+    cursor: not-allowed !important;
+}
+.bound-disabled div{
+    pointer-events: none;
+}
+.inactiveButton {
+    background-color:#C9C7C5 !important;
+ }

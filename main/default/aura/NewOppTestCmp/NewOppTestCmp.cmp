@@ -1,0 +1,7 @@
+<aura:component controller="CustomLookupCmpController" implements="lightning:actionOverride,force:lightningQuickActionWithoutHeader">
+    <aura:handler event="force:showToast" action="{!c.toastInfo}" />
+    <aura:attribute name="toastMessage" type="String" default=""/>
+    <aura:attribute name="createdRecord" type="Object" />
+    <c:opportunityInitLwc selected-record-id = "{!v.createdRecord}"/>
+    <!-- <c:choosingRecordTypeLwc object-name = "Opportunity" /> -->
+</aura:component>

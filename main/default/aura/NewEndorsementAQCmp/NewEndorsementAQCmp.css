@@ -1,0 +1,24 @@
+p.THIS {
+ color:#3E3E3C;
+ Font: 12px "Salesforce Sans",Arial,sans-serif;
+ padding-top: 0.25rem;
+}
+/*
+.THIS .slds-modal__container{
+    max-height: 85rem !important;
+    max-width: 85rem !important;
+    width: 124% !important;
+    margin: 0 0 0 -70px !important;
+}
+*/
+.THIS .form-element__label{
+     font-size: 12px !important;
+}
+ /*.THIS .fontcss{
+    color:#3E3E3C !important;
+ 	Font: 12px "Salesforce Sans",Arial,sans-serif !important;
+} */
+
+.THIS .dt-outer-container{
+    height: auto !important;
+}

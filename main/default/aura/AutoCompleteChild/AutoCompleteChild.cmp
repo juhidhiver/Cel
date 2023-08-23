@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    	<aura:attribute name="oRecord" type="Object" />
+		<!--Register the component level event-->
+		
+		<aura:registerEvent name="oSelectedRecordEvent" type="c:AutoCompleteSelectEventChild"/>
+    
+     	<li role="presentation" class="slds-listbox__item" onclick="{!c.selectRecord}">
+            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                 role="option">
+                <span class="slds-media__figure slds-listbox__option-icon"></span>
+                <span class="slds-media__body">
+                    <span class="slds-truncate" title="All Opportunities">
+                        <span>{!v.oRecord.primaryName} <div class="slds-text-color_destructive">{! v.oRecord.address.streetAddressLine1}, {!v.oRecord.address.addressLocality}, {!v.oRecord.address.addressRegion}, {!v.oRecord.address.postalCode}, {!v.oRecord.address.country} </div></span>
+                    </span>
+                </span>
+            </div>
+        </li>
+</aura:component>

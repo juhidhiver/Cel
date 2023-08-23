@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pro_Con_ListView</fullName>
+    <columns>NAME</columns>
+    <columns>Product__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Page_Section__c</columns>
+    <columns>Sub_Section__c</columns>
+    <columns>Rating_Modifier_Value__c</columns>
+    <columns>Sort_Order__c</columns>
+    <columns>Sort_Sub_Section__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Page_Section__c</field>
+        <operation>contains</operation>
+        <value>Pros and Cons</value>
+    </filters>
+    <label>Pro &amp; Con ListView</label>
+</ListView>

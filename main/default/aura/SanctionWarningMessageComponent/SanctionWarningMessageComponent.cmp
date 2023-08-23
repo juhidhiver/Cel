@@ -1,0 +1,17 @@
+<aura:component controller="SanctionMessageController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" 
+                access="global"
+                 >
+    <aura:attribute name="recordId" type="String" />  
+    <aura:attribute name="name" type="String" />  
+    <aura:attribute name="isSanctionFail" type="Boolean" default="false"/>  
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    <aura:if isTrue="{!v.isSanctionFail}">
+        
+        
+        <div class="slds-box slds-theme--warning">
+            The sanction check has failed for the following account(s):&nbsp; 
+            <lightning:formattedRichText value='{!v.name}'/>
+    	</div>
+    </aura:if>
+</aura:component>

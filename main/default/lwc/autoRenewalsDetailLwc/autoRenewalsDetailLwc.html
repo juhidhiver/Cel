@@ -1,0 +1,122 @@
+<template>
+    <template if:true={isContactManagement}>
+        <c-auto-renewals-contact-management-lwc renewalid={renewalRecordIdClicked} renewalstatus={renewalStatus} onclose={handelCloseFromChild} ></c-auto-renewals-contact-management-lwc>
+    </template>
+    <lightning-record-edit-form
+        record-id={renewalRecordIdClicked}
+        object-api-name="Renewal__c"
+        onsuccess={handleSuccess}
+        onchange={handelInputChange}
+    >
+        <lightning-messages></lightning-messages>
+        <div class="slds-clearfix">
+            <div class="slds-align_absolute-center">
+                <lightning-button variant="brand-outline" label="Back" onclick={handleBack} class="slds-p-horizontal_xx-small"></lightning-button>                
+                <lightning-button
+                    variant="brand"
+                    type="submit"
+                    label="Save"
+                    disabled={isRenewalExpired}
+                    class="slds-p-horizontal_xx-small"
+                >
+                </lightning-button>
+                <lightning-button variant="brand" label="Contact Management" onclick={handelContactManagement} disabled={isRenewalExpired} class="slds-p-horizontal_xx-small"></lightning-button>
+            </div>
+        </div>
+        <div class="slds-form_horizontal slds-grid slds-wrap slds-gutters slds-p-top_medium">
+            <div class="slds-col">
+                <lightning-accordion active-section-name={mainActiveSections} allow-multiple-sections-open>
+                    <template for:each={sectionList} for:item="section">
+                    <lightning-accordion-section name={section.mainSectionTitle} label={section.mainSectionTitle}
+                        key={section.mainSectionTitle} class="mainSection">
+                            <lightning-layout multiple-rows="true">
+                                <template for:each={section.mainSectionFields} for:item="field">
+                                    <template if:true={field.fullWidth}>
+                                        <lightning-layout-item  size="12" key={field.sourceFieldApi}>
+                                            <div class="slds-p-horizontal_medium" style="padding-left: 20px !important;">
+                                            <template if:true={field.readOnly}>
+                                                <lightning-output-field field-name={field.sourceFieldApi}></lightning-output-field>
+                                            </template>
+                                            <template if:false={field.readOnly}>
+                                                <lightning-input-field field-name={field.sourceFieldApi}></lightning-input-field>
+                                            </template>
+                                            </div>
+                                        </lightning-layout-item>
+                                    </template>
+                                    <template if:false={field.fullWidth}>
+                                        <lightning-layout-item key={field.sourceFieldApi} size="6">
+                                            <div class="slds-p-horizontal_medium" style="padding-left: 20px !important;">
+                                                <template if:true={field.isCustomLookup}>
+                                                    <div class="slds-p-left_xx-small " style="margin-bottom:0.5rem !important;">
+                                                        <dl class="slds-dl_horizontal">
+                                                            <dt class="slds-dl_horizontal__label">
+                                                                <label class="slds-form-element__label">{field.sourceFieldLabel}</label>
+                                                            </dt>
+                                                            <dd class="slds-dl_horizontal__detail">
+                                                                <lightning-formatted-url style='margin-left: 20px; pointer-events: auto' value={field.navigationURL} label={field.fieldValue} target="_blank"></lightning-formatted-url>
+                                                            </dd>
+                                                        </dl>
+                                                    </div>
+                                                </template>
+                                                <template if:false={field.isCustomLookup}>
+                                                    <div style="margin-bottom:0.5rem !important">
+                                                        <template if:true={field.readOnly}>
+                                                            <lightning-output-field field-name={field.sourceFieldApi}></lightning-output-field>
+                                                        </template>
+                                                        <template if:false={field.readOnly}>
+                                                            <lightning-input-field field-name={field.sourceFieldApi} ></lightning-input-field>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </lightning-layout-item>
+                                    </template>
+                                </template>
+                            </lightning-layout>
+                    </lightning-accordion-section>
+                </template>
+                </lightning-accordion>
+            </div>
+        </div>
+
+
+        <!--lightning-accordion active-section-name={mainActiveSections} allow-multiple-sections-open>
+                    <template for:each={sectionList} for:item="section">
+                    <lightning-accordion-section name={section.mainSectionTitle} label={section.mainSectionTitle}
+                        key={section.mainSectionTitle} class="mainSection">
+                        <div class="slds-grid slds-wrap">
+                            <lightning-layout horizontal-align="space" vertical-align="top" multiple-rows="true"
+                              style="width: 100%;">
+                           <template for:each={section.mainSectionFields} for:item="field">
+                            <lightning-layout-item key={field.sourceFieldApi} alignment-bump="right" flexibility="no-flex"
+                            size="12" small-device-size="6" medium-device-size="6" padding="horizontal-small"
+                            large-device-size="6" class="clearpaddingtop">
+                                            <template if:true={field.isCustomLookup}>
+                                                <div class="slds-p-left_xx-small slds-p-vertical_x-small">
+                                                    <dl class="slds-dl_horizontal">
+                                                        <dt class="slds-dl_horizontal__label">
+                                                            <label class="slds-form-element__label">{field.sourceFieldLabel}</label>
+                                                        </dt>
+                                                        <dd class="slds-dl_horizontal__detail">
+                                                            <lightning-formatted-url style='margin-left: 20px; pointer-events: auto' value={field.navigationURL} label={field.fieldValue} target="_blank"></lightning-formatted-url>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </template>
+                                            <template if:false={field.isCustomLookup}>
+                                                <template if:true={field.readOnly}>
+                                                    <lightning-output-field field-name={field.sourceFieldApi}></lightning-output-field>
+                                                </template>
+                                                <template if:false={field.readOnly}>
+                                                    <lightning-input-field field-name={field.sourceFieldApi}></lightning-input-field>
+                                                </template>
+                                            </template>
+                                    </lightning-layout-item>
+                                </template>
+                            </lightning-layout>
+                        </div>
+                    </lightning-accordion-section>
+                </template>
+                </lightning-accordion-->
+    </lightning-record-edit-form>
+</template>

@@ -1,0 +1,37 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader"
+                access="global" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="loading" type="boolean" default="true"/>
+    
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        overflow-y:hidden !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+        .slds-modal__container{
+        max-width: 40rem !important;
+        width:40% !important;
+        }
+        .closeIcon {
+        display:none !important;
+        }
+    </aura:html>
+    
+    <div class="loading_wheel">
+        <aura:if isTrue="{! v.loading }">
+            <lightning:spinner alternativeText="Loading" size="large" variant="brand"/>
+        </aura:if>
+    </div>
+    
+    <div>
+        <c:copySubmissionQuickActionLwc recordId="{!v.recordId}" onclose="{!c.closeModal}"/>
+    </div>
+    
+</aura:component>

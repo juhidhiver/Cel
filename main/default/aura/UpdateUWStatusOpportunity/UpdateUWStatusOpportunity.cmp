@@ -1,0 +1,57 @@
+<aura:component controller="UpdateUWStatusOppController" implements="force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+     <aura:attribute name="industryMap" type="Map"/>
+     <aura:attribute name="SelectedPickListValue" type="String" default=""/>
+   <aura:attribute name="isRecordLoaded" type="Boolean" default="false" />
+    <aura:attribute name="recordTypeId" type="String" />
+  
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }" />
+     <aura:attribute name="spinner" type="boolean" default="FALSE"/>
+    
+     <aura:attribute name="title" type="String" />
+    <aura:attribute name="isCelerity" type="boolean" default="FALSE"/>
+    <aura:attribute name="submisisonPicklist" type="Map"/>
+    <aura:attribute name="SelectedSubmissionStatus" type="String" default=""/>
+
+  <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    
+   <h2 class="slds-align_absolute-center slds-text-heading_medium slds-hyphenate">{!v.title}</h2>   
+   
+    <aura:if isTrue="{!v.isCelerity}"> 
+    <lightning:select name="cStat" label="UW Status"  value="{!v.SelectedPickListValue}" aura:id="statusPicklist" >
+       
+        <aura:iteration items="{!v.industryMap}" var="opt">
+            <option value="{!opt.value}">{!opt.key}</option>
+        </aura:iteration>
+    </lightning:select>
+        
+    <aura:set attribute="else">
+    <lightning:select name="subStatus" label="Submission Status"  value="{!v.SelectedSubmissionStatus}" aura:id="submissionstatus" >
+       
+        <aura:iteration items="{!v.submisisonPicklist}" var="opt">
+            <option value="{!opt.value}">{!opt.key}</option>
+        </aura:iteration>
+    </lightning:select>
+    </aura:set>
+    </aura:if>
+    
+    <footer class="slds-modal__footer">
+        <lightning:button  variant="neutral" name="cancel" label="Cancel" onclick="{!c.closePopup}" />
+        <aura:if isTrue="{!v.isCelerity}">
+            <lightning:button  variant="brand"  name="Save" label="Save" onclick="{!c.doSave}"/>
+            <aura:set attribute="else">
+                <lightning:button  variant="brand"  name="Save" label="Save" onclick="{!c.doSaveSubmission}"/>
+            </aura:set>
+        </aura:if> 
+    </footer>
+    
+
+    
+</aura:component>

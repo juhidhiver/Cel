@@ -1,0 +1,50 @@
+<aura:component controller="GenerateQuoteDocumentController" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+
+    <!-- <aura:attribute name = "docAzureId" type="String" /> -->
+    <!-- <aura:attribute name = "docType" type="String" />
+    <aura:attribute name = "docTypeOptions" type="List" /> -->
+    <aura:attribute name = "errorMsg" type="String" />
+    <aura:attribute name = "isLoading" type="Boolean" />
+    <!-- <aura:attribute name = "isDisable" type="Boolean" default="true"/> -->
+    <!--  <aura:attribute name = "docName" type="String"/> -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <div class="modal-header slds-modal__header">
+        <h2 id="header99" class="title slds-text-heading--medium">Generate Quote Document</h2>
+    </div>
+    
+    <div style="min-height: 100px">
+        <!-- Custom error message -->
+        <!-- <aura:if isTrue="{! !empty(v.errorMsg) }">
+            <div class="slds-notify_container slds-is-relative">
+                <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                    <span class="slds-assistive-text">error</span>
+                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="{!v.errorMsg}">
+                    </span>
+                    <div class="slds-notify__content">
+                        <div class="slds-text-heading_x-small">{!v.errorMsg}</div>
+                    </div>
+                </div>
+            </div>
+        </aura:if> -->
+
+        <!-- <lightning:select aura:id="docType" name="docType" label="Document Type" value="{!v.docType}" onchange="{!c.handleSelectDocType}">
+            <option value="">Document Type...</option>
+            <aura:iteration items="{!v.docTypeOptions}" var="item">
+                <option label="{!item.label}" value="{!item.value}"></option>
+            </aura:iteration>
+        </lightning:select> -->
+        <aura:if isTrue="{!v.isLoading}">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </aura:if>
+    </div>
+
+    <!-- <div class="slds-modal__footer" style="box-shadow: none!important">
+        <lightning:button variant="Neutral" label="Cancel" title="Cancel" onclick="{! c.handleCancelClick }"/>
+        <ui:button  disabled="{!v.isDisable}" class="slds-button slds-button_brand" label="DownLoad" buttonTitle="DownLoad" press="{! c.handleConfirmClick }"/>
+    </div> -->
+</aura:component>

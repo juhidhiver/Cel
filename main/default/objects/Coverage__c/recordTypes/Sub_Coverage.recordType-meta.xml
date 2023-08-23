@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Coverage</fullName>
+    <active>true</active>
+    <description>Child to Main Coverage</description>
+    <label>Sub Coverage</label>
+    <picklistValues>
+        <picklist>Additional_Requirements__c</picklist>
+        <values>
+            <fullName>Do not show on Endorsement widget</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exclude from NB and Renewal view</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Load by Default</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rating Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Schedule</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apply_to_Quote__c</picklist>
+        <values>
+            <fullName>Excess</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Primary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Coverage_Product_Combo__c</picklist>
+        <values>
+            <fullName>Crime</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>D%26O</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EPL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fiduciary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Coverage_Product__c</picklist>
+        <values>
+            <fullName>Crime</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cyber</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>D%26O</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EPL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Excess</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fiduciary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MPL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PCC Excess</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Indemnity</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Coverage_Selection_Level__c</picklist>
+        <values>
+            <fullName>Asset</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Location</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Policy</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Coverage_Type__c</picklist>
+        <values>
+            <fullName>Coverage</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Endorsement</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Endorsement_Categories__c</picklist>
+        <values>
+            <fullName>Administrative Non-Premium Bearing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Administrative Premium Bearing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broaden Non-Premium Bearing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broaden Premium Bearing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Restrict Non-Premium Bearing</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Endorsement_Tags__c</picklist>
+        <values>
+            <fullName>Business Services - Accreditation %26 Certification Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Administrators</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Advertising %26 Marketing Agencies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Alarm Monitors</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Auctioneer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Audio%2FVideo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Billing Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Bookkeeper %26 Record Keeper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Business Training %26 Seminars</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Court Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Direct Mail Advertising</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Dispute Resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Employment Agencies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Energy %26 Environmental Consulting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Event Planner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Executive Placement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Funeral %26 Crematories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - General Consulting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Interior %26 Graphic Design</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Literary Agents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Management %26 Business Consulting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Membership Organizations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Modeling%2FTalent Agency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Notary Public</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Office Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Pet Related Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Photographic Studios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Printers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Process Server</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Tax Preparation %28NON_CPA SERVICES%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Telemarketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Translation %26 Interpretation Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Trustees</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services - Yacht%2FBoat Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education - Exam Preparation and Tutoring</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial - Loan Servicing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial - Mortgage Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial - Stock Transfer Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media - Diversified Media</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media - Media Agencies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media - Public Relations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media - Publishing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate - Commercial Property Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate - Escrow Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate - Home Inspectors</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate - Real Estate Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate - Relocation Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate - Residential Appraisers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate - Residential Property Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate - Title Abstractor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate - Title Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Hardware%3A Design</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Hardware%3A Resale %28developed by others%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Business Process Outsourcing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Cloud Service Provider</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Data Center%2FCo-location</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Domain Name Registrar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A IT Consulting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Internet Service Provider</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Managed Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Search Engine Optimization</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Shared%2FGig Economy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Telecommunications Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Website Design</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Service Provider%3A Website Hosting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Software%3A Custom Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Software%3A Installation%2C Integration %26 Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Software%3A Mobile Application Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Software%3A Pre-packaged Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Software%3A Resale %28developed by others%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - Software%3A Software as a Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telecommunications - Service %26 Repair</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transportation - Freight Broker %28no shipping%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transportation - Travel Agencies%2FTour Operators</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Main_Profession__c</picklist>
+        <values>
+            <fullName>Accountants</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Architects</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Design %26 Construct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Engineers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT Consultants</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance Brokers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media Professionals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miscellaneous</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Professionals</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>State__c</picklist>
+        <values>
+            <fullName>AK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ME</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ND</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NJ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WY</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Fixed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Free-form</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part-fixed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

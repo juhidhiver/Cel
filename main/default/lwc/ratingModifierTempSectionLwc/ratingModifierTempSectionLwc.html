@@ -1,0 +1,191 @@
+<template>
+    <!--Product Section -->
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_3-of-12">
+            <lightning-dual-listbox name="Product"
+                                    label="Select Product"
+                                    source-label="Available"
+                                    selected-label="Selected"
+                                    field-level-help="Select Product"
+                                    options={options}
+                                    onchange={handleProductChangeMulti}>
+            </lightning-dual-listbox>
+        </div>
+        
+        <!-- <div class="slds-col slds-size_2-of-12">
+            <lightning-combobox  name="rtCombo"  label="Modifier Product" value= "modifierProductValue" placeholder="Search Product"  options={productOptions} onchange={handleProductChange}></lightning-combobox>
+        </div> -->
+
+        <div class="slds-col slds-size_3-of-12">
+            <div class="slds-p-around--small">
+                <lightning-button label="New Field" class="slds-button" variant="brand-outline" onclick={openCreateFieldModal} disabled={isDisableButton}></lightning-button>
+                <lightning-button label="Structure" class="slds-button" variant="brand-outline" onclick={handleViewStruture}></lightning-button>
+            </div>  
+        </div>
+      
+       <!-- <div class="slds-col slds-no-flex slds-grid slds-grid_vertical-align-center horizontal actionsContainer">
+
+       </div>  -->
+    </div>
+    <!--End Product Section -->
+
+    <!--Page Section and Sub Section -->
+    <template if:true = {openMainAndSubSection} >
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <c-rating-modifier-temp-item-section-lwc name="Page Section" section-items={mainOptions}
+                    main-name={mainValue} onchangekey={handleSectionChange}>
+                </c-rating-modifier-temp-item-section-lwc>
+            </div>
+            <div class="slds-col">
+                <c-rating-modifier-temp-item-section-lwc name="Sub Section" section-items={subOptions}
+                    main-name={mainValue} sub-name={subValue} onchangekey={handleSectionChange}>
+                </c-rating-modifier-temp-item-section-lwc>
+            </div>
+        </div>
+    </template>
+    <!--End Page Section and Sub Section -->
+
+    <!--Data-Table-->
+    <template if:true = {fieldItems} >
+        <lightning-datatable data={fieldItems} columns={columns} key-field="Id" onsave={handleRowSave}
+                             hide-checkbox-column="true" onrowaction={handleRowAction} draft-values={draftValues}>
+        </lightning-datatable>
+    </template>
+    <!--End Data-Table-->
+
+    <!-- View Structure start -->
+    <template if:true={isViewStructure}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <lightning-button-icon icon-name="utility:close" class="slds-float_right" onclick={closeModal} alternative-text="close"></lightning-button-icon>
+                        <h2 class="slds-modal__title slds-hyphenate">Rating Modifiers Templates Structure</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" >
+                        NOT YET!!!
+                        <!-- <template if:true={data}>
+                            <lightning-tree items={data} header={recordTypeName}></lightning-tree>
+                        </template> -->
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Close" title="Close Model" onclick={closeModal} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                </div>
+             </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>   
+    </template>
+    <!-- End View Structure start -->
+
+    <!-- Create Field modal start -->
+    <template if:true={isCreateField}>
+        <lightning-record-edit-form object-api-name="Rating_Modifier_Template__c" onsuccess={handleCreateFieldSuccess} onsubmit={handleCreateFieldSubmitSuccess}>
+            <lightning-messages></lightning-messages>
+             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                     aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                 <div class="slds-modal__container">
+                 <header class="slds-modal__header">
+                     <lightning-button-icon icon-name="utility:close" class="slds-float_right" onclick={closeCreateFieldModal} alternative-text="close"></lightning-button-icon>
+                     <h2 class="slds-modal__title slds-hyphenate">New Field</h2>
+                 </header>
+                 <div class="slds-modal__content slds-p-around_medium" >
+                     <lightning-input-field required field-name="Name" ></lightning-input-field>
+                     <lightning-input-field field-name="Product__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Modifier_Product__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Modifier_Format__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Picklist_Values__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Picklist_Default_Value__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Factor_Min__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Factor_Max__c" ></lightning-input-field>
+                     <lightning-input-field required field-name="Page_Section__c" ></lightning-input-field>
+                     <lightning-input-field required field-name="Sort_Order__c" ></lightning-input-field>
+                     <lightning-input-field required field-name="Sub_Section__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Comment__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Eligibility_Weighting_Factor__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Sort_Sub_Section__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Display_Format__c" ></lightning-input-field>
+                     <lightning-input-field field-name="Rating_Modifier_Code__c" ></lightning-input-field>
+                      
+                 </div>
+                 <footer class="slds-modal__footer">
+                     <lightning-button variant="neutral" label="Close" title="Close" onclick={closeCreateFieldModal} class="slds-m-left_x-small"></lightning-button>
+                     <lightning-button variant="brand" label="Save" title="Save" type="submit" class="slds-m-left_x-small" name="create"></lightning-button>
+                 </footer>
+             </div>
+         </section>
+         
+         <div if:true={isCreateField} class="slds-backdrop slds-backdrop_open"></div>
+         </lightning-record-edit-form>
+     </template>
+     <!-- Create Field modal End -->
+     
+     <!-- Edit Field modal start -->
+    <template if:true={isEditField}>
+        <div class="slds-card slds-p-around_medium">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <lightning-button-icon icon-name="utility:close" class="slds-float_right" onclick={closeEditFieldModal} alternative-text="close"></lightning-button-icon>
+                        <h2 class="slds-text-heading_medium slds-hyphenate">Edit Field</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium " >
+                        <div class="slds-theme_default">
+                            <div style="padding: 1% 1% 1% 1%;" class="slds-hide1">
+                                <lightning-record-edit-form record-id={fieldId} object-api-name="Rating_Modifier_Template__c" id="recordForm"
+                                        onsubmit ={handleSubmit} onsuccess={handleEditFieldSuccess}>
+                                    <lightning-messages></lightning-messages>
+                                    <div class="slds-grid">
+                                        <div class="slds-col slds-size_1-of-2">
+                                            <lightning-output-field field-name="Name"></lightning-output-field>     
+                                            <lightning-input-field field-name="Product__c" ></lightning-input-field>                                       
+                                            <lightning-input-field field-name="Modifier_Product__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Modifier_Format__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Picklist_Values__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Picklist_Default_Value__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Factor_Min__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Factor_Max__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Page_Section__c" required></lightning-input-field>
+                                            <lightning-output-field field-name="OwnerId"></lightning-output-field>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2">
+                                            <lightning-input-field field-name="Sort_Order__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Sub_Section__c" required></lightning-input-field>
+                                            <lightning-input-field field-name="Comment__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Eligibility_Weighting_Factor__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Sort_Sub_Section__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Display_Format__c"></lightning-input-field>
+                                            <lightning-input-field field-name="Rating_Modifier_Code__c"></lightning-input-field>                                            
+                                        </div>
+                                    </div>
+                                    <footer class="slds-modal__footer">                        
+                                        <lightning-button class="slds-m-left_x-small" variant="brand" type="submit" name="update" label="Save"></lightning-button>                        
+                                        <lightning-button class="slds-m-left_x-small" variant="neutral" name="cancel" label="Cancel" onclick={closeEditFieldModal}></lightning-button>             
+                                    </footer>
+                                </lightning-record-edit-form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <div if:true={isEditField} class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+
+    <template if:true={isDialogVisible}>
+        <c-confirmation-dialog-lwc title='Confirmation Title'
+            message={confirmMessage}
+            confirm-label='Yes'
+            cancel-label='Cancel'
+            visible={isDialogVisible}
+            original-message={originalMessage}
+            name="confirmModal"
+            onclick={handleDeleteField}>
+        </c-confirmation-dialog-lwc>
+    </template>
+   
+    <!-- Edit Field modal End -->
+</template>

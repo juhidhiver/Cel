@@ -1,0 +1,22 @@
+<template>
+    <div class="slds-card slds-p-around_medium" style="height: 640px;width: 700px">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon icon-name="utility:close" class="slds-float_right" onclick={closeModal} alternative-text="close"></lightning-button-icon>
+                    <h2 class="slds-modal__title slds-hyphenate">Section Setting Structure</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" >
+                    <template if:true={data}>
+                        <lightning-tree items={data} header={recordTypeName}></lightning-tree>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Close" title="Close Model" onclick={closeModal} class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+         </section>
+    </div>
+    <div class="slds-backdrop slds-backdrop_open"></div>   
+</template>

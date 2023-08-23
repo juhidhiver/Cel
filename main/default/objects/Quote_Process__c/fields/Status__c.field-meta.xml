@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Insured Info</fullName>
+                <default>true</default>
+                <label>Insured Info</label>
+            </value>
+            <value>
+                <fullName>Submission Console</fullName>
+                <default>false</default>
+                <label>Submission Console</label>
+            </value>
+            <value>
+                <fullName>Underwriting Console</fullName>
+                <default>false</default>
+                <label>Underwriting Console</label>
+            </value>
+            <value>
+                <fullName>Submission Info</fullName>
+                <default>false</default>
+                <label>Submission Info</label>
+            </value>
+            <value>
+                <fullName>Underwritting Analysis</fullName>
+                <default>false</default>
+                <label>Underwriting Analysis</label>
+            </value>
+            <value>
+                <fullName>Compare &amp; Rate Quotes</fullName>
+                <default>false</default>
+                <label>Compare &amp; Rate Quotes</label>
+            </value>
+            <value>
+                <fullName>Closed</fullName>
+                <default>false</default>
+                <label>Closed</label>
+            </value>
+            <value>
+                <fullName>Quote Console</fullName>
+                <default>false</default>
+                <label>Quote Console</label>
+            </value>
+            <value>
+                <fullName>Closed Lost</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Closed Lost</label>
+            </value>
+            <value>
+                <fullName>Closed Won</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Closed Won</label>
+            </value>
+            <value>
+                <fullName>Pre-Screening</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pre-Screening</label>
+            </value>
+            <value>
+                <fullName>Quote Version Console</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Quote Version Console</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

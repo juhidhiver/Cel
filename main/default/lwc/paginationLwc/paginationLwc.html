@@ -1,0 +1,40 @@
+<template>
+    <span>
+        <lightning-button label="First" 
+                        icon-name="utility:left" 
+                        icon-position="left" 
+                        onclick={handleFirst} 
+                        disabled={disablePrev}></lightning-button>
+        <lightning-button icon-name="utility:chevronleft" 
+                            icon-position="left" 
+                             onclick={handlePrev} 
+                            disabled={disablePrev}>
+        </lightning-button>
+    </span>
+    
+    <span key={item.name} for:each={_pageList} for:item='item'>
+            <template if:true={item.isMatched}> 
+                <span key={item.name} class="slds-p-horizontal_x-small">
+                    <lightning-formatted-text value={item.name}></lightning-formatted-text>
+                </span>
+            </template>
+                <template if:false={item.isMatched}> 
+                	<span key={item.name} class="slds-p-horizontal_x-small">
+                        <a onclick={handlePage} class="selected" name={item.name} if:true={item.isSelected}>{item.name}</a>
+                        <a onclick={handlePage}  name={item.name} if:false={item.isSelected}>{item.name}</a><!--class={(currentPageStr == item) ? 'selected' : ''}-->
+                    </span>
+            </template>
+	</span>
+    <span>
+        <lightning-button icon-name="utility:chevronright" 
+                          icon-position="right" 
+                          onclick={handleNext}
+                          disabled={disableNext}></lightning-button>
+
+    	<lightning-button label="Last" 
+                          icon-name="utility:right" 
+                          icon-position="right"
+                          onclick={handleLast}
+                          disabled={disableNext}></lightning-button>
+    </span>
+</template>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Edit_Lock</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+	ISNEW(), 
+	OR(
+		AND(
+			ISBLANK(Quote__r.Policy__c),
+			NOT(ISPICKVAL(Quote__r.Opportunity.StageName, &apos;New&apos;)), 
+			NOT(ISPICKVAL(Quote__r.Opportunity.StageName, &apos;Prospect&apos;)), 
+			NOT(ISPICKVAL(Quote__r.Opportunity.StageName, &apos;Qualified&apos;))
+		),
+		AND(
+			NOT(ISBLANK(Quote__r.Policy__c )),
+			NOT(ISPICKVAL(Quote__r.Opportunity.StageName, &apos;Closed Won&apos;))
+		) 
+	)
+)</errorConditionFormula>
+    <errorMessage>This Opportunity is locked for editing.</errorMessage>
+</ValidationRule>

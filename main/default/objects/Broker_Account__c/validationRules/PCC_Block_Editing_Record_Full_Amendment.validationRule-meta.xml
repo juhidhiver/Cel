@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PCC_Block_Editing_Record_Full_Amendment</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISNEW()),  Opportunity__r.Product_Name__c = &apos;Private Company Combo&apos;, ISPICKVAL(Opportunity__r.Type, &apos;Full Amendment&apos;))</errorConditionFormula>
+    <errorMessage>You cannot Edit Record on full amendment Submission.</errorMessage>
+</ValidationRule>

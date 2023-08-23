@@ -1,0 +1,263 @@
+<!--
+  @description       : 
+  @author            : Maeran Shaikh
+  @group             : 
+  @last modified on  : 11-24-2021
+  @last modified by  : Maeran Shaikh
+-->
+<template>
+    <template if:true={showTriggerMReProcessModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeTriggerMReProcessModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">MRe Appointment Process Email</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p><lightning-formatted-rich-text value={triggerMReProcessResult}></lightning-formatted-rich-text></p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeTriggerMReProcessModal} title="Close">Close</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <template if:true={showTriggerMReProcessButton}>
+        <lightning-button class="slds-text-align_left"
+            variant="brand" label="Trigger MRe Appointment Process" 
+            onclick={handleTriggerMReProcess}>
+        </lightning-button>                  
+    </template>
+    <div class="slds-m-top_small">
+        <div class="slds-text-heading_small">
+            <b>For Agency</b>
+        </div>
+        <div class=" slds-m-top_small">
+            <template if:true={isAppointmentNotNeededAgency}>
+                <div class="slds-text-color_destructive slds-text-align_left">{appointmentNotNeededAgencyMsg}</div>
+            </template>
+            <template if:false={isAppointmentNotNeededAgency}>
+                <template if:false={isAgencyBlank}>
+                
+                <template if:true={isNotStartedAgency}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{agencyLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isInProgressAgency}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{agencyLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Email Date</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static"><lightning-formatted-date-time value={agencyLicense.MRe_Email_Date__c}></lightning-formatted-date-time></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isVarifiedAgency}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{agencyLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Email Date</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static"><lightning-formatted-date-time value={agencyLicense.MRe_Email_Date__c}></lightning-formatted-date-time></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isAppointedAgency}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{agencyLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">Appointed States</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{agencyLicense.License_State__c}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        -->
+                        <div class="slds-col slds-size_1-of-1">
+                            <template if:true={showMReAdmittanceStateMsgAgency}>
+                                <div class="slds-text-color_destructive slds-text-align_left slds-m-top_small">{mReAdmittanceStateMsgAgency}</div>                    
+                            </template>
+                        </div>
+                    </div>
+                </template>    
+                <template if:true={isDeclinedAgency}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{agencyLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            
+                        </div>
+                    </div>
+                </template>
+                </template>
+                <template if:true={isAgencyBlank}>
+                    <div class="slds-text-color_destructive slds-text-align_left"> {brokerAgencyBlankMessage} </div>
+                </template>
+            </template>
+        </div>
+    </div>
+    <div class="slds-m-top_small">
+        <div class="slds-text-heading_small">
+        <b>For Broker</b>
+        </div>
+        <div class="slds-m-top_small">
+            <template if:true={isAppointmentNotNeededBroker}>
+                <div class="slds-text-color_destructive slds-text-align_left">{appointmentNotNeededBrokerMsg}</div>
+            </template>
+            <template if:false={isAppointmentNotNeededBroker}>
+                <template if:true={isNotStartedBroker}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{brokerLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isInProgressBroker}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{brokerLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Email Date</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static"><lightning-formatted-date-time value={brokerLicense.MRe_Email_Date__c}></lightning-formatted-date-time></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isVarifiedBroker}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{brokerLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Email Date</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static"><lightning-formatted-date-time value={brokerLicense.MRe_Email_Date__c}></lightning-formatted-date-time></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isAppointedBroker}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{brokerLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">Appointed States</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{brokerLicense.License_State__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                        <div class="slds-col slds-size_1-of-1">
+                            <template if:true={showMReAdmittanceStateMsgBroker}>
+                                <div class="slds-text-color_destructive slds-text-align_left slds-m-top_small">{mReAdmittanceStateMsgBroker}</div>                    
+                            </template>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isDeclinedBroker}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <span class="slds-form-element__label">MRe Appointment Status</span>
+                                <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{brokerLicense.MRe_Appointment_Status__c}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

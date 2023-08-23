@@ -1,0 +1,25 @@
+.Proceed {
+    color: green;
+}
+.Caution {
+    color: #f5bd1f;
+}
+.Stop {
+    color: #ff0000;
+  }
+.slds-button_icon-bare {
+    display: none;
+}
+table.tblCheckRiskHealth tr:nth-child(even) {
+    background: white;
+}
+table.tblCheckRiskHealth tr:nth-child(odd) {
+    background: rgb(243, 242, 242);
+}
+.slds-modal__container{
+    max-width: 65rem !important;
+    width: 70% !important;
+}
+.slds-icon-text-default {
+    fill: orange !important;
+}

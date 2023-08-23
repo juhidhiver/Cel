@@ -1,0 +1,441 @@
+<!--
+  @description       : 
+  @author            : Vinayesh
+  @group             : 
+  @last modified on  : 09-21-2021
+  @last modified by  : Vinayesh
+  Modifications Log 
+  Ver   Date         Author     Modification
+  1.0   07-09-2021   Vinayesh   Initial Version
+-->
+<template>
+    <!-- Dont want to show account details compact layout for this page -->
+    <!-- <template if:true={selectedAccountId}>
+        <c-custom-compact-lwc object-id={selectedAccountId} is-show-loss-detail={isShowLossDetail}
+            onlossdetail={openAccountLossDetailModel} record-id={recordId}>
+        </c-custom-compact-lwc>
+    </template> -->
+    <!--D&B Account-->
+    <!-- <div>
+        <template if:true={isOpenDB}>
+            <c-d-and-b-account-lwc onaccountinfo={handleCreateAccountDB} oncanceldb={handleCancelDB} s-object-id={recordId}>
+            </c-d-and-b-account-lwc>
+        </template>
+    </div> -->
+    <!--END D&B Account-->
+    <!--Button-->
+    <div class="slds-theme_default">
+        <template if:true={isLoadingInit}>
+          <div class="slds-spinner_container" style="height:6rem">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+              <span class="slds-assistive-text">Loading</span>
+              <div class="slds-spinner__dot-a"></div>
+              <div class="slds-spinner__dot-b"></div>
+            </div>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+          </div>
+        </template>
+      </div>
+    <div style="font-weight: bold;">
+        <table style="width:100%; margin-top: 5px; display: flex;  justify-content: flex-end;">
+            <tr>
+              <th style="padding-right: 16px;">
+                  <lightning-button class="slds-m-top_small"  disabled = {boundDisabled} variant="brand" onclick={handleSave} name="handleSave"
+                    label="Save">
+                  </lightning-button>
+                  <!-- <lightning-icon icon-name="action:remove_relationship" onclick={openSubmissionLossDetailModel} size="xx-small" 
+                                title="Open Loss Detail Page" class="slds-m-around_small"></lightning-icon>  -->
+              </th>
+              <th style="padding-right: 10px;">
+                <lightning-button class="slds-m-top_small" variant="brand" name="Next"
+                  label="NEXT:Underwriting Console >" onclick={handleChangeQuoteProcessStatus}>
+                </lightning-button>
+              </th>
+            </tr>
+          </table>
+    </div>
+    <!-- <div class="slds-clearfix slds-page-header">
+        <div class="slds-float_left">
+            <lightning-button class="slds-m-top_small" variant="brand" onclick={handleShowDB} name="createAccount"
+                label="Create D&B Account">
+            </lightning-button>&nbsp;&nbsp;
+        </div>
+        <div class="slds-float_right">
+            <lightning-button class="slds-m-top_small" variant="brand" onclick={saveAccount} name="SaveAccount"
+                label="Save">
+            </lightning-button>&nbsp;&nbsp;
+            <lightning-button class="slds-m-top_small" variant="brand" onclick={handleChangeQuoteProcessStatus}
+                name="Save" label="NEXT:Submission Info >">
+            </lightning-button>
+        </div>
+    </div> -->
+    <template for:each={mapData} for:item="item">
+        <lightning-accordion key={item} active-section-name={activeSections} allow-multiple-sections-open> 
+            <template if:false={item.isSubmission}>   
+                <div key={item} class="slds-grid slds-border_bottom">
+                    <div key={item} class="slds-col slds-size_1-of-2">
+                        <lightning-accordion-section name={item.mainSectionTitle} label={item.mainSectionTitle} class="mainSection" key={itemParentField}>
+                
+                            <lightning-layout key={item} vertical-align="top" multiple-rows="true">
+                                <template for:each={item.mainSectionFields} for:item="itemParentField">
+                                    <lightning-layout-item key={itemParentField.id} alignment-bump="right" 
+                                                            flexibility="no-flex" size="12" small-device-size="6" 
+                                                            medium-device-size="12" padding="horizontal-small"
+                                                            large-device-size="12" class="clearpaddingtop">
+                                        <c-generate-element-lwc data-something={itemParentField.sourceFieldApi} key={itemParentField.mainSectionTitle}
+                                            onhandlelookupchildselection={handleLookUpChildSelection} is-aqueous={isAqueous} data-id={itemParentField.mainSectionTitle}
+                                            object-name={itemParentField.sourceObject} object-lookup-to={itemParentField.lookupTo}
+                                            field-name={itemParentField.sourceFieldApi} format={itemParentField.format}
+                                            field-value={itemParentField.value} label={itemParentField.sourceFieldLabel}
+                                            is-change-on-account={isChangeOnAccount} read-only={itemParentField.readOnly} show-address-label-once
+                                            create-record={createRecord} required={itemParentField.required} record-type-id="" filter="">
+                                        </c-generate-element-lwc>
+                                    </lightning-layout-item>
+                                </template>
+                            </lightning-layout>
+                        </lightning-accordion-section>
+                    </div>
+                    <div key={item} class="slds-col slds-size_1-of-2">
+                        <lightning-layout key={item} vertical-align="top" multiple-rows="true">
+                            <template for:each={item.subSectionChilds} for:item="itemSub">
+                                <lightning-layout-item key={itemSub.subSectionChildTitle} alignment-bump="right" 
+                                flexibility="no-flex" size="12" 
+                                small-device-size="6" medium-device-size="12" 
+                                padding="horizontal-small" large-device-size="12" 
+                                class="clearpaddingtop">
+                                <!-- <div class="slds-box" style= "margin-top:20px"> -->
+                                    <!-- <lightning-accordion key={item} active-section-name={activeSections} allow-multiple-sections-open> -->
+                                    <template if:false={itemSub.showMreClearanceSection}>
+                                        <lightning-accordion-section name={itemSub.subSectionChildTitle} label={itemSub.subSectionChildTitle} class="mainSection subSection" key={itemParentField}>
+                                
+                                            <template for:each={itemSub.subSectionChildFields} for:item="itemParentField">
+                                        
+                                                <c-generate-element-lwc key={itemParentField} object-name={itemParentField.sourceObject}
+                                                                        onhandlelookupchildselection={handleLookUpChildSelection}
+                                                                        object-lookup-to={itemParentField.lookupTo} is-aqueous={isAqueous}
+                                                                        field-name={itemParentField.sourceFieldApi} format={itemParentField.format}
+                                                                        field-value={itemParentField.value} label={itemParentField.sourceFieldLabel}
+                                                                        is-change-on-account={isChangeOnAccount} read-only={itemParentField.readOnly} 
+                                                                        required={itemParentField.required} show-address-label-once
+                                                                        create-record={createRecord} record-type-id="" filter={itemParentField.filter}>
+                                                </c-generate-element-lwc>
+                                            </template>
+                            
+                                        </lightning-accordion-section>
+                                    </template>
+                                    <!--Added by Jai 11-Nov-2021 User Story - 52958 -code start-->
+                                    <!--Renamed to Munich Re Agency / Broker Appointment -->
+                                    <div id={itemParentField} class="mresection" style="display: none;">
+                                        <lightning-accordion key={itemParentField} active-section-name="Munich Re Agency / Broker Appointment" allow-multiple-sections-open>
+                                            <lightning-accordion-section name="Munich Re Agency / Broker Appointment" label="Munich Re Agency / Broker Appointment" class="mainSection subSection" key={itemParentField}>
+                                                <c-submission-console-m-re-lwc opp-id={oppId} broker-contact={selectedBrokerContact} insured-state={insuredState}>
+                                                </c-submission-console-m-re-lwc>
+                                            </lightning-accordion-section>
+                                        </lightning-accordion>
+                                    </div>
+                                    <!--Added by Jai 11-Nov-2021 User Story - 52958 -code end-->
+                                <!-- </lightning-accordion>      -->
+                                </lightning-layout-item>
+                            </template>
+                        </lightning-layout>
+                    </div>
+                </div>
+            </template>
+            <template if:true = {item.isSubmission}>
+           
+            <lightning-accordion-section name={item.mainSectionTitle} label={item.mainSectionTitle} class="mainSection slds-border_bottom" key={itemParentField}>
+                 <!-- POLI Component  // onvalidateclearanceapi = {handleClearanceValidateApi} removed for test -->
+                <c-combo-product-selection-lwc product-id = {productId} opp-id = {oppId} 
+                  onvalidateclearance = {handleclearancevalidate} bound-disabled = {boundDisabled}>
+                </c-combo-product-selection-lwc>
+            <lightning-record-edit-form object-api-name="Opportunity" record-id={oppId} onsuccess={handleSuccess}
+            onsubmit={handleSubmit}>
+                <lightning-layout key={item} vertical-align="top" multiple-rows="true">
+                    <template for:each={item.mainSectionFields} for:item="itemParentField">                       
+                        <lightning-layout-item key={itemParentField.id} alignment-bump="right" 
+                                                flexibility="no-flex" size="12" small-device-size="6" 
+                                                medium-device-size="6" padding="horizontal-small"
+                                                large-device-size="6" class="clearpaddingtop">
+                            <template if:true={itemParentField.isDependencyPicklist}> 
+                                <template if:true={itemParentField.readOnly}>                               
+                                    <lightning-input-field field-name={itemParentField.sourceFieldApi} value={itemParentField.value}
+                                        variant = "label-stacked" required={itemParentField.required} onchange = {handlePicklistChange}
+                                        class="required-field" disabled>
+                                    </lightning-input-field>
+                                </template>
+                                <template if:false={itemParentField.readOnly}>                               
+                                    <lightning-input-field field-name={itemParentField.sourceFieldApi} value={itemParentField.value}
+                                        variant = "label-stacked" required={itemParentField.required} onchange = {handlePicklistChange}
+                                        class="required-field">
+                                    </lightning-input-field>
+                                </template>
+                            </template>
+                            <template if:false={itemParentField.isDependencyPicklist}>  
+                                <c-generate-element-lwc data-something={itemParentField.sourceFieldApi} key={itemParentField}
+                                    onhandlelookupchildselection={handleLookUpChildSelection} is-aqueous={isAqueous}
+                                    object-name={itemParentField.sourceObject} object-lookup-to={itemParentField.lookupTo}
+                                    field-name={itemParentField.sourceFieldApi} format={itemParentField.format}
+                                    field-value={itemParentField.value} label={itemParentField.sourceFieldLabel}
+                                    is-change-on-account={isChangeOnAccount} read-only={itemParentField.readOnly} show-address-label-once
+                                    create-record={createRecord} required={itemParentField.required} record-type-id={oppRecordTypeId} filter="">
+                                </c-generate-element-lwc>
+                            </template>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+                <template for:each={item.subSectionChilds} for:item="itemSub">
+                    <lightning-accordion-section name={itemSub.subSectionChildTitle} label={itemSub.subSectionChildTitle} class="mainSection" key={itemParentField}>
+                        <lightning-layout key={item} vertical-align="top" multiple-rows="true">
+                            <template for:each={itemSub.subSectionChildFields} for:item="itemParentField">
+                                    <lightning-layout-item key={itemParentField.id} alignment-bump="right" 
+                                                            flexibility="no-flex" size="12" 
+                                                            small-device-size="6" medium-device-size="6" 
+                                                            padding="horizontal-small" large-device-size="6" 
+                                                            class="clearpaddingtop">
+                                        <c-generate-element-lwc key={itemParentField} object-name={itemParentField.sourceObject}
+                                                                object-lookup-to={itemParentField.lookupTo} is-aqueous={isAqueous}
+                                                                field-name={itemParentField.sourceFieldApi} format={itemParentField.format}
+                                                                field-value={itemParentField.value} label={itemParentField.sourceFieldLabel}
+                                                                is-change-on-account={isChangeOnAccount} read-only={itemParentField.readOnly} 
+                                                                required={itemParentField.required} show-address-label-once
+                                                                create-record={createRecord} record-type-id={oppRecordTypeId} filter="">
+                                        </c-generate-element-lwc>
+                                    </lightning-layout-item>
+                            </template>
+                        </lightning-layout>
+                </lightning-accordion-section>
+                </template>
+            </lightning-record-edit-form>
+            </lightning-accordion-section>
+           
+            </template>
+            <!-- <c-insured-account-child-lwc key={item} item={item} record-id={recordId} submission-type={submissionType}
+                selected-account-id={selectedAccountId} child-record-type-id={contactRecordTypeBusiness} submission-stage={submissionStage}
+                onhandlelookupchildselection={handleLookUpChildSelection} is-change-on-account={isChangeOnAccount}
+                record-info-defined={recordInfoDefined} record-info={recordInfo} is-aqueous={isAqueous} show-address-label-once>
+            </c-insured-account-child-lwc> -->
+        </lightning-accordion>
+    </template>
+    <footer class="slds-modal__footer">
+        <div style="font-weight: bold;">
+            <table style="width:100%; margin-top: 5px; display: flex;  justify-content: flex-end;">
+                <tr>
+                  <th style="padding-right: 16px;">
+                      <lightning-button class="slds-m-top_small" disabled = {boundDisabled} variant="brand" onclick={handleSave} name="handleSave"
+                        label="Save">
+                      </lightning-button>
+                      <!-- <lightning-icon icon-name="action:remove_relationship" onclick={openSubmissionLossDetailModel} size="xx-small" 
+                                    title="Open Loss Detail Page" class="slds-m-around_small"></lightning-icon>  -->
+                  </th>
+                  <th style="padding-right: 0px;">
+                    <lightning-button class="slds-m-top_small" variant="brand" name="Next"
+                      label="NEXT:Underwriting Console >" onclick={handleChangeQuoteProcessStatus}>
+                    </lightning-button>
+                  </th>
+                </tr>
+              </table>
+        </div>
+    </footer>
+    <c-confirmation-dialog-lwc title='Confirmation' message='Do you want to save Account data?' confirm-label='Yes'
+        cancel-label='No' visible={isDialogVisible} original-message={originalMessage} name="confirmModal"
+        onclick={handleClick}>
+    </c-confirmation-dialog-lwc>
+    <!--Account Loss Detail-->
+    <template if:true={openAccountLossDetail}>
+        <div class="slds-card slds-p-around_medium" style="height: 640px;width: 700px">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <!-- Header -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCancelAccountLossDetail}>
+                            <lightning-icon icon-name="utility:close" size="medium">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Account Loss Detail
+                        </h2>
+                    </header>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="slds-modal__content slds-p-around_medium " style="padding-bottom: 0px;"
+                        id="modal-content-id-1">
+                        <c-list-lwc title="Account Loss Detail" object-api-name="Account_Loss_Detail__c"
+                            currenrecordid={selectedAccountId} oncreatenewone={handleOpenCreateModal}
+                            onrowclick={handleRowClick} listdata={data} columns={columns}
+                            ondeleterowselected={handleDeleteRowSelected} onupdaterowselected={handleUpdateRowSelected}>
+                        </c-list-lwc>
+                    </div>
+                    <!-- End Body -->
+                    <!-- Footer -->
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Return Quote Process" variant="neutral"
+                            onclick={handleCancelAccountLossDetail}></lightning-button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    </footer>
+                    <!-- End Footer -->
+                </div>
+                <!--Confirmation Edit-->
+                <c-confirmation-dialog-lwc title='Confirmation' message={label.ACC_LOSS_DETAIL_QUOTE_CHANGE_TO_INPROGESS_CONFIRMATION} confirm-label='Confirm'
+                    cancel-label='Cancel' visible={isConfirmEditModalVisible} name="confirmModal"
+                    onclick={handlerConfirmEdit}>
+                </c-confirmation-dialog-lwc>
+                <!--End Confirmation Edit-->
+                <template if:true={openModalCreateAccountLossDetail}>
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                    title="Close" onclick={handleCancel}>
+                                    <lightning-icon icon-name="utility:close" size="medium">
+                                    </lightning-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 class="slds-text-heading_medium slds-hyphenate">Account Loss Detail</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium">
+                                <div class="slds-theme_default">
+                                    <div style="padding: 1% 1% 1% 1%;">
+                                        <template if:true={isLoading}>
+                                            <div class="slds-spinner_container">
+                                                <div role="status"
+                                                    class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                                                    <span class="slds-assistive-text">Loading</span>
+                                                    <div class="slds-spinner__dot-a"></div>
+                                                    <div class="slds-spinner__dot-b"></div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <template if:true={modeEditAccountLossDetail}>
+                                            <lightning-record-form record-id={selectedRowId}
+                                                object-api-name="Account_Loss_Detail__c" layout-type="Full" columns="2"
+                                                mode="edit" oncancel={handleCancel} onsubmit={handleSubmit}
+                                                onsuccess={handleEditSuccess}>
+                                            </lightning-record-form>
+                                        </template>
+                                        <template if:true={modeCreatedAccountLossDetail}>
+                                            <template if:true={saving}>
+                                                <div class="savingSpinner slds-align_absolute-center">
+                                                    <lightning-spinner alternative-text="Loading" size="medium">
+                                                    </lightning-spinner>
+                                                </div>
+                                            </template>
+                                            <lightning-record-edit-form object-api-name="Account_Loss_Detail__c"
+                                                layout-type="Full" columns="2" oncancel={handleCancel}
+                                                onload={handleOnLoad} onsuccess={handleAddSuccess}>
+                                                <lightning-messages></lightning-messages>
+                                                <div class="slds-grid slds-wrap">
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field field-name="Name">
+                                                        </lightning-input-field>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field field-name="Account__c"
+                                                            value={selectedAccountId}>
+                                                        </lightning-input-field>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field field-name="Loss_Amount__c">
+                                                        </lightning-input-field>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field field-name="Number_of_Losses__c">
+                                                        </lightning-input-field>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field field-name="Product__c" class="customProductCss">
+                                                        </lightning-input-field>
+                                                    </div>
+                                                    <!-- <div class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field field-name="Status__c" required>
+                                                        </lightning-input-field>
+                                                    </div> -->
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field field-name="Year__c">
+                                                        </lightning-input-field>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field field-name="Number_of_Open_Losses__c">
+                                                        </lightning-input-field>
+                                                    </div>
+                                                    <!-- <div class="slds-col slds-size_1-of-2"></div> -->
+                                                    <div class="slds-align_absolute-center">
+                                                        <lightning-button class="slds-button" onclick={handleCancel}
+                                                            label="Cancel" variant="neutral">
+                                                        </lightning-button>
+                                                        <lightning-button class="slds-button" type="submit" label="Save"
+                                                            variant="brand">
+                                                        </lightning-button>
+                                                    </div>
+                                                </div>
+                                            </lightning-record-edit-form>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </template>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+
+         <!-- Duplicate Submission-->
+    <template if:true={showDuplicateTable}>
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleClose}>
+                            <lightning-icon icon-name="utility:close" size="medium" variant="inverse">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-002" style="text-align: center;"
+                            class="slds-text-heading_medium slds-hyphenate">Existing Submissions</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <template if:true={isShowDuplicate}>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-02">
+                                <h2 style="text-align: center;"><b>{duplicatePopUptitle}</b></h2>
+                            </div> <br>
+                            <div>
+                                <lightning-datatable class="mytable" columns={columns} data={listDuplicateData}
+                                    key-field="Id" show-row-number-column="true" hide-checkbox-column
+                                    min-column-width="120"  column-widths-mode = "auto">
+                                </lightning-datatable>
+                            </div>
+                        </template><br>
+                        <template if:true={isShowDiffAgency}>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-06">
+                                <h2 style="text-align: center;"><b>{diffAgencyPopUptitle}</b></h2>
+                            </div> <br>
+                            <div>
+                                <lightning-datatable class="mytable" columns={columns} data={listDiffAgencyData}
+                                    key-field="Id" show-row-number-column="true" hide-checkbox-column
+                                     column-widths-mode = "auto">
+                                </lightning-datatable>
+                            </div>
+                        </template>
+                        <br><br>
+                        <p>{infoMsg}</p>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={handleClose}></lightning-button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <lightning-button variant="brand" label="Continue" onclick={handleCreateNew}
+                            disabled={isContinueDisabled}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+
+</template>

@@ -1,0 +1,3 @@
+<design:component >
+    <design:attribute name="submissionId" label="Submission Id"/>
+</design:component>

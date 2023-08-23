@@ -1,0 +1,46 @@
+.leftblock {
+    float: left;
+    width: 48%;
+    padding-top: 0px;
+    margin-top: 10px;
+}
+
+.rightblock {
+    float: right;
+    width: 48%;
+    padding-top: 0px;
+    margin-top: 10px;
+}
+
+.clearpaddingtop {
+    padding-top: 0px;
+}
+
+.align_left {
+    text-align: left;
+}
+.align_center {
+    text-align: center;
+}
+.align_right {
+    text-align: right;
+}
+.reason-content{
+    overflow: initial !important;
+}
+.title-shade{
+    background-color:#f3f2f2;
+    padding: 6px;
+    width: 100%;
+}
+.customMargin{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+.look{
+    color:rgb(62, 62, 60);
+    font-size: 0.75rem;
+    width:fit-content;
+}

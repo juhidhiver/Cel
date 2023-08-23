@@ -1,0 +1,369 @@
+<template>
+    <template if:true={isPI}>
+        <template if:true={isLoading}>
+            <div class="slds-spinner_container">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </template>
+        <section class="content">
+            <div if:true={data} class="columns">
+                <main class="main">
+                    <div style="height: 250px;" class="slds-scrollable_y">
+                        <c-list-lwc title="Subjectivity" object-api-name="Subjectivity__c" currenrecordid={quoteId}
+                            oncreatenewone={handleOpenCreateModal} onrowclick={handleRowClick} listdata={data}
+                            columns={columnsPI} ondeleterowselected={handleDeleteRowSelected} non-editable={nonEditable}
+                            onupdaterowselected={handleUpdateRowSelected} product={isPI} onrefresheventfromlist={refreshValueFromConfiguredSubModal}>
+                        </c-list-lwc>
+                    </div>
+    
+                </main>
+                <div class="slds-align_absolute-center">
+                    <!--<lightning-button class="slds-button slds-m-top_xx-small" label="View All"
+                        onclick={navigateToRelatedList}>
+                    </lightning-button>!-->
+                    <lightning-button class="slds-button slds-m-top_xx-small" label="Edit All" onclick={showEditALl} disabled={nonEditable}>
+                    </lightning-button>
+                </div>
+            </div>
+        </section>
+        <template if:true={openModalCreateSubjectivity}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-001" aria-modal="true"
+                aria-describedby="modal-content-id-01" class="slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCancel}>
+                            <lightning-icon icon-name="utility:close" size="medium">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-001" class="slds-text-heading_medium slds-hyphenate">{title}</h2>
+                    </header>
+    
+                    <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-01">
+                        <div class="slds-theme_default">
+                            <div style="padding: 1% 1% 1% 1%;">
+                                <template if:true={isLoading}>
+                                    <div class="slds-spinner_container">
+                                        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                                            <span class="slds-assistive-text">Loading</span>
+                                            <div class="slds-spinner__dot-a"></div>
+                                            <div class="slds-spinner__dot-b"></div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template if:true={modeEditSubjectivity}>
+                                    <lightning-record-form record-id={selectedRowId} object-api-name="Subjectivity__c"
+                                        layout-type="Full" columns="2" mode="edit" oncancel={handleCancel}
+                                        onsubmit={handleSubmit} onsuccess={handleEditSuccess}>
+                                    </lightning-record-form>
+                                </template>
+                                <template if:true={modeCreatedSubjectivity}>
+                                    <template if:true={saving}>
+                                        <div class="savingSpinner slds-align_absolute-center">
+                                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                                        </div>
+                                    </template>
+                                    <lightning-record-edit-form object-api-name="Subjectivity__c" layout-type="Full"
+                                        columns="2" oncancel={handleCancel} onload={handleOnLoad}
+                                        onsuccess={handleAddSuccess}>
+                                        <lightning-messages> </lightning-messages>
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Subjectivity__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <template if:true={quoteId}>
+                                                    <lightning-input-field field-name="Quote__c" value={quoteId} required>
+                                                    </lightning-input-field>
+                                                </template>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Subjectivity_Text__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Stage__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Cleared__c"></lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Cleared_Date__c" disabled>
+                                                </lightning-input-field>
+                                            </div>
+                                          <!--  <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Subjectivity_Status__c" required>
+                                                </lightning-input-field>
+                                            </div>-->
+                                            
+                                            <div class="slds-align_absolute-center">
+                                                <lightning-button class="slds-button" onclick={handleCancel} label="Cancel"
+                                                    variant="neutral">
+                                                </lightning-button>
+                                                <lightning-button class="slds-button" type="submit" label="Save"
+                                                    variant="brand">
+                                                </lightning-button>
+                                            </div>
+                                        </div>
+                                    </lightning-record-edit-form>
+                                </template>
+                                <template if:true={modeEditAll}>
+                                    <template if:true={saving}>
+                                        <div class="savingSpinner slds-align_absolute-center">
+                                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                                        </div>
+                                    </template>
+                                    <table if:true={data}
+                                        class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th class="" scope="col" for:each={columnsPI} for:item="column"
+                                                    key={column.fieldName}>
+                                                    <div class="slds-truncate" title={column.label}>
+                                                        {column.label}
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="slds-hint-parent" for:each={data} for:item="record" key={record.Id}>
+                                                <!--<td data-label={record.name}>
+                                                    <lightning-input value={record.name} read-only>
+                                                    </lightning-input>
+                                                </td>!-->
+                                                <td data-label={record.subjectivity}>
+                                                    <lightning-input data-id={record.Id} data-field="subjectivity"
+                                                        value={record.subjectivity} onchange={handleOnChange}>
+                                                    </lightning-input>
+                                                </td>
+                                                <td data-label={record.subjectivityText}>
+                                                    <lightning-input data-id={record.Id} data-field="subjectivityText"
+                                                        value={record.subjectivityText} onchange={handleOnChange}>
+                                                    </lightning-input>
+                                                </td>
+                                                <td data-label={record.cleared}>
+                                                    <lightning-input type="checkbox" data-id={record.Id} data-field="cleared"
+                                                        checked={record.cleared} onchange={handleOnChange}>
+                                                    </lightning-input>
+                                                </td>
+                                                <td data-label={record.clearedDate}>
+                                                    <lightning-input type="date" data-id={record.Id} data-field="clearedDate"
+                                                        value={record.clearedDate} onchange={handleOnChange} disabled>
+                                                    </lightning-input>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="slds-align_absolute-center">
+                                         <!--<lightning-button class="slds-button" onclick={handleClearAll} label="Clear All"
+                                            variant="brand">
+                                        </lightning-button>!-->
+                                        <lightning-button class="slds-button" onclick={handleCancel} label="Cancel"
+                                            variant="neutral">
+                                        </lightning-button>
+                                        <lightning-button class="slds-button" onclick={handleEditAll} label="Save"
+                                            variant="brand">
+                                        </lightning-button>
+                                    </div>
+                                </template>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </template>
+
+    <template if:false={isPI}>
+        <template if:true={isLoading}>
+            <div class="slds-spinner_container">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </template>
+        <section class="content">
+            <div if:true={data} class="columns">
+                <main class="main">
+                    <div style="height: 250px;" class="slds-scrollable_y">
+                        <c-list-lwc title="Subjectivity" object-api-name="Subjectivity__c" currenrecordid={quoteId}
+                            oncreatenewone={handleOpenCreateModal} onrowclick={handleRowClick} listdata={data}
+                            columns={columns} ondeleterowselected={handleDeleteRowSelected}
+                            onupdaterowselected={handleUpdateRowSelected} onrefresheventfromlist={refreshValueFromConfiguredSubModal}>
+                        </c-list-lwc>
+                    </div>
+    
+                </main>
+                <div class="slds-align_absolute-center">
+                    <lightning-button class="slds-button slds-m-top_xx-small" label="View All"
+                        onclick={navigateToRelatedList}>
+                    </lightning-button>
+                    <lightning-button class="slds-button slds-m-top_xx-small" label="Edit All" onclick={showEditALl}>
+                    </lightning-button>
+                </div>
+            </div>
+        </section>
+        <template if:true={openModalCreateSubjectivity}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCancel}>
+                            <lightning-icon icon-name="utility:close" size="medium">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{title}</h2>
+                    </header>
+    
+                    <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+                        <div class="slds-theme_default">
+                            <div style="padding: 1% 1% 1% 1%;">
+                                <template if:true={isLoading}>
+                                    <div class="slds-spinner_container">
+                                        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                                            <span class="slds-assistive-text">Loading</span>
+                                            <div class="slds-spinner__dot-a"></div>
+                                            <div class="slds-spinner__dot-b"></div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template if:true={modeEditSubjectivity}>
+                                    <lightning-record-form record-id={selectedRowId} object-api-name="Subjectivity__c"
+                                        layout-type="Full" columns="2" mode="edit" oncancel={handleCancel}
+                                        onsubmit={handleSubmit} onsuccess={handleEditSuccess}>
+                                    </lightning-record-form>
+                                </template>
+                                <template if:true={modeCreatedSubjectivity}>
+                                    <template if:true={saving}>
+                                        <div class="savingSpinner slds-align_absolute-center">
+                                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                                        </div>
+                                    </template>
+                                    <lightning-record-edit-form object-api-name="Subjectivity__c" layout-type="Full"
+                                        columns="2" oncancel={handleCancel} onload={handleOnLoad}
+                                        onsuccess={handleAddSuccess}>
+                                        <lightning-messages> </lightning-messages>
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Name" readonly></lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <template if:true={quoteId}>
+                                                    <lightning-input-field field-name="Quote__c" value={quoteId} required>
+                                                    </lightning-input-field>
+                                                </template>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Subjectivity__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Stage__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Subjectivity_Status__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Due_Date__c"></lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-1">
+                                                <lightning-input-field field-name="Subjectivity_Type__c" required>
+                                                </lightning-input-field>
+                                            </div>
+                                            <div class="slds-align_absolute-center">
+                                                <lightning-button class="slds-button" onclick={handleCancel} label="Cancel"
+                                                    variant="neutral">
+                                                </lightning-button>
+                                                <lightning-button class="slds-button" type="submit" label="Save"
+                                                    variant="brand">
+                                                </lightning-button>
+                                            </div>
+                                        </div>
+                                    </lightning-record-edit-form>
+                                </template>
+                                <template if:true={modeEditAll}>
+                                    <template if:true={saving}>
+                                        <div class="savingSpinner slds-align_absolute-center">
+                                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                                        </div>
+                                    </template>
+                                    <table if:true={data}
+                                        class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th class="" scope="col" for:each={columns} for:item="column"
+                                                    key={column.fieldName}>
+                                                    <div class="slds-truncate" title={column.label}>
+                                                        {column.label}
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="slds-hint-parent" for:each={data} for:item="record" key={record.Id}>
+                                                <!-- <td data-label={record.name}>
+                                                    <lightning-input value={record.name} read-only>
+                                                    </lightning-input>
+                                                </td> -->
+                                                <td data-label={record.subjectivity}>
+                                                    <!-- <div class="slds-truncate"> -->
+                                                    <lightning-input data-id={record.Id} data-field="subjectivity"
+                                                        value={record.subjectivity} onchange={handleOnChange}>
+                                                     </lightning-input>
+                                                     <!-- </div> -->
+                                                </td>
+                                                <td data-label={record.subjectivityStatus}>  
+                                                    <!-- <div class="slds-size_1-of-3"> -->
+                                                    <lightning-combobox data-id={record.Id} data-field="subjectivityStatus"
+                                                        value={record.subjectivityStatus}
+                                                        options={StatusPicklistValues.data.values}
+                                                        onchange={handleOnChange}>
+                                                    </lightning-combobox>
+                                                    <!-- </div> -->
+                                                </td>
+                                                <!-- <td data-label={record.subjectivityType}>
+                                                    <lightning-combobox data-id={record.Id} data-field="subjectivityType"
+                                                        value={record.subjectivityType}
+                                                        options={TypePicklistValues.data.values} onchange={handleOnChange}>
+                                                    </lightning-combobox>
+                                                </td> -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="slds-align_absolute-center">
+                                        <lightning-button class="slds-button" onclick={handleCancel} label="Cancel"
+                                            variant="neutral">
+                                        </lightning-button>
+                                        <lightning-button class="slds-button" onclick={handleEditAll} label="Save"
+                                            variant="brand">
+                                        </lightning-button>
+                                    </div>
+                                </template>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </template>
+
+
+   
+</template>

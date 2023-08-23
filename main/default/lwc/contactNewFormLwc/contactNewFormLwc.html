@@ -1,0 +1,59 @@
+<template>
+    <template if:false={openNext}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Contact</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-3">
+                        </div>
+                        <div class="slds-col slds-size_2-of-3">
+                            <lightning-radio-group name="RecordType"
+                                        label="Select a record Type"
+                                        options={recordTypePl}
+                                        value={recordTypeId}
+                                    type="radio"
+                                    onchange={handleRecordTypeChange}></lightning-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button class="slds-button" onclick={handleClose} label="Cancel" variant="neutral">
+                    </lightning-button>
+                    <lightning-button class="slds-button" onclick={handleNext} label="Next" variant="brand">
+                    </lightning-button>
+                </footer>			
+            </div>
+        </section>
+    </template>
+    <template if:true={openNext}>
+        <c-contact-init-form-lwc account-id={accountId} record-type-id={recordTypeId} record-type-name={recordTypeName} onclose={handleClose}></c-contact-init-form-lwc>
+    </template> 
+</template>
+    
+    
+    
+    <!-- <div class="modal-header slds-modal__header">
+        <h2 id="header99" class="title slds-text-heading--medium">New Contact</h2>
+    </div>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-3">
+        </div>
+        <div class="slds-col slds-size_2-of-3">
+            <lightning-radio-group name="RecordType"
+                          label="Select a record Type"
+                          options={recordTypePl}
+                          value={recordTypeId}
+                          type="radio"
+                          onchange={handleRecordTypeChange}></lightning-radio-group>
+        </div>
+    </div>
+    
+    <footer class="slds-modal__footer">
+        <lightning-button class="slds-button" onclick={handleClose} label="Cancel" variant="neutral">
+        </lightning-button>
+        <lightning-button class="slds-button" onclick={handleNext} label="Next" variant="brand">
+        </lightning-button>
+    </footer>-->

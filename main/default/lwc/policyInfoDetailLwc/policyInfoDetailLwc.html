@@ -1,0 +1,116 @@
+<template>
+    <lightning-record-edit-form
+      object-api-name="Policy__c"
+      record-id={policyId}
+      onsuccess={handleSuccess}
+      onsubmit={handleSubmit}>
+          <template if:true={sectionList}>
+        <div class="mainTab">
+          <template if:true={isEditForm}>
+            <div class="slds-text-align_center">
+              <lightning-button
+                class="slds-m-top_small"
+                name="update"
+                variant="brand"
+                type="submit"
+                label="Save"
+              ></lightning-button>
+            </div>
+          </template>
+          <div class="sectionTab">
+            <lightning-accordion
+              active-section-name={mainActiveSections}
+              allow-multiple-sections-open>
+              <template for:each={sectionList} for:item="section">
+                <lightning-accordion-section
+                  name={section.mainSectionTitle}
+                  label={section.mainSectionTitle}
+                  key={section.mainSectionTitle}
+                  class="mainSection"
+                >
+                  <div class="slds-grid slds-wrap">
+                    <lightning-layout horizontal-align="space" vertical-align="top" multiple-rows="true">
+                      <template
+                        for:each={section.mainSectionFields}
+                        for:item="field"
+                      >
+                      <lightning-layout-item key={field.sourceFieldApi} alignment-bump="right" flexibility="no-flex" 
+                      size="12" small-device-size="6" medium-device-size="6" padding="horizontal-small"
+                      large-device-size="6" class="clearpaddingtop">
+                          <template if:false={isEditForm}>
+                            <div
+                              class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent"
+                            >
+                              <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                  <lightning-output-field
+                                    field-name={field.sourceFieldApi}
+                                  ></lightning-output-field>
+                                  
+                                </div>
+                                <div class="slds-button slds-button_icon slds-button__icon_hint">
+                                  <lightning-button-icon
+                                    icon-name="utility:edit"
+                                    onclick={handleEditClick}
+                                    variant="bare"
+                                    alternative-text="Edit"
+                                    title="Edit"
+                                  >
+                                  </lightning-button-icon>
+                                </div>
+                              </div>
+                            </div>
+                          </template>
+                          <template if:true={isEditForm}>
+                            <lightning-input-field
+                              name={field.sourceFieldApi}
+                              field-name={field.sourceFieldApi}
+                              onchange={handleChangeInputValue}>
+                            </lightning-input-field>
+                              <!-- <c-generate-element-lwc onhandlelookupchildselection={handleLookUpChildSelection}
+                                                    object-name={field.sourceObject}
+                                                    object-lookup-to={field.lookupTo} 
+                                                    field-name={field.sourceFieldApi} format={field.format}
+                                                    field-value={field.value} 
+                                                    label={field.sourceFieldLabel}>
+                              </c-generate-element-lwc> -->
+                          </template>
+                        </lightning-layout-item>
+                      </template>
+                    </lightning-layout>
+                  </div>
+                </lightning-accordion-section>
+              </template>
+            </lightning-accordion>
+          </div>
+        </div>
+      </template>
+      
+      <!--<footer class="slds-modal__footer">
+        <div class="slds-clearfix">
+          <div class="slds-float_left">
+            <lightning-button class="slds-m-top_small" variant="brand" name="Previous" label="< PREVIOUS:Insured Info">
+            </lightning-button>
+          </div>
+  
+          <template if:true={isEditForm}>
+            <div class="slds-float_center">
+              <lightning-button
+                class="slds-m-top_small"
+                name="update"
+                type="submit"
+                variant="brand"
+                label="Save"
+              ></lightning-button>
+            </div>
+          </template>
+  
+          <div class="slds-float_right">
+            <lightning-button class="slds-m-top_small" variant="brand" name="Next" label="NEXT:Underwriter Analysis >">
+            </lightning-button>
+          </div>
+        </div>
+      </footer>-->
+    </lightning-record-edit-form>
+    <template if:false={sectionList}>{error}</template>
+  </template>

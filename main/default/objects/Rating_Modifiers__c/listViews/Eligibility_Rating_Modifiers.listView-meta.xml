@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Eligibility_Rating_Modifiers</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Page_Section__c</field>
+        <operation>contains</operation>
+        <value>Eligibility</value>
+    </filters>
+    <label>Eligibility Rating Modifiers</label>
+</ListView>

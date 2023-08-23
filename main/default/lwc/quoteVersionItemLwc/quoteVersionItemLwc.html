@@ -1,0 +1,59 @@
+<template>
+    <li>
+        <div class="slds-timeline__item_expandable slds-timeline__item_task slds-is-open">
+            <span class="slds-assistive-text">task</span>
+            <div class="slds-media">
+                <div class="slds-media__figure">
+                    <button class="slds-button slds-button_icon" title = {versionName} aria-controls="task-item-expanded" aria-expanded="true">
+                        <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                        </svg>
+                        <span class="slds-assistive-text">{versionName}</span>
+                    </button>
+                    <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon" title="task">
+                        <lightning-icon icon-name="standard:call_history" size="small"></lightning-icon>
+                    </div>
+                </div>
+                <div class="slds-media__body">
+                    <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+
+                            <h3 class="slds-truncate" title="Review proposals for EBC deck with larger team and have marketing review this">
+                                <a href="javascript:void(0);">
+                                    <strong>{versionName}</strong>
+                                </a>
+                            </h3>
+                            <div class="slds-no-flex">
+                                <span class="slds-icon_container slds-icon-utility-rotate" title="Recurring Task">
+                                    <svg class="slds-icon slds-icon_xx-small slds-icon-text-default slds-m-left_x-small" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#rotate"></use>
+                                    </svg>
+                                <span class="slds-assistive-text">Recurring Task</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="slds-timeline__actions slds-timeline__actions_inline">
+                            <p class="slds-timeline__date">{createdDate}</p>
+                        </div>
+                    </div>
+                    <article class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium" id="task-item-expanded" aria-hidden="false">
+                       <ul>
+                           <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate" style="padding: 1% 1% 1% 1%;"> &nbsp;&nbsp;&nbsp;Changed In This Version</h2>
+
+                           <template  for:each={listFieldsChanged} for:item="item">
+                            <li style="padding-left: 5%;" key={item.fieldChangedName} >
+                                <div class="" style="padding: 0.5% 0.5% 0.5% 0.5%">
+                                    {item.fieldChangedName}  &nbsp;changed to&nbsp; {item.valueChanged}
+                                </div>
+                            </li>
+                        </template>
+                       </ul>
+                        <div style="padding: 1% 1% 1% 1%;">
+                        <lightning-button  label="Use This Version" title="Use This Version" onclick={handleSelectVersionChild}   class="slds-m-left_x-small"></lightning-button>
+                        <lightning-button  label="Version Quote Letter" title="Version Quote Letter" icon-name="utility:download" class="slds-m-left_x-small"></lightning-button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </li>
+</template>

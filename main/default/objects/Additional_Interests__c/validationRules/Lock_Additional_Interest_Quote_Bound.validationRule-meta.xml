@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Additional_Interest_Quote_Bound</fullName>
+    <active>true</active>
+    <description>Can&apos;t create or update Additional interest when Quote status is &apos;Quoted&apos; or &apos;Presented&apos; or &apos;Bound&apos; or &apos;Bound Pending&apos;</description>
+    <errorConditionFormula>OR(
+				ISPICKVAL(Quote__r.Status, &quot;Bound&quot;),
+				ISPICKVAL(Quote__r.Status, &quot;Bound Pending&quot;)
+)</errorConditionFormula>
+    <errorMessage>Can&apos;t create or update Additional interest when Quote status is &apos;Quoted&apos; or &apos;Presented&apos; or &apos;Bound&apos; or &apos;Bound Pending&apos;</errorMessage>
+</ValidationRule>

@@ -1,0 +1,52 @@
+<aura:component controller="GeneratePolicyDocumentController" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+
+    <aura:attribute name = "docType" type="String" />
+    <aura:attribute name = "docTypeOptions" type="List" />
+    <aura:attribute name = "errorMsg" type="String" />
+    <aura:attribute name = "isLoading" type="Boolean" />
+    <aura:attribute name = "columns" type="List" />
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="selectedQuoteId" type="String"/>
+    <aura:attribute name="changeEndorsementValue" type="Object" default="ChangeEndorsement"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <div class="modal-header slds-modal__header">
+        <h2 id="header99" class="title slds-text-heading--medium">Generate Policy Document</h2>
+    </div>
+    <div class="slds-p-bottom_x-small">
+        <lightning:select aura:id="docType" name="docType" label="Document Type" value="{!v.docType}">
+            <option value="">Document Type...</option>
+            <aura:iteration items="{!v.docTypeOptions}" var="item">
+                <option label="{!item.label}" value="{!item.value}"></option>
+            </aura:iteration>
+        </lightning:select>
+        <aura:if isTrue="{!v.isLoading}">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </aura:if>
+    </div>
+    <aura:if isTrue="{!v.docType == v.changeEndorsementValue}">
+        <div class="slds-p-vertical_xx-small">
+            <aura:if isTrue="{!v.data.length > 0}">
+                <div class="slds-text-heading_small slds-p-bottom_xx-small">Select a quote:</div>
+                <lightning:datatable columns="{! v.columns }" 
+                                    data="{! v.data }"
+                                    keyField="Id"
+                                    maxRowSelection="1"
+                                    onrowselection="{!c.updateSelectedQuote}"/>
+                <aura:set attribute="else">
+                    <div class="slds-text-heading_small slds-text-color_destructive">No quotes are available to select.</div>
+                </aura:set>
+            </aura:if>
+        </div>
+    </aura:if>
+
+    <div class="slds-modal__footer" style="box-shadow: none!important">
+        <lightning:button variant="Neutral" label="Cancel" title="Cancel" onclick="{! c.handleCancelClick }"/>
+        <ui:button class="slds-button slds-button_brand" label="Generate" buttonTitle="Generate" press="{! c.handleConfirmClick }"/>
+    </div>
+</aura:component>

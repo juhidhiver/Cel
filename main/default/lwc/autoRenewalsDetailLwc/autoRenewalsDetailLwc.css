@@ -1,0 +1,5 @@
+.slds-textarea {
+min-height: 100px !important;    
+height: 100px !important;
+--slds-c-textarea-sizing-min-height : 100px !important;
+}

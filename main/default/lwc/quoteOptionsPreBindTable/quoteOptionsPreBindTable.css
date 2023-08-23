@@ -1,0 +1,9 @@
+.slds-modal__container {
+    max-width: 80rem !important;
+    width: 80% !important;
+}
+
+.tableOverride {
+    max-width: 100% !important;
+    width: 100% !important;
+}

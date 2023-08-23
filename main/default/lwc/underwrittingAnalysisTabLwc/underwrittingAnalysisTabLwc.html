@@ -1,0 +1,337 @@
+<!--
+  @File Name          : underwrittingAnalysisTabLwc.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 12-23-2020
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    4/14/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+    <div class="mainTab">
+        <template if:false={isNotHaveData}>
+            <div style="display: inline; padding-top: 10px;" align="center">
+                <template if:true={isProductAQPI}>
+                    <div style="float: left;">
+                        <lightning-button variant="brand" name="Previous" label="< PREVIOUS:Submission Info"
+                        onclick={handlePreviousScreen}></lightning-button>
+                    </div>
+                </template>
+                <div style="float: center;">
+                    <lightning-button disabled={disableSaveButton} variant="brand" label="Save" title="Save" onclick={saveRecord}></lightning-button>
+                    &nbsp;                
+                    <lightning-button variant="brand" label="Check Risk Health" title="Check Risk Health"
+                            onclick={clickCheckRiskHealth}></lightning-button>   
+                </div>
+            </div>
+            <!--div class="slds-text-align_center">
+                <template if:true={isProductAQPI}>
+                    <lightning-button variant="brand" name="Previous" label="< PREVIOUS:Submission Info"
+                    onclick={handlePreviousScreen}></lightning-button>
+                </template>
+                <lightning-button disabled={disableSaveButton} variant="brand" label="Save" title="Save" onclick={saveRecord}></lightning-button>
+                &nbsp;                
+                <lightning-button variant="brand" label="Check Risk Health" title="Check Risk Health"
+                        onclick={clickCheckRiskHealth}></lightning-button>                
+            </div>
+            <template if:true={isProductAQPI}>
+                <div class="slds-text-align_right">
+                    <lightning-button variant="brand-outline" label="Decline" title="Decline"
+                            onclick={handleSubmissionDecline}></lightning-button>
+                </div>
+            </template-->
+            <div class="sectionTab">
+                <lightning-accordion allow-multiple-sections-open="true" active-section-name={mainActiveSections}>
+                    <template for:each={mainSectionWraps.mainSections} for:item="mainSecWrap">
+                        <lightning-accordion-section key={mainSecWrap} name={mainSecWrap.name} label={mainSecWrap.name}
+                            class="mainSection">
+                            <!-- Body Section -->
+                            <div class="slds-grid slds-wrap mainSection">
+                                <template for:each={mainSecWrap.items} for:item="obj">
+                                    <div key={obj}
+                                        class="slds-size_1-of-2 slds-max-small-size_1-of-1 slds-p-around_xx-small">
+                                        <table>
+                                            <tr>
+                                                <td class="align_center" style="width:50%; padding: .5rem;">
+                                                    <span><template if:true={obj.item.Is_Required__c}>
+                                                            <abbr class="slds-required" title="required">*</abbr>
+                                                        </template>
+                                                        <template
+                                                            if:true={obj.item.SME_Question__c}>{obj.item.SME_Question__c}</template>
+                                                        <template
+                                                            if:false={obj.item.SME_Question__c}>{obj.item.Name}</template>
+                                                    </span>
+                                                </td>
+                                                <td style="width:50%">
+                                                    <template if:true={obj.item.isDate}>
+                                                        <lightning-input label="" type="date" name={obj.item.Id}
+                                                            value={obj.item.Rating_Modifier_Value__c}
+                                                            onchange={handleChangeMain} class={obj.inputClass}
+                                                            readonly={obj.isReadOnly} required={obj.item.Is_Required__c}
+                                                            date-style="short">
+                                                        </lightning-input>
+                                                    </template>
+                                                    <template if:true={obj.item.isPicklist}>
+                                                        <lightning-combobox label="" options={obj.pickOptList}
+                                                            name={obj.item.Id} value={obj.item.Rating_Modifier_Value__c}
+                                                            onchange={handleChangeMain} disabled={obj.isReadOnly}
+                                                            class={obj.inputClass}>
+                                                        </lightning-combobox>
+                                                    </template>
+                                                    <template if:true={obj.item.isRadioButton}>
+                                                        <div class="radio">
+                                                            <lightning-radio-group label="" name={obj.item.Id}
+                                                                options={obj.pickOptList}
+                                                                value={obj.item.Rating_Modifier_Value__c} type="radio"
+                                                                onchange={handleChangeMain} disabled={obj.isReadOnly}
+                                                                class={obj.inputClass}></lightning-radio-group>
+                                                        </div>
+                                                    </template>
+
+                                                    <template if:true={obj.item.isCurrency}>
+                                                        <lightning-input type="number" name={obj.item.Id} label=""
+                                                            value={obj.item.Rating_Modifier_Value__c} formatter="currency"
+                                                            step="0.01" onchange={handleChangeMain}
+                                                            disabled={obj.isReadOnly} class={obj.inputClass}>
+                                                        </lightning-input>
+                                                    </template>
+                                                    <template if:true={obj.item.isPercentage}>
+                                                        <lightning-input type="number" label="" format="decimal"
+                                                            value={obj.item.Rating_Modifier_Value__c} step="0.001"
+                                                            name={obj.item.Id} onchange={handleChangeMain}
+                                                            disabled={obj.isReadOnly} class={obj.inputClass}>
+                                                        </lightning-input>
+                                                    </template>
+
+                                                    <!-- If Modifier Format is Integer -->
+                                                    <template if:true={obj.item.isInteger}>
+                                                        <lightning-input type="number" name={obj.item.Id} label=""
+                                                            min={obj.item.Factor_Min__c} max="999999999999999999"
+                                                            value={obj.item.Rating_Modifier_Value__c}
+                                                            onchange={handleChangeMain} onblur={handleBlur}
+                                                            disabled={obj.isReadOnly} class={obj.inputClass}>
+                                                        </lightning-input>
+                                                    </template>
+
+                                                    <!-- If Modifier Format is Number -->
+                                                    <template if:true={obj.item.isNumber}>
+                                                        <template if:true={isProductAQPI}>
+                                                            <lightning-input type="number" label="" name={obj.item.Id} formatter="decimal" step="0.01"
+                                                                min={obj.item.Factor_Min__c} value={obj.item.Rating_Modifier_Value__c}
+                                                                max={obj.item.Factor_Max__c} onchange={handleChangeMain}
+                                                                disabled={obj.isReadOnly} class={obj.inputClass}>
+                                                            </lightning-input>
+                                                        </template>
+                                                        <template if:false={isProductAQPI}>
+                                                            <lightning-input type="number" name={obj.item.Id} label=""
+                                                                value={obj.item.Rating_Modifier_Value__c}
+                                                                formatter="decimal" onchange={handleChangeMain}
+                                                                disabled={obj.isReadOnly} class={obj.inputClass}>
+                                                            </lightning-input>
+                                                        </template>
+                                                    </template>
+
+                                                    <!-- If Modifier Format is Text -->
+                                                    <template if:true={obj.item.isText}>
+                                                        <lightning-input type="text" name={obj.item.Id} label=""
+                                                            value={obj.item.Rating_Modifier_Value__c}
+                                                            onchange={handleChangeMain} disabled={obj.isReadOnly}
+                                                            class={obj.inputClass}></lightning-input>
+                                                    </template>
+
+                                                    <!-- If Modifier Format is Text Area -->
+                                                    <template if:true={obj.item.isTextArea}>
+                                                        <lightning-textarea name={obj.item.Id} label="" value={obj.item.Rating_Modifier_Value__c}
+                                                        onchange={handleChangeMain} disabled={obj.isReadOnly} maxlength={obj.item.Factor_Max__c}
+                                                        class={obj.inputClass}></lightning-textarea>
+                                                    </template>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </template>
+
+                                <template for:each={mainSecWrap.subSections} for:item="subSecWrap">
+                                    <div key={subSecWrap} class="slds-size_12-of-12 slds-grid slds-wrap subSection">
+                                        <div class="slds-col slds-size_8-of-12">
+                                            {subSecWrap.name}
+                                        </div>
+                                    </div>
+                                    <template for:each={subSecWrap.items} for:item="subObj">
+                                        <div key={subObj}
+                                            class="slds-size_1-of-2 slds-max-small-size_1-of-1 slds-p-around_xx-small">
+                                            <table>
+                                                <tr>
+                                                    <td class="align_center"
+                                                        style="width:50%; text-align: right; padding: .5rem; vertical-align:top;">
+
+                                                        <span><template if:true={subObj.item.Is_Required__c}>
+                                                                <abbr class="slds-required" title="required">*</abbr>
+                                                            </template> {subObj.item.Name}
+                                                        </span>
+                                                    </td>
+                                                    <td class="align_center" style="width:50%">
+                                                        <template if:true={subObj.item.isPicklist}>
+                                                            <lightning-combobox label={subObj.item.Name}
+                                                                variant="label-hidden"
+                                                                value={subObj.item.Rating_Modifier_Value__c}
+                                                                options={subObj.pickOptList} aura:id="fieldId"
+                                                                name={subObj.item.Id} onchange={handleChangeChild}
+                                                                disabled={subObj.isReadOnly} class={subObj.inputClass}>
+                                                            </lightning-combobox>
+                                                        </template>
+                                                        <template if:true={subObj.item.isRadioButton}>
+                                                            <div class="radio">
+                                                                <lightning-radio-group name={subObj.item.Id} label=""
+                                                                    options={subObj.pickOptList}
+                                                                    value={subObj.item.Rating_Modifier_Value__c}
+                                                                    type="radio" onchange={handleChangeChild}
+                                                                    disabled={subObj.isReadOnly}
+                                                                    class={subObj.inputClass}></lightning-radio-group>
+                                                            </div>
+                                                        </template>
+                                                        <template if:true={subObj.item.isDate}>
+                                                            <lightning-input label="" type="date" name={subObj.item.Id}
+                                                                value={subObj.item.Rating_Modifier_Value__c}
+                                                                onchange={handleChangeChild} class={subObj.inputClass}
+                                                                readonly={subObj.isReadOnly}
+                                                                required={subObj.item.Is_Required__c}
+                                                                date-style="short">
+                                                            </lightning-input>
+                                                        </template>
+                                                        <template if:true={subObj.item.isCurrency}>
+                                                            <lightning-input type="number" name={subObj.item.Id}
+                                                                label="" value={subObj.item.Rating_Modifier_Value__c}
+                                                                onchange={handleChangeChild} formatter="currency"
+                                                                disabled={subObj.isReadOnly} class={subObj.inputClass}>
+                                                            </lightning-input>
+                                                        </template>
+                                                        <template if:true={subObj.item.isPercentage}>
+                                                            <lightning-input type="number" label="" format="decimal"
+                                                                aura:id="fieldId"
+                                                                value={subObj.item.Rating_Modifier_Value__c}
+                                                                step="0.001" name={subObj.item.Id}
+                                                                onchange={handleChangeChild}
+                                                                disabled={subObj.isReadOnly} class={subObj.inputClass}>
+                                                            </lightning-input>
+                                                        </template>
+
+                                                        <!-- If Modifier Format is Integer -->
+                                                        <template if:true={subObj.item.isInteger}>
+                                                            <lightning-input type="number" name={subObj.item.Id}
+                                                                label="" aura:id="fieldId"
+                                                                min={subObj.item.Factor_Min__c} max="999999999999999999"
+                                                                value={subObj.item.Rating_Modifier_Value__c}
+                                                                onchange={handleChangeChild} onblur={handleBlur}
+                                                                disabled={subObj.isReadOnly} class={subObj.inputClass}>
+                                                            </lightning-input>
+                                                        </template>
+
+                                                        <!-- If Modifier Format is Number -->
+                                                        <template if:true={subObj.item.isNumber}>
+                                                            <lightning-input type="number" name={subObj.item.Id}
+                                                                label="" aura:id="fieldId"
+                                                                value={subObj.item.Rating_Modifier_Value__c}
+                                                                formatter="decimal" onchange={handleChangeChild}
+                                                                disabled={subObj.isReadOnly} class={subObj.inputClass}>
+                                                            </lightning-input>
+                                                        </template>
+
+                                                        <!-- If Modifier Format is Text -->
+                                                        <template if:true={subObj.item.isText}>
+                                                            <lightning-input type="text" name={subObj.item.Id} label=""
+                                                                aura:id="fieldId"
+                                                                value={subObj.item.Rating_Modifier_Value__c}
+                                                                onchange={handleChangeChild}
+                                                                disabled={subObj.isReadOnly} class={subObj.inputClass}>
+                                                            </lightning-input>
+                                                        </template>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </lightning-accordion-section>
+                    </template>
+                </lightning-accordion>
+                <template if:true={isProductAQPI}>
+                    <lightning-accordion allow-multiple-sections-open="true"
+                        active-section-name={workTypeAnalysisSection}>
+                        <lightning-accordion-section key={isProductAQPI} name={workTypeAnalysisSection}
+                            label={workTypeAnalysisSection} class="mainSection">
+                            <c-work-type-analysis-section opportunity-id={opportunityId} disable-save-button={disableSaveButton}
+                                annual-gross-fee={annualGrossFee} onsendotalnotional={handleNotionalIncomeChange} onsendeventtoallowsave={handleEventToAllowSaveWorkType}>
+                            </c-work-type-analysis-section>
+                        </lightning-accordion-section>
+                    </lightning-accordion>
+                </template>
+                <!--Mary Start-->
+                <template if:true={isProductAQPI}>
+                    <lightning-accordion allow-multiple-sections-open="true"
+                        active-section-name={claimDetails}>
+                        <lightning-accordion-section key={isProductAQPI}  name={claimDetails}
+                            label={claimDetails} class="mainSection">
+                            <c-claims-details-section ongetclaimsrecordcount={handleClaimDetailLabel} record-id-opportunity={opportunityId} no-claim-to-display={noClaimsReturned}></c-claims-details-section>                   
+                        </lightning-accordion-section>
+                    </lightning-accordion>
+                </template> 
+                <!--Mary Stop-->
+            </div>
+            <div style="display: inline; padding-top: 10px;" align="center">
+                <template if:true={isProductAQPI}>
+                    <div style="float: left;">
+                        <lightning-button variant="brand" name="Previous" label="< PREVIOUS:Submission Info"
+                        onclick={handlePreviousScreen}></lightning-button>
+                    </div>
+                </template>
+                <div style="float: center;">
+                    <lightning-button disabled={disableSaveButton} variant="brand" label="Save" title="Save" onclick={saveRecord}></lightning-button>
+                    &nbsp;                
+                    <lightning-button variant="brand" label="Check Risk Health" title="Check Risk Health"
+                            onclick={clickCheckRiskHealth}></lightning-button>   
+                </div>
+            </div>
+            <!--div class="slds-text-align_center" style="padding-top: 10px">
+                <lightning-button disabled={disableSaveButton} variant="brand" label="Save" title="Save" onclick={saveRecord}></lightning-button>
+                &nbsp;
+                <lightning-button variant="brand" label="Check Risk Health" title="Check Risk Health"
+                    onclick={clickCheckRiskHealth}></lightning-button>
+            </div-->
+
+            <template if:true={isProductCyber}>
+                <br><br>
+                <div>
+                    <c-pro-con-analysis-lwc opportunity-id={opportunityId} disable-pros-and-cons={disableProsAndCons}></c-pro-con-analysis-lwc>
+                </div>
+            </template>
+        </template>
+        <template if:true={isNotHaveData}>
+            This submission don't have any rating modifier to show
+            <template if:true={isProductAQPI}>
+                <div class="slds-text-align_center" style="padding-top: 10px">
+                    <lightning-button variant="brand" name="Previous" label="< PREVIOUS:Submission Info"
+                            onclick={handlePreviousScreen}></lightning-button>
+                </div>
+            </template>
+        </template>
+    </div>
+
+    
+    <template if:false={isProductAQPI}>
+        <template if:true={isOpenModal}>
+            <c-check-risk-health-lwc product-name={productName} opportunity-id={opportunityId} onclose={closeModal} onvalidatepage={handleValidateProceedToQuote}
+                onchangequoteprocessstatus={changeQuoteProcessStatus} onsendquotelayer={handleSendQuoteLayer}></c-check-risk-health-lwc>
+        </template>
+    </template>
+    <template if:true={isProductAQPI}>
+        <template if:true={isOpenModal}>
+            <c-check-risk-health-lwc-a-q product-name={productName} opportunity-id={opportunityId} onclose={closeModal} onvalidatepagenew={handleValidateProceedToQuote}
+                onchangequoteprocessstatus={changeQuoteProcessStatus} onsendquotelayer={handleSendQuoteLayer} 
+                disable-primary={isPrimaryDisableButton} disable-excess={isExcessDisableButton} main-section-wraps={mainSectionWraps.mainSections}></c-check-risk-health-lwc-a-q>
+        </template>
+    </template>
+</template>

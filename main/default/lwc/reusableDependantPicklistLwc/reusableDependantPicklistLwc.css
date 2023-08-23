@@ -1,0 +1,18 @@
+.div-2 {
+	padding-right: var(--lwc-spacingXLarge);
+	overflow: visible;
+	object-fit: contain;
+	text-align: left;
+	--sds-c-badge-text-color: var(--lwc-colorTextError);
+	padding: inherit;
+	padding-left: 5px;
+	padding-right:5px;
+}
+
+.p-1 {
+	padding-right: var(--lwc-spacingSmall);
+}
+
+.comboBox {
+    display: grid;
+}

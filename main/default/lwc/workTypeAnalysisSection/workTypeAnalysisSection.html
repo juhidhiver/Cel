@@ -1,0 +1,291 @@
+<!--
+  @description       : 
+  @author            : Saumyak Pandey
+  @last modified on  : 25-01-2021
+  Modifications Log 
+  Ver   Date         Author           Modification
+  1.0   25-01-2021   Saumyak Pandey   Initial Version
+-->
+<template>
+    <div class="slds-align_absolute-center">
+        <lightning-button-icon size="large" icon-class="my-icon-style" icon-name="utility:save" variant="container"
+            title="Save" onclick={handleSaveTableData} disabled={disableSaveButton}>
+        </lightning-button-icon>
+        <lightning-button-icon size="large" icon-class="my-icon-style" icon-name="utility:add" variant="container"
+            title={addButtonLabel} onclick={handleAddNewRow} disabled={disableSaveButton}>
+        </lightning-button-icon>
+    </div>
+    <div style="overflow-x: auto;">
+        <table style="border-collapse: collapse;" class="tableFixed">
+            <template if:true={isLoadingTable}>
+                <div>
+                    <lightning-spinner alternative-text="Loading" size="medium"><span>Loading</span>
+                    </lightning-spinner>
+                </div>
+            </template>
+            <tr>
+                <td style="width: 450px;" class="noBorder tdTop">
+                    <div class="slds-align_absolute-center blue-color">
+                        <b>Professional Work Splits - {proWorkSplitSectionName}</b>
+                    </div>
+                    <table class="slds-table noBorder">
+                        <thead>
+                            <tr class="slds-line-height_reset" style="height: 2.5rem;">
+                                <th class="noBorder">Work Type</th>
+                                <th class="noBorder" style="width: 100px; ">Split %</th>
+                                <th class="noBorder" style="width: 150px;">Amount</th>
+                                <th class="noBorder" style='width:10px'>Heat Map</th>
+                                <th class="noBorder" style='width:8px'>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={uwAnalysisProWorkSplitList} for:item="UWitem">
+                                <tr key={UWitem.identifier}>
+                                    <td class="noBorder">
+                                        <div class="slds-p-top_x-small" style="white-space: normal;padding-left: 0px">
+                                            {UWitem.name}</div>
+                                    </td>
+                                    <td class="noBorder">
+                                        <div class=" slds-p-top_x-small slds-text-align_left">
+                                            <lightning-input type="number" formatter="percent-fixed" step="0.01"
+                                                name={UWitem.splitClass} value={UWitem.splitPercentage} max="100"
+                                                onchange={handleOnChange} class={UWitem.splitClass}
+                                                variant="label-hidden" disabled={disableSaveButton} required>
+                                            </lightning-input>
+                                        </div>
+                                    </td>
+                                    <td class="noBorder">
+                                        <div class=" slds-p-top_x-small">
+                                            <lightning-input type="number" formatter="currency" step="any"
+                                                name={UWitem.amountClass} value={UWitem.amount}
+                                                onchange={handleOnChange} class={UWitem.amountClass}
+                                                variant="label-hidden" disabled={disableSaveButton} required>
+                                            </lightning-input>
+                                        </div>
+                                    </td>
+                                    <td class="noBorder">
+                                        <div class=" slds-p-top_x-small">
+                                            {UWitem.ratingFactor}
+                                        </div>
+                                    </td>
+                                    <td class="noBorder">
+                                        <lightning-button-icon icon-name="utility:delete" variant="container"
+                                            title="Delete" data-id={UWitem.identifier} onclick={handleDelete}
+                                            disabled={disableSaveButton}>
+                                        </lightning-button-icon>
+                                    </td>
+                                </tr>
+                            </template>
+                            <tr>
+                                <td class="slds-p-around_x-small noBorder"><b>Total</b></td>
+                                <td class="slds-p-around_x-small noBorder"><b>{totalProWorkSplitSplitPercentDisplay}%</b></td>
+                                <td class="slds-p-around_x-small noBorder"><b>{totalProWorkSplitAmountDisplay}</b></td>
+                            </tr>
+                        </tbody>    
+                    </table>
+
+                </td>
+                <template if:true={isDnCTurnover}>
+                    <td class="noBorder tdTop" style="width: 450px;">
+                        <div class="slds-align_absolute-center blue-color">
+                            <b>{pageSectionDnCName}</b>
+                        </div>
+                        <table class="slds-table noBorder">
+                            <thead>
+                                <tr class="slds-line-height_reset" style="height: 2.5rem;">
+                                    <th class="noBorder">Area</th>
+                                    <th class="noBorder" style="width: 100px; ">Split %</th>
+                                    <th class="noBorder" style="width: 150px;">Income</th>
+                                    <th class="noBorder">Notional Income </br>After factor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={uwAnalysisDnCTurnoverList} for:item="UWitem">
+                                    <tr key={UWitem.identifier}>
+                                        <td class="noBorder">
+                                            <div class="slds-p-top_x-small"
+                                                style="white-space: normal;padding-left: 0px">
+                                                {UWitem.name}</div>
+                                        </td>
+                                        <td class="noBorder">
+                                            <div class=" slds-p-top_x-small slds-text-align_left">
+                                                <lightning-input type="number" formatter="percent-fixed" step="0.01"
+                                                    name={UWitem.splitClass} max="100" value={UWitem.splitPercentage}
+                                                    onchange={handleOnChange} class={UWitem.splitClass}
+                                                    variant="label-hidden" disabled={disableSaveButton} required>
+                                                </lightning-input>
+                                            </div>
+                                        </td>
+                                        <td class="noBorder">
+                                            <div class=" slds-p-top_x-small">
+                                                <lightning-input type="number" formatter="currency" step="0.01"
+                                                    name={UWitem.amountClass} value={UWitem.amount}
+                                                    onchange={handleOnChange} class={UWitem.amountClass}
+                                                    variant="label-hidden" disabled={disableSaveButton} required>
+                                                </lightning-input>
+                                            </div>
+                                        </td>
+                                        <td class="noBorder">
+                                            <div class=" slds-p-top_x-small">
+                                                <lightning-formatted-number value={UWitem.notonalIncome}
+                                                    format-style="currency"></lightning-formatted-number>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <tr>
+                                    <td class="slds-p-around_x-small noBorder"><b>Total</b></td>
+                                    <td class="slds-p-around_x-small noBorder"><b>{totalDnCSplitPercentDisplay}%</b></td>
+                                    <td class="slds-p-around_x-small noBorder"><b>{totalDnCAmountDisplay}</b></td>
+                                    <td class="slds-p-around_x-small noBorder"><b>{totalNotionalIncomeDisplay}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </template>
+                <td class="noBorder tdTop" style="width: 350px;">
+                    <div class="slds-align_absolute-center blue-color">
+                        <b>Territory Splits</b>
+                    </div>
+                    <table class="slds-table noBorder">
+                        <thead>
+                            <tr class="slds-line-height_reset" style="height: 2.5rem;">
+                                <th class="noBorder">Territory</th>
+                                <th class="noBorder" style="width: 90px;">Risk Capture %</th>
+                                <!-- <th class="noBorder" style="width: 90px;">Territory Factor</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={uwAnalysisTerritoryList} for:item="UWitem">
+                                <tr key={UWitem.identifier}>
+                                    <td class="noBorder">
+                                        <div class="slds-p-top_x-small" style="white-space: normal;padding-left: 0px">
+                                            {UWitem.name}</div>
+                                    </td>
+                                    <td class="noBorder">
+                                        <div class=" slds-p-top_x-small slds-text-align_left">
+                                            <lightning-input type="number" formatter="percent-fixed" step="0.01"
+                                                name={UWitem.splitClass} value={UWitem.splitPercentage} max="100"
+                                                onchange={handleOnChange} class={UWitem.splitClass}
+                                                variant="label-hidden" disabled={disableSaveButton} required>
+                                            </lightning-input>
+                                        </div>
+                                    </td>
+                                    <!-- <td class="noBorder">
+                                        <div class=" slds-p-top_x-small">
+                                            {UWitem.ratingFactor}
+                                        </div>
+                                    </td> -->
+                                </tr>
+                            </template>
+                            <tr>
+                                <td class="slds-p-around_x-small noBorder"><b>Total</b></td>
+                                <td class="slds-p-around_x-small noBorder"><b>{totalRiskPercentDisplay}%</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <template if:true={addUWAnalysisModal}>
+        <div class="slds-card slds-p-around_medium" style="height: 60px; width:700px;">
+            <section role="dialog" tabindex="-1" aria-label="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <template if:true={isLoadingModal}>
+                        <div>
+                            <lightning-spinner alternative-text="Loading" size="medium"><span>Loading</span>
+                            </lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={isLoadingModal}>
+                        <header class="slds-modal__header">
+                            <lightning-button-icon icon-name="utility:close" class="slds-float_right"
+                                onclick={closeModal} alternative-text="close"></lightning-button-icon>
+                            <h2 class="slds-modal__title slds-hyphenate">{pageSectionName}</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <div style='background: rgb(243, 242, 242);'>
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col">
+                                        <span>Search {pageSectionName}</span>
+                                        <lightning-input type="text" label="" variant="label-hidden" value={searchTerm}
+                                            onchange={handleSearchTextChange} disabled={disableSaveButton}>
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-col">
+                                        <span>Search by Category</span>
+                                        <lightning-combobox variant="label-hidden" options={option} name="Category"
+                                            value={mainProfession} onchange={handleChangeCategory} disabled>
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                                <!-- Search Results table-->
+                                <br><br>
+                                <h3 style="color: blue; font-weight: bold;">Search Results</h3><br>
+                                <div class="slds-align_absolute-center">
+                                    <lightning-button variant="success" title='Add' label='Add'
+                                        onclick={handleAddUWTemplates}>
+                                    </lightning-button>
+                                </div>
+                                <br>
+                                <div>
+                                    <template if:true={UWAnalysisTemplates}>
+                                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                            <thead>
+                                                <tr class="slds-line-height_reset">
+                                                    <th scope="col" style="width:2rem;">
+                                                        <div class="slds-checkbox">
+                                                            <lightning-input type="checkbox" name="selectAll"
+                                                                class="selectAllChkBox" onchange={selectAllRow}
+                                                                disabled={disableSaveButton}>
+                                                            </lightning-input>
+                                                        </div>
+                                                    </th>
+                                                    <th key={pageSectionName} class="" scope="col">
+                                                        <div class="slds-truncate" title={pageSectionName}>
+                                                            {pageSectionName}</div>
+                                                    </th>
+                                                    <th key={pageSectionName} class="" scope="col">
+                                                        <div class="slds-truncate" title={pageSectionName}>
+                                                            Base Rates</div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template for:each={UWAnalysisTemplates} for:item='item'>
+                                                    <tr key={item.Id} class="slds-hint-parent">
+                                                        <td class="slds-text-align_right" role="gridcell">
+                                                            <div class="slds-checkbox">
+                                                                <lightning-input type="checkbox" name={item.Id}
+                                                                    class="chkBox" id={item.Id} value={item.Id}
+                                                                    onchange={selectRow} disabled={disableSaveButton}>
+                                                                </lightning-input>
+                                                            </div>
+                                                        </td>
+                                                        <td role="gridcell" style="max-width: 20rem;">
+                                                            <div class="slds-truncate" style="white-space: normal;">
+                                                                {item.UW_Analysis_Name__c}
+                                                            </div>
+                                                        </td>
+                                                        <td role="gridcell" style="max-width: 5rem;">
+                                                            <div class="slds-truncate" style="white-space: normal;">
+                                                                {item.Base_Rates__c}
+                                                            </div>                                                            
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </template>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </section>
+        </div>
+    </template>
+</template>

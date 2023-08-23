@@ -1,0 +1,70 @@
+<aura:component >
+	<aura:method name ="openLimitAndDeductiblesModal" action="{!c.openLimitAndDeductiblesModal}">
+		<aura:attribute name="coverageLineItemObject" type="Object"/>
+	</aura:method>
+    
+    <aura:attribute name="item" type="Object"/>
+    
+    <aura:attribute name="optionType" type="String"/>
+	<aura:attribute name="optionPicklist" type="Object[]"/>
+	<aura:attribute name="optionValueDefault" type="Object"/>
+    
+    <aura:attribute name="minAmount" type="Decimal"/>
+	<aura:attribute name="maxAmount" type="Decimal"/>
+	<aura:attribute name="incrementStep" type="Decimal"/>
+	<aura:attribute name="rangeInput" type="Object"/>
+    
+    <aura:attribute name="errorMessage" type="String" default=""/>
+    
+    <!-- Handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    
+    
+    <!-- Custom error message -->
+		<aura:if isTrue="{!!empty(v.errorMessage) }">
+		  	<div class="slds-notify_container slds-is-relative">
+		    	<div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+		      		<span class="slds-assistive-text">error</span>
+		      		<span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="{!v.errorMessage}">
+		     	 	</span>
+			      	<div class="slds-notify__content">
+			        	<div class="slds-text-heading_x-small ">{!v.errorMessage}</div>
+			      	</div>
+		    	</div>
+		  	</div>
+	    </aura:if>
+
+	    <!-- Primary content -->
+		<div class="slds-grid slds-gutters">
+			<!-- Left column -->
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input class="marginBottomFix" label="Option" disabled="true" value="{!v.limitsDeductibles.currentItem.Name}"/>
+				<lightning:input class="marginBottomFix" label="Parent Coverage" disabled="true" value="{!v.limitsDeductibles.currentItem.Parent_Coverage__r.Name}"/>
+				<lightning:input class="marginBottomFix" label="Type" disabled="true" value="{!v.limitsDeductibles.currentItem.Type__c}"/>
+			</div>
+
+			<!-- Right column -->
+			<div class="slds-col slds-size_1-of-2">
+				<!-- Case Picklist -->
+				<aura:if isTrue="{! v.optionType == 'Picklist' }">
+					<lightning:select class="marginBottomFix" aura:id="optionPicklistId" label="Availables option values">
+						<aura:iteration items="{!v.optionPicklist}" var="optionElement">
+							<option value="{!optionElement}" text="{!optionElement}" selected="{!optionElement == v.optionValueDefault ? true : false}"></option>
+						</aura:iteration>
+					</lightning:select>
+				</aura:if>
+
+				<!-- Case Range -->
+				<aura:if isTrue="{! v.optionType == 'Range' }">
+					<lightning:input type="number" class="marginBottomFix" label="Min($)" disabled="true" value="{!v.minAmount}"/>
+					<lightning:input type="number" class="marginBottomFix" label="Max($)" disabled="true" value="{!v.maxAmount}"/>
+					<lightning:input type="number" class="marginBottomFix" label="Increment" disabled="true" value="{!v.incrementStep}"/>
+					<lightning:input type="number" class="marginBottomFix" label="Amount($)" disabled="false" min="{!v.minAmount}" max="{!v.maxAmount}" step="{!v.incrementStep}" value="{!v.rangeInput}"/>
+				</aura:if>
+			</div>
+		</div>
+ 
+</aura:component>

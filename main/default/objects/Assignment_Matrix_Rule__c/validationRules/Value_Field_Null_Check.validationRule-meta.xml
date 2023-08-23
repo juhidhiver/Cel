@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Value_Field_Null_Check</fullName>
+    <active>true</active>
+    <description>Value must be null for null check operator</description>
+    <errorConditionFormula>(ISPICKVAL(Operator__c, &apos;Is Null&apos;) || ISPICKVAL(Operator__c, &apos;Not Null&apos;)) 
+&amp;&amp; NOT(ISBLANK(Value__c))</errorConditionFormula>
+    <errorMessage>Value field must be blank for Null check</errorMessage>
+</ValidationRule>

@@ -1,0 +1,115 @@
+<aura:component controller="AddLocationController" implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName">
+	<aura:attribute name="parentId" type="String"/>
+	<aura:attribute name="parentAPIName" type="String"/>
+	<aura:attribute name="locationAPIName" type="String"/>
+	<aura:attribute name="objAPIName" type="String"/>
+	<aura:attribute name="newLocationRec" type="Location__c" 
+		default="{ 'sobjectType' : 'Location__c',
+				   'Address__c' : '',
+				   'City__c' :'',
+				   'State_Province__c' : '',
+				   'State_Code__c' : '',
+				   'Postal_Code__c' : '',
+				   'Country__c' : '',
+				   'Country_Code__c' : '',
+				   'Geolocation__Latitude__s' : '',
+				   'Geolocation__Longitude__s' : '',
+				   'County__c' : ''
+				 }"/>
+	<aura:attribute name="address" type="String"/>
+	<aura:attribute name="usageType" type="String"/>
+	<aura:attribute name="usageTypes" type="List"/>
+	<aura:attribute name="countries" type="List"/>
+	<aura:attribute name="error" type="String"/>
+	<aura:attribute name="sObjectName" type="String"/>
+	<aura:attribute name="isFromNewButton" type="Boolean" default="false" />
+	<aura:attribute name="isPrimaryLoc" type="Boolean" default="true" />
+	
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:registerEvent name="addLocationEvent" type="c:addLocationEvent"/>
+
+	<aura:handler name="chooseAnAddressEvent" event="c:strike_evt" action="{!c.onChoosingAddress}"/>
+	<aura:handler name="removeAnAddressEvent" event="c:strike_evt" action="{!c.onRemovingAddress}"/>
+
+		<div role="dialog" tabindex="-1" aria-labelledby="header99" class="slds-modal slds-fade-in-open ">
+	        <div class="slds-modal__container">
+	          <!-- ###### MODAL BOX HEADER Part Start From Here ######-->
+	        	<div class="slds-modal__header">
+	            	<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.cancelAddLocation}" >
+	                <lightning:icon iconName="utility:close" alternativeText="Close" size="small" class="dialog-icon"/>
+	                <span class="slds-assistive-text">Close</span>
+	            	</button>
+	            	<h2 id="header99" class="slds-text-heading--medium">New Location</h2>
+	         	 </div>
+	          	<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+	          		<aura:if isTrue="{! !empty(v.error)}">
+						  <div class="slds-notify_container slds-is-relative">
+						    	<div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+						      		<span class="slds-assistive-text">error</span>
+						      		<span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+						     	 	</span>
+							      	<div class="slds-notify__content">
+							        	<h2 class="slds-text-heading_small ">{!v.error}</h2>
+							      	</div>
+						    	</div>
+						  </div>
+				    </aura:if>
+				    <c:strike_lookup aura:id="AddressLookup"
+				    		countrySearch="{!v.newLocationRec.Country__c}"
+						    label="Address"
+						    iconName="standard:address"
+						    loadingMessage="Loading..."
+						    placeholder="Search an address..."
+						    errorMessage="Invalid input"
+						    required="true"
+						    showRecentRecords="false"
+						    value="{!v.address}" />
+					
+					<div class="slds-m-top_small">
+				    	<ui:inputText aura:id="City" label="City" placeholder="City..." value="{!v.newLocationRec.City__c}" required="true"/>
+				  	</div>
+				  	<div class="slds-m-top_small">
+				    	<ui:inputText aura:id="State_Province" label="State/Province" placeholder="State/Province..." value="{!v.newLocationRec.State_Province__c}" />
+				    </div>
+				    <div class="slds-m-top_small">
+				    	<ui:inputText aura:id="Postal_Code" label="Postal Code" placeholder="Postal Code..." value="{!v.newLocationRec.Postal_Code__c}" required="true"/>
+					</div>
+					<lightning:select aura:id="Country" name="Country" label="Country" required="true" value="{!v.newLocationRec.Country__c}">
+		            	<option value="">Country...</option>
+		            	<aura:iteration items="{!v.countries}" var="country">
+				        	<option value="{!country.value}" select="">{!country.label}</option>
+				    	</aura:iteration>
+				    </lightning:select>
+				    <!-- Add county -->
+				    <div class="slds-m-top_small">
+				    	<ui:inputText aura:id="County" label="County" placeholder="County..." value="{!v.newLocationRec.County__c}" />
+					</div>
+				    <!-- End -->
+				    <aura:if isTrue="{!v.parentId}">
+					    <div class="slds-m-top_small">
+
+						    <lightning:select aura:id="UsageType" name="UsageType" label="Usage Type" value="{!v.usageType}">
+				            	<option value="">Usage Type...</option>
+				            	<aura:iteration items="{!v.usageTypes}" var="item">
+						        	<option value="{!item.value}" selected="{!item.isSelected}">{!item.label}</option>
+						    	</aura:iteration>
+						       
+						    </lightning:select>
+						</div>
+					</aura:if>
+					<!--  Quan Tran on 6/12/2019 - add primary location checkbox -->
+					<div class="slds-m-top_small">
+						<!--<ui:inputCheckbox aura:id="PrimaryLocCheck" label="Primary Location" value="{!v.isPrimaryLoc}"/>-->
+						<lightning:input type="checkbox" label="Primary Location" disabled="false" checked="{!v.isPrimaryLoc}"/>
+					</div>					
+	          	</div>
+	          	<div class="slds-modal__footer">	          		
+	            	<button class="slds-button slds-button--neutral" onclick="{!c.cancelAddLocation}">Cancel</button>
+	            	<button class="slds-button slds-button_brand" onclick="{!c.saveLocation}">Save</button>
+	         	 </div>
+	          
+	        </div>
+	    </div>
+	    <div class="slds-backdrop slds-backdrop--open"></div>
+
+</aura:component>

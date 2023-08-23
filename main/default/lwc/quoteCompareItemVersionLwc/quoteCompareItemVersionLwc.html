@@ -1,0 +1,14 @@
+<template>
+    <div class = "slds-card">
+        <div class="slds-grid" style="padding: 2% 2% 2% 2%;">
+            <div class=""><lightning-icon icon-name="standard:social" size="small"></lightning-icon>
+            </div>
+            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> &nbsp;&nbsp;&nbsp;Version History ({versionSize})</h2>
+        </div>
+    <ul class="slds-timeline">
+        <template for:each={versionList} for:item="item">
+            <c-quote-version-item-lwc onchildversionselected = {handleSelectedVersionCh} key={item.version} version-id={item.versionId} created-date={item.createdDate} list-fields-changed={item.fieldsChanged} version-name={item.version}></c-quote-version-item-lwc>
+        </template>
+    </ul>
+    </div>
+</template>

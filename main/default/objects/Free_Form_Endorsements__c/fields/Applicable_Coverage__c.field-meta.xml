@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Applicable_Coverage__c</fullName>
+    <externalId>false</externalId>
+    <label>Applicable Coverage</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>GENERAL TERMS AND CONDITIONS</fullName>
+                <default>false</default>
+                <label>GENERAL TERMS AND CONDITIONS</label>
+            </value>
+            <value>
+                <fullName>DIRECTORS AND OFFICERS LIABILITY COVERAGE SECTION</fullName>
+                <default>false</default>
+                <label>DIRECTORS AND OFFICERS LIABILITY COVERAGE SECTION</label>
+            </value>
+            <value>
+                <fullName>EMPLOYMENT PRACTICES LIABILITY COVERAGE SECTION</fullName>
+                <default>false</default>
+                <label>EMPLOYMENT PRACTICES LIABILITY COVERAGE SECTION</label>
+            </value>
+            <value>
+                <fullName>FIDUCIARY LIABILITY COVERAGE SECTION</fullName>
+                <default>false</default>
+                <label>FIDUCIARY LIABILITY COVERAGE SECTION</label>
+            </value>
+            <value>
+                <fullName>CRIME COVERAGE SECTION</fullName>
+                <default>false</default>
+                <label>CRIME COVERAGE SECTION</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

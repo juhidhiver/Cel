@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Additional_Requirements__c</fullName>
+    <externalId>false</externalId>
+    <label>Additional Requirements</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Rating Required</fullName>
+                <default>false</default>
+                <label>Rating Required</label>
+            </value>
+            <value>
+                <fullName>Load by Default</fullName>
+                <default>false</default>
+                <label>Load by Default</label>
+            </value>
+            <value>
+                <fullName>Schedule</fullName>
+                <default>false</default>
+                <label>Schedule</label>
+            </value>
+            <value>
+                <fullName>Fixed</fullName>
+                <default>false</default>
+                <label>Fixed</label>
+            </value>
+            <value>
+                <fullName>Part-Fixed</fullName>
+                <default>false</default>
+                <label>Part-Fixed</label>
+            </value>
+            <value>
+                <fullName>Exclude from NB and Renewal view</fullName>
+                <default>false</default>
+                <label>Exclude from NB and Renewal view</label>
+            </value>
+            <value>
+                <fullName>Load without limit</fullName>
+                <default>false</default>
+                <label>Load without limit</label>
+            </value>
+            <value>
+                <fullName>Do not show on Endorsement widget</fullName>
+                <default>false</default>
+                <label>Do not show on Endorsement widget</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,0 +1,30 @@
+.leftblock {
+    float: left;
+    width: 48%;
+    padding-top: 0px;
+    margin-top: 10px;
+}
+
+.rightblock {
+    float: right;
+    width: 48%;
+    padding-top: 0px;
+    margin-top: 10px;
+}
+
+.clearpaddingtop {
+    padding-top: 0px;
+}
+
+.align_left {
+    text-align: left;
+}
+.align_center {
+    text-align: center;
+}
+.align_right {
+    text-align: right;
+}
+.reason-content{
+    overflow: initial !important;
+}

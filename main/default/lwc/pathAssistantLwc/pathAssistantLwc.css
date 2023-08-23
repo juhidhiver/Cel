@@ -1,0 +1,12 @@
+.slds-theme_default{
+    background-color: transparent;
+}
+
+.slds-modal__container{
+    width: 90%;
+    max-width: 90rem;
+}
+.slds-modal__container[c-optionWorkSubmissionLwc_optionWorkSubmissionLwc] {
+    width: 90%;
+    max-width: 90rem;
+}

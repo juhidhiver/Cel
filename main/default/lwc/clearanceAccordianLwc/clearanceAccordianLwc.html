@@ -1,0 +1,452 @@
+<!--
+  @description       : 
+  @author            : Prashank
+  @group             : 
+  @last modified on  : 08-31-2021
+  @last modified by  : Maeran Shaikh
+  Modifications Log 
+  Ver   Date         Author     Modification
+  1.0   06-25-2021   Prashank   Initial Version
+-->
+<template>
+
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+    </template>
+    <div class="slds-p-around_xx-small">
+        <lightning-card variant="base" class="card-2">
+            <div class="slds-card__body_inner">
+                <!-- Dependent Picklists at Top -->
+                <!-- <template if:true={firstDependentPicklistList}>
+
+                    <div class="div-2 slds-box">
+                        <lightning-layout multiple-rows pull-to-boundary="medium">
+                            <lightning-layout-item size="3" padding="horizontal-small" class="slds-var-p-top_medium">
+                                <span>{firstDependentPicklistList.Name}</span>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="7" padding="horizontal-small" class="slds-align-middle">
+                                <template if:true={firstDependentPicklistList.controlPicklistApiName}>
+                                    <c-reusable-dependant-picklist-lwc is-pcc-component="true"
+                                        object-api-name={firstDependentPicklistList.objApiName}
+                                        dependent-picklist-api-name={firstDependentPicklistList.dependPicklistApiName}
+                                        dependant-picklist-label=""
+                                        controlling-picklist-api-name={firstDependentPicklistList.controlPicklistApiName}
+                                        controlling-picklist-label="" onselectedpicklists={handlePicklist}
+                                        data-id={firstDependentPicklistList.ratingModifierCode}
+                                        data-product-name={firstDependentPicklistList.productName}
+                                        data-index={firstDependentPicklistList.index}>
+                                    </c-reusable-dependant-picklist-lwc>
+                                </template>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+                </template> -->
+                <!-- Dependent Picklists at Top -->
+                <template if:true={ratingModifierList}>
+                    <lightning-accordion allow-multiple-sections-open="true" active-section-name={activeSections} onsectiontoggle={handleToggleSection}>
+                        <template for:each={ratingModifierList} for:item="eachProduct"
+                            for:index="indexCountPageSection">
+                            <lightning-accordion-section data-index={indexCountPageSection} class="mainSection"
+                                name={eachProduct.productName} key={eachProduct} label={eachProduct.productName} padding="3px">
+                                <div class="divTableBox">
+                                    <template for:each={eachProduct.modifiersList} for:item="eachratingModifier"
+                                        for:index="modifierIndex">
+                                        <template if:false={eachratingModifier.isChildSection}>
+                                            <div class="div-2 slds-box" key={eachratingModifier.ratingModifiers.Id}>
+                                                <lightning-layout multiple-rows pull-to-boundary="medium">
+                                                    <lightning-layout-item size="3" padding="horizontal-small"
+                                                        class="slds-var-p-top_medium">
+                                                        <span><template
+                                                                if:true={eachratingModifier.ratingModifiers.Is_Required__c}>
+                                                                <abbr class="slds-required" title="required">*</abbr>
+                                                            </template>{eachratingModifier.ratingModifiers.Name}</span>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="7" padding="horizontal-small"
+                                                        class="slds-align-middle">
+
+                                                        <template if:true={eachratingModifier.pickListType}>
+                                                            <template if:true={eachratingModifier.controlPicklistApiName}>
+                                                                <c-reusable-dependant-picklist-lwc is-pcc-component="true"
+                                                                    value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                    object-api-name={eachratingModifier.objApiName}
+                                                                    dependent-picklist-api-name={eachratingModifier.dependPicklistApiName}
+                                                                    dependant-picklist-label=""
+                                                                    controlling-picklist-api-name={eachratingModifier.controlPicklistApiName}
+                                                                    controlling-picklist-label=""
+                                                                    selected-controlling-value={eachratingModifier.ratingModifiers.Controlling_Picklist_Value__c}
+                                                                    selected-dependent-value={eachratingModifier.ratingModifiers.Dependent_Picklist_Value__c}
+                                                                    required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                    is-read-only="true">
+                                                                </c-reusable-dependant-picklist-lwc>
+                                                            </template>
+                                                            <template if:false={eachratingModifier.controlPicklistApiName}>
+                                                                <lightning-combobox
+                                                                    value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                    placeholder="Select.." variant="label-hidden"
+                                                                    options={eachratingModifier.pickListValueList}
+                                                                    required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                    onchange={handleEventChange} data-index={modifierIndex}
+                                                                    data-id={eachratingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                    data-product-name={eachratingModifier.ratingModifiers.Product__c}
+                                                                    data-format={eachratingModifier.ratingModifiers.Format__c}>
+                                                                </lightning-combobox>
+                                                            </template>
+
+                                                        </template>
+                                                        <template if:true={eachratingModifier.numberType}>
+                                                            <lightning-input type="number" label=""
+                                                                required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                variant="label-hidden"
+                                                                value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                data-index={modifierIndex} onchange={handleEventChange}
+                                                                data-id={eachratingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                data-product-name={eachratingModifier.ratingModifiers.Product__c}
+                                                                data-format={eachratingModifier.ratingModifiers.Format__c}>
+                                                            </lightning-input>
+                                                        </template>
+                                                        <template if:true={eachratingModifier.currencyType}>
+                                                            <lightning-input type="number" label=""
+                                                                required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                variant="label-hidden"
+                                                                value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                data-index={modifierIndex} onchange={handleEventChange}
+                                                                data-id={eachratingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                data-product-name={eachratingModifier.ratingModifiers.Product__c}
+                                                                data-format={eachratingModifier.ratingModifiers.Format__c}>
+                                                            </lightning-input>
+                                                        </template>
+                                                        <template if:true={eachratingModifier.percentageType}>
+                                                            <lightning-input type="number" label=""
+                                                                required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                variant="label-hidden"
+                                                                value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                data-index={modifierIndex} onchange={handleEventChange}
+                                                                data-id={eachratingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                data-product-name={eachratingModifier.ratingModifiers.Product__c}
+                                                                data-format={eachratingModifier.ratingModifiers.Format__c}>
+                                                            </lightning-input>
+                                                        </template>
+                                                        <template if:true={eachratingModifier.integerType}>
+                                                            <lightning-input type="number" label=""
+                                                                required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                variant="label-hidden"
+                                                                value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                data-index={modifierIndex} onchange={handleEventChange}
+                                                                data-id={eachratingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                data-product-name={eachratingModifier.ratingModifiers.Product__c}
+                                                                data-format={eachratingModifier.ratingModifiers.Format__c}>
+                                                            </lightning-input>
+                                                        </template>
+                                                        <template if:true={eachratingModifier.textType}>
+                                                            <lightning-input type="text" label=""
+                                                                required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                variant="label-hidden"
+                                                                value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                data-index={modifierIndex} onchange={handleEventChange}
+                                                                data-id={eachratingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                data-product-name={eachratingModifier.ratingModifiers.Product__c}
+                                                                data-format={eachratingModifier.ratingModifiers.Format__c}>
+                                                            </lightning-input>
+                                                        </template>
+                                                        <template if:true={eachratingModifier.radioButtonType}>
+                                                            <lightning-radio-group label=""
+                                                                required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                variant="label-hidden"
+                                                                name={eachratingModifier.ratingModifiers.Id}
+                                                                options={eachratingModifier.pickListValueList}
+                                                                value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                data-index={modifierIndex} onchange={handleEventChange}
+                                                                data-id={eachratingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                data-product-name={eachratingModifier.ratingModifiers.Product__c}
+                                                                data-format={eachratingModifier.ratingModifiers.Format__c}>
+                                                            </lightning-radio-group>
+                                                        </template>
+                                                        <template if:true={eachratingModifier.dateType}>
+                                                            <lightning-input type="date" label=""
+                                                                required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                variant="label-hidden"
+                                                                value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                onchange={handleEventChange} data-index={modifierIndex}
+                                                                data-id={eachratingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                data-product-name={eachratingModifier.ratingModifiers.Product__c}
+                                                                data-format={eachratingModifier.ratingModifiers.Format__c}>
+                                                            </lightning-input>
+                                                        </template>
+                                                        <template if:true={eachratingModifier.textAreaType}>
+                                                            <lightning-textarea label=""
+                                                                required={eachratingModifier.ratingModifiers.Is_Required__c}
+                                                                variant="label-hidden"
+                                                                value={eachratingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                onchange={handleEventChange} data-index={modifierIndex}
+                                                                data-id={eachratingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                data-product-name={eachratingModifier.ratingModifiers.Product__c}
+                                                                data-format={eachratingModifier.ratingModifiers.Format__c}>
+                                                            </lightning-textarea>
+                                                        </template>
+
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="2">
+                                                        <div class="slds-text-align_center">
+                                                            <template
+                                                                if:true={eachratingModifier.ratingModifiers.Eligibility_Status__c}>
+                                                                <!-- <span class="slds-badge">{eachratingModifier.status}</span> -->
+                                                                <lightning-badge class={eachratingModifier.badgeColor}
+                                                                    label={eachratingModifier.ratingModifiers.Eligibility_Status__c}>
+                                                                </lightning-badge>
+                                                            </template>
+                                                        </div>
+                                                    </lightning-layout-item>
+                                                </lightning-layout>
+                                            </div>
+                                        </template>
+                                        <template if:true={eachratingModifier.isChildSection}>
+                                            <lightning-accordion-section class="subSection"
+                                                name={eachratingModifier.childSectionName} key={eachratingModifier} label="Underwriter Analysis" padding="3px">
+                                                <template for:each={eachratingModifier.childRatingModifiers} for:item="eachChildRatingModifier"
+                                                for:index="childModifierIndex">
+                                                    <div class="div-2 slds-box" key={eachChildRatingModifier.ratingModifiers.Id}>
+                                                        <lightning-layout multiple-rows pull-to-boundary="medium">
+                                                            <template if:false = {eachChildRatingModifier.isNotesField}>
+                                                            <lightning-layout-item size="3" padding="horizontal-small"
+                                                                class="slds-var-p-top_medium">
+                                                                
+                                                                <span><template
+                                                                        if:true={eachChildRatingModifier.ratingModifiers.Is_Required__c}>
+                                                                        <abbr class="slds-required" title="required">*</abbr>
+                                                                    </template>{eachChildRatingModifier.ratingModifiers.Name}</span>
+                                                            </lightning-layout-item>
+                                                            <lightning-layout-item size="7" padding="horizontal-small"
+                                                                class="slds-align-middle">
+
+                                                                <template if:true={eachChildRatingModifier.pickListType}>
+                                                                    <template if:true={eachChildRatingModifier.controlPicklistApiName}>
+                                                                        <c-reusable-dependant-picklist-lwc is-pcc-component="true"
+                                                                            value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                            object-api-name={eachChildRatingModifier.objApiName}
+                                                                            dependent-picklist-api-name={eachChildRatingModifier.dependPicklistApiName}
+                                                                            dependant-picklist-label=""
+                                                                            controlling-picklist-api-name={eachChildRatingModifier.controlPicklistApiName}
+                                                                            controlling-picklist-label=""
+                                                                            selected-controlling-value={eachChildRatingModifier.ratingModifiers.Controlling_Picklist_Value__c}
+                                                                            selected-dependent-value={eachChildRatingModifier.ratingModifiers.Dependent_Picklist_Value__c}
+                                                                            required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                            is-read-only="true">
+                                                                        </c-reusable-dependant-picklist-lwc>
+                                                                    </template>
+                                                                    <template if:false={eachChildRatingModifier.controlPicklistApiName}>
+                                                                        <lightning-combobox
+                                                                            value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                            placeholder="Select.." variant="label-hidden"
+                                                                            options={eachChildRatingModifier.pickListValueList}
+                                                                            required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                            onchange={handleEventChange} data-index={childModifierIndex} data-child = {eachratingModifier.isChildSection}
+                                                                            data-id={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                            data-product-name={eachChildRatingModifier.ratingModifiers.Product__c}
+                                                                            data-format={eachChildRatingModifier.ratingModifiers.Format__c}>
+                                                                        </lightning-combobox>
+                                                                    </template>
+
+                                                                </template>
+                                                                <template if:true={eachChildRatingModifier.numberType}>
+                                                                    <lightning-input type="number" label="" step="0.01"
+                                                                        required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                        variant="label-hidden" data-child = {eachratingModifier.isChildSection}
+                                                                        value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c} 
+                                                                        data-index={childModifierIndex} onchange={handleEventChange} data-read-only = {eachChildRatingModifier.isReadOnly}
+                                                                        data-id={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                        data-product-name={eachChildRatingModifier.ratingModifiers.Product__c}
+                                                                        data-format={eachChildRatingModifier.ratingModifiers.Format__c}>
+                                                                    </lightning-input>
+                                                                </template>
+                                                                <template if:true={eachChildRatingModifier.currencyType}>
+                                                                    <lightning-input type="number" label="" formatter="currency"
+                                                                        required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                        variant="label-hidden"
+                                                                        value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                        data-index={childModifierIndex} onchange={handleEventChange} data-child = {eachratingModifier.isChildSection}
+                                                                        data-id={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                        data-product-name={eachChildRatingModifier.ratingModifiers.Product__c}
+                                                                        data-format={eachChildRatingModifier.ratingModifiers.Format__c}>
+                                                                    </lightning-input>
+                                                                </template>
+                                                                <template if:true={eachChildRatingModifier.percentageType}>
+                                                                    <lightning-input type="number" label="" formatter="percent-fixed"
+                                                                        required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                        variant="label-hidden"
+                                                                        value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c}
+                                                                        data-index={childModifierIndex} onchange={handleEventChange} data-child = {eachratingModifier.isChildSection}
+                                                                        data-id={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                        data-product-name={eachChildRatingModifier.ratingModifiers.Product__c}
+                                                                        data-format={eachChildRatingModifier.ratingModifiers.Format__c}>
+                                                                    </lightning-input>
+                                                                </template>
+                                                                <template if:true={eachChildRatingModifier.integerType}>
+                                                                    <lightning-input type="number" label=""
+                                                                        required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                        variant="label-hidden"
+                                                                        value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c} data-child = {eachratingModifier.isChildSection}
+                                                                        data-index={childModifierIndex} onchange={handleEventChange}
+                                                                        data-id={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                        data-product-name={eachChildRatingModifier.ratingModifiers.Product__c}
+                                                                        data-format={eachChildRatingModifier.ratingModifiers.Format__c}>
+                                                                    </lightning-input>
+                                                                </template>
+                                                                <template if:true={eachChildRatingModifier.textType}>
+                                                                    <lightning-input type="text" label=""
+                                                                        required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                        variant="label-hidden"
+                                                                        value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c} data-child = {eachratingModifier.isChildSection}
+                                                                        data-index={childModifierIndex} onchange={handleEventChange} data-read-only = {eachChildRatingModifier.isReadOnly}
+                                                                        data-id={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                        data-product-name={eachChildRatingModifier.ratingModifiers.Product__c}
+                                                                        data-format={eachChildRatingModifier.ratingModifiers.Format__c}>
+                                                                    </lightning-input>
+                                                                </template>
+                                                                <template if:true={eachChildRatingModifier.radioButtonType}>
+                                                                    <lightning-radio-group label=""
+                                                                        required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                        variant="label-hidden"
+                                                                        name={eachChildRatingModifier.ratingModifiers.Id}
+                                                                        options={eachChildRatingModifier.pickListValueList}
+                                                                        value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c} data-child = {eachratingModifier.isChildSection}
+                                                                        data-index={childModifierIndex} onchange={handleEventChange}
+                                                                        data-id={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                        data-product-name={eachChildRatingModifier.ratingModifiers.Product__c}
+                                                                        data-format={eachChildRatingModifier.ratingModifiers.Format__c}>
+                                                                    </lightning-radio-group>
+                                                                </template>
+                                                                <template if:true={eachChildRatingModifier.dateType}>
+                                                                    <lightning-input type="date" label=""
+                                                                        required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                        variant="label-hidden"
+                                                                        value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c} data-child = {eachratingModifier.isChildSection}
+                                                                        onchange={handleEventChange} data-index={childModifierIndex}
+                                                                        data-id={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                        data-product-name={eachChildRatingModifier.ratingModifiers.Product__c}
+                                                                        data-format={eachChildRatingModifier.ratingModifiers.Format__c}>
+                                                                    </lightning-input>
+                                                                </template>
+                                                                <template if:true={eachChildRatingModifier.textAreaType}>
+                                                                    <lightning-textarea label=""
+                                                                        required={eachChildRatingModifier.ratingModifiers.Is_Required__c}
+                                                                        variant="label-hidden"
+                                                                        value={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Value__c} data-child = {eachratingModifier.isChildSection}
+                                                                        onchange={handleEventChange} data-index={childModifierIndex}
+                                                                        data-id={eachChildRatingModifier.ratingModifiers.Rating_Modifier_Code__c}
+                                                                        data-product-name={eachChildRatingModifier.ratingModifiers.Product__c}
+                                                                        data-format={eachChildRatingModifier.ratingModifiers.Format__c}>
+                                                                    </lightning-textarea>
+                                                                </template>
+                                                            </lightning-layout-item>
+                                                            </template>
+                                                        
+                                                                <template if:true = {eachChildRatingModifier.isNotesField}>
+                                                                    <lightning-layout-item size="3" padding="horizontal-small"
+                                                                    class="slds-var-p-top_medium">
+                                                                                <div>
+                                                                                    <span>{eachProduct.productName} Notes </span>
+                                                                                    <!-- <lightning-icon class="relative" data-id={eachProduct.productName} icon-name="utility:info" onmouseover={showtooltip} onmouseout={hidetooltip}
+                                                                                        size="xx-small">
+                                                                                    </lightning-icon>
+                                                                        
+                                                                                    <div data-prname={eachProduct.productName} class="toggle absolute slds-popover slds-popover_tooltip slds-nubbin_left-top"
+                                                                                        role="tooltip">
+                                                                                        <div class="slds-popover__body">
+                                                                                            <lightning-formatted-text value={eachProduct.helpTextNote}>
+                                                                                            </lightning-formatted-text>
+                                                                                        </div>
+                                                                                    </div> -->
+                                                                                    <div>
+                                                                                        <p style="font-size:x-small;">
+                                                                                            {eachProduct.helpTextNote}
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                               
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="7" padding="horizontal-small"
+                                                                                class="slds-align-middle">
+                            
+                            
+                                                                                <lightning-input-rich-text formats={formats}
+                                                                                    data-prodname={eachProduct.productName}
+                                                                                    value={eachProduct.poliNotes} onchange={handleNotesChange}>
+                                                                                </lightning-input-rich-text>
+                            
+                                                                            </lightning-layout-item>
+                                                                            <lightning-layout-item size="2">
+                                                                                <div class="slds-text-align_center">
+                            
+                                                                                </div>
+                                                                            </lightning-layout-item>                                                         
+                                                        </template>
+                                                            <lightning-layout-item size="2">
+                                                                <div class="slds-text-align_center">
+                                                                    <template
+                                                                        if:true={eachChildRatingModifier.ratingModifiers.Eligibility_Status__c}>
+                                                                        <!-- <span class="slds-badge">{eachratingModifier.status}</span> -->
+                                                                        <lightning-badge class={eachChildRatingModifier.badgeColor}
+                                                                            label={eachChildRatingModifier.ratingModifiers.Eligibility_Status__c}>
+                                                                        </lightning-badge>
+                                                                    </template>
+                                                                </div>
+                                                            </lightning-layout-item>
+                                                        </lightning-layout>
+                                                    </div>
+                                                </template>
+                                            </lightning-accordion-section>
+                                        </template>
+                                    </template>
+                                </div>
+                                <!-- <lightning-accordion-section data-index={indexCountPageSection} class="mainSection"
+                                    name={eachProduct} key={eachProduct} label="Underwriter Analysis" padding="3px">
+                                    <div class="divTableBox">
+
+                                        <div class="div-2 slds-box">
+                                            <lightning-layout multiple-rows pull-to-boundary="medium">
+                                                <lightning-layout-item size="3" padding="horizontal-small"
+                                                    class="slds-var-p-top_medium">
+                                                    <div>
+                                                        <span>{eachProduct.productName} Notes </span>
+                                                        <lightning-icon class="relative" data-id={eachProduct.productName} icon-name="utility:info" onmouseover={showtooltip} onmouseout={hidetooltip}
+                                                            size="xx-small">
+                                                        </lightning-icon>
+                                            
+                                                        <div data-prname={eachProduct.productName} class="toggle absolute slds-popover slds-popover_tooltip slds-nubbin_left-top"
+                                                            role="tooltip">
+                                                            <div class="slds-popover__body">
+                                                                <lightning-formatted-text value={eachProduct.helpTextNote}>
+                                                                </lightning-formatted-text>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </lightning-layout-item>
+                                                <lightning-layout-item size="7" padding="horizontal-small"
+                                                    class="slds-align-middle">
+
+
+                                                    <lightning-input-rich-text formats={formats}
+                                                        data-prodname={eachProduct.productName}
+                                                        value={eachProduct.poliNotes} onchange={handleNotesChange}>
+                                                    </lightning-input-rich-text>
+
+                                                </lightning-layout-item>
+                                                <lightning-layout-item size="2">
+                                                    <div class="slds-text-align_center">
+
+                                                    </div>
+                                                </lightning-layout-item>
+                                            </lightning-layout>
+                                        </div>
+                                    </div>
+                                </lightning-accordion-section> -->
+                            </lightning-accordion-section>
+                        </template>
+                    </lightning-accordion>
+                </template>
+            </div>
+        </lightning-card>
+    </div>
+
+</template>

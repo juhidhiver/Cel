@@ -1,0 +1,89 @@
+<aura:component controller="RenewalPolicyAQController" 
+                implements="force:lightningQuickActionWithoutHeader,force:hasRecordId"> 
+    <aura:handler name="init" action="{!c.init}" value="{!this}" /> 
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isShowBindersPopup" type="Boolean" default="false"/>
+    <aura:attribute name="isShowSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="selectedBinderPrimary" type="Boolean" default="false" />
+    <aura:attribute name="selectedBinderExcess" type="Boolean" default="false" />
+    <aura:attribute name="rowSelectPrimary" type="string"  />
+    <aura:attribute name="rowSelectExcess" type="string"  />
+    <aura:attribute name="quoteList" type="List"/>
+    <aura:attribute name="primaryBinderList" type="List"/>
+    <aura:attribute name="excessBinderList" type="List"/>
+    <aura:attribute name="mycolumns" type="List"/>
+     <aura:attribute name="clonedOppId" type="string"  />
+     <aura:attribute name="listCloneQuoteId" type="List" />
+     <aura:attribute name="isPreRate" type="Boolean" default="false"/>
+    
+    <aura:attribute name="isprimaryradio" type="List" />
+     <aura:attribute name="isexcessradio" type="List" />
+    
+    <div style="height : 30% !important;">
+        <div style="text-align: center; margin-top: 150px; color: #005fb2; font-weight: bold;font-size: 16px;"> Renewal is working, please wait... </div>
+        <aura:if isTrue="{!v.isShowSpinner}">
+            <div role="status" class="slds-spinner slds-spinner_large slds-spinner_brand"
+                 style="margin-top: 30px;">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </aura:if>
+    </div>
+    
+    
+    
+    
+    <aura:if isTrue="{!v.isShowBindersPopup}">
+        <div style="height: auto;">
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select Binders</h2>
+                    </header>
+                    <div class="slds-modal__content">
+                        <aura:if isTrue="{!v.selectedBinderPrimary}">
+                           <div style="text-align: center; margin-top: 10px; color: #005fb2; font-weight: bold;font-size: 16px;font-variant: small-caps;">Primary Binder</div>
+                            <lightning:datatable data="{! v.primaryBinderList }"
+                                                 columns="{! v.mycolumns }"
+                                                 keyField="Id"
+                                                 hideCheckboxColumn="false"
+                                                 wrapText = "true"
+                                                 onrowselection="{!c.chooseBinderPrimary}"
+                                                 maxRowSelection = "1"
+                                                 selectedRows = "{!v.isprimaryradio}"/></aura:if>
+                        						 
+                        <aura:if isTrue="{!v.selectedBinderExcess}">
+                            <div style="text-align: center; margin-top: 10px; color: #005fb2; font-weight: bold;font-size: 16px;font-variant: small-caps;">Excess Binder</div>
+                            <lightning:datatable data="{! v.excessBinderList }"
+                                                 columns="{! v.mycolumns }"
+                                                 keyField="Id"
+                                                 hideCheckboxColumn="false"
+                                                 wrapText = "true"
+                                                 onrowselection="{!c.chooseBinderExcess}"
+                                                 maxRowSelection = "1"
+                                                 selectedRows="{!v.isexcessradio}"/></aura:if>
+                        
+                        <br></br>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral"
+                                          label="Cancel"
+                                          title="Cancel"
+                                          onclick="{! c.closeModel }"/>
+                        <lightning:button variant="brand"
+                                          label="Confirm"
+                                          title="Confirm"
+                                          onclick="{! c.handleConfirm }"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+</aura:component>

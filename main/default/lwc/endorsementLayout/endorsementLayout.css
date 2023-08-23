@@ -1,0 +1,70 @@
+.tableContainer{
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+.contentContainer{
+    max-height: 65vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.edited-element{
+    background-color: #8dfc8d;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+lightning-button-icon, div.inline{
+    display: inline;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.slds-modal__container{
+    width: 98%;
+    max-width: 98%;
+}
+.slds-modal__content{
+    overflow: initial;
+}
+
+.buttonContainer{
+    display: flex;
+}
+.buttonContainer lightning-input{
+    flex: 1;
+}
+th.sortable{
+    cursor: pointer;
+}
+/*.policyNotes{
+    width: 350px;
+    min-width: 350px;
+    max-width: 20%;
+}
+
+.actions{
+    width: 100px;
+    min-width: 350px;
+    max-width: 20%;
+}*/

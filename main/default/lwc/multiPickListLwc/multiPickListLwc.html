@@ -1,0 +1,33 @@
+<template>
+    <div class="slds-form-element">
+        <template if:true={label}>
+            <label class="slds-form-element__label">{label}</label>
+        </template>
+        <div class="slds-form-element__control">
+            <div class="slds-combobox_container"> 
+                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-picklist ms-picklist-dropdown" aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                        
+                        <input type="text" class="slds-input slds-combobox__input slds-has-focus slds-combobox__input-value ms-input" id="ms-input" 
+                            aria-controls="ms-dropdown-items" role="textbox" placeholder="Select an Option" value={_selectedItems} readonly></input>
+                            
+                        <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right" title="Click to open the dropdown">
+                            <lightning-icon icon-name="utility:down" size="x-small" alternative-text="Click here" class="slds-icon slds-icon--selected slds-icon--x-small slds-icon-text-default slds-m-right--x-small"></lightning-icon>
+                        </span>
+                        
+                    </div>
+                    
+                    <div id="listbox-id-7" class="slds-dropdown slds-dropdown_length-7 slds-dropdown_fluid" role="listbox">
+                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                            <template for:each={_mOptions} for:item="item">
+                                <c-pick-list-item-lwc key={item.key} item={item} onitems={handleItemSelected}></c-pick-list-item-lwc>
+                            </template> 
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+</template>

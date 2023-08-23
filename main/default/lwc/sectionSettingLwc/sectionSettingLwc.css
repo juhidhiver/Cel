@@ -1,0 +1,29 @@
+/*style*/
+.lgc-bg-inverse {
+    background-color: rgb(22, 50, 92);
+}
+.slds-p-around--small {
+    padding: var(--lwc-spacingSmall,14.75rem);
+    padding-top: 22px;
+}
+h1 {
+    color: rgb(0, 112, 210);
+}
+p {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    color: rgb(62, 62, 60);
+}
+.cities {
+   padding: 20px;
+}
+h1 {
+    color: rgb(0, 112, 210);
+}
+p {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    color: rgb(62, 62, 60);
+}
+.slds-modal__container {
+    width: 63%;
+    max-width: 56rem;
+}

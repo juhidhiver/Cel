@@ -1,0 +1,35 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 12-09-2020
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   12-04-2020   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<template>
+    <div class="slds">
+        <div class="slds-dueling-list slds-grid">
+        
+            <div class="slds-assistive-text" id="drag-live-region" aria-live="assertive"></div>
+            <div class="slds-assistive-text" id="option-drag-label">Press space bar when on an item, to move it within the list. CMD plus left and right arrow keys, to move items between lists.</div>
+            
+            <c-custom-dual-listbox-item-list-lwc column-name={sourceLabel} items={leftValues} position="left" 
+                onhandleevent={handleEvent}></c-custom-dual-listbox-item-list-lwc>
+
+            <div class="slds-dueling-list__column">
+                <button class="slds-button slds-button_icon-container slds-button_icon-small" title="Right" onclick={moveRightToLeft} disabled={disableProsAndCons}>
+                    <lightning-icon icon-name="utility:left"  size="small" class="slds-button__icon slds-button__icon_large"></lightning-icon>
+                    <span class="slds-assistive-text">Move Selection to Second Category</span>
+                </button>
+                <button class="slds-button slds-button_icon-container slds-button_icon-small" title="Left" onclick={moveLeftToRight} disabled={disableProsAndCons}>
+                    <lightning-icon icon-name="utility:right"  size="small" class="slds-button__icon slds-button__icon_large"></lightning-icon>
+                    <span class="slds-assistive-text">Move Selection to First Category</span>
+                </button>
+            </div>
+            <c-custom-dual-listbox-item-list-lwc column-name={selectedLabel} items={rightValues} position="left" 
+                onhandleevent={handleEvent}></c-custom-dual-listbox-item-list-lwc>
+        </div>
+    </div>   
+</template>

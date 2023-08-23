@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>ACCOUNT_CLEARED</fullName>
+        <categories>Munich Clearance Callout Result</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ACCOUNT CLEARED</shortDescription>
+        <value>Cleared</value>
+    </labels>
+    <labels>
+        <fullName>ACCOUNT_CLOSED_MARKET</fullName>
+        <categories>Munich Clearance Callout Result</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ACCOUNT CLOSED MARKET</shortDescription>
+        <value>Closed Market</value>
+    </labels>
+    <labels>
+        <fullName>ACC_LOSS_DETAIL_QUOTE_CHANGE_TO_INPROGESS_CONFIRMATION</fullName>
+        <categories>Confirmation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ACC_LOSS_DETAIL_QUOTE_CHANGE_TO_INPROGESS_CONFIRMATION</shortDescription>
+        <value>Editing this Quote will change the Status back to In Progress. Do you wish to continue?</value>
+    </labels>
+    <labels>
+        <fullName>ADDITIONALINTEREST_ACCOUNTDUPPLICATE_MSG</fullName>
+        <categories>AdditionalInterest, Trigger, Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ADDITIONALINTEREST ACCOUNTDUPPLICATE MSG</shortDescription>
+        <value>This account already exist. Please choose another account</value>
+    </labels>
+    <labels>
+        <fullName>ANNUAL_REVENUES</fullName>
+        <categories>Rate Modifier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANNUAL REVENUES</shortDescription>
+        <value>Annual Revenues</value>
+    </labels>
+    <labels>
+        <fullName>Amendment_on_Bound_Pending_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Amendment on Bound Pending Error</shortDescription>
+        <value>Can&apos;t create amendments for Bound Pending Quote/Policy</value>
+    </labels>
+    <labels>
+        <fullName>ApiTimeOut</fullName>
+        <categories>ApiConfiguration</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ApiTimeOut</shortDescription>
+        <value>60000</value>
+    </labels>
+    <labels>
+        <fullName>Aqueous_RT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Aqueous RT</shortDescription>
+        <value>Aqueous</value>
+    </labels>
+    <labels>
+        <fullName>BROCKER_ACCOUNT_BLOCK_OTHER_BROKERS_MSG</fullName>
+        <categories>Broker Acount, Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BROCKER ACCOUNT BLOCK OTHER BROKERS MSG</shortDescription>
+        <value>This Account has an active Contract with another Broker and is locked for all other Brokers</value>
+    </labels>
+    <labels>
+        <fullName>BROCKER_ACCOUNT_BLOCK_OTHER_BROKERS_OPPORTUNITY_MSG</fullName>
+        <categories>Broker Acount, Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BROCKER ACCOUNT BLOCK OTHER BROKERS OPPORTUNITY MSG</shortDescription>
+        <value>This Account has Open Submissions with another Broker and is locked for all other Brokers</value>
+    </labels>
+    <labels>
+        <fullName>BROCKER_ACCOUNT_DUPLICATE_OPPT_INTERNAL_CLEARANCE_MSG</fullName>
+        <categories>Broker Acount, Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BROCKER ACCOUNT DUPLICATE OPPT INTERNAL CLEARANCE MSG</shortDescription>
+        <value>Internal Clearance: Duplicate submission. Please check Broker Block Override flag to proceed further</value>
+    </labels>
+    <labels>
+        <fullName>BROCKER_ACCOUNT_DUPLICATE_SAME_OPPT_MSG</fullName>
+        <categories>Broker Acount, Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BROCKER ACCOUNT DUPLICATE SAME OPPT MSG</shortDescription>
+        <value>This Broker account is already added to the Opportunity.</value>
+    </labels>
+    <labels>
+        <fullName>BROCKER_ACCOUNT_SAME_OPPT_INTERNAL_CLEARANCE_MSG</fullName>
+        <categories>Broker Acount, Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BROCKER ACCOUNT SAME OPPT INTERNAL CLEARANCE MSG</shortDescription>
+        <value>Internal Clearance: Duplicate submission.</value>
+    </labels>
+    <labels>
+        <fullName>Bind_Error_Broker_Agency_not_MRe_Appointed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Bind Error Broker Agency not MRe Appointed</shortDescription>
+        <value>The Agency needs to be appointed by Munich Re before binding</value>
+    </labels>
+    <labels>
+        <fullName>Bind_Error_Broker_not_MRe_Appointed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Bind Error Broker not MRe Appointed</shortDescription>
+        <value>The Broker needs to be appointed by Munich Re before binding.</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Begin_MRe_Send_Email_To</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Begin MRe Send Email To</shortDescription>
+        <value>jai.aset@gmail.com,Maeran.Shaikh@willistowerswatson.com</value>
+    </labels>
+    <labels>
+        <fullName>CHANGE_BACK_IN_PROGRESS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CHANGE BACK IN PROGRESS</shortDescription>
+        <value>Changing Rating Modifiers or Factors requires all Quotes be changed to In Progress Status and you will need to be Rate the Quotes before progressing. Click OK to continue</value>
+    </labels>
+    <labels>
+        <fullName>CHECK_BROKER_IS_ADDED_MSG</fullName>
+        <categories>Qualify Opportunity</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CHECK BROKER IS ADDED MSG</shortDescription>
+        <value>Submissions can only be qualified when a primary broker is added</value>
+    </labels>
+    <labels>
+        <fullName>CONTRACT_POLICY_AND_SOA_DOC_VALIDATION_MSG</fullName>
+        <categories>Document</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CONTRACT_POLICY_AND_SOA_DOC_VALIDATION_MSG</shortDescription>
+        <value>Quote status must be &quot;Pending Bound&quot; or &apos;Bound&apos; and rating status must be &quot;Clear&quot;.</value>
+    </labels>
+    <labels>
+        <fullName>Channel_Sage_ShopX</fullName>
+        <categories>Channel Account</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Channel Sage ShopX</shortDescription>
+        <value>Sage ShopX Portal</value>
+    </labels>
+    <labels>
+        <fullName>Color_Proceed</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Proceed Color for Eligibility</shortDescription>
+        <value>#3cba4c</value>
+    </labels>
+    <labels>
+        <fullName>Color_ProceedCaution</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Proceed with Caution Color for Eligibility</shortDescription>
+        <value>#FBB117</value>
+    </labels>
+    <labels>
+        <fullName>Color_StopDecline</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Stop Color for Eligibility</shortDescription>
+        <value>#F00B0B</value>
+    </labels>
+    <labels>
+        <fullName>Confirm_Quote_Change_To_InProgess_Status</fullName>
+        <categories>Changing Rating Modifiers or Factors</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm Quote Change To InProgess Status</shortDescription>
+        <value>Changing Rating Modifiers or Factors requires all Quotes be changed to In Progress Status and you will need to be Rate the Quotes before progressing. Click OK to continue</value>
+    </labels>
+    <labels>
+        <fullName>Coverage_Cancel_and_Replace_process_Information</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Coverage Cancel and Replace process Information</shortDescription>
+        <value>Cancel the selected transaction and all the subsequent bound transactions</value>
+    </labels>
+    <labels>
+        <fullName>Coverage_Cancel_and_Replace_process_Information_1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Coverage Cancel and Replace process Information</shortDescription>
+        <value>Create a new replacement record for the selected transaction</value>
+    </labels>
+    <labels>
+        <fullName>Cyber_Form_Number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cyber Form Number</shortDescription>
+        <value>ACCY 03 01 MM YY</value>
+    </labels>
+    <labels>
+        <fullName>DEFAULT_SUBMISSION_NAME_PCC</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Default name for submission when user creates a new PCC submission</shortDescription>
+        <value>To be defined</value>
+    </labels>
+    <labels>
+        <fullName>D_O_Cleared_Validation_Text</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>D&amp;O Cleared Validation Text</shortDescription>
+        <value>D&amp;O product is mandatory for this transaction.</value>
+    </labels>
+    <labels>
+        <fullName>Description_AQ_Email_Template</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description AQ Email Template</shortDescription>
+        <value>AQ-EmailTemplate</value>
+    </labels>
+    <labels>
+        <fullName>EFFECTIVE_DATE_NOT_EXIST</fullName>
+        <categories>NewEndorsementController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EFFECTIVE_DATE_NOT_EXIST</shortDescription>
+        <value>Can&apos;t create new endorsment with this effective date. Please select another effective date</value>
+    </labels>
+    <labels>
+        <fullName>ELIGIBILITY_SECTION_HEADER</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ELIGIBILITY SECTION HEADER</shortDescription>
+        <value>Eligibility</value>
+    </labels>
+    <labels>
+        <fullName>ELIGIBILITY_SUMMARY_TAB</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ELIGIBILITY SUMMARY TAB</shortDescription>
+        <value>Eligibility Summary</value>
+    </labels>
+    <labels>
+        <fullName>ERP_Product_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ERP Product Name</shortDescription>
+        <value>MPL Standalone,Cyber Standalone,Private Company Combo</value>
+    </labels>
+    <labels>
+        <fullName>ERROR_CANNOT_UPDATE_SUBMISSION_HAS_LOCKED_QUOTE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ERROR_CANNOT_UPDATE_SUBMISSION_HAS_LOCKED_QUOTE</shortDescription>
+        <value>Can not update a submission that has a quote in the approval queue. Please ask approver to approve quote</value>
+    </labels>
+    <labels>
+        <fullName>EmailAutomated</fullName>
+        <categories>Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EmailAutomated</shortDescription>
+        <value>Hi User, The Submission owner has been changed to your name. Please refer to the Submission Link:</value>
+    </labels>
+    <labels>
+        <fullName>Error_NoAccountIsFound</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error_NoAccountIsFound</shortDescription>
+        <value>No Account is found</value>
+    </labels>
+    <labels>
+        <fullName>Error_NoLicenseIsNotMatchAccount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error_NoLicenseIsNotMatchAccount</shortDescription>
+        <value>Surplus Lines License is not match Account Risk state.</value>
+    </labels>
+    <labels>
+        <fullName>Error_NoQuoteIsFound</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error_NoQuoteIsFound</shortDescription>
+        <value>No quote is found</value>
+    </labels>
+    <labels>
+        <fullName>Error_NoSurplusLinesLicense</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error_NoSurplusLinesLicense</shortDescription>
+        <value>No Surplus lines License is found</value>
+    </labels>
+    <labels>
+        <fullName>Existing_MTA_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Existing MTA Error Message</shortDescription>
+        <value>There is an ongoing transaction on this Policy and you cannot create a new one until it is Bound or Cancelled.</value>
+    </labels>
+    <labels>
+        <fullName>FILL_IN_PART_FIXED_ENDORSEMENT_VALUES</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FILL IN PART FIXED ENDORSEMENT VALUES</shortDescription>
+        <value>Please fill in Part-Fixed Endorsement Values</value>
+    </labels>
+    <labels>
+        <fullName>INDUSTRY_RISK_CLASSIFICATION</fullName>
+        <categories>Rate Modifier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>INDUSTRY RISK CLASSIFICATION</shortDescription>
+        <value>Industry Risk Classification</value>
+    </labels>
+    <labels>
+        <fullName>IntegrationAPI</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IntegrationAPI</shortDescription>
+        <value>Test User Name</value>
+    </labels>
+    <labels>
+        <fullName>LOBID_AQPI</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LOBID_AQPI</shortDescription>
+        <value>3F761456B4AA47C68C4F9041DB8B3311</value>
+    </labels>
+    <labels>
+        <fullName>LOBID_CEL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LOBID_CEL</shortDescription>
+        <value>A564E3485BFF4F139E7DE7A0E5A70963</value>
+    </labels>
+    <labels>
+        <fullName>MANDATORY_RATING_MODIFIERS_MSG</fullName>
+        <categories>Rate Modifier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MANDATORY RATING MODIFIERS MSG</shortDescription>
+        <value>Please complete all the Rating Modifiers first.</value>
+    </labels>
+    <labels>
+        <fullName>MPL_Form_Number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MPL Form Number</shortDescription>
+        <value>ACMP 30 01 MM YY</value>
+    </labels>
+    <labels>
+        <fullName>MRe_no_Agency_for_Broker_Contact_Msg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MRe no Agency for Broker Contact Msg</shortDescription>
+        <value>Broker Contact not associated with any Agency.</value>
+    </labels>
+    <labels>
+        <fullName>NATURE_OF_INDUSTRY_OR_SECTOR</fullName>
+        <categories>Eligibility</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NATURE OF INDUSTRY OR SECTOR</shortDescription>
+        <value>Nature of Industry / Sector</value>
+    </labels>
+    <labels>
+        <fullName>OPPORTUNITY_IS_NOT_FOUND</fullName>
+        <categories>OPPORTUNITY</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OPPORTUNITY IS NOT FOUND</shortDescription>
+        <value>Opportunity is not found</value>
+    </labels>
+    <labels>
+        <fullName>OPPPORTUNITY_IS_ALREADY_QUALIFED_MSG</fullName>
+        <categories>Qualify Opportunity</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OPPPORTUNITY IS ALREADY QUALIFED MSG</shortDescription>
+        <value>Submission is already Qualified</value>
+    </labels>
+    <labels>
+        <fullName>OrgName</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OrgName</shortDescription>
+        <value>N20-001</value>
+    </labels>
+    <labels>
+        <fullName>PCC_Form_Number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PCC Form Number</shortDescription>
+        <value>TBD</value>
+    </labels>
+    <labels>
+        <fullName>PCC_Generic_Clearance_Warning_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Will store Clearance warning message against every note field</shortDescription>
+        <value>If all check boxes are “Proceed”, the account generally fits our underwriting guidelines and you should consider a quote for {ProdName} coverage.
+
+If 3 or more &quot;Proceed with Caution&quot;, you should look to be opportunistic by receiving a more than adequate premium and/or properly restrictive terms and conditions.
+
+If 2 or more &quot;Stop! High Hazard” (unless prohibited by our strategy), generally do not quote this coverage component, as it does not fit our underwriting guidelines. Renewals that receive a Stop! High Hazard are candidates for corrective action - limits reduction, premium increase or non-renewal.</value>
+    </labels>
+    <labels>
+        <fullName>PN_Label_Cyber_Standalone</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Name for Cyber Standalone</shortDescription>
+        <value>Cyber Standalone</value>
+    </labels>
+    <labels>
+        <fullName>PN_Label_MPL_Standalone</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Name for MPL Standalone</shortDescription>
+        <value>MPL Standalone</value>
+    </labels>
+    <labels>
+        <fullName>PRIMARY_BROCKER_ACCOUNT_DUPLICATE_SAME_OPPT_MSG</fullName>
+        <categories>Broker Acount, Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PRIMARY BROCKER ACCOUNT DUPLICATE SAME OPPT MSG</shortDescription>
+        <value>Primary broker exists for this Opportunity. To change or add a new Primary Broker, please uncheck the Primary Broker checkbox on the existing Broker.</value>
+    </labels>
+    <labels>
+        <fullName>PRODUCT_IS_NOT_FOUND</fullName>
+        <categories>Product</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PRODUCT IS NOT FOUND</shortDescription>
+        <value>Product is not found</value>
+    </labels>
+    <labels>
+        <fullName>PW_Accountants</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PW_Accountants</shortDescription>
+        <value>AQUW/AC/04.19 Accountants Professional Indemnity Policy Wording</value>
+    </labels>
+    <labels>
+        <fullName>PW_Architects_Engineers</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PW_Architects_Engineers</shortDescription>
+        <value>AQUW/AE/04.19 Architects &amp; Engineers Professional Indemnity Policy Wording</value>
+    </labels>
+    <labels>
+        <fullName>PW_Design_Construction</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PW_Design_Construction</shortDescription>
+        <value>AQUW/DC/04.19 Design &amp; Construction Professional Indemnity Policy Wording</value>
+    </labels>
+    <labels>
+        <fullName>PW_Excess_Layer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PW_Excess_Layer</shortDescription>
+        <value>AQUW/EX/04.19 Excess Layer Professional Indemnity Policy Wording</value>
+    </labels>
+    <labels>
+        <fullName>PW_Insurance_Brokers</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PW_Insurance_Brokers</shortDescription>
+        <value>AQUW/IB/04.19 Insurance Brokers Professional Indemnity Policy Wording</value>
+    </labels>
+    <labels>
+        <fullName>PW_Media_Marketing_Communication</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PW_Media_Marketing_Communication</shortDescription>
+        <value>AQUW/AD/04.19 Media, Marketing &amp; Communication Professional Indemnity Policy Wording</value>
+    </labels>
+    <labels>
+        <fullName>PW_Miscellaneous_Professions</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PW_Miscellaneous_Professions</shortDescription>
+        <value>AQUW/MP/04.19 Miscellaneous Professions Professional Indemnity Policy Wording</value>
+    </labels>
+    <labels>
+        <fullName>PW_Property_Professionals</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PW_Property_Professionals</shortDescription>
+        <value>AQUW/PP/04.19 Property Professionals Professional Indemnity Policy Wording</value>
+    </labels>
+    <labels>
+        <fullName>PW_Technology_IT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PW_Technology_IT</shortDescription>
+        <value>AQUW/IT/04.19 Technology &amp; IT Professional Indemnity Policy Wording</value>
+    </labels>
+    <labels>
+        <fullName>Product_Name_for_Cyber</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product_Name_for_Cyber</shortDescription>
+        <value>Cyber Standalone</value>
+    </labels>
+    <labels>
+        <fullName>Product_Name_for_DNO</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Name for DNO short</shortDescription>
+        <value>D&amp;O</value>
+    </labels>
+    <labels>
+        <fullName>Product_Name_for_EPL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Name for EPL short</shortDescription>
+        <value>EPL</value>
+    </labels>
+    <labels>
+        <fullName>Product_Name_for_MPL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product_Name_for_MPL</shortDescription>
+        <value>MPL Standalone</value>
+    </labels>
+    <labels>
+        <fullName>Product_Name_for_PCC</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Name for PCC</shortDescription>
+        <value>Private Company Combo</value>
+    </labels>
+    <labels>
+        <fullName>Product_Name_for_Professional_Indemnity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Product Name for Professional Indemnity</shortDescription>
+        <value>Professional Indemnity</value>
+    </labels>
+    <labels>
+        <fullName>QUALIFY_OPPORTUNITY_STAGE_MSG</fullName>
+        <categories>Qualify Opportunity</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QUALIFY OPPORTUNITY STAGE MSG</shortDescription>
+        <value>Submission&apos;s stage must be Eligibility Approved</value>
+    </labels>
+    <labels>
+        <fullName>QUOTE_COVERAGE_PRODUCT_OPTIONS_CONTAIN_VALUES_SELECTED_IN_THE_SUBMISSION</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QUOTE COVERAGE PRODUCT OPTIONS CONTAIN VALUES SELECTED IN THE SUBMISSION</shortDescription>
+        <value>Quote Coverage Product Options can only contain values selected in the Submission.</value>
+    </labels>
+    <labels>
+        <fullName>QUOTE_EXIST_RATED_TO_FINALIZE_MSG</fullName>
+        <categories>Error</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QUOTE_EXIST_RATED_TO_FINALIZE_MSG</shortDescription>
+        <value>This quote is already finalized</value>
+    </labels>
+    <labels>
+        <fullName>QUOTE_IS_NOT_FOUND</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QUOTE IS NOT FOUND</shortDescription>
+        <value>Quote is not found</value>
+    </labels>
+    <labels>
+        <fullName>QUOTE_LOCK_DELETE_CHILDREN</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QUOTE_LOCK_DELETE_CHILDREN</shortDescription>
+        <value>This Quote is locked for deleting when status is &apos;Quoted&apos; or &apos;Presented&apos; or &apos;Bound&apos; or &apos;Bound Pending&apos;</value>
+    </labels>
+    <labels>
+        <fullName>QUOTE_PROPOSAL_VALIDATION_MSG</fullName>
+        <categories>Document</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QUOTE_PROPOSAL_VALIDATION_MSG</shortDescription>
+        <value>Quote status must be &quot;Quoted&quot; and rating status must be &quot;Clear&quot;</value>
+    </labels>
+    <labels>
+        <fullName>QUOTE_REQUIRES_RATED_TO_FINALIZE_MSG</fullName>
+        <categories>Error</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QUOTE REQUIRES RATED TO FINALIZE MSG</shortDescription>
+        <value>This quote must be rated to finalize.</value>
+    </labels>
+    <labels>
+        <fullName>Quote_Type_Amendment</fullName>
+        <categories>QuoteType</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quote Type: Amendment</shortDescription>
+        <value>Amendment</value>
+    </labels>
+    <labels>
+        <fullName>Quote_Type_New_Business</fullName>
+        <categories>QuoteType</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quote Type: New Business</shortDescription>
+        <value>New Business</value>
+    </labels>
+    <labels>
+        <fullName>SERVICE_FAILED</fullName>
+        <categories>Munich Clearance Callout Result</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SERVICE FAILED</shortDescription>
+        <value>Service failed</value>
+    </labels>
+    <labels>
+        <fullName>SUBMISSION_DUPLICATED_CONFIRM_CREATE_MSG</fullName>
+        <categories>Submission, Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SUBMISSION DUPLICATED CONFIRM CREATE MSG</shortDescription>
+        <value>Submission already exists for another agency. The system will create a New Submission for this broker. Do you want to continue?</value>
+    </labels>
+    <labels>
+        <fullName>SUBMISSION_DUPLICATED_CONFIRM_REDIRECT_MSG</fullName>
+        <categories>Submission, Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SUBMISSION DUPLICATED CONFIRM REDIRECT MSG</shortDescription>
+        <value>Submission already exists. Do you want to open the existing Submission?</value>
+    </labels>
+    <labels>
+        <fullName>SUBMISSION_EXIST_FOR_DIFFERENT_BROKER</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submission Already exists for another Broker Agency</shortDescription>
+        <value>Submission Already exists for another Broker Agency</value>
+    </labels>
+    <labels>
+        <fullName>SUBMISSION_EXIST_FOR_SAME_BROKER</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submission Already exists for this Broker Agency</shortDescription>
+        <value>Submission Already exists for this Broker Agency</value>
+    </labels>
+    <labels>
+        <fullName>SYSTEM_ERROR_MSG</fullName>
+        <categories>Document</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SYSTEM_ERROR_MSG</shortDescription>
+        <value>An error has occurred. Please contact admin for more information.</value>
+    </labels>
+    <labels>
+        <fullName>UK_TypeDnB_Code</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>UK TypeDnB Code</shortDescription>
+        <value>19295</value>
+    </labels>
+    <labels>
+        <fullName>AQ_AutoRenewalBatchSize</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AQ_AutoRenewalBatchSize</shortDescription>
+        <value>1</value>
+    </labels>
+    <labels>
+        <fullName>AQ_AutoRenewalEmailBatchSize</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AQ_AutoRenewalEmailBatchSize</shortDescription>
+        <value>10</value>
+    </labels>
+    <labels>
+        <fullName>AQ_AutoRenewalsContactDeleteError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AQ_AutoRenewalsContactDeleteError</shortDescription>
+        <value>Contact can&apos;t be deleted due to Open Auto-Renewal Record(s) related to this Broker.</value>
+    </labels>
+    <labels>
+        <fullName>AQ_AutoRenewalsContactUpdateError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AQ_AutoRenewalsContactUpdateError</shortDescription>
+        <value>Cannot remove Renewals Role due to Open Auto-Renewal Record(s) related to this Broker.</value>
+    </labels>
+    <labels>
+        <fullName>AQ_Renewal_Sender</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AQ Auto Renewal Sender</shortDescription>
+        <value>Aqueous Renewals</value>
+    </labels>
+    <labels>
+        <fullName>ERROR_CANNOT_RATE_THIS_QUOTE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ERROR CANNOT RATE THIS QUOTE</shortDescription>
+        <value>Cannot rate with this quote status.</value>
+    </labels>
+    <labels>
+        <fullName>ERROR_RATING_HAS_FAILED</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ERROR RATING HAS FAILED</shortDescription>
+        <value>Rating has failed. Please contact your Administrator.</value>
+    </labels>
+    <labels>
+        <fullName>Shopping_X</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Shopping X</shortDescription>
+        <value>ShopX</value>
+    </labels>
+    <labels>
+        <fullName>Quote_Type_Renewal</fullName>
+        <categories>Quote Type</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quote Type: Renewal</shortDescription>
+        <value>Renewal</value>
+    </labels>
+    <labels>
+        <fullName>Integration_Username</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Integration Username</shortDescription>
+        <value>Integration User</value>
+    </labels>
+</CustomLabels>

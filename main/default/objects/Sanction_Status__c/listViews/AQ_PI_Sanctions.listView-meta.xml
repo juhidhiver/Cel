@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AQ_PI_Sanctions</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Sanction_Status__c</columns>
+    <columns>Sanction_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Review_Requested__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Sanction_Status__c</field>
+        <operation>notEqual</operation>
+        <value>Failed,Cleared</value>
+    </filters>
+    <label>AQ PI Sanctions</label>
+    <sharedTo>
+        <roleAndSubordinates>Aqueous_Triage</roleAndSubordinates>
+        <roleAndSubordinates>Aqueous_Underwriter</roleAndSubordinates>
+    </sharedTo>
+</ListView>

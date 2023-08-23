@@ -1,0 +1,39 @@
+table, th, td {
+    border: 1px solid rgba(128, 128, 128, 0.219);
+}
+table .tdTop{
+    vertical-align: top;
+}
+
+td {
+    vertical-align: middle;
+}
+
+.noBorder {
+    border : none;
+}
+.tableFixed {
+    table-layout: fixed;
+}
+.label-hidden > label {
+    display: none;
+}
+
+.totalContainer{
+    text-align: right;
+    width: 50%;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.customPostion {
+    width: 50%;
+    text-align: right;
+    padding-bottom: 5px;
+}
+.my-icon-style {
+    width: 20px !important ;
+    height: 20px !important;
+}
+.blue-color {
+    color : #4682B4;
+}

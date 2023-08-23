@@ -1,0 +1,99 @@
+<!--
+  @description       : Pre-configured subjectivities for Aqueous
+  @author            : Prachi Vaity
+  created on         : 04-02-2021
+  @last modified on  : 10-02-2021
+  Modifications Log 
+  Ver   Date         Author           Modification
+  1.0   10-02-2021   Prachi Vaity   Initial Version
+-->
+<template>
+ <div class="slds-card slds-p-around_medium" style="height: 60px; width:700px;">
+        <section role="dialog" tabindex="-1" aria-label="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <template if:true={isLoadingModal}>
+                    <div>
+                        <lightning-spinner alternative-text="Loading" size="medium"><span>Loading</span>
+                        </lightning-spinner>
+                    </div>
+                </template>
+                <template if:false={isLoadingModal}>
+                    <header class="slds-modal__header">
+                        <lightning-button-icon icon-name="utility:close" class="slds-float_right"
+                            onclick={closeModal} alternative-text="close"></lightning-button-icon>
+                        <h2 class="slds-modal__title slds-hyphenate">{pageSectionName}</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div style='background: rgb(243, 242, 242);'>
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col">
+                                    <span>Search {pageSectionName}</span>
+                                    <lightning-input type="text" label="" variant="label-hidden" value={searchTerm}
+                                        onchange={handleSearchTextChange}></lightning-input>
+                                </div>
+                                <div class="slds-col">
+                                    <span>Search by Category</span>
+                                    <lightning-combobox variant="label-hidden" options={option} name="Category"
+                                        value={mainProfession} onchange={handleChangeCategory} disabled>
+                                    </lightning-combobox>
+                                </div>
+                            </div>
+                             
+                            <br><br>
+                            <h3 style="color: blue; font-weight: bold;">Search Results</h3><br>
+                            <div class="slds-align_absolute-center">
+                                <lightning-button variant="success" title='Add' label='Add'
+                                    onclick={handleAddSubjectivities}>
+                                </lightning-button>
+                            </div>
+                            <br>
+                            <div>
+                                <template if:true={subTemplates}>
+                                    <table
+                                        class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th scope="col" style="width:2rem;">
+                                                    <div class="slds-checkbox">
+                                                        <lightning-input type="checkbox" name="selectAll" class="selectAllChkBox"
+                                                             onchange={selectAllRow}>
+                                                        </lightning-input>
+                                                    </div>
+                                                </th>
+                                                <th key={pageSectionName} class="" scope="col">
+                                                    <div class="slds-truncate" title={pageSectionName}>
+                                                        {pageSectionName}</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={subTemplates} for:item='item'>
+                                                <tr key={item.Id} class="slds-hint-parent">
+                                                    <td class="slds-text-align_right" role="gridcell">
+                                                        <div class="slds-checkbox">
+                                                            <lightning-input type="checkbox" name={item.Id} class="chkBox"
+                                                                id={item.Id} value={item.Id} onchange={selectRow}>
+                                                            </lightning-input>
+                                                        </div>
+                                                    </td>
+                                                    <td role="gridcell" style="max-width: 45px;">
+                                                        <div class="slds-truncate" style="white-space: normal;">
+                                                            {item.Subjectivity_Name__c}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+    </div>
+
+</template>

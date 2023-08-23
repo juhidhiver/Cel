@@ -1,0 +1,7 @@
+.THIS .loading_wheel{
+  position: fixed;
+}
+.THIS .slds-spinner_container{
+  width: 100vw;
+  left: min(-25vw, calc(-50vw + 20rem));
+}

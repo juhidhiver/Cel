@@ -1,0 +1,202 @@
+<aura:component >
+	<!-- Attribute -->
+    <aura:attribute name="productName" type="String"/>
+    <aura:attribute name="opportunityId" type="String" />
+    <aura:attribute name="mainSectionWraps" type="List"/>
+    <aura:attribute name="mainActiveSections" type="String[]"/>
+    <aura:attribute name="errorMessage" type="String"/>
+    
+    <aura:method name="saveRecordFromTab" action="{!c.saveRecord}"/>
+    
+    <!-- Handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:if isTrue="{!not(empty(v.mainSectionWraps))}">
+        <div class="mainTab">
+            <div class="slds-text-align_center">
+                <lightning:button variant="brand" label="Save" title="Save" onclick="{! c.saveRecord }" />
+            </div>
+            
+            <div class="sectionTab">
+                <lightning:accordion allowMultipleSectionsOpen="true" activeSectionName="{! v.mainActiveSections }">
+                    <aura:iteration items="{!v.mainSectionWraps}" var="mainSecWrap">
+                        <!-- Main Section -->
+                        <lightning:accordionSection name="{!mainSecWrap.mainSectionName}" label="{!mainSecWrap.mainSectionName}">
+                            <!-- Main Section's Children Content -->
+                            <aura:if isTrue="{!not(empty(mainSecWrap.mainItems))}">
+                                <div class="slds-grid slds-wrap">
+                                    <aura:iteration items="{!mainSecWrap.mainItems}" var="mainItem">
+                                        <div class="slds-col slds-size_3-of-12 slds-text-align_right">
+                                            <span>{!mainItem.ratingModifier.Name}</span>
+                                        </div>
+
+                                        <div class="slds-col slds-size_3-of-12">
+                                            <!-- If Modifier Format is Picklist -->
+                                            <aura:if isTrue="{!mainItem.ratingModifier.Format__c == 'Picklist'}">
+                                                <lightning:select name="{!mainItem.ratingModifier.Name}" 
+                                                                label="" variant="label-hidden" value="{!mainItem.ratingModifier.Selected_Picklist_Value__c}">
+                                                    <aura:iteration items="{!mainItem.pickOptList}" var="pickOpt">
+                                                        <option value="{!pickOpt.value}" text="{!pickOpt.label}" /> 
+                                                    </aura:iteration>
+                                                </lightning:select>
+                                            </aura:if>
+                                            
+                                            <!-- If Modifier Format is Currency -->
+                                            <aura:if isTrue="{!mainItem.ratingModifier.Format__c == 'Currency'}">
+                                                <lightning:input type="number" name="Rating Modifer Currency" label="" 
+                                                                value="{!mainItem.ratingModfCurrency}" aura:id="fieldId"/>
+                                            </aura:if>
+                                            <!-- If Modifier Format is Percentage -->
+                                            <aura:if isTrue="{!mainItem.ratingModifier.Format__c == 'Percentage'}">
+                                                <lightning:input type="number" label="" format="decimal" aura:id="fieldId" required="true"
+                                                                value="{!mainItem.ratingModfPercent}" step="0.001" 
+                                                                min="{!mainItem.ratingModifier.Factor_Min__c}"
+                                                                max="{!mainItem.ratingModifier.Factor_Max__c}"
+                                                                messageWhenRangeOverflow="{!'Please input number between ' + mainItem.strFactorMin + ' and ' + mainItem.strFactorMax}"
+                                                                messageWhenRangeUnderflow="{!'Please input number between ' + mainItem.strFactorMin + ' and ' + mainItem.strFactorMax}"/>
+                                            </aura:if>
+                                            <!-- If Modifier Format is Integer -->
+                                            <aura:if isTrue="{!(mainItem.ratingModifier.Format__c == 'Integer')}">
+                                                <lightning:input type="number" name="Rating Modifier Integer" label="" aura:id="fieldId"
+                                                                max="999999999999999999"
+                                                                value="{!mainItem.ratingModfInteger}" />
+                                            </aura:if>
+                                            <!-- If Modifier Format is Number -->
+                                            <aura:if isTrue="{!(mainItem.ratingModifier.Format__c == 'Number')}">
+                                                <lightning:input type="number" name="Rating Modifier Number" label="" aura:id="fieldId"
+                                                                value="{!mainItem.ratingModfNumber}" formatter="decimal"/>
+                                                <!-- <ui:inputNumber label="" value="{!mainItem.ratingModfNumber}" updateOn="keyup" format="decimal" aura:id="fieldId"/> -->
+                                            </aura:if>
+                                        </div>
+                
+                                        <div class="slds-col slds-size_2-of-12">
+                                            <aura:if isTrue="{!mainItem.isShowFactorValue}">
+                                                <lightning:input type="number" label="" format="decimal" aura:id="fieldId"
+                                                                value="{!mainItem.ratingModifier.Factor_Value__c}" step="0.001" required="true"
+                                                                min="{!mainItem.ratingModifier.Factor_Min__c}"
+                                                                max="{!mainItem.ratingModifier.Factor_Max__c}"
+                                                                messageWhenRangeOverflow="{!'Please input number between ' + mainItem.strFactorMin + ' and ' + mainItem.strFactorMax}"
+                                                                messageWhenRangeUnderflow="{!'Please input number between ' + mainItem.strFactorMin + ' and ' + mainItem.strFactorMax}"/>
+                                                <aura:set attribute="else">&nbsp;</aura:set>
+                                            </aura:if> 
+                                        </div>
+
+                                        <div class="slds-col slds-size_4-of-12 txtNowrap">
+                                            <aura:if isTrue="{!mainItem.isShowRangeDefault}">
+                                                <span>Range:&nbsp;
+                                                    <lightning:formattedNumber style="decimal" minimumFractionDigits="3"
+                                                        value="{!mainItem.ratingModifier.Factor_Min__c}"/>
+                                                    <span>&nbsp;-&nbsp;</span>
+                                                    <lightning:formattedNumber style="decimal" minimumFractionDigits="3"
+                                                        value="{!mainItem.ratingModifier.Factor_Max__c}"/>
+                                                </span>
+                                                &nbsp;&nbsp;&nbsp;
+                                                <span>Default:&nbsp;
+                                                    <lightning:formattedNumber style="decimal" minimumFractionDigits="3"
+                                                                                value="{!ratingModMainWrap.ratingModifier.Factor_Default_Value__c}"/>
+                                                </span>
+                                                
+                                                <aura:set attribute="else">&nbsp;</aura:set>
+                                            </aura:if>
+                                        </div>
+                                    </aura:iteration>
+                                </div>
+                            </aura:if>
+                            <!-- End Main Section's Children Content -->
+                            
+                            <!-- Sub Section -->
+                            <aura:if isTrue="{!not(empty(mainSecWrap.subSectionWraps))}">
+                                <lightning:accordion allowMultipleSectionsOpen="true"
+                                                        activeSectionName="{!mainSecWrap.subActiveSections}">
+                                    <aura:iteration items="{!mainSecWrap.subSectionWraps}" var="secSubWrap">
+                                        <lightning:accordionSection name="{!secSubWrap.subSectionName}" label="{!secSubWrap.subSectionName}">
+                                            <!-- Repeat Rating Modifier -->
+                                            <aura:iteration items="{!secSubWrap.subItems}" var="subItem">
+                                                <div class="slds-grid slds-wrap">
+                                                    <div class="slds-col slds-size_3-of-12 slds-text-align_right">
+                                                        <span>{!subItem.ratingModifier.Name}</span>
+                                                    </div>
+    
+                                                    <div class="slds-col slds-size_3-of-12">
+                                                        <!-- If Modifier Format is Picklist -->
+                                                        <aura:if isTrue="{!subItem.ratingModifier.Format__c == 'Picklist'}">
+                                                            <lightning:select name="{!subItem.ratingModifier.Name}" label="" 
+                                                                              variant="label-hidden" value="{!subItem.ratingModifier.Selected_Picklist_Value__c}">
+                                                                <aura:iteration items="{!subItem.pickOptList}" var="pickOpt">
+                                                                    <option value="{!pickOpt.value}" text="{!pickOpt.label}" /> 
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </aura:if>
+                                                        
+                                                        <!-- If Modifier Format is Currency -->
+                                                        <aura:if isTrue="{!subItem.ratingModifier.Format__c == 'Currency'}">
+                                                            <lightning:input type="number" name="Rating Modifer Currency" label=""
+                                                                             value="{!subItem.ratingModfCurrency}" aura:id="fieldId"/>
+                                                        </aura:if>
+                                                        <!-- If Modifier Format is Percentage -->
+                                                        <aura:if isTrue="{!subItem.ratingModifier.Format__c == 'Percentage'}">
+                                                            <lightning:input type="number" label="" format="decimal" aura:id="fieldId" required="true"
+                                                                            value="{!subItem.ratingModfPercent}" step="0.001" 
+                                                                            min="{!subItem.ratingModifier.Factor_Min__c}" 
+                                                                            max="{!subItem.ratingModifier.Factor_Max__c}"
+                                                                            messageWhenRangeOverflow="{!'Please input number between ' + subItem.strFactorMin + ' and ' + subItem.strFactorMax}"
+                                                                            messageWhenRangeUnderflow="{!'Please input number between ' + subItem.strFactorMin + ' and ' + subItem.strFactorMax}"/>
+                                                        </aura:if>
+                                                        <!-- If Modifier Format is Integer -->
+                                                        <aura:if isTrue="{!(subItem.ratingModifier.Format__c == 'Integer')}">
+                                                            <lightning:input type="number" name="Rating Modifier Integer" label="" maxlength="18" aura:id="fieldId"
+                                                                            value="{!subItem.ratingModfInteger}" />
+                                                        </aura:if>
+                                                        <!-- If Modifier Format is Number -->
+                                                        <aura:if isTrue="{!(subItem.ratingModifier.Format__c == 'Number')}">
+                                                            <lightning:input type="number" name="Rating Modifier Number" label="" aura:id="fieldId"
+                                                                             value="{!subItem.ratingModfNumber}" formatter="decimal"/>
+                                                        </aura:if>
+                                                    </div>
+                            
+                                                    <div class="slds-col slds-size_2-of-12">
+                                                        <aura:if isTrue="{!subItem.isShowFactorValue}">
+                                                            <lightning:input type="number" label="" format="decimal" aura:id="fieldId"
+                                                                            value="{!subItem.ratingModifier.Factor_Value__c}" step="0.001" required="true"
+                                                                            min="{!subItem.ratingModifier.Factor_Min__c}"
+                                                                            max="{!subItem.ratingModifier.Factor_Max__c}"
+                                                                            messageWhenRangeOverflow="{!'Please input number between ' + subItem.strFactorMin + ' and ' + subItem.strFactorMax}"
+                                                                            messageWhenRangeUnderflow="{!'Please input number between ' + subItem.strFactorMin + ' and ' + subItem.strFactorMax}"/>
+                                                            <aura:set attribute="else">&nbsp;</aura:set>
+                                                        </aura:if> 
+                                                    </div>
+                                                    
+                                                    <div class="slds-col slds-size_4-of-12 txtNowrap">
+                                                        <aura:if isTrue="{!subItem.isShowRangeDefault}">
+                                                            <span>Range:&nbsp;
+                                                                <lightning:formattedNumber style="decimal" minimumFractionDigits="3"
+                                                                    value="{!subItem.ratingModifier.Factor_Min__c}"/>
+                                                                <span>&nbsp;-&nbsp;</span>
+                                                                <lightning:formattedNumber style="decimal" minimumFractionDigits="3"
+                                                                    value="{!subItem.ratingModifier.Factor_Max__c}"/>
+                                                            </span>
+                                                            &nbsp;&nbsp;&nbsp;
+                                                            <span>Default:&nbsp;
+                                                                <lightning:formattedNumber style="decimal" minimumFractionDigits="3"
+                                                                                            value="{!subItem.ratingModifier.Factor_Default_Value__c}"/>
+                                                            </span>
+                                                            
+                                                            <aura:set attribute="else">&nbsp;</aura:set>
+                                                        </aura:if>
+                                                    </div>
+                                                </div>
+                                            </aura:iteration>
+                                            <!-- End Repeat Rating Modifier -->
+                                        </lightning:accordionSection>
+                                    </aura:iteration>
+                                </lightning:accordion>
+                            </aura:if>
+                            <!-- End Sub Section -->
+                        </lightning:accordionSection>
+                        <!-- End Main Section -->
+                    </aura:iteration>
+                </lightning:accordion>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

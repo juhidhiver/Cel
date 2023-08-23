@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AQ Auto Renewals Update Email Template</name>
+    <style>none</style>
+    <subject>Auto Renewals Record(s) Updated!</subject>
+    <textOnly>&lt;div&gt;
+             Hi,
+&lt;/div&gt;
+
+&lt;div&gt;
+           There have been some updates to the below mentioned fields of Auto Renewal record(s) which might need to be reviewed:
+&lt;/div&gt;
+
+                                                       !!!!!!!!!!TABLE!!!!!!!!!
+
+&lt;div&gt;
+Thanks!
+&lt;/div&gt;</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

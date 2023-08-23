@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Send_Email_to_Submission_Owner_notifying_the_Approval_process</fullName>
+        <description>Send Email to Submission Owner notifying the Approval process</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Approval_Actions_on_Submission</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approval_Process_Status_on_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Approval Process Status on Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Process_Status_on_Rejection</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Approval Process Status on Rejection</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Process_Status_on_Submit</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approval Pending</literalValue>
+        <name>Approval Process Status on Submit</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Statue_on_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Approval Statue on Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Status_Update</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approval Pending</literalValue>
+        <name>Approval Status Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Status_on_Reject</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Approval Status on Reject</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Initial_Approval_Status_Update</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approval Pending</literalValue>
+        <name>Initial Approval Status Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>On_Rejection_Status_Update</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>On Rejection Status Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Rating_Status_To_Refer</fullName>
+        <field>Rating_Status__c</field>
+        <literalValue>Refer</literalValue>
+        <name>Quote Rating Status To Refer</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Generate_Quote_Document_True</fullName>
+        <field>Generate_Quote_Document__c</field>
+        <literalValue>1</literalValue>
+        <name>Set Generate Quote Document True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Quote_Status_to_Referred</fullName>
+        <field>Status</field>
+        <literalValue>Referred</literalValue>
+        <name>Set Quote Status to Referred</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Referred_During_Processing_Flag</fullName>
+        <field>Referred_During_Processing__c</field>
+        <literalValue>1</literalValue>
+        <name>Set Referred During Processing Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Status_to_In_Approval</fullName>
+        <field>Status</field>
+        <literalValue>In Approval</literalValue>
+        <name>Set Status to In Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateStatustoReferred</fullName>
+        <field>Status</field>
+        <literalValue>Referred</literalValue>
+        <name>UpdateStatustoReferred</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Closed_Reason_to_Rejected</fullName>
+        <field>Closed_Reason__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Closed Reason to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Is_Quote_Approved_AQ_to_Approved</fullName>
+        <field>Is_Quote_Approved_AQ__c</field>
+        <formula>&apos;Approved&apos;</formula>
+        <name>Update Is Quote Approved AQ to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Is_Quote_Approved_AQ_to_Rejected</fullName>
+        <field>Is_Quote_Approved_AQ__c</field>
+        <formula>&apos;Rejected&apos;</formula>
+        <name>Update Is Quote Approved AQ to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Quote_Rating_Status_to_Clear</fullName>
+        <field>Rating_Status__c</field>
+        <literalValue>Clear</literalValue>
+        <name>Update Quote Rating Status to Clear</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Quote_Rating_Status_to_Ineligible</fullName>
+        <field>Rating_Status__c</field>
+        <literalValue>Ineligible</literalValue>
+        <name>Update Quote Rating Status to Ineligible</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Quote_Statu_To_Rated</fullName>
+        <field>Status</field>
+        <literalValue>Rated</literalValue>
+        <name>Update Quote Statu To Rated</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Quote_Status_to_In_Progress</fullName>
+        <field>Status</field>
+        <literalValue>In Progress</literalValue>
+        <name>Update Quote Status to In Progress</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Quote_Status_to_Quoted</fullName>
+        <field>Status</field>
+        <literalValue>Quoted</literalValue>
+        <name>Update Quote Status to Quoted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Quote_Status_to_Rejected</fullName>
+        <field>Status</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Quote Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Quote_Type_as_Amendment</fullName>
+        <field>Quote_Type__c</field>
+        <literalValue>Amendment</literalValue>
+        <name>Update Quote Type as Amendment</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Transaction_premium_value</fullName>
+        <field>Transactional_Premium_Value__c</field>
+        <formula>Transaction_Premium__c</formula>
+        <name>Update Transaction premium value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Quote%3AUpdate Transaction premium value from its formula field</fullName>
+        <actions>
+            <name>Update_Transaction_premium_value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>TEXT(Opportunity.Innovisk_Entity_ID__c )= &quot;Celerity&quot; &amp;&amp; ISCHANGED( Transaction_Premium__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

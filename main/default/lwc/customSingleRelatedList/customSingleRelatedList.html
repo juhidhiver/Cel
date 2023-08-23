@@ -1,0 +1,66 @@
+<template>
+    <article class="slds-card slds-card_boundary">
+        <lightning-card  variant="Narrow">
+            <h3 slot="title">
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+                    <p class="slds-p-left_small"><b>{titleWithCount}</b></p>
+                </div>
+            </h3>
+            <template if:true={showButton}>
+                <div slot="actions">
+                    <lightning-button label={buttonLabel} icon-name="utility:add" onclick={handleButtonClick} disabled={disableButton}>
+                    </lightning-button>
+                </div>
+            </template>
+            <div if:true={showBody}>
+                <p class="slds-p-top_medium slds-p-left_medium slds-border_top slds-border_bottom">
+                    <template for:each={returnedRecords} for:item="rec">
+                        <div key={rec.Id}>
+                            <template for:each={rec.fieldDetails} for:item="field">
+                                <div key={field.fieldAPIName} data-id={rec.fieldId}>
+                                    <template if:true={field.isHyperlink}>
+                                        <template if:true={field.fieldLabel}>
+                                            <dl class="slds-dl_horizontal">
+                                                <dt class="slds-dl_horizontal__label">{field.fieldLabel}:</dt>
+                                                <dd class="slds-dl_horizontal__detail">
+                                                    <a data-id={rec.fieldId} href="javascript:void()" onclick={handleNavigation}>
+                                                        {field.value}
+                                                    </a>
+                                                </dd>
+                                            </dl>
+                                        </template>
+                                        <template if:false={field.fieldLabel}>
+                                            <a data-id={rec.fieldId} href="javascript:void()" onclick={handleNavigation}>
+                                                {field.value}
+                                            </a>
+                                        </template>
+                                    </template> 
+                                    <template if:false={field.isHyperlink}>
+                                        <template if:true={field.fieldLabel}>
+                                            <dl class="slds-dl_horizontal">
+                                                <dt class="slds-dl_horizontal__label">{field.fieldLabel}:</dt>
+                                                <dd class="slds-dl_horizontal__detail">{field.value}</dd>
+                                            </dl>
+                                        </template>
+                                        <template if:false={field.fieldLabel}>
+                                            {field.value}
+                                        </template>
+                                    </template>
+                                </div>
+                            </template>
+                            <br/>
+                        </div>
+                    </template>
+                </p>
+                <template if:true={showFooter}>
+                    <div slot="footer" class="slds-align_absolute-center slds-p-top_small">
+                        <a href="javascript:void(0)" onclick={showOrHideRecords}>
+                            {footerName}
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </lightning-card>
+    </article>
+</template>

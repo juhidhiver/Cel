@@ -1,0 +1,13 @@
+.loadingSpinner{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-top: 200px;
+}
+
+.savingSpinner{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: 50px;
+}

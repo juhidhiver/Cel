@@ -1,0 +1,53 @@
+.clearpaddingtop {
+    padding-top: 0px;
+}
+
+.address-info {
+    width:100%;
+}
+
+.required-field {
+    padding-right:0px;
+    padding-left:0px;
+}
+
+.mainSection{
+    --sds-c-accordion-heading-font-size:20px;
+    /* --sds-c-accordion-heading-line-height:5; */
+
+}
+.subSection{
+    padding-top:-25px;
+    /* --sds-c-accordion-heading-line-height:5; */
+
+}
+
+.my-card {
+    display: block;
+}
+
+.slds-card__header{
+    background-color: rgb(16, 64, 103);
+}
+/* .slds-modal {
+  
+    width:fit-content !important;
+} */
+/* 
+ .slds-modal__container {
+     max-width: 80rem !important;
+    width: 80% !important; 
+    justify-content: center;
+    width:fit-content !important;
+}
+.slds-modal__content {
+     max-width: 80rem !important;
+    width: 80% !important; 
+    justify-content: center;
+    width:fit-content !important;
+}  */
+
+/* .Broker{  
+    float: right;
+    float: top;
+} */

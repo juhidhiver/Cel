@@ -1,0 +1,27 @@
+<template>
+    <template if:true={openmodel}>
+        <div class="modal-header slds-modal__header">
+            <h2 id="header99" class="title slds-text-heading--medium">
+                Do you want to get Cyber Intel Score?
+            </h2>
+        </div>
+        <template if:true={saving}>
+            <div class="savingSpinner slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <lightning-card title="Service to Run Field Options">
+            <p class="slds-p-horizontal_small">
+                <lightning-combobox name="Service to Run" value={serviceToRun} options={options}
+                    onchange={handleChange}>
+                </lightning-combobox>
+            </p>
+        </lightning-card>
+        <footer class="slds-modal__footer">
+            <lightning-button class="slds-button" onclick={handleClose} label="Cancel" variant="brand">
+            </lightning-button>
+            <lightning-button class="slds-button" type="submit" label="Yes" variant="brand" onclick={handleCallout}>
+            </lightning-button>
+        </footer>
+    </template>
+</template>

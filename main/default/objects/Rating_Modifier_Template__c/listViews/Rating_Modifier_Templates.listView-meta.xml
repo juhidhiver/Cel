@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rating_Modifier_Templates</fullName>
+    <columns>NAME</columns>
+    <columns>Product__c</columns>
+    <columns>Display_Format__c</columns>
+    <columns>Modifier_Format__c</columns>
+    <columns>Rating_Modifier_Code__c</columns>
+    <columns>Picklist_Values__c</columns>
+    <columns>Page_Section__c</columns>
+    <columns>Sub_Section__c</columns>
+    <columns>Sort_Order__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Product__c</field>
+        <operation>equals</operation>
+        <value>MPL</value>
+    </filters>
+    <label>MPL Rating Modifier Templates</label>
+</ListView>

@@ -1,0 +1,119 @@
+<!--
+  @File Name          : generateElementLwc.html
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : Maeran Shaikh
+  @Last Modified On   : 11-24-2021
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    3/30/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<template>
+    
+    <template if:true={isText}>
+        <lightning-input label={label} name={fieldName} value={fieldValue} data-field={fieldName} class={inputClass} onchange={handleChangeInput} disabled={readOnly} required={required} ></lightning-input>
+    </template>
+    <template if:true={isLongText}>
+        <div class="textAreaDimensions">        
+        <lightning-textarea label={label} name={fieldName} value={fieldValue} data-field={fieldName} class={inputClass} onchange={handleChangeInput} disabled={readOnly} required={required}></lightning-textarea>
+    </div>  
+    </template>
+    <!-- Added by Vinayesh for checkbox utility-->
+    <template if:true={isCheckbox}> 
+        <label class="slds-form-element__label">{label}</label>
+        <!-- <template if:true = {fieldValue}> -->
+            <div class="slds-form-element__control">
+                <lightning-input type="checkbox" name={fieldName}  data-field={fieldName} class="chkBox" onchange={handleChangeInput} 
+                    disabled={readOnly} required={required} checked = {fieldValue}>
+                </lightning-input>
+            </div>
+       <!-- </template> -->
+       <!-- <template if:false = {fieldValue}>
+            <div class="slds-form-element__control">
+                <lightning-input type="checkbox" name={fieldName} value={fieldValue} data-field={fieldName} class={inputClass} onchange={handleChangeInput} 
+                    disabled={readOnly} required={required}>
+                </lightning-input>
+            </div>
+        </template> -->
+        <!-- <lightning-input label={label} type="checkbox" name={fieldName} value={fieldValue} data-field={fieldName} class={inputClass} onchange={handleChangeInput} 
+        disabled={readOnly} required={required}>
+        </lightning-input> -->
+    </template>
+    <template if:true={isDateTime}>
+        <lightning-input label={label} type="date" name={fieldName} value={fieldValue} data-field={fieldName} class={inputClass} onchange={handleChangeInput} 
+        disabled={readOnly} required={required} date-style="short"></lightning-input>
+    </template>
+    <template if:true={isDate}>
+        <lightning-input label={label} type="date" name={fieldName} value={fieldValue} data-field={fieldName} class={inputClass} onchange={handleChangeInput} 
+        disabled={readOnly} required={required} date-style="short"></lightning-input>
+    </template>
+    <template if:true={isNumber}>
+        <lightning-input label={label} type="number" name={fieldName} value={fieldValue} data-field={fieldName} class={inputClass} onchange={handleChangeInput} disabled={readOnly} required={required}></lightning-input>
+    </template>
+    <template if:true={isCurrency}>
+        <lightning-input label={label} type="number" name={fieldName} value={fieldValue} data-field={fieldName} class={inputClass} onchange={handleChangeInput} disabled={readOnly} required={required}
+                formatter="currency" step="0.01"></lightning-input>
+    </template>
+    <template if:true={isPercent}>
+        <lightning-input label={label} type="number" name={fieldName} value={fieldValue} data-field={fieldName} class={inputClass} onchange={handleChangeInput} disabled={readOnly} required={required}
+            formatter="percent" step="0.01"></lightning-input>
+    </template>
+    <template if:true={isPicklist}>
+        <template if:true={isKYCStatusField}>
+            <lightning-combobox label={label} name={fieldName} value='Not Required' data-field={fieldName} placeholder="Select" class={inputClass} onchange={handleChangeInput}
+                    options={options} disabled={readOnly} required={required}></lightning-combobox>
+        </template>
+        <template if:false={isKYCStatusField}>
+            <lightning-combobox label={label} name={fieldName} value={fieldValue} data-field={fieldName} placeholder="Select" class={inputClass} onchange={handleChangeInput}
+                    options={options} disabled={readOnly} required={required}></lightning-combobox>
+        </template>        
+    </template>
+    <template if:true={isMutliSelectPicklist}>
+        <lightning-dual-listbox label={label} name={fieldName} value={fieldValue}
+                                data-field={fieldName} source-label="Available"
+                                selected-label="Selected" options={options} class="multiSelectCmp"
+                                onchange={handleChangeMultiSelectPicklist}></lightning-dual-listbox>
+    </template>
+    <template if:true={isAddress}>
+        <c-google-maps-autocomplete-lwc disable-address={readOnly} lbl-search={label} onselectedaddress={handleSelectedAddress}></c-google-maps-autocomplete-lwc>
+        <!--Check added by Vinayesh - showAddressLabelOnce = isPCC check-->
+        <template if:true={showAddressLabelOnce}>
+        <div style = "width:100%;">
+            <lightning-input-address street-label="Street" variant = "label-hidden"
+            city-label="City" country-label="Country" class="addressCmp" name={fieldName}
+            province-label="State" postal-code-label="PostalCode"
+            street={address.street} city={address.city}
+            country={address.country} country-disabled province={address.province}
+            postal-code={address.postalCode} 
+            country-options={getCountryOptions} province-options={getProvinceOptions} 
+            onchange={handleChange} required={required} disabled={readOnly}></lightning-input-address>
+        </div>
+       </template>
+       <template if:false={showAddressLabelOnce}>
+            <lightning-input-address address-label={label} street-label="Street"
+            city-label="City" country-label="Country" class="addressCmp" name={fieldName}
+            province-label="Province" postal-code-label="PostalCode"
+            street={address.street} city={address.city}
+            country={address.country} province={address.province}
+            postal-code={address.postalCode} field-level-help="Address is Mandatory" 
+            country-options={getCountryOptions} province-options={getProvinceOptions} 
+            onchange={handleChange} required={required} disabled={readOnly}></lightning-input-address>
+        </template>
+    </template>
+    <template if:true={isLookup}>
+        <template if:false={required}>
+            <label class="slds-form-element__label" for="text-input-id-1">{label}</label>
+        </template>
+        <template if:true={required}>
+            <label class="slds-form-element__label" for="text-input-id-1">
+                <abbr class="slds-required" title="required">* </abbr>{label}</label>
+        </template>
+        <div class="slds-form-element__control">
+            <c-look-up-lwc obj-name={objectLookupTo} value-id={fieldValue} field-name={fieldName} icon-name="custom:custom85" 
+                        label-name={label} onvalueselect={handleSelection} onvaluechange={handleSearchTermAccount} create-record={createRecord}
+                        filter={filter} readonly={readOnly} required={required}>
+            </c-look-up-lwc>
+        </div>
+    </template>
+</template>

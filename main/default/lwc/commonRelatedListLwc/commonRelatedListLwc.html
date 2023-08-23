@@ -1,0 +1,22 @@
+<!--
+  @Component Name     : commonRelatedListLwc.html
+  @Description        : 
+  @Author             :
+  @Group              : 
+  @Last Modified By   : 
+  @Last Modified On   : 1/7/2020, 7:13:44 PM
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    1/7/2020, 7:13:44 PM       Initial Version
+-->
+<template>
+    <template id="datatable" if:true={rows}>
+        <lightning-datatable data={rows} columns={columns} key-field="id">
+        </lightning-datatable>
+    </template>
+    <template if:true={error}>
+       <c-error-panel-lwc errors={error}></c-error-panel-lwc>
+    </template>
+</template>

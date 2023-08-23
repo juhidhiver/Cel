@@ -1,0 +1,78 @@
+<!--
+  @File Name          : quoteProcessLwc.html
+  @Description        : 
+  @Author             : 
+  @Group              : 
+  @Last Modified By   : Vinayesh
+  @Last Modified On   : 10-02-2021
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    4/3/2020            Binh Dang              Initial Version
+-->
+<template>
+    <c-u-w-sanction-warning-message-component-l-w-c record-id={validRecordId}></c-u-w-sanction-warning-message-component-l-w-c>
+    <template if:true={isAqueous}>
+        <c-path-assistant-lwc object-api-name="Quote_Process__c" current-record-id={validRecordId} picklist-field="Status__c"
+            closed-ok="Quote Console" oneventfirepathassistant={handlepathassistantevent} closed-ko="Closed" last-step-label="Quote Console"
+            hide-update-button="true" onchangerefresh={handleChangeRefresh} is-aqueous > </c-path-assistant-lwc>
+    </template>
+    <template if:false={isAqueous}>
+        <template if:false={isPCC}>
+            <c-path-assistant-lwc object-api-name="Quote_Process__c" current-record-id={validRecordId} picklist-field="Status__c"
+                closed-ok="Compare & Rate Quotes" oneventfirepathassistant={handlepathassistantevent} closed-ko="Closed" last-step-label="Compare & Rate Quotes"
+                hide-update-button="true" onchangerefresh={handleChangeRefresh}  > </c-path-assistant-lwc>
+        </template>
+        <template if:true={isPCC}>
+            <c-path-assistant-lwc object-api-name="Quote_Process__c" current-record-id={validRecordId} picklist-field="Status__c"
+                closed-ok="Quote Console" oneventfirepathassistant={handlepathassistantevent} closed-ko="Closed" last-step-label="Quote Console"
+                hide-update-button="true" onchangerefresh={handleChangeRefresh} is-p-c-c > </c-path-assistant-lwc>
+        </template>
+    </template>
+    <template if:true={isInsuredInfoStatus}>
+        <c-insured-account-lwc record-id={recordId} onchangequoteprocessstatus={handleChangeQuoteProcessStatus} submission-stage={submissionStage} 
+        submission-type={submissionType} onrefreshsanctionwarningbanner = {handleRefreshSanctionWarningBanner} oninsuredaccountsanctionwarningbanner = {handleSanctionOnInusredAccountUpdate}></c-insured-account-lwc>
+    </template>
+
+    <!-- Added by Vinayesh -->
+    <template if:true={isSubmissionConsoleStatus}>
+        <c-submission-console-lwc record-id={recordId} onchangequoteprocessstatus={handleChangeQuoteProcessStatus} submission-stage={submissionStage} 
+        submission-type={submissionType} onnavigatenext = {navigatenext} onrefreshsanctionwarningbanner = {handleRefreshSanctionWarningBanner}></c-submission-console-lwc>
+    </template>
+
+    <!-- Added by Vinayesh -->
+    <template if:true={isClearanceStatus}>
+        <c-clearance-lwc record-id={recordId} onchangequoteprocessstatus={handleChangeQuoteProcessStatus}
+        onchangequoteprocessstatustocomparerate = {changeQuoteProcessStatusToCompareRate} onsendquotelayer={handleSendQuoteLayer}> 
+        </c-clearance-lwc>
+    </template>
+
+    <template if:true={isSubmissionInfoStatus}>
+        <c-submission-info-lwc record-id={recordId} onchangequoteprocessstatus={handleChangeQuoteProcessStatus}
+            onsavesuccess={handleSubmissionSaveSuccess} oneventrefresh={handleRefreshComponent} is-aqueous-p-i={isAqueous}
+            onrefreshsanctionwarningbanner = {handleRefreshSanctionWarningBanner} onhandlewarningrefresh= {handleSanctionOnInusredAccountUpdate}
+        ></c-submission-info-lwc>
+    </template>
+    <template if:true={isUnderwrittingAnalysisStatus}>
+        <c-underwritting-analysis-lwc record-id={recordId} quote-process-submission-id={quoteProcessSubmissionId}
+            onchangequoteprocessstatus={changeQuoteProcessStatusToCompareRate} onsendquotelayer={handleSendQuoteLayer} onquoteprocessstatuschange={handleChangeQuoteProcessStatus}> </c-underwritting-analysis-lwc>
+    </template>
+    <template if:true={isCompareRateQuotesStatus}>
+        <div style="display: flow-root;">
+            <c-quote-comparison-main-lwc quote-process-submission-id={quoteProcessSubmissionId} quote-coming-through-event={quoteComingThroughEvent} process-record-id={recordId} onresetquotecomingthrough = {handleResetQuoteComingThrough}
+            quote-layer={quoteLayer} selected-master-binder={selectedMasterBinder} onchangequoteprocessstatus={handleChangeQuoteProcessStatus} is-selected-tab={isSelectedTab}></c-quote-comparison-main-lwc>
+        </div>
+    </template>
+    <template if:true={isQuoteVersionConsoleStatus}>
+        <c-quote-version-console-detail-lwc quote-process-submission-id={quoteProcessSubmissionId}  quote-coming-through-event={quoteComingThroughEvent} current-record-id={validRecordId}
+        quote-layer={quoteLayer} selected-master-binder={selectedMasterBinder} is-primary-quote=true onchangequoteprocessstatus={handleChangeQuoteProcessStatus} onresetquotecomingthrough={handleResetQuoteComingThrough}></c-quote-version-console-detail-lwc>
+    </template>
+    <template if:true={modeCreateSubmission}>
+        <c-opportunity-init-clone-lwc  object-name="Opportunity" account-id={quoteProcessAccountId} onopenedinitform={handleCancel} onnext={handleCreateSubmissionSuccess} quote-process-id={validRecordId}>
+        </c-opportunity-init-clone-lwc>
+    </template>
+    <!-- <template if:true={isChangeQuoteToInProcess}>
+        <c-confirmation-dialog-lwc title='Confirmation' message='This Quote will change the Status back to In Progress. Do you wish to continue?' confirm-label='Confirm'
+            cancel-label='Cancel' visible={isChangeQuoteToInProcess} name="confirmModal"  onclick={handlerConfirmModal}>
+        </c-confirmation-dialog-lwc>
+    </template> -->
+</template>

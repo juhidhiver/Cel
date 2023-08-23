@@ -1,0 +1,272 @@
+<!--
+  @description       : 
+  @author            : Vinayesh
+  @group             : 
+  @last modified on  : 11-03-2021
+  @last modified by  : Vinayesh
+-->
+<template>
+    <div class="slds-card slds-p-around_large" style="height: 640px;"></div>
+    <template if:false={isCelerity}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+
+            <div class="slds-modal__container">
+                <!-- Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={handleCancel}>
+                        <lightning-icon icon-name="utility:close" size="medium">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">New Submission Form
+                    </h2>
+                </header>
+                <!-- End Header -->
+                <!-- Body -->
+                <template if:true={showSpinner}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="large"></lightning-spinner>
+                </template>
+                <template if:false={showSpinner}>
+                    <div class="slds-modal__content slds-p-around_large content" id="modal-content-id-3">
+                        <lightning-record-edit-form id="editForm3" object-api-name="Opportunity" onsubmit={handleNext}
+                            record-type-id={rctId} class="slds-card__body_inner editForm1">
+
+                            <div class="slds-grid slds-wrap ">
+                                <div class="slds-col slds-size_6-of-12 slds-p-right_small slds-m-bottom_medium">
+                                    <lightning-input-field field-name="Name" name="Name" value={submissionName}
+                                        onchange={handleChangeInput} required disabled></lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12 slds-p-right_small slds-m-bottom_medium">
+                                    <lightning-input-field field-name="Main_Profession__c" name="MainProfession"
+                                        value={mainprofession} onchange={handleChangeInput} required>
+                                    </lightning-input-field>
+                                </div>
+                                <div class="slds-row slds-size_6-of-12 slds-p-right_small slds-m-bottom_medium">
+                                    <lightning-input-field field-name="OwnerId" name="ownerId" value={ownerId}
+                                        onchange={handleChangeInput} required disabled></lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12 slds-p-right_small slds-m-bottom_medium">
+                                    <lightning-input-field field-name="Largest_Work_Type__c" name="LargestWorkType"
+                                        value={largestworktype} onchange={handleChangeInput} required>
+                                    </lightning-input-field>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12 slds-p-right_small slds-m-bottom_medium">
+                                    <lightning-input-field field-name="CurrencyIsoCode" name="CurrencyIsoCode"
+                                        value={currencyisocode} onchange={handleChangeInput} required disabled>
+                                    </lightning-input-field>
+                                </div>
+                            </div>
+                        </lightning-record-edit-form>
+
+                        <div class="slds-grid slds-wrap ">
+                            <div class="slds-col slds-size_2-of-12 slds-p-right_small slds-m-bottom_medium look">
+                                <label><abbr class="slds-required" title="required">* </abbr>Broker Contact</label>
+                            </div>
+
+                            <div style="width: 32%;">
+                                <c-look-up-lwc obj-name="Contact" value-id={contactId} icon-name="standard:contact"
+                                    label-name='Broker Contact' onvalueselect={handleSelectedRecord} is-required='true'
+                                    filter={lookupFilter} record-type-id={recordTypeId} related-id={accountId}
+                                    record-type-name="" is-custom='true' record-info={recordInfo} is-celerity={isCelerity}>
+                                </c-look-up-lwc>
+                            </div>
+
+                        </div>
+                        <br>
+                        <lightning-record-edit-form onsubmit={handleNext} class="editForm2"
+                            object-api-name="Broker_Account__c">
+                        </lightning-record-edit-form>
+
+                    </div>
+                </template>
+                <!-- End Body -->
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <lightning-button label="Next" variant="brand" onclick={handleNext} disabled={nextButtonClicked}></lightning-button>
+                </footer>
+                <!-- End Footer -->
+            </div>
+
+            <!--Confirmation Open Exist Submission-->
+            <c-confirmation-dialog-lwc title='Confirmation' message={errorLabel} confirm-label='Yes' cancel-label='No'
+                visible={isConfirmOpenExistSubmission} name="confirmModal" onclick={handlerConfirmOpenSubmission}>
+            </c-confirmation-dialog-lwc>
+            <!--Confirmation Open Exist Submission-->
+        </section>
+        <div class="slds-theme_default">
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Celerity -->
+    <template if:true={isCelerity}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+
+            <div class="slds-modal__container">
+                <!-- Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={handleCancel}>
+                        <lightning-icon icon-name="utility:close" size="medium">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Submission Form
+                    </h2>
+                </header>
+                <!-- End Header -->
+                <!-- Body -->
+                <template if:true={showSpinner}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="large"></lightning-spinner>
+                </template>
+                <template if:false={showSpinner}>
+                    <div class="slds-modal__content slds-p-around_large " id="modal-content-id-1">
+                        <!--<div class="slds-wrap slds-modal__content slds-p-around--small slds-scrollable_y">
+                            <h3 class="slds-section-title--divider">Select Record Type</h3>
+                            <div class="slds-form--stacked slds-p-around--medium slds-m-bottom--x-small">
+                                <lightning-radio-group type="radio" name="recordTypeList" options={recordTypeList}
+                                    value={rctId}></lightning-radio-group>
+                            </div>
+                        </div>-->
+                        <lightning-record-edit-form id="editForm1" object-api-name="Opportunity" onsubmit={handleNext}
+                            record-type-id={rctId} class="slds-card__body_inner editForm1">
+                            <h3 class="slds-section-title-divider">Select Account and Product</h3>
+                            <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <!-- <c-custom-lookup-lwc onshowtoast={handleToastEvent} onselectedrec={handleSelectedRecord}
+                                    custom-label-lookup="Account Name" iconname="standard:account" object-name="Account"
+                                    searchfield="name"></c-custom-lookup-lwc> -->
+                                <lightning-input-field field-name="AccountId" name="accountId" value={accountId}
+                                    onchange={handleChangeInput} required></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <lightning-input-field field-name="RecordTypeId" name="Record Type" value={rctId}
+                                    onchange={handleChangeInput} required disabled></lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <lightning-input-field field-name="Product__c" name="productId" value={productId}
+                                    onchange={handleChangeInput} required disabled></lightning-input-field>
+                            </div>
+                            <!--<div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <lightning-input-field field-name="Attachment_Point__c" name="attachmentPoint"
+                                    value={attachment} onchange={handleChangeInput} required></lightning-input-field>
+                            </div>-->
+
+                        <!-- Dated 11/19/2020 Added by Priyanka as a part of US - 34022 -->
+                            <template if:true={isCyber}>
+                              
+                       <div class="slds-col slds-size_1-of-1 slds-p-right_medium slds-m-bottom_medium">
+                        <lightning-combobox label="Service to Run" name="servicetoRun" value={serviceToRun} onchange={handleChangeInput}
+                        options={serviceOptions} required></lightning-combobox>
+                                </div>
+                                <!-- <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                    <lightning-input-field field-name="Service_to_Run__c" name="servicetoRun"
+                                        value={serviceToRun} onchange={handleChangeInput} required>
+                                    </lightning-input-field>
+                                </div> -->
+                            </template>
+                        </lightning-record-edit-form>
+
+
+                        <lightning-record-edit-form onsubmit={handleNext} class="editForm2"
+                            object-api-name="Broker_Account__c">
+                            <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <lightning-input-field field-name="Broker_Contact__c" name="contractId"
+                                    value={contactId} onchange={handleChangeInput} required></lightning-input-field>
+                            </div>
+                            <!--<div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <lightning-input-field field-name="Broker_Agency_Office__c" name="BrokerAgencyOffice" value={BrokerAgencyOffice}
+                                    onchange={handleChangeInput} required disabled></lightning-input-field>
+                            </div>-->
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <lightning-input-field field-name="Relationship_Type__c" name="relationshipType"
+                                    value={relationship} onchange={handleChangeInput} required></lightning-input-field>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <lightning-input-field field-name="IsPrimaryBroker__c" name="primaryBroker"
+                                    value={isPrimaryBroker} onchange={handleChangeInput} disabled>
+                                </lightning-input-field>
+                            </div>
+
+                        </lightning-record-edit-form>
+                    </div>
+                </template>
+                <!-- End Body -->
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <lightning-button label="Next" variant="brand" onclick={handleNext} disabled={isNextDisabled}>
+                    </lightning-button>
+                </footer>
+                <!-- End Footer -->
+            </div>
+
+            <!--Confirmation Open Exist Submission-->
+            <c-confirmation-dialog-lwc title='Confirmation' message={errorLabel} confirm-label='Yes' cancel-label='No'
+                visible={isConfirmOpenExistSubmission} name="confirmModal" onclick={handlerConfirmOpenSubmission}>
+            </c-confirmation-dialog-lwc>
+            <!--Confirmation Open Exist Submission-->
+        </section>
+    </template>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+
+
+    <!-- Duplicate Submission-->
+    <template if:true={showDuplicateTable}>
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleClose}>
+                            <lightning-icon icon-name="utility:close" size="medium" variant="inverse">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-002" style="text-align: center;"
+                            class="slds-text-heading_medium slds-hyphenate">Existing Submissions</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <template if:true={isShowDuplicate}>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-02">
+                                <h2 style="text-align: center;"><b>{duplicatePopUptitle}</b></h2>
+                            </div> <br>
+                            <div>
+                                <lightning-datatable class="mytable" columns={columns} data={listDuplicateData}
+                                    key-field="Id" show-row-number-column="true" hide-checkbox-column>
+                                </lightning-datatable>
+                            </div>
+                        </template><br>
+                        <template if:true={isShowDiffAgency}>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-06">
+                                <h2 style="text-align: center;"><b>{diffAgencyPopUptitle}</b></h2>
+                            </div> <br>
+                            <div>
+                                <lightning-datatable class="mytable" columns={columns} data={listDiffAgencyData}
+                                    key-field="Id" show-row-number-column="true" hide-checkbox-column>
+                                </lightning-datatable>
+                            </div>
+                        </template>
+                        <br><br>
+                        <p>{infoMsg}</p>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={handleClose}></lightning-button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <lightning-button variant="brand" label="Continue" onclick={handleCreateNew}
+                            disabled={isContinueDisabled}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+</template>

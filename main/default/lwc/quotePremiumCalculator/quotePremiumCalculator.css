@@ -1,0 +1,16 @@
+.header-background-grey {
+    background: lightgrey;
+}
+.header-background-blue {
+    background: hsl(182, 63%, 76%);
+}
+.header-enable-click {
+    cursor: pointer;
+    pointer-events: all;
+}
+.bound-disabled {
+    cursor: not-allowed !important;
+}
+.bound-disabled div{
+    pointer-events: none;
+}

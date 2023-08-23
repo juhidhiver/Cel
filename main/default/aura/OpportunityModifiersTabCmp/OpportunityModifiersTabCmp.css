@@ -1,0 +1,53 @@
+.THIS .slds-accordion .slds-form-element__label{
+    display: none;
+}
+
+.THIS .txtnum{
+    font-weight: 700;
+    font-size: 21px;
+    margin-right: 20px;
+}
+.THIS.clsVisible {
+    visibility: visible;
+}
+.THIS.clsVisible *{
+    visibility: visible;
+}
+
+.THIS.clsHidden {
+    visibility: hidden;
+}
+.THIS.clsHidden *{
+    visibility: hidden;
+}
+.THIS.clsHidden .slds-accordion {
+    height: 20px;
+}
+.THIS .radio .slds-form-element__label{
+    display: inline !important;
+}
+.THIS .subSection{
+    /* padding: .5rem; */
+    background: rgb(243, 242, 242);
+    margin: 15px 0;
+}
+.THIS .subSection .slds-col{
+    padding: .5rem !important;
+}
+.THIS .mainSection .slds-accordion__summary .slds-accordion__summary-heading > button,
+.THIS .mainSection .sectionRight{
+    padding: .5rem;
+    background: rgb(243, 242, 242);
+    cursor: pointer;
+    color: currentColor;
+}
+.THIS .mainSection .slds-wrap .slds-col{
+    padding: 5px;
+}
+.THIS .mainSection .slds-accordion__content {
+    margin: 10px;
+}
+.THIS .inline{
+    display: inline-block !important;
+    padding: .5rem;
+}

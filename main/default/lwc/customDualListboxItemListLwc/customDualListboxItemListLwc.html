@@ -1,0 +1,46 @@
+<!--
+  @description       : 
+  @author            : Hang Lam
+  @group             : 
+  @last modified on  : 12-09-2020
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   12-04-2020   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<template>
+    <div class="slds-dueling-list__column">
+        <span class="slds-form-element__label" >{columnName}</span>
+        <div class="slds-dueling-list__options"  role="application" ondrop={handleOnDropParent} 
+                ondragenter={handleOnDragEnterDummy} ondragleave={handleOnDragLeaveDummy} ondragover={handleOnDragOverDummy}>
+            <ul aria-describedby="option-drag-label" aria-multiselectable="true" class="slds-listbox slds-listbox_vertical" 
+                role="listbox" tabindex="0">
+                <template for:each={currentAllItems} for:item="item">    
+                    <li key={item.id} class="slds-listbox__item" 
+                        draggable="true" ondragstart={handleDragStart}
+                        id={item.id} role="option" 
+                        onclick={handleListClick}>
+                        <div class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline" 
+                            draggable="true" role="option" aria-selected={item.selected}>
+                            <span class="slds-media__body">
+                            <span id={item.id} class="slds-truncate">{item.label}</span>
+                            </span>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+    <!-- <template if:true={showUpDown}>
+        <div class="slds-dueling-list__column">
+            <button class="slds-button slds-button--icon-container slds-button--icon-small" title="Up" onclick={handleReorderItemUp}>
+                <lightning-icon icon-name="utility:up"  size="small" class="slds-button__icon slds-button__icon_large"></lightning-icon>
+                <span class="slds-assistive-text">Move Selection Up</span>
+            </button>
+            <button class="slds-button slds-button--icon-container slds-button--icon-small" title="Down" onclick={handleReorderItemDown}>
+                <lightning-icon icon-name="utility:down"  size="small" class="slds-button__icon slds-button__icon_large"></lightning-icon>
+                <span class="slds-assistive-text">Move Selection Down</span>
+            </button>
+        </div>
+    </template> -->
+</template>

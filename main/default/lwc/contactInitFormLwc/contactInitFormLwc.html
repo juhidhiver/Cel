@@ -1,0 +1,159 @@
+<template>
+    <lightning-record-edit-form
+                object-api-name="Contact"
+                onsuccess={handleSuccess}
+                record-type-id={recordTypeId}
+                >
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Contact: {recordTypeName}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Name" required>
+                            </lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="AccountId" value={accountId} required>
+                            </lightning-input-field>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Attorney_Name__c" required>
+                            </lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Date_of_Hire__c" required>
+                            </lightning-input-field>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Admitted_Date__c" required>
+                            </lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Admitted_State__c" required>
+                            </lightning-input-field>
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button class="slds-button" onclick={handleClose} label="Cancel" variant="brand">
+                    </lightning-button>
+                    <lightning-button class="slds-button" type="submit" label="Save" variant="brand">
+                    </lightning-button>
+                </footer>			
+            </div>
+        </section>
+    </lightning-record-edit-form>
+
+    <!-- <lightning-record-edit-form
+                object-api-name="Contact"
+                onsuccess={handleSuccess}
+                >
+    <div role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick={handleClose}>
+                    X<span class="slds-assistive-text">Cancel</span>
+                </button>
+                <h2 id="header43" class="slds-text-heading--medium">New Contact</h2>
+            </div>
+            <div class="slds-modal__content slds-p-around--medium">
+                
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Name" >
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="AccountId" value={accountId}>
+                        </lightning-input-field>
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Attorney_Name__c" >
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Date_of_Hire__c">
+                        </lightning-input-field>
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Admitted_Date__c" >
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Admitted_State__c">
+                        </lightning-input-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-modal__footer">
+                <lightning-button class="slds-button" onclick={handleClose} label="Cancel" variant="brand">
+                </lightning-button>
+                <lightning-button class="slds-button" type="submit" label="Save" variant="brand">
+                </lightning-button>
+            </div>
+            
+        </div>
+    </div>
+    </lightning-record-edit-form>
+    <div class="slds-backdrop slds-backdrop--open"></div> -->
+
+
+
+    <!-- <div class="modal-header slds-modal__header">
+        <h2 id="header99" class="title slds-text-heading--medium">New Contact</h2>
+    </div>
+
+    <lightning-record-edit-form
+      object-api-name="Contact"
+      onsuccess={handleSuccess}
+    >
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-input-field field-name="Name" >
+            </lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-input-field field-name="AccountId" value={accountId}>
+            </lightning-input-field>
+        </div>
+    </div>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-input-field field-name="Attorney_Name__c" >
+            </lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-input-field field-name="Date_of_Hire__c">
+            </lightning-input-field>
+        </div>
+    </div>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-input-field field-name="Admitted_Date__c" >
+            </lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-input-field field-name="Admitted_State__c">
+            </lightning-input-field>
+        </div>
+    </div>
+    <footer class="slds-modal__footer">
+        <lightning-button class="slds-button" onclick={handleClose} label="Cancel" variant="brand">
+        </lightning-button>
+        <lightning-button class="slds-button" type="submit" label="Save" variant="brand">
+        </lightning-button>
+      </footer>
+    </lightning-record-edit-form> -->
+</template>

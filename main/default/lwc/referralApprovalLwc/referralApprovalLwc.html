@@ -1,0 +1,74 @@
+<template>
+    <div class="slds-card slds-p-around_medium" style="height: 640px;width: 700px">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <!-- Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCancel}>
+                        <lightning-icon icon-name="utility:close" size="medium">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> </h2>
+                </header>
+                <!-- End Header -->
+                <!-- Body -->
+                <div class="slds-modal__content slds-p-around_medium " style="padding-bottom: 0px;" id="modal-content-id-1">
+                    <!--Display Errors -->
+                    <template  if:true= {errorMessages}>
+                        <div class="desktop forcePageError">
+                            <div class="genericNotification">
+                                <span class="genericError uiOutputText">Review the errors on this page.</span>
+                            </div>
+                            <div class="errorsList">
+                                {errorMessages}
+                            </div>
+                        </div>
+                    </template>
+                    <!--End Display Errors -->
+                    <div class="slds-grid" style="padding: 1% 1% 1% 1%;">
+                        <div class=""><lightning-icon icon-name="standard:avatar" size="small"></lightning-icon>
+                        </div>
+                        <h2 id="somethingId" class="slds-text-heading_medium slds-hyphenate"> &nbsp;&nbsp;&nbsp;Referral</h2>
+                    </div>
+                    <div class="slds-wrap slds-modal__content slds-p-around--small ">
+                        <lightning-record-edit-form object-api-name="Quote" record-id="" record-type-id="" class="slds-card__body_inner" >
+                            <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" >
+                                        <abbr class="slds-required" title="required">* </abbr>Approver</label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input-field  variant="label-hidden" required field-name="Referral_Approver__c" name = "referralUser" value = {referralUserId} onchange = {handleChangeInput}  ></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="form-element-03">
+                                        <abbr class="slds-required" title="required">* </abbr>Refer Type</label>
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <lightning-input-field  variant="label-hidden"   required field-name="Refer_Type__c" name = "referType"  onchange = {handleChangeInput}  ></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-right_small slds-m-bottom_medium">
+                                <lightning-textarea placeholder="Comments" required= "" label="Comments" name = "comment" value = {commentString} onchange = {handleChangeInput}   ></lightning-textarea>
+                            </div>
+                        </lightning-record-edit-form>
+                    </div>
+                </div>
+                <!-- End Body -->
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <lightning-button  label="Ok" variant="brand" onclick={handleNext}></lightning-button> &nbsp;&nbsp;&nbsp;&nbsp;
+                </footer>
+                <!-- End Footer -->
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</template>

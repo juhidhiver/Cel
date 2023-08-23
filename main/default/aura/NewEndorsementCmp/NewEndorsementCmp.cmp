@@ -1,0 +1,268 @@
+<!--
+  @description       : 
+  @author            : Vinayesh
+  @group             : 
+  @last modified on  : 06-21-2021
+  @last modified by  : Vinayesh
+  Modifications Log 
+  Ver   Date         Author     Modification
+  1.0   06-21-2021   Vinayesh   Initial Version
+-->
+<aura:component controller="NewEndorsementController" 
+			    implements="force:lightningQuickActionWithoutHeader,force:hasRecordId"> 
+    <!--<aura:handler name="init" action="{!c.init}" value="{!this}" />-->
+    <aura:attribute name="recordId" type="String" /> 
+    <aura:attribute name="cancelEndorsement" type="String" />
+    <aura:attribute name="endorsementType" type="String" />
+    <aura:attribute name="effectiveDate" type="Date" />
+    <aura:attribute name="types" type="PicklistOption[]" />
+    <aura:attribute name="cancelReason" type="PicklistOption[]" />
+    <aura:attribute name="error" type="String" />
+    <aura:attribute name="IsSpinner" type="Boolean"/>
+    <aura:attribute name="endorsementDateLabel" type="String" default="Endorsement Effective Date"/>
+    <aura:attribute name="isDateReadOnly" type="Boolean" default="false"/>
+
+    <aura:attribute name="policyRecord" type="Policy__c"/>
+    <aura:attribute name="recordLoadError" type="String"/>
+    <aura:attribute name="newQuoteId" type="String" /> 
+    <aura:attribute name="errorQuote" type="String" />
+    <aura:attribute name="showCancelDate" type="Boolean" default="false"/>
+    <aura:attribute name="disableConfirmButton" type="Boolean" default="false"/>
+    
+    <aura:attribute name="isFullCancelReplace" type="Boolean" default="false"/>
+
+    <!-- Added by Vinayesh on 07/6/2021 for CD: 17  -->
+     <!-- Cancel and Replace Attributes Start -->
+     <aura:attribute name="showQuoteDatatable" type="Boolean" />
+     <aura:attribute name="showQuoteDatatableText" type="Boolean" />
+     <aura:attribute name="confirmationPopup" type="Boolean" />
+     <aura:attribute name="showEndorsementReason" type="Boolean" default="true"/>
+     <aura:attribute name="isNotMidOrFullCancelled" type="Boolean" default="true"/>
+     <aura:attribute name="quoteCloumns" type="List"/>  
+     <aura:attribute name="quoteData" type="List"/>  
+     <aura:attribute name="selectedQuoteList" type="List" />
+     <!-- Cancel and Replace Attributes End -->  
+
+     <!-- Added by Jai -->
+     <!-- Endorsment Help Text -->
+     <aura:attribute name="endOpHelpTextList" type="List" /> 
+     <aura:attribute name="endOpHelpText" type="String" /> 
+
+     <!-- Endorsment change description -->
+     <aura:attribute name="changeDescripionValues" type="List"/>
+     <aura:attribute name="defaultChangeDescValues" type="List"/>
+     <aura:attribute name="changeDescriptionDefaultValueMap" type="Map"/>
+
+    <!-- Endorsment duration change -->
+    <aura:attribute name="showExpiryDate" type="Boolean" default="false"/>
+    <aura:attribute name="expiryDate" type="Date" />
+
+    <!--Store existing quotes-->
+    <aura:attribute name="policyExistQuotes" type="List" default="[]"/>
+
+    <!-- Added by Jai on 13-Oct-2021-->
+    <aura:attribute name="showErpDuration" type="Boolean" default="false"/>
+    <aura:attribute name="showErpRate" type="Boolean" default="false"/>
+    <aura:attribute name="ERP_DurationList" type="List" default=""/>
+    <aura:attribute name="rateChargedList" type="List" default=""/>
+    <aura:attribute name="selectedDuration" type="String"/>
+    <aura:attribute name="selectedRate" type="String"/>
+
+    <!-- Added by Jai on 20-Oct-2021-->
+    <aura:attribute name="showBrokerContact" type="Boolean" default="false"/>
+    <aura:attribute name="selectedBrokerContact" type="String" default=""/>
+    <aura:attribute name="productInfoMDTJson" type="Object" default=""/>
+
+     <!-- added to set quick action width -->
+	 <ltng:require styles="{!$Resource.style}"/>
+    <aura:html tag="style">
+        .slds-modal__content{
+            height: auto !important;
+            max-height: none !important;
+            min-height: 300px;
+        }
+
+    </aura:html>
+
+    
+
+     <force:recordData
+        recordId="{!v.recordId}"
+        fields="Id,Effective_Date__c,Policy_Status__c,Cancellation_Date__c, Product_Name__c,Expiration_Date__c"
+        targetFields="{!v.policyRecord}"
+        targetError="{!v.recordLoadError}"
+        recordUpdated="{!c.init}"/>
+
+ <div class="slds-is-relative">
+    <aura:if isTrue="{!v.IsSpinner}">
+        <lightning:spinner variant="brand" size="large" alternativeText="It is being processed. Please wait…"/>
+        <div style="text-align: center; margin-top: 70px; color: #005fb2; font-weight: bold;"> It is being processed. Please wait… </div>
+    </aura:if>
+</div>
+ 
+    <aura:if isTrue="{!not(v.IsSpinner)}">
+        <div class="modal-header slds-modal__header">
+            <h2 id="header99" class="title slds-text-heading--medium">New Endorsement</h2>
+        </div>
+    
+        <aura:if isTrue="{! !empty(v.error)}">
+            <ui:message title="Error" severity="error" closable="false">
+                    {!v.error}
+            </ui:message>
+        </aura:if>
+        
+        <div style="min-height: auto">
+                
+                <lightning:select aura:id="EndorsementType" label="Endorsement Type" class="cls-selectoptions" 
+                                  onchange="{!c.handleChangeType}" value="{!v.endorsementType}">
+                    <aura:iteration items="{!v.types}" var="item">
+                        <option value="{!item.value}" text="{!item.label}" selected="{!item.isSelected}"></option>
+                    </aura:iteration>
+                </lightning:select>
+                <i> {!v.endOpHelpText} </i><br/>
+                <div class="slds-p-vertical_x-small">
+                    <lightning:dualListbox  label= "Endorsement Change Description"
+                                            sourceLabel="Available"
+                                            selectedLabel="Selected"
+                                            options="{!v.changeDescripionValues}"
+                                            value="{!v.defaultChangeDescValues}"
+                                            onchange="{!c.handleChangeDesc }"
+                                            size="4"/>
+                </div>
+                <aura:if isTrue="{!v.showCancelDate}">
+                    <div id="cancelReason">
+                    <lightning:select aura:id="cancelEndorsement" label="Cancellation Reasons" class="cls-selectoptions" 
+                                      onchange="{!c.handleCancelDropdownChange}" value="{!v.cancelEndorsement}">
+                        <aura:iteration items="{!v.cancelReason}" var="item">
+                            <option value="{!item.value}" text="{!item.label}" selected="{!item.isSelected}"></option>
+                        </aura:iteration>
+                    </lightning:select>
+                    </div>
+                </aura:if>
+            
+                <!--Added by Vinayesh on 07/6/2021 for CD: 17 -->
+                <aura:if isTrue="{!v.showEndorsementReason}">
+                    <p><ui:inputDate aura:id="effectiveDateId" label="{!v.endorsementDateLabel}" class="field" 
+                        value="{!v.effectiveDate}" displayDatePicker="true" required="true" onError="{!c.handleError}"
+                        disabled="{!v.isDateReadOnly}"/>
+                        
+                    </p>
+                </aura:if>
+                <!-- Added by Jai-->
+                <aura:if isTrue="{!v.showExpiryDate}">
+                    <p><ui:inputDate aura:id="expiryDateId" label="Expiration Date" class="field" 
+                        value="{!v.expiryDate}" displayDatePicker="true" required="true" onError="{!c.handleError}" />
+                        
+                    </p>
+                </aura:if>
+                <!--Added by Jai 07-Oct-21-->
+                <aura:if isTrue="{!v.showErpDuration}">
+                    <lightning:select aura:id="ERP_Duration" label="ERP Duration" onchange="{!c.handleChangeERPDuration}" class="slds-m-top_small" 
+                                      value="{!v.selectedDuration}">
+                        <aura:iteration items="{!v.ERP_DurationList}" var="item">
+                            <option value="{!item}" text="{!item}" selected="{!item == v.selectedDuration}"></option>
+                        </aura:iteration>
+                    </lightning:select>
+                </aura:if>
+            <aura:if isTrue="{!v.showErpRate}">
+                <aura:if isTrue="{!v.policyRecord.Product_Name__c!='Private Company Combo'}">
+                    <lightning:select aura:id="rateCharged" label="Rate Charged" class="slds-m-top_small" value="{!v.selectedRate}">
+                        <aura:iteration items="{!v.rateChargedList}" var="item">
+                            <option value="{!item}" text="{!item+'%'}" selected="{!item == v.selectedRate}"></option>
+                        </aura:iteration>
+                    </lightning:select>
+                    <aura:set attribute="else">
+                        <lightning:input type="text" aura:id="rateCharged" name="rateCharged" label="Rate Charged ( In % )" 
+                                         class="slds-m-top_small" value="{! v.selectedRate}"/>
+                    </aura:set>
+                </aura:if>
+            </aura:if>
+
+                <!-- Added by Jai on 20-Oct-2021-->
+                <aura:if isTrue="{!v.showBrokerContact}">   
+                    <lightning:recordEditForm objectApiName="Broker_Account__c">
+                        <lightning:messages />
+                        <div class="slds-form-element slds-m-top_small">
+                            <label class="slds-form-element__label" for="form-element-03">
+                            <abbr class="slds-required" title="required">*</abbr>Broker Contact</label>
+                            <div class="slds-form-element__control">
+                                <lightning:inputField class="" fieldName="Broker_Contact__c" required="true" aura:id="brokerContact" variant="label-hidden" onchange="{!c.handleBrokerContact}"/>
+                            </div>
+                        </div>
+                    </lightning:recordEditForm>
+                </aura:if>
+        </div>
+    
+        <!-- Added by Vinayesh on 07/6/2021 for CD: 17 -->
+        <br/>
+        <aura:if isTrue="{!v.showQuoteDatatable}">
+            <aura:if isTrue="{!v.showQuoteDatatableText}">
+                <p><b>{!v.endorsementType} Cannot be done on this Policy</b></p>
+                <aura:set attribute="else">
+                    <div style="color:black;text-align:center"><b>Select the record to {!v.endorsementType}</b></div> 
+                    <br/>
+                    <lightning:datatable
+                                         columns="{! v.quoteCloumns }"
+                                         data="{! v.quoteData }"
+                                         keyField="Id"
+                                         maxRowSelection="1"
+                                         onrowselection="{! c.selectedQuoteRow }"
+                                         selectedRows = "{!v.selectedQuoteList}"/>
+                    <br/>
+                    
+                </aura:set>
+            </aura:if>           
+        </aura:if>
+        <!-- Added by Vinayesh on 07/6/2021 for CD: 17 -->
+        <aura:if isTrue="{!v.confirmationPopup}">            
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">                        
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Confirmation</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <br></br>
+                        <h1 class="slds-page-header__title slds-m-right_small" style="text-align:left;font-variant: small-caps;">This Operation will:</h1>
+                        <br/>
+                        <aura:if isTrue="{!v.isFullCancelReplace}">
+                            <ul> 
+                                <li style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Cancel the selected quote and all the subsequent bound quotes on this and all linked policies</li>
+                                <li style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Create a new replacement record for the selected quote for this and linked policies</li>
+                                <br/>
+                                <li style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Are you sure you want to proceed?</li>
+                            </ul>                        
+                            <aura:set attribute="else">
+                                <ul> 
+                                <li style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• {!$Label.c.Coverage_Cancel_and_Replace_process_Information}</li>
+                                <aura:if isTrue="{!v.isNotMidOrFullCancelled}">
+                                    <li style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• {!$Label.c.Coverage_Cancel_and_Replace_process_Information_1}</li>
+                                </aura:if>
+                            </ul>
+                            </aura:set>
+                        </aura:if>
+                        <br/>
+                        <!--<h1 style="text-align:right">Are you sure you want to proceed?:</h1>-->
+                        <br/><br/>  
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral" 
+                                          label="Cancel"
+                                          title="Cancel"
+                                          onclick="{! c.quoteCancel }"/>
+                        <lightning:button variant="brand" 
+                                          label="Confirm"
+                                          title="Confirm"
+                                          onclick="{! c.quoteConfirm }"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+
+
+        <div class="slds-modal__footer" style="box-shadow: none!important">
+            <lightning:button variant="Neutral" label="Back" title="Back" onclick="{! c.handleCancelClick }"/>
+            <lightning:button variant="Brand" label="Confirm" title="Confirm" disabled = "{!v.disableConfirmButton}" onclick="{! c.handleConfirmClick }"/>
+        </div>
+    </aura:if>
+</aura:component>

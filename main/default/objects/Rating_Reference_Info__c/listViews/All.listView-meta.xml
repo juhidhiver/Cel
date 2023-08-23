@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Reference_Name_Id__c</columns>
+    <columns>Default_Value__c</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>Expiration_Date__c</columns>
+    <columns>Option_List__c</columns>
+    <columns>Rating_Reference_Info_Id__c</columns>
+    <columns>Reference_Type__c</columns>
+    <columns>OBJECT_ID</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>
